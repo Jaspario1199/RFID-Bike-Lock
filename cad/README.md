@@ -4,8 +4,29 @@
 v1 printed housing, matching DESIGN.md §6. Every dimension from the design doc is a
 named variable at the top of the file — change it, press F5, and the geometry updates.
 
-**Status: v0 DRAFT.** The architecture and dimensions follow the design doc, but no part
-has been test-printed yet. Expect to iterate — that's what parametric means.
+**Status: v0.2 DRAFT** — industrial-design pass done, rendered and visually verified,
+but no part has been test-printed yet. Expect to iterate — that's what parametric means.
+
+## Design principles applied in v0.2
+
+Standard FDM design-for-manufacturing + product-design practice:
+
+- **One radius family** (R14 belt / R11 pod / R3 details / 1.2 mm edge breaks) so every
+  surface looks like it belongs to the same object.
+- **Drafted walls**: the pod tapers 1.8 mm base→lid, with the interior drafted the same
+  amount → **uniform ~3 mm walls** everywhere (no massive solids; the latch boss and
+  solenoid pedestal are gusseted/hollowed instead of solid).
+- **The part line is a design line**: the closure skirt is the left half of a full
+  wrap-around **belt band**, separated from the pod by a 0.8 mm shadow-gap groove — the
+  seam reads as intentional, and the hidden-screw closure lives inside it.
+- **Fairings, not intersections**: pod→tube and drum→body transitions are blended
+  (teardrop), keeping overhangs ≤45° so the shells print without heavy support.
+- **Chamfered bottom edges** everywhere a part meets the build plate; countersunk lid
+  screws; recessed USB niche; embossed NFC target ring so the user knows where to tap.
+- **Wiring is modeled, not implied**: two clip-lip floor raceways (RF-zone ribbon x4–54,
+  power/solenoid run x60–100), a driver tray over the Nano bay with wire notches and
+  zip-tie holes, two battery saddles giving the 18650 holder a level bed (with zip-tie
+  pass-unders), and two mushroom strain-relief posts for the lid's service loop.
 
 ## How to use
 
@@ -36,9 +57,9 @@ has been test-printed yet. Expect to iterate — that's what parametric means.
 - Donor spool: the drum interior is Ø89 × 28 — check the reel you gut fits, or resize
   `drum_od`/`drum_w`
 
-## Known v0 simplifications (TODO after first fit-check print)
+## Known v0.2 simplifications (TODO after first fit-check print)
 
-1. Hook joint is a single snug slot — the 3 preload detent depths (DESIGN.md §6.4) get
+1. Closure lip is a single snug hook — the 3 preload detent depths (DESIGN.md §6.4) get
    added once the on-bike fit is measured.
 2. Liner halves rely on friction + adhesive; dovetail keys into the shell come later.
 3. Shim is a plain C-ring approximation of the clip-over design.

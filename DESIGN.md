@@ -490,8 +490,11 @@ adds a second level over the solenoid strip.
 | Nano A4/A5 + D7 → PN532/P-FET | 28 AWG | 3-wire ribbon along the Y=0 floor channel |
 | Lid parts (PN532, button, LEDs) → body | 28 AWG | one 15 cm service loop at the X≈50 hinge-side corner so the lid opens fully; JST-XH connector so it CAN unplug |
 
-Printed wire channels (3 × 3 mm) run along both floor edges with clip-over tabs every
-30 mm — no glue, no zip ties, wires can't drift into the plunger. Every off-board
+All of this is modeled in the CAD (`cad/bike_lock.scad`, v0.2), not just described:
+clip-lip raceways on the floor (RF ribbon x4–54, power/solenoid run x60–100), a driver
+tray bridging the Nano bay with wire notches and zip-tie holes, two battery saddles that
+give the holder a level bed over the curved floor (zip-tie pass-unders included), and
+mushroom-head strain-relief posts anchoring the lid's 15 cm service loop. Every off-board
 connection gets a JST-XH plug so any module can be swapped without soldering.
 
 **Fill check:** component volume ≈ 92 cm³ (battery+holder 34, latch block + solenoid train
