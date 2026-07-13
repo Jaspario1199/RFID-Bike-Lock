@@ -559,15 +559,8 @@ for deletion rather than kept forever.)
 
 ## 9. Open questions
 
-1. 4 mm vs 6 mm cable — blocks spool pod sizing.
-2. Your phone: Android or iPhone? Determines whether v2 phone-unlock (HCE app) is worth
-   building or whether stickers/fobs are the permanent plan.
-3. Measure your own down tube anyway (circumference ÷ π) — a sanity check that it lands
-   inside the Ø32–46 mm core range, and the first fit-test article.
-4. Aero/oval and Ø50 mm+ tubes are declared out of scope for v1 (§6.1) — confirm you're
-   fine with that, or the shell ID has to grow.
-5. Does your printer (or the TAMU makerspace's) print TPU? If not, the fallback liner for
-   the first article is silicone sponge sheet.
+1. Phone-unlock plan: fobs/sticker only, or build the v2 Android HCE companion app?
+   (Cost/trade-off discussion in progress — depends on owner's phone platform.)
 
 *Resolved:* one-size-fits-all fit strategy → finned TPU liner + closure detents + shim
 sleeve (§6.2). First housing is 3D printed → print spec in §6.2. Housing tamper
@@ -575,6 +568,9 @@ resistance → self-guarding closure screw at the bottom of the latch bore (§6.
 fitting shape → round head with square-flanked ring groove; square tang kept as the
 Phase-0 bench mule (§6.4 trade study). Dead-battery
 behavior → fail-secure + USB-C power-bank escape hatch + v1 hidden cam-lock backstop (§8).
+Cable gauge → 4 mm (spool pod stays Ø95). Owner's down tube confirmed inside the
+Ø32–46 mm core range. TPU printing available → finned liner as specced, no silicone
+fallback needed. Aero/oval Ø50 mm+ tubes confirmed out of scope for v1.
 
 ## 10. Build plan
 
