@@ -35,7 +35,7 @@ lot from AliExpress roughly halves the Amazon total but takes 2–4 weeks.
 | 20 | Donor retractable reel | heavy-duty dog leash or badge reel (spring + spool) | 1 | $8 |
 | 21 | Springs assortment | pin return + ejector (compression, ~2–5 N range) | — | $5 |
 | 22 | Silicone sponge sheet — *only if TPU printing is unavailable* (fallback liner) | 10 mm, medium density | 1 | ($8) |
-| 23 | M4 hardware | security Torx T20 pin-in screws ×4 + brass heat-set inserts ×4 | — | $4 |
+| 23 | Closure hardware | 1 × M4 low-profile socket screw + washer + brass heat-set insert (lives at the bottom of the latch bore, DESIGN.md §6.4); long 2.5 mm hex key | — | $2 |
 | 23b | Hinge pin | Ø3 mm stainless rod, ~250 mm (cut to length) | 1 | $1 |
 
 ## Mechanical — Phase 2 steel housing (TBD, ~$40–80)

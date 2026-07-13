@@ -29,7 +29,8 @@ and the spool reels the cable home.
                 ┌───────[PN532 face]──────┐
                 │  latch ○   electronics  │   ← top pod (latch, solenoid,
                 ├─────────────────────────┤      Nano, PN532, 18650)
-   screws ──►  ═╪═════════════════════════╪═   ← overlap flange + screws
+hook joint ──► ═╪═════════════════════════╪═   ← flanges interlock; the only screw
+   (no exposed screws)                           hides at the bottom of the latch bore
                 │ ░░░ compressible liner ░│
                 │ ░░┌─────────────────┐░░ │
                 │ ░░│   BIKE FRAME    │░░ │   ← clamp section
@@ -48,9 +49,11 @@ and the spool reels the cable home.
 ## 2. User workflow
 
 ### One-time install
-1. Open the clamshell (hinges on the bottom), fit the EPDM foam liner for your tube size.
-2. Close it around the down tube, drive the security-Torx screws through the top overlap
-   flange. The liner compresses ~30% and grips the frame.
+1. Open the clamshell (hinges on the bottom); clip in the shim sleeve first if your tube
+   is skinny (Ø27–32 mm — vintage/steel frames).
+2. Close it around the down tube: slide the flanges' hook joint together, pick the tongue
+   detent that gives a snug fit, and drive the single M4 closure screw home at the bottom
+   of the latch bore (long 2.5 mm hex key). The liner fins deflect and grip the frame.
 3. Enroll your tags (see below).
 
 ### Locking the bike (no power used)
@@ -263,7 +266,7 @@ No single feature spans Ø27–46 mm, so the fit stacks **three** mechanisms —
 | Liner | Printed TPU ribbed sleeve, 12 mm radial fins (§6.2) | free bore Ø30 mm; grips Ø32–46 mm tubes |
 | Shim sleeve | Clip-in TPU ring, 3 mm solid + its own 4 mm fins | extends range down to Ø27 mm |
 | Hinges | Printed knuckles + Ø3 mm stainless pin along the bottom seam (steel version: riveted piano hinge) | |
-| Closure | Top overlap flanges, 4 × M4 × 12 security-Torx into **brass heat-set inserts**; **slotted holes give 0–8 mm of flange-gap adjustment** | slots ≈ ±2.5 mm of effective clamp diameter; also takes up liner wear over the years. ⚠️ see §7 tamper note |
+| Closure | Full-length hooked tongue-and-groove flange joint + **one M4 screw recessed at the bottom of the latch bore** (§6.4) | the locked cable head covers the only screw → housing can't be opened while the bike is locked. Preload adjustment: 3 tongue detent depths + slotted hinge-pin position (≈ ±2.5 mm effective clamp diameter) |
 | Top pod (electronics) | 115 × 55 × 32 mm box printed/welded onto shell top | Fits Nano 45×18, PN532 43×40 face-up under a 2 mm ABS window (RF passes through plastic, NOT through steel — the lid over the antenna must be plastic even on the steel version), 18650 65×18, solenoid, boards |
 | Bottom pod (spool) | Ø95 mm × 34 mm drum hanging under shell | |
 | Total added weight | v1 printed ~500–650 g; steel ~750–900 g | comparable to a mid U-lock |
@@ -311,8 +314,9 @@ Material trade study (for the record):
 The three stacked fit mechanisms, in order of action:
 
 1. **Fins** absorb the big spread (Ø32–46 mm) elastically.
-2. **Slotted closure** (±2.5 mm effective diameter) tunes preload at install time and
-   re-tightens years later if the fins relax.
+2. **Closure adjustment** (±2.5 mm effective diameter via three tongue-detent depths on
+   the hook joint plus a slotted hinge-pin position, §6.4) tunes preload at install time
+   and re-tightens years later if the fins relax.
 3. **Shim sleeve** (included) clips over the fins for Ø27–32 mm skinny tubes.
 
 **v1 print spec (housing):** PETG for the first print (easy), **ASA for the outdoor
@@ -343,9 +347,11 @@ the core can't be smaller.
         cable head (mushroom)          hardened receiver bushing
               ══►  ╭──╮      ┌───────────────┐
    insert ─────────┤  ├──────►   ○ groove    │
-              ══►  ╰──╯      └──────┬────────┘
-                                    │ Ø4 mm hardened pin, 3 mm engagement
-                              ┌─────┴─────┐
+              ══►  ╰──╯      │       │       │
+                             │  [screw head] │  ← closure screw at the bore bottom:
+                             └───────┼───────┘    covered by the cable head when locked
+                                     │ Ø4 mm hardened pin, 3 mm engagement
+                              ┌──────┴────┐
                               │ pin spring│  (locks: spring pushes pin into groove)
                               ├───────────┤
                               │ solenoid  │  (unlocks: pulls pin against spring)
@@ -362,6 +368,29 @@ the core can't be smaller.
   ~2 N spring preload. Prototype and measure.
 - Receiver bushing: hardened steel insert so a screwdriver can't gouge the latch open.
 
+**Self-guarding closure screw.** The screw that fastens the two shell halves together
+sits recessed at the **bottom of the latch receiver bore** — the same hole the cable head
+locks into. Consequences:
+
+- **Cable locked → screw physically unreachable** (the hardened head fills the bore).
+  The housing cannot be unscrewed off the frame while the bike is locked, and unlocking
+  requires an authorized tag. The housing's security is chained to the RFID auth.
+- **Cable unlocked → screw exposed**, but then the bike wasn't locked anyway; the worst
+  an attacker gets is the lock itself. Acceptable.
+- So that this ONE screw is the only way in, the rest of the closure carries no removable
+  fasteners: the two flanges interlock with a **hooked tongue-and-groove joint** along
+  the full 110 mm seam (resists radial opening; can only disengage by sliding axially),
+  and the bore screw is what blocks that axial slide. Hinge side is riveted/pinned
+  captive. Result: no screw heads anywhere on the outside except at the bore bottom.
+- Geometry: receiver bore Ø11 mm × ~26 mm deep — cable head seats in the top ~12 mm,
+  M4 low-profile socket screw + washer at the bottom, reached with a long 2.5 mm hex key
+  through the empty bore. Deep + narrow also means common drivers can't get purchase if
+  someone tries to gouge past a locked head.
+- Fit-adjustment consequence: the ±preload adjustment for the one-size-fits-all clamp
+  (§6.2) moves off the closure screws (there's only one now, and it's axial) onto the
+  hook joint — the tongue has 3 detent depths, selected at install, and the hinge side
+  keeps a slotted pin position for fine preload.
+
 ### 6.5 RFID face
 
 The PN532 antenna sits directly under a **plastic** window on the top face (13.56 MHz does
@@ -376,7 +405,7 @@ window.
 | Attack | Resistance | Mitigation / status |
 |---|---|---|
 | Bolt-cut the 4 mm cable | ❌ seconds | **This is the real limit of any cable lock.** 4 mm is a deterrent (opportunists, café stops), not U-lock security. Going to 6 mm cable roughly doubles cut resistance but grows the spool pod to ~Ø120 mm. ⚠️ Decide after seeing the v1 size on a real bike. |
-| Unscrew the housing from the frame | ⚠️ | Security-Torx helps but isn't enough. **Design intent: place the 4 closure screws under the latch area so the locked cable head physically covers them.** Needs careful layout in CAD — flagged as a v1 requirement. |
+| Unscrew the housing from the frame | ✅ while locked | **Solved by the self-guarding closure screw (§6.4):** the only external screw sits at the bottom of the latch bore, physically covered by the locked cable head; every other seam is a captive hook joint or riveted hinge. Opening the housing requires unlocking the cable first, which requires the RFID. |
 | Cut the printed (plastic) housing | ❌ v1 only | Inherent to the printed model — it's a functional prototype, not a security device (§6.2). The steel shell closes this. |
 | Clone a fob UID | ⚠️ | Real but low-likelihood for a bike; fixed by v2 challenge–response (§5). |
 | Drain/wait out the battery | depends | See §8 — this is why fail-open is dangerous. |
@@ -432,8 +461,9 @@ cam lock in v1 while the electronics are still unproven.
 6. Does your printer (or the TAMU makerspace's) print TPU? If not, the fallback liner for
    the first article is silicone sponge sheet.
 
-*Resolved:* one-size-fits-all fit strategy → finned TPU liner + slotted closure + shim
-sleeve (§6.2). First housing is 3D printed → print spec in §6.2.
+*Resolved:* one-size-fits-all fit strategy → finned TPU liner + closure detents + shim
+sleeve (§6.2). First housing is 3D printed → print spec in §6.2. Housing tamper
+resistance → self-guarding closure screw at the bottom of the latch bore (§6.4).
 
 ## 10. Build plan
 

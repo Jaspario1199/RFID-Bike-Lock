@@ -35,9 +35,12 @@ releases the cable, which then reels itself back in.
 - **Locking:** insert-to-lock needs **no power** (ramped cable head snaps past a spring pin);
   power is only used for the ~300 ms unlock pulse and brief scan windows
 - **One-size-fits-all fit:** a printed TPU *finned* liner (fins bend instead of foam
-  crushing, so it stays snug for years) covers Ø32–46 mm down tubes, a slotted screw
-  closure fine-tunes preload, and an included shim sleeve extends down to Ø27 mm skinny
+  crushing, so it stays snug for years) covers Ø32–46 mm down tubes, closure
+  detents fine-tune preload, and an included shim sleeve extends down to Ø27 mm skinny
   steel frames — see `DESIGN.md` §6.2
+- **Self-guarding closure:** the only screw holding the housing shut sits at the bottom
+  of the latch bore, so the locked cable head physically covers it — the case can't be
+  unscrewed off the frame while the bike is locked (`DESIGN.md` §6.4)
 - **v1 housing is 3D printed** (ASA for outdoor UV resistance); the latch keeps a steel
   pin + bushing even in plastic
 - **Dead-battery behavior:** still open — see the fail-safe section of `DESIGN.md` for why
