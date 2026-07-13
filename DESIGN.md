@@ -103,6 +103,10 @@ protocols phones use. The popular cheap RC522 **cannot** talk to phones.
 | **Android phone** via HCE app | ⚠️ Possible, v2 | Android randomizes its UID on every tap, so simple UID matching fails. It works properly with a small companion app doing challenge–response (APDU/AID) — a genuinely better-than-fob security level, but real firmware+app work. Planned for v2. |
 | **iPhone** | ❌ Not feasible | Apple only lets Wallet passes act as cards; a hobby lock can't enroll one. Use the sticker approach. |
 
+**Resolved:** the owner carries an iPhone, so the permanent key plan is **NTAG213 sticker
+on the phone case + keychain fobs**. The Android HCE companion app is dropped from the
+roadmap (kept below as reference only, in case an Android user ever builds this).
+
 **Power reality:** the PN532's RF field draws 50–100 mA while scanning — you cannot leave
 it polling 24/7 on a battery. Two design decisions fix this:
 
@@ -559,8 +563,8 @@ for deletion rather than kept forever.)
 
 ## 9. Open questions
 
-1. Phone-unlock plan: fobs/sticker only, or build the v2 Android HCE companion app?
-   (Cost/trade-off discussion in progress — depends on owner's phone platform.)
+None — every design decision to date is resolved. New questions get added here as
+prototyping surfaces them.
 
 *Resolved:* one-size-fits-all fit strategy → finned TPU liner + closure detents + shim
 sleeve (§6.2). First housing is 3D printed → print spec in §6.2. Housing tamper
@@ -570,7 +574,8 @@ Phase-0 bench mule (§6.4 trade study). Dead-battery
 behavior → fail-secure + USB-C power-bank escape hatch + v1 hidden cam-lock backstop (§8).
 Cable gauge → 4 mm (spool pod stays Ø95). Owner's down tube confirmed inside the
 Ø32–46 mm core range. TPU printing available → finned liner as specced, no silicone
-fallback needed. Aero/oval Ø50 mm+ tubes confirmed out of scope for v1.
+fallback needed. Aero/oval Ø50 mm+ tubes confirmed out of scope for v1. Phone plan →
+owner has an iPhone: sticker + fobs permanent, Android HCE app dropped from the roadmap.
 
 ## 10. Build plan
 
@@ -579,4 +584,4 @@ fallback needed. Aero/oval Ø50 mm+ tubes confirmed out of scope for v1.
 | 0 — Breadboard | Nano + PN532 + MOSFET + solenoid on a bench PSU; firmware v1 working end-to-end | ~$25 electronics |
 | 1 — **Printed v1** (the first real model) | ASA/PETG clamshell + TPU finned liner + donor-leash spool + latch; whole system living on the actual bike; measure solenoid force vs pin spring; fit-test the liner on every bike we can find (target: 5+ different tubes across Ø32–46 mm) | ~$15 filament + hardware |
 | 2 — Steel housing | 304 shell (rolled sheet or machined), hardened bushing + pin, final cable; liner carries over unchanged | TBD, ~$40–80 depending on fabrication access (TAMU shop?) |
-| 3 — v2 electronics | Pro Mini 3.3 V swap (months of battery), Android HCE challenge–response app | ~$10 |
+| 3 — v2 electronics | Pro Mini 3.3 V swap (months of battery) | ~$10 |

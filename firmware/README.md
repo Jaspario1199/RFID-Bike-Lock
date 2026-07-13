@@ -50,5 +50,5 @@ next boot re-runs master enrollment.
 - Auth is UID-matching only; UIDs are cloneable. v2 = challenge–response (HCE app).
 - No cable-state sensor: an authorized tap pulses the solenoid whether or not the
   cable head is latched. Harmless; a latch microswitch is a v2 nicety.
-- Android phones won't unlock it in v1 (random UID per tap) — use fobs or an
-  NTAG213 sticker on the phone case.
+- Phones can't act as keys directly (iPhone: Apple blocks it; Android: random UID per
+  tap) — the permanent plan is fobs + an NTAG213 sticker on the phone case.

@@ -30,7 +30,9 @@ releases the cable, which then reels itself back in.
 ## Key design decisions so far
 
 - **MCU:** Arduino Nano (upgrade path to 3.3 V Pro Mini for longer battery life)
-- **Reader:** PN532 NFC module — the only cheap module that can talk to phones at all
+- **Reader:** PN532 NFC module. Keys: NTAG213 sticker on the owner's phone case +
+  keychain fobs (owner has an iPhone, which can't act as a hobby NFC key, so no
+  companion app is planned)
 - **Battery:** single 18650 Li-ion + TP4056 USB-C charge board
 - **Locking:** insert-to-lock needs **no power** (ramped cable head snaps past a spring pin);
   power is only used for the ~300 ms unlock pulse and brief scan windows
