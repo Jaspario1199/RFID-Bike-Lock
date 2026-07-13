@@ -24,17 +24,19 @@ lot from AliExpress roughly halves the Amazon total but takes 2–4 weeks.
 | 15 | NTAG213 stickers | for phone case "phone unlock" | 5 | $2 |
 | 16 | Perfboard, wire, heatshrink | — | — | $3 |
 
-## Mechanical — Phase 1 printed prototype (~$25)
+## Mechanical — Phase 1 printed v1 (~$30)
 
 | # | Part | Spec | Qty | Est. |
 |---|---|---|---|---|
-| 17 | PETG filament | housing print, ~250 g | — | $6 |
+| 17 | Housing filament | PETG for the first article; ASA for the unit that lives outdoors (UV), ~250 g | — | $6 |
+| 17b | TPU 95A filament | finned liner + shim sleeve (DESIGN.md §6.2), ~50 g | — | $2 |
 | 18 | Wire rope | 4 mm 7×7 stainless, PVC-coated, 2 m | 1 | $8 |
 | 19 | Cable end stop / swage sleeves | 4 mm aluminum, crimp | 4 | $2 |
 | 20 | Donor retractable reel | heavy-duty dog leash or badge reel (spring + spool) | 1 | $8 |
 | 21 | Springs assortment | pin return + ejector (compression, ~2–5 N range) | — | $5 |
-| 22 | EPDM foam sheet | 10 mm closed-cell, adhesive-backed | 1 | $5 |
-| 23 | M4 hardware | security Torx T20 pin-in screws + nut plates | 4 | $3 |
+| 22 | Silicone sponge sheet — *only if TPU printing is unavailable* (fallback liner) | 10 mm, medium density | 1 | ($8) |
+| 23 | M4 hardware | security Torx T20 pin-in screws ×4 + brass heat-set inserts ×4 | — | $4 |
+| 23b | Hinge pin | Ø3 mm stainless rod, ~250 mm (cut to length) | 1 | $1 |
 
 ## Mechanical — Phase 2 steel housing (TBD, ~$40–80)
 
@@ -55,3 +57,5 @@ lot from AliExpress roughly halves the Amazon total but takes 2–4 weeks.
   pin spring to the real pull force at 3.5 V.
 - Item 20: before buying springs (21), gut the donor reel — its spring, spool, and even
   the ratchet often cover items 21's ejector needs too.
+- Item 17b: TPU prints best slow (~25 mm/s) on a direct-drive extruder; bowden printers
+  can do 95A with care. If neither is available, fall back to item 22.

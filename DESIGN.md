@@ -241,23 +241,90 @@ a $20 gadget by someone who taps your fob. For a bike lock this is an acceptable
 
 ## 6. Mechanical design
 
+**v1 housing is 3D printed** (see §6.2 print spec); the stainless shell moves to a later
+phase once the geometry is proven. All dimensions below apply to both.
+
 ### 6.1 Overall envelope
 
-Designed around common down-tube diameters (Ø30–45 mm covers most road/MTB alu frames).
+**One-size-fits-all requirement:** one product, no size variants, snug on the range of
+average down tubes. Design targets:
+
+- **Core range: Ø32–46 mm** (modern alu/steel road + most MTB) with the standard liner
+- **Extended range: Ø27–32 mm** (skinny steel/vintage frames) via an included clip-in shim
+  sleeve — still "in the box," no separate SKU
+- Out of scope for v1: non-round aero/carbon tubes (Ø50 mm+ ovals). Flagged, not solved.
+
+No single feature spans Ø27–46 mm, so the fit stacks **three** mechanisms — see §6.2.
 
 | Element | Dimension | Notes |
 |---|---|---|
-| Clamp shell ID | Ø52 mm | 304 stainless, 1.5 mm wall (prototype: 3D print 3 mm wall) |
-| Clamp shell OD | Ø55 mm | |
-| Clamp length | 110 mm | |
-| Liner | 8–10 mm EPDM closed-cell foam, adhesive-backed | Compresses ~30%; cut thickness to tube size; also protects paint and damps vibration |
-| Hinges | 2 × stainless piano-hinge segments, 30 mm, riveted along the bottom seam | |
-| Closure | Top overlap flanges, 4 × M4 × 10 security-Torx (T20 pin-in) into riveted nut plates | ⚠️ see §7 tamper note |
-| Top pod (electronics) | 115 × 55 × 32 mm box welded/printed onto shell top | Fits Nano 45×18, PN532 43×40 face-up under a 2 mm ABS window (RF passes through plastic, NOT through steel — the lid over the antenna must be plastic), 18650 65×18, solenoid, boards |
+| Clamp shell ID | Ø54 mm | v1: printed, 4 mm wall → OD Ø62 mm. Steel version: 304, 1.5 mm wall → OD Ø57 mm |
+| Clamp length | 110 mm | longer = more grip on the frame, less rocking |
+| Liner | Printed TPU ribbed sleeve, 12 mm radial fins (§6.2) | free bore Ø30 mm; grips Ø32–46 mm tubes |
+| Shim sleeve | Clip-in TPU ring, 3 mm solid + its own 4 mm fins | extends range down to Ø27 mm |
+| Hinges | Printed knuckles + Ø3 mm stainless pin along the bottom seam (steel version: riveted piano hinge) | |
+| Closure | Top overlap flanges, 4 × M4 × 12 security-Torx into **brass heat-set inserts**; **slotted holes give 0–8 mm of flange-gap adjustment** | slots ≈ ±2.5 mm of effective clamp diameter; also takes up liner wear over the years. ⚠️ see §7 tamper note |
+| Top pod (electronics) | 115 × 55 × 32 mm box printed/welded onto shell top | Fits Nano 45×18, PN532 43×40 face-up under a 2 mm ABS window (RF passes through plastic, NOT through steel — the lid over the antenna must be plastic even on the steel version), 18650 65×18, solenoid, boards |
 | Bottom pod (spool) | Ø95 mm × 34 mm drum hanging under shell | |
-| Total added weight | ~750–900 g estimate | comparable to a mid U-lock |
+| Total added weight | v1 printed ~500–650 g; steel ~750–900 g | comparable to a mid U-lock |
 
-### 6.2 Cable and spool
+### 6.2 One-size-fits-all liner — material & geometry
+
+**Why solid foam fails this requirement:** a foam thick enough to grip a Ø32 mm tube
+inside a Ø54 mm shell is 11 mm thick; on a Ø46 mm tube that same foam must squash to
+4 mm — ~65% compression, held permanently, outdoors. Every foam takes *compression set*
+under those conditions (it never springs back), so the lock is loose within months. Foam
+also can't be "cut to tube size" in a one-size product — that was the old spec, now dead.
+
+**Chosen approach: a printed TPU finned liner.** Instead of compressing material
+volumetrically, angled rubber fins *bend* out of the way — like the ribs inside a bike
+computer mount. Bending strain is far below the material's set threshold, so fins stay
+springy for years, and the grip force is nearly constant across the whole tube range.
+
+```
+   shell wall ─►│
+               │╲╲╲╲╲╲╲   ← fins angled ~30° off radial,
+               │ ╲╲╲╲╲╲     12 mm tall, 1.4 mm thick,
+               │  (tube)     ~24 around the circumference
+               │ ╱╱╱╱╱╱      small tube: fins barely deflect
+               │╱╱╱╱╱╱╱      big tube: fins fold to ~35° — still elastic
+```
+
+| Liner spec | Value |
+|---|---|
+| Material | TPU 95A (printable on any hobby printer that does flexibles) |
+| Form | Two half-sleeves, dovetail-keyed into each shell half (replaceable — a wear part by design) |
+| Fins | 12 mm tall × 1.4 mm thick, 30° lean, 24 per circumference, running axially |
+| Base | 2 mm solid backing bonded/keyed to shell |
+| Free bore | Ø30 mm → 1–2 mm fin preload even on the smallest core-range tube |
+| Grip aids | Fin tips textured; TPU is naturally high-friction on paint without marring it |
+
+Material trade study (for the record):
+
+| Material | Snug across range | Lasts outdoors (set/UV/temp) | Cost | Verdict |
+|---|---|---|---|---|
+| **TPU 95A printed fins** | ✅ bending, not crushing | ✅ excellent abrasion/tear, good UV, fins replaceable | ~$2 of filament | **v1 and probably final** |
+| Silicone sponge sheet | ⚠️ ~50% compression max | ✅ best-in-class compression set (<10%), −60…+200 °C | ~3× EPDM | Backup for steel version if fins underperform |
+| EPDM closed-cell foam | ⚠️ same limit | ⚠️ good UV but 20–40% set at high compression → loosens | cheap | Demoted: fine for a quick mock-up only |
+| Neoprene foam | ⚠️ | ❌ worse UV than EPDM | cheap | No |
+
+The three stacked fit mechanisms, in order of action:
+
+1. **Fins** absorb the big spread (Ø32–46 mm) elastically.
+2. **Slotted closure** (±2.5 mm effective diameter) tunes preload at install time and
+   re-tightens years later if the fins relax.
+3. **Shim sleeve** (included) clips over the fins for Ø27–32 mm skinny tubes.
+
+**v1 print spec (housing):** PETG for the first print (easy), **ASA for the outdoor
+unit** (UV-stable; PETG chalks and creeps in Texas sun). 4 mm walls / 6 perimeters, 40%
+gyroid infill, brass heat-set inserts for every screw (printed threads don't survive
+re-tightening), printed hinge knuckles with a stainless pin. The latch keeps its
+**steel** receiver bushing and pin even in the printed housing — plastic there would let
+someone pry the head out with a screwdriver. Obvious caveat, stated once: a plastic
+housing is a functional model, not a security device; the steel shell is what makes the
+housing itself attack-resistant.
+
+### 6.3 Cable and spool
 
 | Item | Spec |
 |---|---|
@@ -270,7 +337,7 @@ Designed around common down-tube diameters (Ø30–45 mm covers most road/MTB al
 Minimum bend: 4 mm 7×7 rope tolerates the Ø40 mm core (10× rule of thumb) — this is why
 the core can't be smaller.
 
-### 6.3 Latch + locking pin (the heart of it)
+### 6.4 Latch + locking pin (the heart of it)
 
 ```
         cable head (mushroom)          hardened receiver bushing
@@ -295,7 +362,7 @@ the core can't be smaller.
   ~2 N spring preload. Prototype and measure.
 - Receiver bushing: hardened steel insert so a screwdriver can't gouge the latch open.
 
-### 6.4 RFID face
+### 6.5 RFID face
 
 The PN532 antenna sits directly under a **plastic** window on the top face (13.56 MHz does
 not pass through stainless). Keep all steel ≥10 mm clear of the antenna loop or read range
@@ -310,6 +377,7 @@ window.
 |---|---|---|
 | Bolt-cut the 4 mm cable | ❌ seconds | **This is the real limit of any cable lock.** 4 mm is a deterrent (opportunists, café stops), not U-lock security. Going to 6 mm cable roughly doubles cut resistance but grows the spool pod to ~Ø120 mm. ⚠️ Decide after seeing the v1 size on a real bike. |
 | Unscrew the housing from the frame | ⚠️ | Security-Torx helps but isn't enough. **Design intent: place the 4 closure screws under the latch area so the locked cable head physically covers them.** Needs careful layout in CAD — flagged as a v1 requirement. |
+| Cut the printed (plastic) housing | ❌ v1 only | Inherent to the printed model — it's a functional prototype, not a security device (§6.2). The steel shell closes this. |
 | Clone a fob UID | ⚠️ | Real but low-likelihood for a bike; fixed by v2 challenge–response (§5). |
 | Drain/wait out the battery | depends | See §8 — this is why fail-open is dangerous. |
 | Smash the electronics pod | ⚠️ | Breaking the solenoid/pin area could jam it *locked*, not open it (pin is spring-into-lock). Acceptable failure direction. |
@@ -357,14 +425,21 @@ cam lock in v1 while the electronics are still unproven.
 2. 4 mm vs 6 mm cable — blocks spool pod sizing.
 3. Your phone: Android or iPhone? Determines whether v2 phone-unlock (HCE app) is worth
    building or whether stickers/fobs are the permanent plan.
-4. Clamp target: which bike / down-tube diameter? (Measure it — that sets liner thickness.)
-5. Prototype housing: 3D print (PETG, 3 mm walls) first — agreed?
+4. Measure your own down tube anyway (circumference ÷ π) — a sanity check that it lands
+   inside the Ø32–46 mm core range, and the first fit-test article.
+5. Aero/oval and Ø50 mm+ tubes are declared out of scope for v1 (§6.1) — confirm you're
+   fine with that, or the shell ID has to grow.
+6. Does your printer (or the TAMU makerspace's) print TPU? If not, the fallback liner for
+   the first article is silicone sponge sheet.
+
+*Resolved:* one-size-fits-all fit strategy → finned TPU liner + slotted closure + shim
+sleeve (§6.2). First housing is 3D printed → print spec in §6.2.
 
 ## 10. Build plan
 
 | Phase | Goal | Cost |
 |---|---|---|
 | 0 — Breadboard | Nano + PN532 + MOSFET + solenoid on a bench PSU; firmware v1 working end-to-end | ~$25 electronics |
-| 1 — Printed prototype | PETG clamshell + donor-leash spool + latch; whole system on the actual bike; measure solenoid force vs pin spring | ~$15 filament + hardware |
-| 2 — Steel housing | 304 shell (rolled sheet or machined), hardened bushing + pin, final cable | TBD, ~$40–80 depending on fabrication access (TAMU shop?) |
+| 1 — **Printed v1** (the first real model) | ASA/PETG clamshell + TPU finned liner + donor-leash spool + latch; whole system living on the actual bike; measure solenoid force vs pin spring; fit-test the liner on every bike we can find (target: 5+ different tubes across Ø32–46 mm) | ~$15 filament + hardware |
+| 2 — Steel housing | 304 shell (rolled sheet or machined), hardened bushing + pin, final cable; liner carries over unchanged | TBD, ~$40–80 depending on fabrication access (TAMU shop?) |
 | 3 — v2 electronics | Pro Mini 3.3 V swap (months of battery), Android HCE challenge–response app | ~$10 |

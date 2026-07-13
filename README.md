@@ -22,7 +22,7 @@ releases the cable, which then reels itself back in.
 `DESIGN.md`) are:
 
 1. Breadboard the electronics (Nano + PN532 + solenoid) and prove the unlock flow
-2. 3D-print a prototype housing to validate the spool, spring, and latch geometry
+2. 3D-print the v1 housing (ASA/PETG) — the first real model is plastic, steel comes later
 3. Fabricate the stainless housing
 
 ## Key design decisions so far
@@ -32,5 +32,11 @@ releases the cable, which then reels itself back in.
 - **Battery:** single 18650 Li-ion + TP4056 USB-C charge board
 - **Locking:** insert-to-lock needs **no power** (ramped cable head snaps past a spring pin);
   power is only used for the ~300 ms unlock pulse and brief scan windows
+- **One-size-fits-all fit:** a printed TPU *finned* liner (fins bend instead of foam
+  crushing, so it stays snug for years) covers Ø32–46 mm down tubes, a slotted screw
+  closure fine-tunes preload, and an included shim sleeve extends down to Ø27 mm skinny
+  steel frames — see `DESIGN.md` §6.2
+- **v1 housing is 3D printed** (ASA for outdoor UV resistance); the latch keeps a steel
+  pin + bushing even in plastic
 - **Dead-battery behavior:** still open — see the fail-safe section of `DESIGN.md` for why
   "unlocks when dead" is both a security hole and physically the harder option to build
