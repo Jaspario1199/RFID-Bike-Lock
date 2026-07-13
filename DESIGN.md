@@ -126,16 +126,20 @@ it polling 24/7 on a battery. Two design decisions fix this:
                       │
                18650 Li-ion (2500 mAh, 3.0–4.2 V)
                       │
-        ┌─────────────┼──────────────────────┐
-        │             │                      │
-        │      ┌──────▼──────┐        ┌──────▼──────┐
-        │      │ MT3608 boost│        │  N-MOSFET   │◄── D5 (300 ms pulse)
-        │      │   → 5 V     │        │  IRLZ44N    │
-        │      └──────┬──────┘        └──────┬──────┘
-        │             │                      │
+        ┌─────────────┤
+        │             │
+        │      ┌──────▼──────┐
+        │      │ MT3608 boost│   + 1000 µF reservoir cap on the 5 V rail
+        │      │   → 5 V     │
+        │      └──────┬──────┘
+        │             ├──────────────────────┐
+        │             │               ┌──────▼──────┐
+        │             │               │  N-MOSFET   │◄── D5 (300 ms pulse)
+        │             │               │  IRLZ44N    │
+        │             │               └──────┬──────┘
         │      ┌──────▼──────────┐    ┌──────▼──────┐
-        │      │  Arduino Nano   │    │  Solenoid   │ + flyback diode
-        │      │  (5V pin)       │    │  JF-0530B   │ + 1000 µF reservoir cap
+        │      │  Arduino Nano   │    │  Solenoid   │ JF-0530B 6 V coil
+        │      │  (5V pin)       │    │  (~250 mA)  │ + flyback diode
         │      └──┬───┬───┬───┬──┘    └─────────────┘
         │         │   │   │   │
         │   I2C ──┘   │   │   └── D3: wake button (pin-change interrupt)
@@ -159,23 +163,31 @@ it polling 24/7 on a battery. Two design decisions fix this:
 | A0 | 100 kΩ/100 kΩ divider from battery + | Battery voltage sense |
 | 5V | MT3608 output | System power |
 
-Solenoid wiring: battery + → solenoid → IRLZ44N drain, source → GND. 1N5819 flyback diode
-across the solenoid coil (cathode to +). 1000 µF electrolytic across battery input near
+Solenoid wiring: 5 V rail → solenoid → IRLZ44N drain, source → GND. 1N5819 flyback diode
+across the solenoid coil (cathode to +). 1000 µF electrolytic across the 5 V rail near
 the solenoid to stiffen the pulse.
 
-**Note the solenoid runs straight off the battery, not the boost converter** — a 5 V
-solenoid at 3.7–4.2 V still yields ~80% of rated force, and this keeps the ~1 A pulse off
-the MT3608 (which would brown out the Nano mid-unlock). The pin return spring is sized to
-what the solenoid actually pulls at 3.5 V (worst-case battery) — measure in prototyping.
+**The solenoid runs off the regulated 5 V rail.** The JF-0530B has no 5 V winding — it
+ships as 6 V / 12 V / 24 V — so we use the **6 V variant** at 5 V: ~20 Ω coil → ~250 mA,
+which the MT3608 (2 A switch) supplies without disturbing the Nano, and the pulse strength
+no longer sags with battery voltage. Expect roughly 70% of rated force at 5 V on a 6 V
+coil; the pin return spring is sized to what the solenoid *actually* pulls — measure in
+prototyping. If the measured pull is short, the fallback is the 12 V variant fed by its
+own dedicated mini-boost, pulsed the same way.
 
 ### 4.3 Solenoid
 
-- **JF-0530B pull-type**, 5 V winding, ~4.5 Ω coil → ~0.9 A at nominal battery voltage,
-  ~5 N pull at small air gap, 3–5 mm stroke, 30 × 15 × 14 mm, ~$4.
+- **JF-0530B pull-type, 6 V winding** (no 5 V version exists; 6/12/24 V are the options),
+  ~20 Ω coil → ~250 mA on our 5 V rail. Rated 5 N force / 10 mm max stroke — we use ~4 mm
+  of it, where pull is strongest. ⚠️ Clone specs vary wildly between sellers (some list
+  the 12 V coil at 1 A); measure the actual pull force of the unit you receive.
+- Verified dimensions: **body 30 × 13 × 15 mm, plunger Ø6 × 58 mm** — the full
+  body+plunger train is ~65 mm long, which drives the layout in §6.5. The plunger tail can
+  be trimmed to length (it's plain rod). M2.5 mounting holes, 20 cm leads.
 - Energized for **300 ms max** per unlock. Duty cycle is effectively zero, so no heating
   concerns.
-- Energy per unlock ≈ 0.9 A × 0.3 s ≈ **0.075 mAh** — even 20 unlocks/day is only
-  1.5 mAh/day, i.e. the solenoid is *not* the battery problem; standby drain is.
+- Energy per unlock ≈ 0.25 A × 0.3 s ≈ **0.02 mAh** — even 20 unlocks/day is under
+  0.5 mAh/day, i.e. the solenoid is *not* the battery problem; standby drain is.
 
 ### 4.4 Power budget & battery life
 
@@ -186,10 +198,10 @@ care about.
 |---|---|---|
 | Sleep (Nano power-down, PN532 off, boost quiescent) | ~1.5–3 mA (stock Nano; the USB chip + regulator leak) | ~99.9% |
 | Scan window (Nano awake + PN532 field on) | ~90–130 mA | 10 s × ~6/day |
-| Solenoid pulse | ~900 mA | 0.3 s × ~6/day |
+| Solenoid pulse | ~250 mA | 0.3 s × ~6/day |
 
-Daily consumption ≈ (2.5 mA × 24 h) + (0.11 A × 60 s)/3600 + (0.9 A × 1.8 s)/3600
-≈ 60 + 1.8 + 0.45 ≈ **62 mAh/day → roughly 4–5 weeks per charge.**
+Daily consumption ≈ (2.5 mA × 24 h) + (0.11 A × 60 s)/3600 + (0.25 A × 1.8 s)/3600
+≈ 60 + 1.8 + 0.13 ≈ **62 mAh/day → roughly 4–5 weeks per charge.**
 
 The standby leak dominates everything. Upgrade path (v2): swap the Nano for a **3.3 V/8 MHz
 Pro Mini with its regulator and power LED removed** → sleep current drops to ~10 µA,
@@ -393,65 +405,73 @@ locks into. Consequences:
 
 ### 6.5 Top pod internal layout & wiring plan
 
-Packing study: every component with its real dimensions, plus wiring room. Three zones
-that must NOT overlap set the pod length — the PN532 needs a metal-free column above and
-below it, the latch bore needs clear vertical depth, and the 18650 is a 75 mm brick.
-End-to-end that's ~148 mm → **pod interior 150 × 55 mm, lid 34 mm above the shell crown.**
+Packing study with **verified part dimensions** (sources in BOM): PN532 42.7 × 40.4 × 4,
+18650 holder 76 × 21 × 21, Nano 45 × 18, JF-0530B body 30 × 13 × 15 **plus its Ø6 × 58 mm
+plunger** — the working solenoid train (body + plunger + pin coupling) is **~65 mm long**,
+far too long to lie across a 55 mm pod, so it runs along the pod axis. Three zones that
+must not overlap set the pod length — the PN532 needs a metal-free column above and below
+it, the latch bore needs clear vertical depth, and the battery is a 76 mm brick →
+**pod interior 150 × 55 mm, lid 34 mm above the shell crown.**
 
 Because the pod floor is the curved shell (Ø62), depth grows from 34 mm at the centerline
-to ~48 mm at the side walls — tall parts and wire runs go to the edges on purpose.
+to ~48 mm at the side walls — tall parts sit at the edges, and a printed half-width shelf
+adds a second level over the solenoid strip.
 
 ```
- TOP VIEW of pod interior (lid removed), X in mm along the frame axis
- X=0 (front end)                                                X=150 (rear end)
- ┌─────────────┬───────────────┬────────────────────────────────────┐
- │             │ ○ latch bore  │  18650 + holder (75×21×21)         │  Y=0..23
- │   PN532     │   Ø11         │  [along the side wall]             │
- │   43×40     ├───────────────┤────────────┬───────────────────────┤
- │  face-up    │   solenoid    │   Nano     │ perfboard: IRLZ44N,   │
- │  under lid  │   JF-0530B    │   45×18    │ AO3401, diode, 1000µF │  Y=30..55
- │   window    │ (lying across)│ (USB → X+) │ TP4056 ▓ + MT3608     │
- └─────────────┴───────────────┴────────────┴──────────▲────────────┘
-   "RF zone"      "latch block"        "power zone"    USB-C port
-    X 0-48           X 48-78              X 78-150     through rear wall
+ TOP VIEW, floor level (lid + shelf removed), X in mm along the frame axis
+ X=0 (front / scan end)                                        X=150 (rear)
+ ┌──────────────┬──────────────────────────────────────────────────┐
+ │              │   18650 + holder (76×21×21)          [MT3608]    │ Y=32..53
+ │   RF ZONE    │   X 55..131, along the side wall     [TP4056]▓───┼── USB-C port
+ │  keep empty  ├○─────────────────────────────────────────────────┤ through rear wall
+ │ (PN532 is on │bore  plunger→[solenoid body]  [ Arduino Nano ]   │ Y=4..22
+ │ the lid above│Ø11   X 64..94 (tail trimmed)   X 100..145        │
+ │  this void)  │X≈58                            (USB faces rear)  │
+ └──────────────┴──────────────────────────────────────────────────┘
+    X 0..48        "latch + drive strip" along Y≈14
+
+ SHELF LEVEL (printed shelf at Z≈18, over the drive strip only, Y 0..26):
+   perfboard X 60..100 — IRLZ44N, AO3401, flyback diode, 1000 µF cap, divider
+ LID: PN532 under the plastic window (X 0..45), wake button + LEDs at X≈50
 ```
 
 **Zone by zone:**
 
-| Zone | X range | Contents & orientation |
+| Zone | Where | Contents & orientation |
 |---|---|---|
-| RF | 0–48 | PN532 mounted to the **underside of the lid** (screws into lid bosses), antenna up, under the 2 mm plastic window. **Nothing metal above or below it** — the curved void underneath stays empty except for two thin signal runs hugging the floor edges. Wake button + LEDs sit on the lid at the RF/latch boundary (X≈50) |
-| Latch block | 48–78 | Receiver bore (Ø11 × 26 deep, vertical) at Y≈14, sitting over the closure flange so the bore-bottom screw clamps the halves (§6.4). Solenoid lies **flat across the pod** (Y 22–52) at floor level, plunger toward the bore, pulling the pin horizontally out of the bore wall. Pin spring coaxial with pin; ejector spring under the bore floor |
-| Power | 78–150 | 18650 holder along the side wall (Y 0–23) — the deep edge takes its 21 mm height easily. Nano beside it (Y 30–48), USB port facing the rear so it's reachable for reflashing with the lid off. Perfboard (MOSFETs, flyback diode, reservoir cap, divider resistors) at X 125–148. TP4056 stacked low at the rear wall, **USB-C port through the rear end wall** under a rubber dust flap; MT3608 beside it |
+| RF | X 0–48, full width | PN532 mounted to the **underside of the lid** (bosses), antenna up under the 2 mm plastic window. Nothing metal above or below — the void beneath stays empty except two signal runs hugging the floor edge. Battery steel can is 55+ mm away (the #1 read-range killer). Wake button + LEDs on the lid at X≈50 |
+| Latch + drive strip | Y 4–22, X 48–145 | Receiver bore (Ø11 × 26 deep, vertical) at X≈58 Y≈14, over the closure flange so the bore-bottom screw clamps the halves (§6.4). Solenoid body at X 64–94 lying on the floor, plunger toward the bore (−X); pull-type: energize → plunger retracts +X, dragging the locking pin out of the bore wall. Plunger tail trimmed so the train ends ≈X 98. Nano at X 100–145, USB toward the rear wall for lid-off reflashing. Pin spring coaxial with the plunger; ejector spring under the bore floor |
+| Battery side | Y 32–53, X 55–131 | 18650 holder along the side wall — the deep edge absorbs its 21 mm height. TP4056 stands vertically at the rear wall (X 140–150), **USB-C port through the rear end wall** under a rubber dust flap, 5 cm leads to the cell it charges. MT3608 beside it |
+| Shelf | Z 18–30, Y 0–26, X 60–100 | Perfboard with both MOSFETs, flyback diode, 1000 µF reservoir cap, divider resistors — directly above the solenoid it drives (wire drop <30 mm through a shelf slot) |
 
 **Why this orientation works:**
 
-- The scan face is at the front end of the pod — natural "tap here" target, and the RF
-  zone is as far as possible from the battery's steel can (the #1 range killer).
-- TP4056 sits right next to the battery it charges (5 cm leads, not 15 cm across the pod).
-- The solenoid's thick wires drop straight onto the adjacent perfboard (~40 mm run).
-- The latch bore lands mid-pod, directly above the closure flange — required by the
-  self-guarding screw (§6.4).
+- Scan face at the front end = natural "tap here" target, maximally far from the battery.
+- The solenoid train and the bore share one axis line (Y≈14) that sits directly over the
+  closure flange — required by the self-guarding screw (§6.4).
+- Every high-current run (battery → TP4056 → MT3608 → perfboard → solenoid) lives in the
+  rear half; the RF end carries only 3 thin signal wires.
 - No wiring leaves the top pod at all: the bottom spool pod is purely mechanical.
 
 **Wiring plan (~15 conductors total):**
 
 | Run | Wire | Route |
 |---|---|---|
-| Battery → TP4056 → perfboard bus | 22 AWG | rear corner, 5–8 cm |
-| Perfboard → solenoid | 22 AWG | along Y=55 floor edge, 6 cm |
-| MT3608 5 V → Nano → PN532 | 26 AWG | 5 V + GND pair along Y=0 edge |
-| Nano A4/A5 → PN532, D7 → P-FET | 28 AWG | 3-wire ribbon along the Y=0 floor channel under the battery holder |
-| Lid parts (button, LEDs, PN532) → body | 28 AWG | one 15 cm service loop at the X=50 hinge-side corner so the lid opens fully without unplugging; JST-XH connector so it CAN unplug |
+| Battery → TP4056 → MT3608 → perfboard 5 V bus | 22 AWG | rear corner cluster, 5–8 cm runs |
+| Perfboard → solenoid | 22 AWG | straight drop through the shelf slot, <3 cm |
+| Perfboard 5 V/GND → Nano | 26 AWG | 4 cm along the strip |
+| Nano A4/A5 + D7 → PN532/P-FET | 28 AWG | 3-wire ribbon along the Y=0 floor channel |
+| Lid parts (PN532, button, LEDs) → body | 28 AWG | one 15 cm service loop at the X≈50 hinge-side corner so the lid opens fully; JST-XH connector so it CAN unplug |
 
 Printed wire channels (3 × 3 mm) run along both floor edges with clip-over tabs every
-30 mm — no glue, no zip ties, wires can't drift into the plunger or the spool. Every
-off-board connection gets a JST-XH plug so any module can be swapped without soldering.
+30 mm — no glue, no zip ties, wires can't drift into the plunger. Every off-board
+connection gets a JST-XH plug so any module can be swapped without soldering.
 
-**Fill check:** component volume ≈ 95 cm³ (battery 33, latch block 18, PN532+clearance 15,
-Nano 10, boards ~12, solenoid 7). Usable pod volume ≈ 195 cm³ after subtracting the curved
-shell intrusion → **~50% fill, ~30% reserved for wiring and fingers** — comfortably inside
-the 70–75% max-fill rule of thumb for hand-assembled enclosures.
+**Fill check:** component volume ≈ 92 cm³ (battery+holder 34, latch block + solenoid train
+20, PN532 + keep-out 15, Nano 10, boards 8, misc 5). Usable pod volume ≈ 195 cm³ after
+subtracting the curved shell intrusion → **~47% fill, >30% reserved for wiring and
+fingers** — comfortably inside the 70–75% max-fill rule of thumb for hand-assembled
+enclosures.
 
 ### 6.6 RFID face
 

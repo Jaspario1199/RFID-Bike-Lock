@@ -9,11 +9,11 @@ lot from AliExpress roughly halves the Amazon total but takes 2–4 weeks.
 |---|---|---|---|---|
 | 1 | Arduino Nano (clone, CH340) | 5 V/16 MHz | 1 | $4 |
 | 2 | PN532 NFC module | Elechouse V3 style, set to I2C | 1 | $8 |
-| 3 | Linear pull solenoid | JF-0530B, 5 V, ~4.5 Ω, 3–5 mm stroke | 1 | $4 |
+| 3 | Linear pull solenoid | JF-0530B **6 V** variant, ~20 Ω/300 mA, 5 N/10 mm; body 30×13×15 mm, plunger Ø6×58 mm | 1 | $4 |
 | 4 | 18650 Li-ion cell, protected | ≥2500 mAh (Samsung 25R class + protection PCB, or protected cell) | 1 | $6 |
-| 5 | 18650 holder | single, leaf-spring | 1 | $1 |
-| 6 | TP4056 charge board **with protection** (USB-C version) | has DW01 + FS8205 on board | 1 | $1.50 |
-| 7 | MT3608 boost converter | set to 5.0 V | 1 | $1.50 |
+| 5 | 18650 holder | single, leaf-spring; 76 × 21 × 21 mm outer | 1 | $1 |
+| 6 | TP4056 charge board **with protection** (USB-C version) | has DW01 + FS8205 on board; 29 × 17.3 × 4.3 mm | 1 | $1.50 |
+| 7 | MT3608 boost converter | set to 5.0 V; 36 × 17 mm | 1 | $1.50 |
 | 8 | N-MOSFET (solenoid) | IRLZ44N (TO-220, logic-level) | 1 | $1 |
 | 9 | P-MOSFET (PN532 power gate) | AO3401 / IRLML6402 (SOT-23 on breakout) | 1 | $0.50 |
 | 10 | Flyback diode | 1N5819 Schottky | 1 | $0.20 |
