@@ -411,13 +411,6 @@ def build_lid():
     body = body.cut(
         cq.Workplane("XY", origin=(pn532_x + pn532_l / 2, 0, -EPS)).box(pn532_l, pn532_w, lid_t - window_remain, centered=(True, True, False))
     )
-    for sx in (-1, 1):
-        for sy in (-1, 1):
-            px = pn532_x + pn532_l / 2 + sx * pn532_hole_dx / 2
-            py = sy * pn532_hole_dy / 2
-            post = cq.Workplane("XY", origin=(px, py, -6.0)).circle(2.5).extrude(6.0 - (lid_t - window_remain) + lid_t)
-            post = post.cut(cq.Workplane("XY", origin=(px, py, -6.5)).circle(1.1).extrude(6))
-            body = body.union(post)
     body = body.cut(cq.Workplane("XY", origin=(bore_x, bore_y, -1)).circle((bore_d + 0.6) / 2).extrude(lid_t + 4))
     body = body.cut(cq.Workplane("XY", origin=(button_x, button_y, lid_t - 1)).circle(9.5).extrude(3))
     body = body.cut(cq.Workplane("XY", origin=(button_x, button_y, -1)).circle(button_d / 2).extrude(lid_t + 2))
@@ -433,34 +426,47 @@ def build_lid():
 
 def _liner_sketch(R_hi, n, fh, ft):
     sk = cq.Sketch().circle(R_hi).circle(R_hi - liner_base, mode="s")
+    embed = liner_base - 0.3  # fin roots reach INTO the base ring so they fuse (one solid)
     for i in range(n):
         ang = math.radians(i * 360.0 / n)
         lean = math.radians(180 - fin_lean)
-        r0 = R_hi - liner_base
+        r0 = R_hi - 0.3
+        fh = fh + 0  # length compensated below
         cx, cy = r0 * math.cos(ang), r0 * math.sin(ang)
         ux, uy = math.cos(ang + lean), math.sin(ang + lean)
         vx, vy = -math.sin(ang + lean), math.cos(ang + lean)
+        L = fh + embed
         quad = [
             (cx, cy),
-            (cx + fh * ux, cy + fh * uy),
-            (cx + fh * ux + ft * vx, cy + fh * uy + ft * vy),
+            (cx + L * ux, cy + L * uy),
+            (cx + L * ux + ft * vx, cy + L * uy + ft * vy),
             (cx + ft * vx, cy + ft * vy),
         ]
         sk = sk.polygon(quad, mode="a")
     return sk
 
 
+def largest_solid(wp):
+    """Keep only the biggest connected solid (drops orphan fin-tip slivers
+    created where seam-crossing fins get cut at the split plane)."""
+    sol = wp.solids().vals()
+    if len(sol) <= 1:
+        return wp
+    best = max(sol, key=lambda x: x.Volume())
+    return cq.Workplane(obj=best)
+
+
 def build_liner(right=True):
     sk = _liner_sketch(R_in - 0.15, fin_n, fin_h + liner_base, fin_t)
     solid = cq.Workplane("YZ", origin=(0, 0, 0)).placeSketch(sk).extrude(shell_len)
-    return solid.intersect(half_box(right))
+    return largest_solid(solid.intersect(half_box(right)))
 
 
 def build_shim():
     sk = _liner_sketch(15.0, 12, 7.0, 1.2)
     solid = cq.Workplane("YZ").placeSketch(sk).extrude(shell_len)
     wedge = cq.Workplane("YZ", origin=(-1, 0, 0)).polyline([(0, 0), (40, -23), (40, 23)]).close().extrude(shell_len + 2)
-    return solid.cut(wedge)
+    return largest_solid(solid.cut(wedge))
 
 
 def build_spool_cover():
@@ -504,6 +510,17 @@ def main():
     for n in names:
         print(f"[build] {n} ...", flush=True)
         s = PARTS[n]()
+        sol = s.solids().vals()
+        if len(sol) > 1:
+            fused = sol[0]
+            for v in sol[1:]:
+                fused = fused.fuse(v)
+            fused = fused.clean()
+            s = cq.Workplane(obj=fused)
+            left = len(s.solids().vals())
+            print(f"[warn]  {n}: fused {len(sol)} solids -> {left}", flush=True)
+            if left > 1:
+                raise RuntimeError(f"{n} still has {left} disconnected solids - fix the geometry")
         cq.exporters.export(s, f"step/{n}.step")
         cq.exporters.export(s, f"stl/{n}.stl", tolerance=0.05, angularTolerance=0.2)
         print(f"[ok]    {n}", flush=True)

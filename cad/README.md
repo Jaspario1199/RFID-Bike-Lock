@@ -30,7 +30,7 @@ To regenerate everything: `pip install cadquery` then `python bike_lock_cq.py`
 | `bay_module` | drum + front/rear equipment tunnels + corner duct + TP4056 slot + LiPo frame + USB port + zip-anchor grids; bolts by 4× M4 from inside the bore |
 | `bay_hatch` ×2 | shared bottom cover for both tunnels |
 | `pedestal_cart` | solenoid mount on the pad system (VERIFY dims live here) |
-| `lid` | window skin, NFC ring, button dish, PN532 posts |
+| `lid` | window skin, NFC ring, button dish, PN532 pocket (board located by pocket walls + foam tape — posts were unbuildable through the pocket) |
 | `liner_right/left`, `shim` | TPU fit system |
 | `spool_cover` | drum face plate (service = unbolt the bay) |
 | `end_plug` ×2 | glued caps over the blind hinge-pin channels |

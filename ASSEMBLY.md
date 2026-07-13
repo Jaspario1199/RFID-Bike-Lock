@@ -17,7 +17,7 @@ inside the bore, and all interior furniture as pad-mounted cartridges.
 | 5 | TP4056 + MT3608 into card-edge pockets (§3.3); USB-C self-aligns to rear slot | from above | none (pockets) |
 | 6 | Nano under driver tray; perfboard onto tray, zip-tied | slides from front / above | zip ties |
 | 7 | Harness: JST runs laid into the two raceways, loop on strain posts | from above | clips |
-| 8 | PN532 + button + LEDs onto lid; plug lid's JST service loop | open bench | posts / panel nut |
+| 8 | PN532 into the lid pocket (foam tape) + button + LEDs; plug lid's JST service loop | open bench | tape / panel nut |
 | 9 | Lid on | from above | 4× M3 self-tap |
 | 10 | Donor spool into drum module, cable out the snout, wind preload | open bench (module off the bike!) | — |
 | 10b | Spool cover into rabbet | open bench | 3× M3 self-tap |
