@@ -43,5 +43,6 @@ releases the cable, which then reels itself back in.
   unscrewed off the frame while the bike is locked (`DESIGN.md` §6.4)
 - **v1 housing is 3D printed** (ASA for outdoor UV resistance); the latch keeps a steel
   pin + bushing even in plastic
-- **Dead-battery behavior:** still open — see the fail-safe section of `DESIGN.md` for why
-  "unlocks when dead" is both a security hole and physically the harder option to build
+- **Dead-battery behavior:** fail-secure — a dead battery stays locked, and the USB-C
+  charge port doubles as an emergency input: any phone power bank runs the lock instantly
+  for an unlock (`DESIGN.md` §8). v1 also carries a hidden cam-lock backstop

@@ -522,10 +522,24 @@ about not replacing a U-lock for overnight street parking.
 
 ---
 
-## 8. Dead-battery behavior ⚠️ (open decision — revisit)
+## 8. Dead-battery behavior (RESOLVED: fail-secure + USB-C escape hatch)
 
-Current choice on record: **unlocks when the battery dies.** Two serious problems with
-that, one of security and one of physics:
+**Decision: the lock stays locked when the battery dies (fail-secure), and the USB-C
+charge port doubles as an emergency power input** — plug any phone power bank into the
+port and the whole system runs immediately, even with a stone-dead cell: wake, tap,
+unlock. No waiting for the battery to take charge.
+
+Implementation note for the electronics build: the TP4056 module's OUT+/OUT− terminals
+(not the battery terminals) must feed the MT3608, so the load is powered from USB
+whenever USB is present. That's the standard wiring for the protected TP4056 board
+anyway — just don't tap the system rail directly off the cell.
+
+For v1, while the electronics are still unproven, we also fit the optional no-electronics
+backstop: a small tubular-key cam lock that manually retracts the same pin, hidden under
+a rubber plug (~$4). It can be deleted in v2 once the system has months of track record.
+
+The earlier idea (unlock on battery death) was rejected for the record — one problem of
+security and one of physics:
 
 1. **Security:** if a dead battery unlocks the cable, a thief doesn't need bolt cutters —
    they wait, or chill the pack, or just come back in a month. The lock's security would
@@ -537,40 +551,30 @@ that, one of security and one of physics:
    circuitry that fires a "last gasp" unlock as voltage collapses — more parts, more cost,
    and it *still* unlocks your bike in public when it triggers.
 
-**Recommended resolution — fail-secure + external power escape hatch:** keep
-spring-locked/solenoid-unlocked, and make the TP4056's USB-C port double as an emergency
-input: a phone power bank plugged into the port runs the whole system even with a stone-dead
-cell, so you can unlock immediately, no waiting for charge. Costs nothing extra — the
-charge port already exists; we just route it so the system bus is alive during charging.
-
-Alternative if you want a no-electronics backstop: a small cam lock (tubular key) that
-manually retracts the same pin, hidden under a rubber plug. ~$4, adds a keyway that is
-itself a (pickable) attack surface.
-
-**Decision needed before the latch is CADed** — the escape-hatch options change the top-pod
-layout. My recommendation: fail-secure + USB-C power bank unlock, optionally + the hidden
-cam lock in v1 while the electronics are still unproven.
+(The cam-lock backstop adds a keyway, which is itself a pickable attack surface — an
+accepted v1 trade-off while the electronics prove themselves, and the reason it's slated
+for deletion rather than kept forever.)
 
 ---
 
 ## 9. Open questions
 
-1. §8 fail-safe decision — blocks latch CAD.
-2. 4 mm vs 6 mm cable — blocks spool pod sizing.
-3. Your phone: Android or iPhone? Determines whether v2 phone-unlock (HCE app) is worth
+1. 4 mm vs 6 mm cable — blocks spool pod sizing.
+2. Your phone: Android or iPhone? Determines whether v2 phone-unlock (HCE app) is worth
    building or whether stickers/fobs are the permanent plan.
-4. Measure your own down tube anyway (circumference ÷ π) — a sanity check that it lands
+3. Measure your own down tube anyway (circumference ÷ π) — a sanity check that it lands
    inside the Ø32–46 mm core range, and the first fit-test article.
-5. Aero/oval and Ø50 mm+ tubes are declared out of scope for v1 (§6.1) — confirm you're
+4. Aero/oval and Ø50 mm+ tubes are declared out of scope for v1 (§6.1) — confirm you're
    fine with that, or the shell ID has to grow.
-6. Does your printer (or the TAMU makerspace's) print TPU? If not, the fallback liner for
+5. Does your printer (or the TAMU makerspace's) print TPU? If not, the fallback liner for
    the first article is silicone sponge sheet.
 
 *Resolved:* one-size-fits-all fit strategy → finned TPU liner + closure detents + shim
 sleeve (§6.2). First housing is 3D printed → print spec in §6.2. Housing tamper
 resistance → self-guarding closure screw at the bottom of the latch bore (§6.4). Male
 fitting shape → round head with square-flanked ring groove; square tang kept as the
-Phase-0 bench mule (§6.4 trade study).
+Phase-0 bench mule (§6.4 trade study). Dead-battery
+behavior → fail-secure + USB-C power-bank escape hatch + v1 hidden cam-lock backstop (§8).
 
 ## 10. Build plan
 
