@@ -380,6 +380,29 @@ the core can't be smaller.
   ~2 N spring preload. Prototype and measure.
 - Receiver bushing: hardened steel insert so a screwdriver can't gouge the latch open.
 
+**Male fitting trade study — square tang vs round head (resolved).** The original
+concept was a square/rectangular male tang with an angled tip and a cross-hole: push it
+in, the tip cams the pin back, the pin springs into the hole — the razor-scooter folding
+latch. The alternative is the round mushroom head with a ring groove. Both use the exact
+same cam-tip insert / spring-pin / solenoid-pull action; the shape is the only question.
+
+| Criterion | Square tang + cross-hole | Round head + ring groove |
+|---|---|---|
+| Insertion | must be rotationally aligned — fiddly with a twisting retractable cable | works at any rotation, no aiming |
+| Cable twist while locked | locked-in; attacker can use the cable as a torque lever on pin & socket, and normal use winds twist into the cable | head spins freely — twist self-relieves, torque never reaches the pin |
+| Pin engagement | through-hole = double shear (stronger) | groove = single shear — but a Ø4 hardened pin in single shear (~11 kN) already exceeds the 4 mm cable's ~8–10 kN break strength, so the extra strength buys nothing; the cable is the fuse either way |
+| Making the female side tight | square socket corners are hard to make crisp (printed or filed) → shim clearance | round bore is drilled/reamed in a hardened bushing → tight, round, shim-hostile |
+| Sourcing the male part | easy DIY: flat bar + hacksaw + drill press | one lathe operation, or adapt an off-the-shelf hardened grooved pin |
+| Commercial precedent | scooter folding latches (rigid hinge, orientation fixed by the frame — the one case where alignment is free) | AXA/ABUS plug-in chains (Ø10 hardened round pin into a frame lock), retractable cable-lock heads |
+
+**Decision: round head with a square-flanked ring groove.** Cutting the groove with
+square flanks (not a V) makes the pin seat against a flat wall exactly like the
+cross-hole would — the groove is effectively the square design's hole, revolved 360° so
+it's always aligned. The angled insertion tip from the original concept is retained
+verbatim (that cam action is what makes no-power locking work). The square tang isn't
+wasted: it's the recommended **bench mule** for Phase 0 — a hand-tools version to measure
+real solenoid pull vs pin-spring force before any lathe work.
+
 **Self-guarding closure screw.** The screw that fastens the two shell halves together
 sits recessed at the **bottom of the latch receiver bore** — the same hole the cable head
 locks into. Consequences:
@@ -545,7 +568,9 @@ cam lock in v1 while the electronics are still unproven.
 
 *Resolved:* one-size-fits-all fit strategy → finned TPU liner + closure detents + shim
 sleeve (§6.2). First housing is 3D printed → print spec in §6.2. Housing tamper
-resistance → self-guarding closure screw at the bottom of the latch bore (§6.4).
+resistance → self-guarding closure screw at the bottom of the latch bore (§6.4). Male
+fitting shape → round head with square-flanked ring groove; square tang kept as the
+Phase-0 bench mule (§6.4 trade study).
 
 ## 10. Build plan
 
