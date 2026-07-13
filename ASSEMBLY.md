@@ -74,3 +74,20 @@ TODO list — this is the same item, now with the concrete reason.
   print drops from ~20 h with a support forest to a clean pod-up print.
 - Full per-part orientation/material table in `cad/README.md`. Cartridges are minutes-long
   prints, which is the point: all four VERIFY dimensions live in them.
+
+## 6. v0.4 "slim top" delta (current CAD)
+
+The sequence above still holds with these substitutions:
+
+- Steps 4–6 happen **in the bottom bay on the bench**: LiPo into its printed frame
+  (rear tunnel), TP4056 into its slot with the USB-C landing in the front-wall port,
+  Nano/MT3608/perfboard zip-tied to the floor anchor grids. Tunnels close with two
+  copies of the shared `bay_hatch` part (4× M3 each).
+- The harness runs front↔rear through the bay's corner duct, then up the **wire spine**
+  on the right shell into the pod (fish it with a pull wire before closing hatches).
+- Step 11 bolts the whole loaded bay (drum + electronics) to the right shell — same
+  4× M4 from inside the open clamp.
+- The top pod now receives only the pedestal cartridge + solenoid; PN532/button/LEDs
+  stay on the lid as before.
+- Spool service = unbolt the bay (the cover can't slide out past the rear tunnel
+  in place). Cam-lock backstop deleted (DESIGN.md §8 note).

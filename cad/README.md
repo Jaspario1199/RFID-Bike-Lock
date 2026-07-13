@@ -4,8 +4,10 @@
 model that builds true BREP solids and exports **STEP** (SolidWorks-ready) and STL for
 every part. Every dimension from DESIGN.md §6 is a named variable at the top of the file.
 
-**Status: v0.3 DRAFT** — modular restructure + SolidWorks pipeline done, rendered and
-visually verified; no part test-printed yet.
+**Status: v0.4 DRAFT ("slim top")** — top pod carries only latch + reader + button;
+everything else lives in the bottom bay beside the drum, connected by a hollow wire
+spine in the shell side. v0.3 (top-heavy layout) is preserved in `archive/v0.3/` and
+git tag `v0.3`. Rendered and visually verified; nothing test-printed yet.
 
 ## Working in SolidWorks
 
@@ -19,24 +21,21 @@ To regenerate everything: `pip install cadquery` then `python bike_lock_cq.py`
 `legacy_bike_lock_v02.scad` is the retired OpenSCAD v0.2, kept for reference;
 `render_v03.scad` only composites the exported STLs for preview renders.
 
-## v0.3 modular architecture (why 13 parts, not 7)
+## v0.4 part set (11 printed parts)
 
-| Part | Role | Why separate |
-|---|---|---|
-| `shell_right` | clamp half + pod + belt right + **latch boss** + mounting pads | the security envelope and cable load path — stays integral |
-| `shell_left` | clamp half + skirt (belt left) + lip + screw pad | ditto |
-| `drum_module` | spool drum + saddle + cable snout | **bolted from inside the clamp bore** — 4× M4 reachable only when the lock is open; prints face-down with zero supports; the shells lose their support forest |
-| `pedestal_cart` | solenoid mount | carries `sol_hole_dx`/`sol_axis_h` (VERIFY dims) — reprint in minutes when the real solenoid arrives |
-| `driver_tray` | perfboard shelf over the Nano bay | separate = Nano serviceable, wire notches, zip anchors |
-| `battery_saddle` ×2 | level bed for the 18650 holder | zip-tie pass-unders |
-| `board_pocket` | card-edge slots for TP4056 + MT3608 | boards slide in; the USB-C port self-aligns to the wall slot |
-| `lid` | window skin, NFC ring, button dish, **PN532 posts** | — |
-| `liner_right/left`, `shim` | TPU fit system | — |
-| `spool_cover` | drum face plate | — |
-| `end_plug` ×2 | glued caps over the blind hinge-pin channels | — |
+| Part | Role |
+|---|---|
+| `shell_right` | clamp half + slim pod + belt right + latch boss + **wire spine** + pedestal pads |
+| `shell_left` | clamp half + skirt + lip + screw pad (+ swing relief for the bay) |
+| `bay_module` | drum + front/rear equipment tunnels + corner duct + TP4056 slot + LiPo frame + USB port + zip-anchor grids; bolts by 4× M4 from inside the bore |
+| `bay_hatch` ×2 | shared bottom cover for both tunnels |
+| `pedestal_cart` | solenoid mount on the pad system (VERIFY dims live here) |
+| `lid` | window skin, NFC ring, button dish, PN532 posts |
+| `liner_right/left`, `shim` | TPU fit system |
+| `spool_cover` | drum face plate (service = unbolt the bay) |
+| `end_plug` ×2 | glued caps over the blind hinge-pin channels |
 
-All cartridges bolt to a standardized **flat-pad system** (12 mm pads, tops at z=32,
-M3 self-tap) so the curved floor never complicates assembly.
+The pedestal still uses the standardized flat-pad system (12 mm pads, tops at z=32).
 
 Assembly-audit fixes implemented (ASSEMBLY.md §3): **plunger-as-pin** (Ø6.6 channel, no
 separate pin/spring/coupling), **two blind ~55 mm hinge pins** inserted from the end
@@ -68,11 +67,12 @@ Standard FDM design-for-manufacturing + product-design practice:
 
 | Part | Material | Orientation / notes |
 |---|---|---|
-| shell_right | PETG first / ASA outdoors | pod-opening up; light support at belt overhang only — the drum is gone from this print |
+| shell_right | PETG first / ASA outdoors | pod-opening up; light support under belt + spine rib |
 | shell_left | PETG / ASA | split-face down, near-zero support |
-| drum_module | PETG / ASA | drum face down, **zero support** |
+| bay_module | PETG / ASA | hatch-faces down; supports under the drum ring arc only |
+| bay_hatch ×2 | PETG / ASA | flat, no support |
 | lid | PETG / ASA | top-face down on a smooth sheet (window skin + NFC ring print first) |
-| cartridges (pedestal, tray, saddles, pocket), end plugs | PETG | flat side down, minutes each |
+| pedestal_cart, end plugs | PETG | flat side down, minutes each |
 | liner halves, shim | TPU 95A | 2 perimeters, 15% infill, ~25 mm/s, fins vertical |
 
 ## VERIFY before printing (measure your actual parts)
@@ -83,6 +83,7 @@ Standard FDM design-for-manufacturing + product-design practice:
 - `camlock_d` — panel hole of the cam-lock backstop you buy
 - Donor spool: the drum interior is Ø89 × 28 — check the reel you gut fits, or resize
   `drum_od`/`drum_w`
+- LiPo: frame is cut for 34.5 × 51 × 11 (103450 + margin) — measure yours (`lipo_*`)
 
 ## Known v0.2 simplifications (TODO after first fit-check print)
 
@@ -93,8 +94,8 @@ Standard FDM design-for-manufacturing + product-design practice:
 4. Lid uses 4 exposed corner M3 screws — acceptable on the prototype; steel version needs
    hidden lid fastening (see ASSEMBLY.md §4 for the concrete reason).
 5. Spool spring anchoring is not modeled — depends on the donor reel's spring.
-6. Drum saddle edges are visible below the shell (the v0.2 cosmetic fairing was traded
-   for the zero-support modular drum) — revisit the blend once fit is proven.
+6. The bay tunnels and wire-spine rib are functional but unblended boxes/bands — a
+   cosmetic fairing pass comes after fit is proven (same trade as v0.3 made).
 7. The plunger nose needs its 45° ramp filed/ground by hand — 10 minutes with a file;
    the cable-head groove width (≥6.5 mm) must match, noted in DESIGN.md §6.4.
 

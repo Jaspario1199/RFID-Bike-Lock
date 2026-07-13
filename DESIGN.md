@@ -195,8 +195,8 @@ own dedicated mini-boost, pulsed the same way.
 
 ### 4.4 Power budget & battery life
 
-Battery: one protected 18650, 2500 mAh nominal, ~2000 mAh usable above the 3.3 V cutoff we
-care about.
+Battery (v0.4): one protected **103450 LiPo pouch, 2000 mAh** nominal, ~1600 mAh usable
+above the cutoff (the 18650 of earlier revs doesn't package in the v0.4 bottom bay).
 
 | State | Draw | Time share |
 |---|---|---|
@@ -205,7 +205,7 @@ care about.
 | Solenoid pulse | ~250 mA | 0.3 s × ~6/day |
 
 Daily consumption ≈ (2.5 mA × 24 h) + (0.11 A × 60 s)/3600 + (0.25 A × 1.8 s)/3600
-≈ 60 + 1.8 + 0.13 ≈ **62 mAh/day → roughly 4–5 weeks per charge.**
+≈ 60 + 1.8 + 0.13 ≈ **62 mAh/day → roughly 3.5–4 weeks per charge on the 2000 mAh LiPo.**
 
 The standby leak dominates everything. Upgrade path (v2): swap the Nano for a **3.3 V/8 MHz
 Pro Mini with its regulator and power LED removed** → sleep current drops to ~10 µA,
@@ -439,7 +439,10 @@ locks into. Consequences:
   hook joint — the tongue has 3 detent depths, selected at install, and the hinge side
   keeps a slotted pin position for fine preload.
 
-### 6.5 Top pod internal layout & wiring plan
+### 6.5 Top pod internal layout & wiring plan — SUPERSEDED by the v0.4 split (§6.7)
+
+*Kept for reference: this section describes the v0.3 layout with all electronics in the
+top pod. v0.4 moves everything except the latch and reader to the bottom bay.*
 
 Packing study with **verified part dimensions** (sources in BOM): PN532 42.7 × 40.4 × 4,
 18650 holder 76 × 21 × 21, Nano 45 × 18, JF-0530B body 30 × 13 × 15 **plus its Ø6 × 58 mm
@@ -512,7 +515,35 @@ subtracting the curved shell intrusion → **~47% fill, >30% reserved for wiring
 fingers** — comfortably inside the 70–75% max-fill rule of thumb for hand-assembled
 enclosures.
 
-### 6.6 RFID face
+### 6.6 v0.4 "slim top" architecture (current)
+
+Owner direction: the top must be sleek; the bottom carries the mass and draws no
+attention. Implemented in CAD v0.4 (`cad/bike_lock_cq.py`):
+
+- **Top pod (126 × 56 × 25 mm outer — half the old height):** latch bore + solenoid
+  (plunger-as-pin), PN532 under the lid window, wake button + LEDs. Nothing else.
+- **Bottom bay** (one printed module around the spool drum, bolted by 4× M4 from inside
+  the clamp bore): **front tunnel** = TP4056 + USB-C port (through the front wall, under
+  a dust flap) + Nano + perfboard on a zip-anchor grid; **rear tunnel** = battery +
+  MT3608. Both tunnels close with a shared bottom hatch part (printed twice).
+- **Battery change: 103450 LiPo pouch (~2000 mAh, 34 × 50 × 10 mm, ~$6)** — a rigid
+  76 mm 18650+holder cannot package beside the drum; anything crossing the drum's
+  midsection hits the spool. Battery life drops from ~4–5 weeks to **~3.5–4 weeks**
+  (§4.4 math scales linearly). Must be a cell **with protection PCB**, charged by the
+  same protected TP4056.
+- **Wiring paths (all printed in):** a hollow **wire spine** rib on the right shell side
+  (x 96–112, void ~3.5 × 12 mm arc) carries ~11 conductors from the rear tunnel up
+  through a slanted feed hole into the pod, under the belt line; a **corner duct**
+  inside the bay (outside the drum ring, +Y top corner) links front↔rear tunnels for
+  the 4 power wires; a short raceway inside the pod serves the PN532 ribbon.
+- **Deleted in v0.4:** the cam-lock backstop (no wall tall enough in the slim pod — the
+  USB power-bank unlock in §8 is the dead-battery path, as decided) and the separate
+  battery saddles / driver tray / board pocket cartridges (their jobs moved into the bay).
+- **Service note:** spool access now requires unbolting the bay (4 screws from the open
+  clamp) — the cover can't slide out past the rear tunnel in place. Rare operation,
+  accepted.
+
+### 6.7 RFID face
 
 The PN532 antenna sits directly under a **plastic** window on the top face (13.56 MHz does
 not pass through stainless). Keep all steel ≥10 mm clear of the antenna loop or read range
@@ -550,9 +581,9 @@ Implementation note for the electronics build: the TP4056 module's OUT+/OUT− t
 whenever USB is present. That's the standard wiring for the protected TP4056 board
 anyway — just don't tap the system rail directly off the cell.
 
-For v1, while the electronics are still unproven, we also fit the optional no-electronics
-backstop: a small tubular-key cam lock that manually retracts the same pin, hidden under
-a rubber plug (~$4). It can be deleted in v2 once the system has months of track record.
+*(v0.4 update: the cam-lock backstop was deleted — the slim top has no wall tall enough
+for its barrel. Bench-test the electronics thoroughly before first on-bike use; the USB
+power-bank unlock is the sole dead-battery path, which is the accepted design.)*
 
 The earlier idea (unlock on battery death) was rejected for the record — one problem of
 security and one of physics:

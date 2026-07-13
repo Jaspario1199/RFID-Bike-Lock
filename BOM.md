@@ -10,8 +10,8 @@ lot from AliExpress roughly halves the Amazon total but takes 2–4 weeks.
 | 1 | Arduino Nano (clone, CH340) | 5 V/16 MHz | 1 | $4 |
 | 2 | PN532 NFC module | Elechouse V3 style, set to I2C | 1 | $8 |
 | 3 | Linear pull solenoid | JF-0530B **6 V** variant, ~20 Ω/300 mA, 5 N/10 mm; body 30×13×15 mm, plunger Ø6×58 mm | 1 | $4 |
-| 4 | 18650 Li-ion cell, protected | ≥2500 mAh (Samsung 25R class + protection PCB, or protected cell) | 1 | $6 |
-| 5 | 18650 holder | single, leaf-spring; 76 × 21 × 21 mm outer | 1 | $1 |
+| 4 | **103450 LiPo pouch, with protection PCB** | 2000 mAh, 34 × 50 × 10 mm (v0.4: the 18650 no longer packages in the bottom bay) | 1 | $6 |
+| 5 | ~~18650 holder~~ | not needed in v0.4 — the LiPo sits in a printed frame in the bay | — | — |
 | 6 | TP4056 charge board **with protection** (USB-C version) | has DW01 + FS8205 on board; 29 × 17.3 × 4.3 mm | 1 | $1.50 |
 | 7 | MT3608 boost converter | set to 5.0 V; 36 × 17 mm | 1 | $1.50 |
 | 8 | N-MOSFET (solenoid) | IRLZ44N (TO-220, logic-level) | 1 | $1 |
@@ -38,7 +38,7 @@ lot from AliExpress roughly halves the Amazon total but takes 2–4 weeks.
 | 23 | Closure hardware | 1 × M4 low-profile socket screw + washer + brass heat-set insert (lives at the bottom of the latch bore, DESIGN.md §6.4); long 2.5 mm hex key | — | $2 |
 | 23b | Hinge pins | Ø3 mm stainless rod, 2 × ~55 mm (blind channels, glued printed end plugs) | 1 rod | $1 |
 | 23d | Drum module screws | M4 × 12 self-tap ×4 (driven from inside the clamp bore) | 4 | $1 |
-| 23c | Cam lock backstop (v1 only) | mini tubular-key cam lock, retracts the locking pin manually; hidden under a rubber plug | 1 | $4 |
+| 23c | ~~Cam lock backstop~~ | dropped in v0.4 (no wall tall enough in the slim pod); USB power-bank unlock is the dead-battery path | — | — |
 
 ## Mechanical — Phase 2 steel housing (TBD, ~$40–80)
 
