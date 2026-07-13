@@ -33,10 +33,11 @@ lot from AliExpress roughly halves the Amazon total but takes 2–4 weeks.
 | 18 | Wire rope | 4 mm 7×7 stainless, PVC-coated, 2 m | 1 | $8 |
 | 19 | Cable end stop / swage sleeves | 4 mm aluminum, crimp | 4 | $2 |
 | 20 | Donor retractable reel | heavy-duty dog leash or badge reel (spring + spool) | 1 | $8 |
-| 21 | Springs assortment | pin return + ejector (compression, ~2–5 N range) | — | $5 |
+| 21 | Ejector spring | light compression, under the bore floor (the locking preload now comes from the solenoid's own return spring — v0.3 plunger-as-pin) | 1 | $2 |
 | 22 | Silicone sponge sheet — *only if TPU printing is unavailable* (fallback liner) | 10 mm, medium density | 1 | ($8) |
 | 23 | Closure hardware | 1 × M4 low-profile socket screw + washer + brass heat-set insert (lives at the bottom of the latch bore, DESIGN.md §6.4); long 2.5 mm hex key | — | $2 |
-| 23b | Hinge pin | Ø3 mm stainless rod, ~250 mm (cut to length) | 1 | $1 |
+| 23b | Hinge pins | Ø3 mm stainless rod, 2 × ~55 mm (blind channels, glued printed end plugs) | 1 rod | $1 |
+| 23d | Drum module screws | M4 × 12 self-tap ×4 (driven from inside the clamp bore) | 4 | $1 |
 | 23c | Cam lock backstop (v1 only) | mini tubular-key cam lock, retracts the locking pin manually; hidden under a rubber plug | 1 | $4 |
 
 ## Mechanical — Phase 2 steel housing (TBD, ~$40–80)
@@ -46,7 +47,7 @@ lot from AliExpress roughly halves the Amazon total but takes 2–4 weeks.
 | 24 | 304 stainless sheet | 1.5 mm, rolled to Ø55 mm shell | 1 |
 | 25 | Stainless piano hinge | 30 mm segments | 2 |
 | 26 | Hardened receiver bushing | drill bushing, Ø10 mm ID | 1 |
-| 27 | Locking pin | Ø4 mm drill blank (hardened), cut to length | 1 |
+| 27 | Locking pin | not needed in v1 (solenoid plunger is the pin); steel version may revert to Ø4 drill blank | (1) |
 | 28 | Cable head | machined, hardened mushroom w/ groove (shop job) | 1 |
 | 29 | ABS/polycarbonate window | 2 mm, over PN532 antenna | 1 |
 

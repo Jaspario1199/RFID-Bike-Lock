@@ -263,6 +263,12 @@ a $20 gadget by someone who taps your fob. For a bike lock this is an acceptable
 **v1 housing is 3D printed** (see §6.2 print spec); the stainless shell moves to a later
 phase once the geometry is proven. All dimensions below apply to both.
 
+*CAD v0.3 (CadQuery/STEP) implements this section as a **13-part modular assembly**: the
+two shells stay structural/integral (clamp + pod + belt + latch boss), the spool drum is
+a separate zero-support module bolted from inside the clamp bore (screws reachable only
+when unlocked), and all interior furniture is drop-in cartridges on a standard pad
+system — full rationale in ASSEMBLY.md and cad/README.md.*
+
 ### 6.1 Overall envelope
 
 **One-size-fits-all requirement:** one product, no size variants, snug on the range of
@@ -378,10 +384,13 @@ the core can't be smaller.
   Zero power. A weak ejector spring behind the head is compressed as it seats.
 - **Remove (unlock):** solenoid pulls the pin 4 mm; ejector spring pops the head ~5 mm out
   so it can't instantly re-latch; spool retracts the cable.
-- Pin: Ø4 mm hardened dowel (drill blank), engagement 3 mm into the groove. Shear area is
-  ample — the attack that matters is cutting the cable, not shearing the pin.
-- Pin spring: sized so the solenoid still wins at 3.5 V battery (~4 N pull) → choose
-  ~2 N spring preload. Prototype and measure.
+- Pin = **the solenoid's own Ø6 plunger** (v0.3 change, see ASSEMBLY.md §3.1): a 45°
+  ramp is filed on its nose, it runs in a Ø6.6 channel through the boss, and the
+  solenoid's included return spring provides the locking preload. No separate pin,
+  coupling, or spring seat. Cable-head groove widens to ≥6.5 mm to accept the Ø6 nose.
+  Shear area is ample — the attack that matters is cutting the cable, not the pin.
+- Fallback if the measured plunger force/geometry disappoints: the old separate Ø4
+  hardened-pin design, which then needs its coupling fully drawn before printing.
 - Receiver bushing: hardened steel insert so a screwdriver can't gouge the latch open.
 
 **Male fitting trade study — square tang vs round head (resolved).** The original

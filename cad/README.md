@@ -1,11 +1,47 @@
-# CAD — parametric housing model
+# CAD — parametric housing model (v0.3, CadQuery → STEP)
 
-`bike_lock.scad` is a parametric [OpenSCAD](https://openscad.org) model of the whole
-v1 printed housing, matching DESIGN.md §6. Every dimension from the design doc is a
-named variable at the top of the file — change it, press F5, and the geometry updates.
+`bike_lock_cq.py` is the source of truth: a parametric [CadQuery](https://cadquery.readthedocs.io)
+model that builds true BREP solids and exports **STEP** (SolidWorks-ready) and STL for
+every part. Every dimension from DESIGN.md §6 is a named variable at the top of the file.
 
-**Status: v0.2 DRAFT** — industrial-design pass done, rendered and visually verified,
-but no part has been test-printed yet. Expect to iterate — that's what parametric means.
+**Status: v0.3 DRAFT** — modular restructure + SolidWorks pipeline done, rendered and
+visually verified; no part test-printed yet.
+
+## Working in SolidWorks
+
+Open any `step/<part>.step` directly — each imports as a clean solid body (real faces,
+direct-editable, measurable, assemblable, FEA-able). STEP carries no feature tree; to
+iterate parametrically either edit `bike_lock_cq.py` and re-export, or rebuild a part
+natively in SW using the parameter block as the spec.
+
+To regenerate everything: `pip install cadquery` then `python bike_lock_cq.py`
+(or `python bike_lock_cq.py lid drum_module` for specific parts).
+`legacy_bike_lock_v02.scad` is the retired OpenSCAD v0.2, kept for reference;
+`render_v03.scad` only composites the exported STLs for preview renders.
+
+## v0.3 modular architecture (why 13 parts, not 7)
+
+| Part | Role | Why separate |
+|---|---|---|
+| `shell_right` | clamp half + pod + belt right + **latch boss** + mounting pads | the security envelope and cable load path — stays integral |
+| `shell_left` | clamp half + skirt (belt left) + lip + screw pad | ditto |
+| `drum_module` | spool drum + saddle + cable snout | **bolted from inside the clamp bore** — 4× M4 reachable only when the lock is open; prints face-down with zero supports; the shells lose their support forest |
+| `pedestal_cart` | solenoid mount | carries `sol_hole_dx`/`sol_axis_h` (VERIFY dims) — reprint in minutes when the real solenoid arrives |
+| `driver_tray` | perfboard shelf over the Nano bay | separate = Nano serviceable, wire notches, zip anchors |
+| `battery_saddle` ×2 | level bed for the 18650 holder | zip-tie pass-unders |
+| `board_pocket` | card-edge slots for TP4056 + MT3608 | boards slide in; the USB-C port self-aligns to the wall slot |
+| `lid` | window skin, NFC ring, button dish, **PN532 posts** | — |
+| `liner_right/left`, `shim` | TPU fit system | — |
+| `spool_cover` | drum face plate | — |
+| `end_plug` ×2 | glued caps over the blind hinge-pin channels | — |
+
+All cartridges bolt to a standardized **flat-pad system** (12 mm pads, tops at z=32,
+M3 self-tap) so the curved floor never complicates assembly.
+
+Assembly-audit fixes implemented (ASSEMBLY.md §3): **plunger-as-pin** (Ø6.6 channel, no
+separate pin/spring/coupling), **two blind ~55 mm hinge pins** inserted from the end
+faces behind glued plugs (no exposed pin ends), card-edge board pockets, and all-M3
+self-tap standardization (the M4 closure insert is the only heat-set left).
 
 ## Design principles applied in v0.2
 
@@ -28,25 +64,16 @@ Standard FDM design-for-manufacturing + product-design practice:
   zip-tie holes, two battery saddles giving the 18650 holder a level bed (with zip-tie
   pass-unders), and two mushroom strain-relief posts for the lid's service loop.
 
-## How to use
-
-1. Install OpenSCAD (free, openscad.org).
-2. Open `bike_lock.scad`. The **Customizer** panel (Window → Customizer) exposes `part`:
-   - `assembly` — everything together, for visual inspection
-   - `shell_right` — the half that carries the top pod, latch boss, solenoid pedestal, and spool drum
-   - `shell_left` — the half with the hook tongue and hinge knuckles
-   - `lid` — with PN532 pocket, RF window skin, button/LED holes, bore pass-through
-   - `liner_right` / `liner_left` — TPU finned half-sleeves
-   - `shim` — TPU C-ring for Ø27–32 mm skinny tubes
-   - `spool_cover` — drum face plate
-3. F6 (full render) → File → Export → STL, one part at a time.
-
 ## Print guide
 
-| Part | Material | Notes |
+| Part | Material | Orientation / notes |
 |---|---|---|
-| shell halves, lid, spool cover | PETG first / ASA for the outdoor unit | 6 perimeters, 40% gyroid; shells print pod-opening-up with organic supports under the drum |
-| liner halves, shim | TPU 95A | 2 perimeters, 15% infill, ~25 mm/s, fins vertical (they print as clean walls) |
+| shell_right | PETG first / ASA outdoors | pod-opening up; light support at belt overhang only — the drum is gone from this print |
+| shell_left | PETG / ASA | split-face down, near-zero support |
+| drum_module | PETG / ASA | drum face down, **zero support** |
+| lid | PETG / ASA | top-face down on a smooth sheet (window skin + NFC ring print first) |
+| cartridges (pedestal, tray, saddles, pocket), end plugs | PETG | flat side down, minutes each |
+| liner halves, shim | TPU 95A | 2 perimeters, 15% infill, ~25 mm/s, fins vertical |
 
 ## VERIFY before printing (measure your actual parts)
 
@@ -60,13 +87,16 @@ Standard FDM design-for-manufacturing + product-design practice:
 ## Known v0.2 simplifications (TODO after first fit-check print)
 
 1. Closure lip is a single snug hook — the 3 preload detent depths (DESIGN.md §6.4) get
-   added once the on-bike fit is measured.
+   added once the on-bike fit is measured; `clr` (0.5) needs a fit print.
 2. Liner halves rely on friction + adhesive; dovetail keys into the shell come later.
 3. Shim is a plain C-ring approximation of the clip-over design.
-4. Lid uses 4 exposed corner M3 screws — acceptable on the prototype (they expose the
-   electronics, not the frame closure); the steel version needs the front-lip + hidden
-   rear fastening.
-5. Spool spring anchoring is not modeled — it depends entirely on the donor reel's spring.
+4. Lid uses 4 exposed corner M3 screws — acceptable on the prototype; steel version needs
+   hidden lid fastening (see ASSEMBLY.md §4 for the concrete reason).
+5. Spool spring anchoring is not modeled — depends on the donor reel's spring.
+6. Drum saddle edges are visible below the shell (the v0.2 cosmetic fairing was traded
+   for the zero-support modular drum) — revisit the blend once fit is proven.
+7. The plunger nose needs its 45° ramp filed/ground by hand — 10 minutes with a file;
+   the cable-head groove width (≥6.5 mm) must match, noted in DESIGN.md §6.4.
 
 ## Suggested first prints (cheap fit checks before the big ones)
 
