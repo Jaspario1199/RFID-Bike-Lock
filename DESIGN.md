@@ -262,12 +262,12 @@ No single feature spans Ø27–46 mm, so the fit stacks **three** mechanisms —
 | Element | Dimension | Notes |
 |---|---|---|
 | Clamp shell ID | Ø54 mm | v1: printed, 4 mm wall → OD Ø62 mm. Steel version: 304, 1.5 mm wall → OD Ø57 mm |
-| Clamp length | 110 mm | longer = more grip on the frame, less rocking |
+| Clamp length | 150 mm | sized by the top pod (§6.6 packing study): battery + latch + antenna zones can't overlap, so the pod needs 150 mm and the clamp matches it. Bonus: more grip, less rocking |
 | Liner | Printed TPU ribbed sleeve, 12 mm radial fins (§6.2) | free bore Ø30 mm; grips Ø32–46 mm tubes |
 | Shim sleeve | Clip-in TPU ring, 3 mm solid + its own 4 mm fins | extends range down to Ø27 mm |
 | Hinges | Printed knuckles + Ø3 mm stainless pin along the bottom seam (steel version: riveted piano hinge) | |
 | Closure | Full-length hooked tongue-and-groove flange joint + **one M4 screw recessed at the bottom of the latch bore** (§6.4) | the locked cable head covers the only screw → housing can't be opened while the bike is locked. Preload adjustment: 3 tongue detent depths + slotted hinge-pin position (≈ ±2.5 mm effective clamp diameter) |
-| Top pod (electronics) | 115 × 55 × 32 mm box printed/welded onto shell top | Fits Nano 45×18, PN532 43×40 face-up under a 2 mm ABS window (RF passes through plastic, NOT through steel — the lid over the antenna must be plastic even on the steel version), 18650 65×18, solenoid, boards |
+| Top pod (electronics) | 150 × 55 mm footprint, lid 34 mm above the shell crown | full internal layout + wiring plan in §6.6; the lid over the PN532 antenna must be plastic even on the steel version (13.56 MHz passes through plastic, not steel) |
 | Bottom pod (spool) | Ø95 mm × 34 mm drum hanging under shell | |
 | Total added weight | v1 printed ~500–650 g; steel ~750–900 g | comparable to a mid U-lock |
 
@@ -391,7 +391,69 @@ locks into. Consequences:
   hook joint — the tongue has 3 detent depths, selected at install, and the hinge side
   keeps a slotted pin position for fine preload.
 
-### 6.5 RFID face
+### 6.5 Top pod internal layout & wiring plan
+
+Packing study: every component with its real dimensions, plus wiring room. Three zones
+that must NOT overlap set the pod length — the PN532 needs a metal-free column above and
+below it, the latch bore needs clear vertical depth, and the 18650 is a 75 mm brick.
+End-to-end that's ~148 mm → **pod interior 150 × 55 mm, lid 34 mm above the shell crown.**
+
+Because the pod floor is the curved shell (Ø62), depth grows from 34 mm at the centerline
+to ~48 mm at the side walls — tall parts and wire runs go to the edges on purpose.
+
+```
+ TOP VIEW of pod interior (lid removed), X in mm along the frame axis
+ X=0 (front end)                                                X=150 (rear end)
+ ┌─────────────┬───────────────┬────────────────────────────────────┐
+ │             │ ○ latch bore  │  18650 + holder (75×21×21)         │  Y=0..23
+ │   PN532     │   Ø11         │  [along the side wall]             │
+ │   43×40     ├───────────────┤────────────┬───────────────────────┤
+ │  face-up    │   solenoid    │   Nano     │ perfboard: IRLZ44N,   │
+ │  under lid  │   JF-0530B    │   45×18    │ AO3401, diode, 1000µF │  Y=30..55
+ │   window    │ (lying across)│ (USB → X+) │ TP4056 ▓ + MT3608     │
+ └─────────────┴───────────────┴────────────┴──────────▲────────────┘
+   "RF zone"      "latch block"        "power zone"    USB-C port
+    X 0-48           X 48-78              X 78-150     through rear wall
+```
+
+**Zone by zone:**
+
+| Zone | X range | Contents & orientation |
+|---|---|---|
+| RF | 0–48 | PN532 mounted to the **underside of the lid** (screws into lid bosses), antenna up, under the 2 mm plastic window. **Nothing metal above or below it** — the curved void underneath stays empty except for two thin signal runs hugging the floor edges. Wake button + LEDs sit on the lid at the RF/latch boundary (X≈50) |
+| Latch block | 48–78 | Receiver bore (Ø11 × 26 deep, vertical) at Y≈14, sitting over the closure flange so the bore-bottom screw clamps the halves (§6.4). Solenoid lies **flat across the pod** (Y 22–52) at floor level, plunger toward the bore, pulling the pin horizontally out of the bore wall. Pin spring coaxial with pin; ejector spring under the bore floor |
+| Power | 78–150 | 18650 holder along the side wall (Y 0–23) — the deep edge takes its 21 mm height easily. Nano beside it (Y 30–48), USB port facing the rear so it's reachable for reflashing with the lid off. Perfboard (MOSFETs, flyback diode, reservoir cap, divider resistors) at X 125–148. TP4056 stacked low at the rear wall, **USB-C port through the rear end wall** under a rubber dust flap; MT3608 beside it |
+
+**Why this orientation works:**
+
+- The scan face is at the front end of the pod — natural "tap here" target, and the RF
+  zone is as far as possible from the battery's steel can (the #1 range killer).
+- TP4056 sits right next to the battery it charges (5 cm leads, not 15 cm across the pod).
+- The solenoid's thick wires drop straight onto the adjacent perfboard (~40 mm run).
+- The latch bore lands mid-pod, directly above the closure flange — required by the
+  self-guarding screw (§6.4).
+- No wiring leaves the top pod at all: the bottom spool pod is purely mechanical.
+
+**Wiring plan (~15 conductors total):**
+
+| Run | Wire | Route |
+|---|---|---|
+| Battery → TP4056 → perfboard bus | 22 AWG | rear corner, 5–8 cm |
+| Perfboard → solenoid | 22 AWG | along Y=55 floor edge, 6 cm |
+| MT3608 5 V → Nano → PN532 | 26 AWG | 5 V + GND pair along Y=0 edge |
+| Nano A4/A5 → PN532, D7 → P-FET | 28 AWG | 3-wire ribbon along the Y=0 floor channel under the battery holder |
+| Lid parts (button, LEDs, PN532) → body | 28 AWG | one 15 cm service loop at the X=50 hinge-side corner so the lid opens fully without unplugging; JST-XH connector so it CAN unplug |
+
+Printed wire channels (3 × 3 mm) run along both floor edges with clip-over tabs every
+30 mm — no glue, no zip ties, wires can't drift into the plunger or the spool. Every
+off-board connection gets a JST-XH plug so any module can be swapped without soldering.
+
+**Fill check:** component volume ≈ 95 cm³ (battery 33, latch block 18, PN532+clearance 15,
+Nano 10, boards ~12, solenoid 7). Usable pod volume ≈ 195 cm³ after subtracting the curved
+shell intrusion → **~50% fill, ~30% reserved for wiring and fingers** — comfortably inside
+the 70–75% max-fill rule of thumb for hand-assembled enclosures.
+
+### 6.6 RFID face
 
 The PN532 antenna sits directly under a **plastic** window on the top face (13.56 MHz does
 not pass through stainless). Keep all steel ≥10 mm clear of the antenna loop or read range
