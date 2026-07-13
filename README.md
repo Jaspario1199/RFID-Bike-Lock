@@ -16,7 +16,8 @@ releases the cable, which then reels itself back in.
 | [`DESIGN.md`](DESIGN.md) | The full engineering design document: user workflow, electronics, wiring, power budget, mechanical dimensions, security analysis, open questions |
 | [`BOM.md`](BOM.md) | Bill of materials — every part, quantity, and estimated price |
 | [`firmware/`](firmware/) | Arduino sketch (v1, ready to flash) + bench bring-up guide |
-| [`cad/`](cad/) | Parametric OpenSCAD model of the printed housing (v0 draft) + print guide |
+| [`cad/`](cad/) | Parametric OpenSCAD model of the printed housing (v0.2) + STLs, renders, print guide |
+| [`ASSEMBLY.md`](ASSEMBLY.md) | Step-by-step assembly sequence + DFM/DFA audit with queued CAD changes |
 
 ## Status
 
