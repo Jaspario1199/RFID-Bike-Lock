@@ -15,13 +15,15 @@ releases the cable, which then reels itself back in.
 |---|---|
 | [`DESIGN.md`](DESIGN.md) | The full engineering design document: user workflow, electronics, wiring, power budget, mechanical dimensions, security analysis, open questions |
 | [`BOM.md`](BOM.md) | Bill of materials — every part, quantity, and estimated price |
+| [`firmware/`](firmware/) | Arduino sketch (v1, ready to flash) + bench bring-up guide |
 
 ## Status
 
-**Design phase.** Nothing has been built yet. The next milestones (detailed at the end of
-`DESIGN.md`) are:
+**Design phase — firmware written, nothing physically built yet.** The next milestones
+(detailed at the end of `DESIGN.md`) are:
 
-1. Breadboard the electronics (Nano + PN532 + solenoid) and prove the unlock flow
+1. Breadboard the electronics (Nano + PN532 + solenoid) and prove the unlock flow —
+   the firmware and a step-by-step bring-up guide are waiting in `firmware/`
 2. 3D-print the v1 housing (ASA/PETG) — the first real model is plastic, steel comes later
 3. Fabricate the stainless housing
 
