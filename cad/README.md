@@ -11,10 +11,14 @@ git tag `v0.3`. Rendered and visually verified; nothing test-printed yet.
 
 ## Working in SolidWorks
 
-**Fastest start: open `step/bike_lock_assembly.step`** — a full assembly with all 12
-components already positioned and colored (SolidWorks imports it as an assembly; STEP
-carries positions but not mates, so add mates only if you want motion). The optional
-`shim` isn't included since it occupies the liner's space.
+**Fastest start: open `step/bike_lock_combined.step`** — all 12 parts positioned, as a
+single multibody file (imports the same reliable way as the individual parts; each body
+is separately selectable/hideable in the Solid Bodies folder). `bike_lock_assembly.step`
+is the same content as a true STEP *assembly* with named, colored components — some
+SolidWorks configurations open it blank; if so, untick Tools → Options → Import →
+"Enable 3D Interconnect" and reopen, or just use the combined file. Neither carries
+mates (STEP can't); parts are frozen in their correct positions. The optional `shim`
+isn't included since it occupies the liner's space.
 
 Open any `step/<part>.step` directly — each imports as a clean solid body (real faces,
 direct-editable, measurable, assemblable, FEA-able). STEP carries no feature tree; to
