@@ -177,9 +177,11 @@ def knuckle_clear(spans):
 def hinge_pin_channels():
     f = cq.Workplane("YZ", origin=(-1, 0, hinge_cz)).circle(hinge_hole / 2).extrude(pin_depth + 1)
     b = cq.Workplane("YZ", origin=(shell_len + 1, 0, hinge_cz)).circle(hinge_hole / 2).extrude(-(pin_depth + 1))
-    pf = cq.Workplane("YZ", origin=(-1, 0, hinge_cz)).circle(3.1).extrude(4)
-    pb = cq.Workplane("YZ", origin=(shell_len + 1, 0, hinge_cz)).circle(3.1).extrude(-4)
-    return f.union(b).union(pf).union(pb)
+    pf = cq.Workplane("YZ", origin=(-1, 0, hinge_cz)).circle(3.1).extrude(6.4)
+    pb = cq.Workplane("YZ", origin=(shell_len + 1, 0, hinge_cz)).circle(3.1).extrude(-6.4)
+    rf = cq.Workplane("YZ", origin=(-1, 0, hinge_cz)).circle(4.2).extrude(2.4)
+    rb = cq.Workplane("YZ", origin=(shell_len + 1, 0, hinge_cz)).circle(4.2).extrude(-2.4)
+    return f.union(b).union(pf).union(pb).union(rf).union(rb)
 
 
 def rot_about_hinge(shape_wp, deg):
@@ -273,8 +275,6 @@ def drum_ring():
     ring = ring.cut(
         cq.Workplane("XZ", origin=(drum_cx, DR_Y0 + drum_wall, drum_cz)).circle(drum_od / 2 - drum_wall).extrude(-drum_w)
     )
-    # cover rabbet on the outboard (+Y) face
-    ring = ring.cut(cq.Workplane("XZ", origin=(drum_cx, DR_Y1 - 3, drum_cz)).circle(drum_od / 2 - 1).extrude(-3.2))
     return ring
 
 
@@ -351,6 +351,7 @@ def build_body():
         body = body.union(pad_boss(px, py))
     body = body.cut(closure_sweep_cut())              # admits the door's flange+lip (after boss!)
     body = body.cut(tube_bore())
+    body = body.intersect(cq.Workplane("XY", origin=(shell_len / 2, 0, 0)).box(shell_len, 400, 700, centered=(True, True, True)))
     return largest_solid(body)
 
 
@@ -359,6 +360,7 @@ def build_door():
     door = arc.union(door_flange()).union(door_lip()).union(knuckle_solids(hinge_left))
     door = door.cut(knuckle_clear(hinge_right)).cut(hinge_pin_channels())
     door = door.cut(tube_bore())
+    door = door.intersect(cq.Workplane("XY", origin=(shell_len / 2, 0, 0)).box(shell_len, 400, 700, centered=(True, True, True)))
     return largest_solid(door)
 
 
@@ -369,7 +371,7 @@ def build_bay_module():
     cav = loft_rrect(BK_X1 - BK_X0 - 6, BAY_Y1 - BAY_Y0 - 6, BK_BOT + 3, 0, 6, -2).translate(
         ((BK_X0 + BK_X1) / 2, (BAY_Y0 + BAY_Y1) / 2, 0)
     )
-    web = cq.Workplane("XY", origin=(64, (DR_Y0 + DR_Y1) / 2, -44)).box(12, DR_Y1 - DR_Y0, 30, centered=(True, True, True))
+    web = cq.Workplane("XY", origin=(64, (DR_Y0 + DR_Y1) / 2, -44)).box(12, DR_Y1 - DR_Y0, 28, centered=(True, True, True))
     body = brick.union(drum_ring()).union(web).union(snout_solid())
     # M4 bosses under the through-bore screws (brick zone)
     zs2 = -math.sqrt(R_out * R_out - bay_screw_y ** 2)
@@ -377,6 +379,8 @@ def build_bay_module():
         b = cq.Workplane("XY", origin=(sx, bay_screw_y, zs2 + 2)).circle(4.5).extrude(-12)
         body = body.union(b)
     body = body.cut(cav).cut(snout_hole())
+    # cover rabbet on the outboard (+Y) face - cut AFTER all unions so the web is trimmed too
+    body = body.cut(cq.Workplane("XZ", origin=(drum_cx, DR_Y1 - 3, drum_cz)).circle(drum_od / 2 - 1).extrude(-3.3))
     for sx in bay_screw_xs:
         body = body.cut(cq.Workplane("XY", origin=(sx, bay_screw_y, zs2)).circle(1.7).extrude(-12))
     # spine landing window (brick top, +Y side)
@@ -437,6 +441,8 @@ def build_pedestal_cart():
     body = base.union(tower)
     for dx in (sol_len / 2 - sol_hole_dx / 2, sol_len / 2 + sol_hole_dx / 2):
         body = body.cut(cq.Workplane("XY", origin=(66 + dx, bore_y, ped_top - 12)).circle(sol_hole_d / 2).extrude(13))
+    # scallop: clear the latch boss column (+0.5)
+    body = body.cut(cq.Workplane("XY", origin=(bore_x, bore_y, PAD_Z - 1)).circle(boss_d / 2 + 0.5).extrude(ped_top - PAD_Z + 3))
     return body
 
 
@@ -566,12 +572,58 @@ def verify(sweep=False):
     return ok
 
 
+# one placements table drives --matrix, step/placed/, and the assembly file
+# (name, part, translate, rotate_axis, rotate_deg)
+def placements():
+    return [
+        ("01_body", "body", (0, 0, 0), None, 0),
+        ("02_door", "door", (0, 0, 0), None, 0),
+        ("03_bay_module", "bay_module", (0, 0, 0), None, 0),
+        ("04_lid", "lid", (0, 0, z_lid0), None, 0),
+        ("05_pedestal_cart", "pedestal_cart", (0, 0, 0), None, 0),
+        ("06_liner_right", "liner_right", (0, 0, 0), None, 0),
+        ("07_liner_left", "liner_left", (0, 0, 0), None, 0),
+        ("08_bay_hatch", "bay_hatch", (BK_X0, (BAY_Y0 + BAY_Y1) / 2, BK_BOT - 2.5), None, 0),
+        ("09_spool_cover", "spool_cover", (98, DR_Y1 - 2.9, drum_cz), (1, 0, 0), -90),
+        ("10_end_plug_front", "end_plug", (5.4, 0, hinge_cz), (0, 1, 0), -90),
+        ("11_end_plug_rear", "end_plug", (shell_len - 5.4, 0, hinge_cz), (0, 1, 0), 90),
+    ]
+
+
+def placed_solids():
+    out = []
+    cache = {}
+    for name, part, t, axis, ang in placements():
+        if part not in cache:
+            cache[part] = PARTS[part]()
+        v = cache[part].val()
+        if ang:
+            v = v.rotate(cq.Vector(0, 0, 0), cq.Vector(*axis), ang)
+        out.append((name, cq.Workplane(obj=v.moved(cq.Location(cq.Vector(*t))))))
+    return out
+
+
+def verify_matrix():
+    import itertools
+    ps = placed_solids()
+    bad = 0
+    for (na, a), (nb, b) in itertools.combinations(ps, 2):
+        v = overlap_volume(a, b)
+        if v > 1:
+            print(f"  CLASH {na} x {nb}: {v:.1f} mm^3", flush=True)
+            bad += 1
+    print(f"[verify] static interference matrix: {bad} clashing pairs " + ("PASS" if bad == 0 else "FAIL"), flush=True)
+    return bad == 0
+
+
 def main():
     import os
 
     args = [a for a in sys.argv[1:] if not a.startswith("--")]
     if "--sweep" in sys.argv:
         sys.exit(0 if verify(sweep=True) else 1)
+    if "--matrix" in sys.argv:
+        sys.exit(0 if verify_matrix() else 1)
     names = args or list(PARTS.keys())
     os.makedirs("step", exist_ok=True)
     os.makedirs("stl", exist_ok=True)

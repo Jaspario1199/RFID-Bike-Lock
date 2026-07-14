@@ -15,7 +15,7 @@ module fixed_set(e=0) {
     color("#455A64") translate([4, 27.5, -58 - 2.5 - 2.2*e]) import("stl/bay_hatch.stl");
     color("#D95D39") translate([0, 0, e]) import("stl/pedestal_cart.stl");
     color("#3A3A3A") import("stl/liner_right.stl");
-    color("#AEB4BA") translate([98, 35.8 + 1.5*e, -60]) rotate([-90, 0, 0]) import("stl/spool_cover.stl");
+    color("#AEB4BA") translate([98, 36.1 + 1.5*e, -60]) rotate([-90, 0, 0]) import("stl/spool_cover.stl");
 }
 // ghost tube to show the clamp target in the open view
 module tube_ghost() { color("#88AA88", 0.5) rotate([0, 90, 0]) translate([0,0,-15]) cylinder(d=42, h=180); }

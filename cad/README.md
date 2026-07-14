@@ -7,7 +7,8 @@ every part. Every dimension from DESIGN.md §6 is a named variable at the top of
 **Status: v0.5 DRAFT ("spine + door")** — consumer-install architecture: the door is a
 light arc panel that verifiably swings clear (0–110°, machine-checked); pod, bay, and
 slim Y-axis drum all live on the body's right side; the tube's entry corridor is kept
-empty by construction. `python bike_lock_cq.py --sweep` re-runs the kinematic proofs.
+empty by construction. `python bike_lock_cq.py --sweep` re-runs the kinematic proofs and `--matrix` checks all
+placed parts pairwise for static interference (currently 0 clashing pairs).
 v0.3 and v0.4 are preserved in `archive/`. Rendered and verified; nothing test-printed.
 
 ## Working in SolidWorks
