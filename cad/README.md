@@ -11,6 +11,11 @@ git tag `v0.3`. Rendered and visually verified; nothing test-printed yet.
 
 ## Working in SolidWorks
 
+**Fastest start: open `step/bike_lock_assembly.step`** — a full assembly with all 12
+components already positioned and colored (SolidWorks imports it as an assembly; STEP
+carries positions but not mates, so add mates only if you want motion). The optional
+`shim` isn't included since it occupies the liner's space.
+
 Open any `step/<part>.step` directly — each imports as a clean solid body (real faces,
 direct-editable, measurable, assemblable, FEA-able). STEP carries no feature tree; to
 iterate parametrically either edit `bike_lock_cq.py` and re-export, or rebuild a part
