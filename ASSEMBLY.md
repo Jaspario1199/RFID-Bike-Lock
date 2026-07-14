@@ -91,3 +91,18 @@ The sequence above still holds with these substitutions:
   stay on the lid as before.
 - Spool service = unbolt the bay (the cover can't slide out past the rear tunnel
   in place). Cam-lock backstop deleted (DESIGN.md §8 note).
+
+## 7. v0.5 "spine + door" delta (current CAD) — consumer install achieved
+
+Assembly review of v0.4 in SolidWorks found it could not be installed (pod/bay blocked
+both the door swing and the tube entry). v0.5 restructures around three kinematic rules
+(DESIGN.md §6.6) and adds **automated verification**: every `--sweep` run rotates the
+door 0–110° against body+bay+lid and asserts zero interference, plus an entry-corridor
+check on every build. Current status: **both PASS at 0.00 mm³.**
+
+Changes to the sequence: the factory (you) still bench-builds everything; the CONSUMER
+only ever does step 13 (open door, close on tube, one screw). Parts renamed:
+`shell_right` → `body`, `shell_left` → `door`. The bay is a right-side brick (y 7–48)
+with the slim Y-axis drum (Ø68×32) behind it; one hatch; spool cover faces outboard
+(spool serviceable in place again). Latch line moved to y +10; the door carries flange
++ lip that engage through swept pockets.

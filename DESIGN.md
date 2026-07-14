@@ -515,7 +515,35 @@ subtracting the curved shell intrusion → **~47% fill, >30% reserved for wiring
 fingers** — comfortably inside the 70–75% max-fill rule of thumb for hand-assembled
 enclosures.
 
-### 6.6 v0.4 "slim top" architecture (current)
+### 6.6 v0.5 "spine + door" architecture (current) — the consumer-install redesign
+
+**v0.4 had a fatal flaw found in assembly review: it could not be installed.** The pod
+overhung the seam and the full-width bay blocked both the door's swing and the tube's
+entry path. v0.5 is governed by three kinematic rules, now **machine-verified on every
+CAD build** (`python bike_lock_cq.py --sweep`):
+
+1. **Entry corridor** — the tube slides in from the left at axis height; no fixed
+   material may exist in that swept slab (±23.5 mm). The pod becomes asymmetric (left
+   wall at y −17, its fringe floating 0.6 mm above the closed door); the belt band and
+   left fairing are gone.
+2. **Door swing** — the door is a light arc panel carrying only its TPU liner half and
+   the closure flange+lip; pod, bay, and drum all live right of y +7, outside the door's
+   swept annulus. Verified: zero interference through 0–110° of opening.
+3. **Slim drum** — spool axis turned 90° (along Y): a Ø68 × 32 wheel tucked low-right,
+   cable 1.2 m × Ø4 (was 1.5 m — still loops a wheel + rack). The lock's lowest point
+   rises from −121 to −94 mm; the spool cover faces outboard and is serviceable in place.
+
+Consumer install: swing the door open, press onto the down tube, swing shut, drive ONE
+hidden M4 down the latch bore. The latch line (bore, boss, solenoid, pedestal) sits at
+y +10 — on the body's side of the seam, since the pod's left floor IS the closed door.
+The door's flange reaches under the bore through a swept pocket (the pocket is the
+union of the flange's positions through the closing arc, so engagement is rotational
+and snag-free by construction).
+
+*(v0.4 "slim top" notes preserved below for reference — its layout concepts carried
+into v0.5's bay brick.)*
+
+### 6.6b v0.4 "slim top" architecture (superseded)
 
 Owner direction: the top must be sleek; the bottom carries the mass and draws no
 attention. Implemented in CAD v0.4 (`cad/bike_lock_cq.py`):

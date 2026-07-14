@@ -30,7 +30,7 @@ lot from AliExpress roughly halves the Amazon total but takes 2–4 weeks.
 |---|---|---|---|---|
 | 17 | Housing filament | PETG for the first article; ASA for the unit that lives outdoors (UV), ~250 g | — | $6 |
 | 17b | TPU 95A filament | finned liner + shim sleeve (DESIGN.md §6.2), ~50 g | — | $2 |
-| 18 | Wire rope | 4 mm 7×7 stainless, PVC-coated, 2 m | 1 | $8 |
+| 18 | Wire rope | 4 mm 7×7 stainless, PVC-coated, 1.5 m (1.2 m on the v0.5 slim drum) | 1 | $8 |
 | 19 | Cable end stop / swage sleeves | 4 mm aluminum, crimp | 4 | $2 |
 | 20 | Donor retractable reel | heavy-duty dog leash or badge reel (spring + spool) | 1 | $8 |
 | 21 | Ejector spring | light compression, under the bore floor (the locking preload now comes from the solenoid's own return spring — v0.3 plunger-as-pin) | 1 | $2 |

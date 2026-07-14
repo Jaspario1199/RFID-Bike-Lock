@@ -4,10 +4,11 @@
 model that builds true BREP solids and exports **STEP** (SolidWorks-ready) and STL for
 every part. Every dimension from DESIGN.md §6 is a named variable at the top of the file.
 
-**Status: v0.4 DRAFT ("slim top")** — top pod carries only latch + reader + button;
-everything else lives in the bottom bay beside the drum, connected by a hollow wire
-spine in the shell side. v0.3 (top-heavy layout) is preserved in `archive/v0.3/` and
-git tag `v0.3`. Rendered and visually verified; nothing test-printed yet.
+**Status: v0.5 DRAFT ("spine + door")** — consumer-install architecture: the door is a
+light arc panel that verifiably swings clear (0–110°, machine-checked); pod, bay, and
+slim Y-axis drum all live on the body's right side; the tube's entry corridor is kept
+empty by construction. `python bike_lock_cq.py --sweep` re-runs the kinematic proofs.
+v0.3 and v0.4 are preserved in `archive/`. Rendered and verified; nothing test-printed.
 
 ## Working in SolidWorks
 
@@ -42,18 +43,18 @@ To regenerate everything: `pip install cadquery` then `python bike_lock_cq.py`
 `legacy_bike_lock_v02.scad` is the retired OpenSCAD v0.2, kept for reference;
 `render_v03.scad` only composites the exported STLs for preview renders.
 
-## v0.4 part set (11 printed parts)
+## v0.5 part set (11 printed parts)
 
 | Part | Role |
 |---|---|
-| `shell_right` | clamp half + slim pod + belt right + latch boss + **wire spine** + pedestal pads |
-| `shell_left` | clamp half + skirt + lip + screw pad (+ swing relief for the bay) |
-| `bay_module` | drum + front/rear equipment tunnels + corner duct + TP4056 slot + LiPo frame + USB port + zip-anchor grids; bolts by 4× M4 from inside the bore |
-| `bay_hatch` ×2 | shared bottom cover for both tunnels |
+| `body` | right clamp + asymmetric pod + latch boss + **wire spine** + pedestal pads + swept closure pockets |
+| `door` | light arc panel + closure flange & lip + hinge knuckles — verified to swing clear |
+| `bay_module` | right-side brick (LiPo frame, TP4056 slot, USB-C, zip grids) + slim Y-axis drum Ø68×32 + snout; bolts by 4× M4 from inside the bore |
+| `bay_hatch` | bottom cover for the brick |
 | `pedestal_cart` | solenoid mount on the pad system (VERIFY dims live here) |
 | `lid` | window skin, NFC ring, button dish, PN532 pocket (board located by pocket walls + foam tape — posts were unbuildable through the pocket) |
 | `liner_right/left`, `shim` | TPU fit system |
-| `spool_cover` | drum face plate (service = unbolt the bay) |
+| `spool_cover` | outboard (+Y) drum face plate — spool serviceable in place |
 | `end_plug` ×2 | glued caps over the blind hinge-pin channels |
 
 The pedestal still uses the standardized flat-pad system (12 mm pads, tops at z=32).
