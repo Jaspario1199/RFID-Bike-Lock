@@ -25,10 +25,12 @@ direct-editable, measurable, assemblable, FEA-able). STEP carries no feature tre
 iterate parametrically either edit `bike_lock_cq.py` and re-export, or rebuild a part
 natively in SW using the parameter block as the spec.
 
-**Native SW assembly in 2 minutes (no mates needed):** every part shares one global
-coordinate system, so in a new assembly use Insert Component → pick a part STEP → press
-the green ✓ WITHOUT clicking in the viewport — the part drops at the assembly origin,
-which is its correct position. Repeat for all parts; each arrives placed and Fixed.
+**Native SW assembly in 2 minutes (no mates needed):** use `step/placed/01..12_*.step`
+— every part is exported already moved/rotated into its final global position (including
+the lid, spool cover, and end plugs). In a new assembly: Insert Component → pick a file →
+press the green ✓ WITHOUT clicking in the viewport (drops at the assembly origin = its
+correct position). Repeat through the numbered list; every component arrives placed and
+Fixed. These are single-solid files — the format that imports/display most reliably.
 
 **If a multibody/assembly STEP opens with a populated tree but a blank viewport:** show
 the bodies (right-click Solid Bodies folder → Show), press `f`; if still blank, untick
