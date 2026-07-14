@@ -25,6 +25,16 @@ direct-editable, measurable, assemblable, FEA-able). STEP carries no feature tre
 iterate parametrically either edit `bike_lock_cq.py` and re-export, or rebuild a part
 natively in SW using the parameter block as the spec.
 
+**Native SW assembly in 2 minutes (no mates needed):** every part shares one global
+coordinate system, so in a new assembly use Insert Component → pick a part STEP → press
+the green ✓ WITHOUT clicking in the viewport — the part drops at the assembly origin,
+which is its correct position. Repeat for all parts; each arrives placed and Fixed.
+
+**If a multibody/assembly STEP opens with a populated tree but a blank viewport:** show
+the bodies (right-click Solid Bodies folder → Show), press `f`; if still blank, untick
+Options → Performance → "Enhanced graphics performance" (restart), or as a last resort
+enable software OpenGL — and verify the file itself in eDrawings.
+
 To regenerate everything: `pip install cadquery` then `python bike_lock_cq.py`
 (or `python bike_lock_cq.py lid drum_module` for specific parts).
 `legacy_bike_lock_v02.scad` is the retired OpenSCAD v0.2, kept for reference;
