@@ -420,28 +420,55 @@ verbatim (that cam action is what makes no-power locking work). The square tang 
 wasted: it's the recommended **bench mule** for Phase 0 — a hand-tools version to measure
 real solenoid pull vs pin-spring force before any lathe work.
 
-**Self-guarding closure screw.** The screw that fastens the two shell halves together
-sits recessed at the **bottom of the latch receiver bore** — the same hole the cable head
-locks into. Consequences:
+**Self-guarding closure screw.** The one fastener a consumer ever drives sits recessed at
+the **bottom of the latch receiver bore** — the same hole the cable head locks into.
+Consequences:
 
 - **Cable locked → screw physically unreachable** (the hardened head fills the bore).
-  The housing cannot be unscrewed off the frame while the bike is locked, and unlocking
-  requires an authorized tag. The housing's security is chained to the RFID auth.
+  The tongue-and-groove seam cannot be slid apart while the bike is locked, and unlocking
+  requires an authorized tag. The housing's security is chained to the RFID auth — for
+  *that one seam*.
 - **Cable unlocked → screw exposed**, but then the bike wasn't locked anyway; the worst
   an attacker gets is the lock itself. Acceptable.
-- So that this ONE screw is the only way in, the rest of the closure carries no removable
-  fasteners: the two flanges interlock with a **hooked tongue-and-groove joint** along
-  the full 110 mm seam (resists radial opening; can only disengage by sliding axially),
-  and the bore screw is what blocks that axial slide. Hinge side is riveted/pinned
-  captive. Result: no screw heads anywhere on the outside except at the bore bottom.
+- The two flanges interlock with a **hooked tongue-and-groove joint** along the full
+  110 mm seam (resists radial opening; can only disengage by sliding axially), and the
+  bore screw is what blocks that axial slide. That's scoped to this one seam only: the
+  hinge side is captive via the rod + screwed cap (no glue, no rivets in the v1 printed
+  housing), and several *other* assembly seams — lid, hatch, spine cover, hinge cap — do
+  carry ordinary external screws as of v0.6. §7 documents that exposure and its
+  mitigations in full; "no screw heads anywhere on the outside except at the bore bottom"
+  was true through v0.5 and is **not** true now.
 - Geometry: receiver bore Ø11 mm × ~26 mm deep — cable head seats in the top ~12 mm,
-  M4 low-profile socket screw + washer at the bottom, reached with a long 2.5 mm hex key
-  through the empty bore. Deep + narrow also means common drivers can't get purchase if
-  someone tries to gouge past a locked head.
+  the closure screw drives down through it into the boss/flange stack below.
+- **v0.6 closure stack** (corrects two defects that made the v0.5 screw non-functional).
+  The hook flange stays at z25.2–28.2 but is capped at **y ≤ 6.5 mm** — a flange top that
+  reaches further under the bore rises to z29.8+ and eats the bore floor the screw head
+  needs to clamp against. A separate low insert **pad** at y6.5–13.0, z21.8–25.2 carries
+  the fastener instead: a **short M4 brass heat-set (Ø5.6 × L3, VERIFY sourcing)** sits in
+  a through-pocket installed from the pad's **top** face with the door open, flange-up, on
+  the bench — insert mouth toward the screw, which is then driven from above, down the
+  latch bore. The swept pockets that admit the flange and pad through the door's closing
+  arc (flange prism + pad prism) peak at z26.27 in the bore column, leaving a **3.7 mm
+  solid floor** under the z30 bore bottom — enough to actually clamp against. (D1: the
+  v0.5 clearance hole ran through the wrong z-segment, pierced the bottom shell into the
+  tube cavity, and never reached the door insert — the one consumer screw could not work
+  at all, and a probe found only 2.48 of 142 mm³ left in that floor regardless. D2: the
+  v0.5 insert pocket punched clean through the 3 mm flange (Ø5.6×6 cut into a 3 mm wall),
+  so no insert could seat.) A 2.4×45° chamfer on the pad's lower −Y edge keeps material at
+  r ≥ 23.4 mm against the Ø46 mm max-tube envelope. Screw: **M4×8 low-profile socket +
+  washer**, reached with a long 2.5 mm hex key through the empty bore (deep + narrow also
+  means common drivers can't get purchase if someone tries to gouge past a locked head).
+  An M4×14 was sized on paper and rejected — it would hit tubes ≥Ø38 mm. The M4×8's tip
+  reaches z22, clearing the Ø46 tube envelope by 1.2 mm and passing through the liner's
+  swept transit window (§6.6 delta, `liner_right`) instead of gouging it. Clearance drill
+  `closure_screw_d` 4.4→4.5 (standard M4 clearance).
 - Fit-adjustment consequence: the ±preload adjustment for the one-size-fits-all clamp
-  (§6.2) moves off the closure screws (there's only one now, and it's axial) onto the
-  hook joint — the tongue has 3 detent depths, selected at install, and the hinge side
-  keeps a slotted pin position for fine preload.
+  (§6.2) lives on the hook joint only — the tongue has **3 detent depths**, selected at
+  install. (Through v0.5 this bullet also credited a slotted hinge-pin position for fine
+  preload; the v0.6 hinge is a single fixed-diameter rod running in a finished bore with
+  no axial or radial slack to tune, so that DOF is gone. The 3 tongue detents are the only
+  preload adjustment that exists and remain unmodeled in CAD — TODO, same honest gap as
+  before.)
 
 ### 6.5 Top pod internal layout & wiring plan — SUPERSEDED by the v0.4 split (§6.7)
 
@@ -544,6 +571,26 @@ The door's flange reaches under the bore through a swept pocket (the pocket is t
 union of the flange's positions through the closing arc, so engagement is rotational
 and snag-free by construction).
 
+**v0.6 delta (current):** layers onto the three kinematic rules above without changing
+them. Hinge collapses to a **single Ø4.0 mm continuous rod** through both shell halves
+(was two Ø3 mm pins + glued end plugs) — retention and thermal detail in §6.1/§6.8/§6.9.
+The wire spine, sealed in v0.5, is now an **open lay-in raceway with a screwed cover**:
+the roof over x23.5–32.5 is deleted, wires drop in instead of being fished blind, and a
+curved cover plate seats on a rabbet ledge with a 0.5 mm shadow-gap reveal and 2× M3
+self-tap screws (§6.8). The bay module is repacked: the LiPo now stands **on edge** along
+the +Y wall instead of lying flat, because the flat-frame pocket and the TP4056 block
+occupied the same floor footprint and the battery physically could not fit (D11); the
+service hatch becomes a **component tray** (nesting pad, zip-anchor grid, diagonal Nano
+mount) rather than a blank cover, since the floor beneath it is now a real service window
+instead of the sealed floor the v0.5 hatch never actually served (D6). The liner keys onto
+full-length **dovetail grooves** instead of friction+adhesive — no glue anywhere in the
+assembly — and `liner_right` gains a swept **transit window** where the closure flange's
+arc dips through its base ring (D10, found by the extended `--sweep` check). Two
+verification parameters widened after that same extended sweep (moving set = door +
+liner_left vs. every other part, not just body+bay+lid, which is what hid D10 in the first
+place): entry-corridor margin `COR_Z` 23.5→**24.0 mm**, and the door-edge fringe float
+0.6→**1.0 mm** (relief plane at z=32.0).
+
 *(v0.4 "slim top" notes preserved below for reference — its layout concepts carried
 into v0.5's bay brick.)*
 
@@ -582,6 +629,121 @@ not pass through stainless). Keep all steel ≥10 mm clear of the antenna loop o
 collapses; expect 1–3 cm range through 2 mm ABS. The wake button and LED sit beside the
 window.
 
+### 6.8 Tolerances & fastening plan (v0.6)
+
+All numbers below are parameters in `cad/bike_lock_cq.py` (single source — read the
+parameter block, not this table, when the two disagree). This section replaces the
+per-joint tolerance guessing that shipped through v0.5: every screw in the assembly now
+has a named pilot, clearance, and countersink pulled from one shared spec.
+
+**Clearance & fit classes.** `--gaps` checks every placed pair against these bands with
+`BRepExtrema` exact min-distance; `CONTACT_OK` is a whitelisted sentinel for faces meant
+to touch (only true overlap fails the check, not zero gap).
+
+| Class | Nominal gap | Where used | Notes |
+|---|---|---|---|
+| Clamped faying face | 0.00 mm (`CONTACT_OK`) | shell parting line, hatch-to-bay, spool cover-to-rabbet | modeled as touching by design; whitelisted so `--gaps` doesn't flag it |
+| Static insert fit | 0.10–0.30 mm | heat-set pockets (M3/M2.5/M4-short), dovetail keys | press/friction fit, no relative motion once assembled |
+| Hinge rod running fit | +0.2 mm diametral (finished) | Ø4.0 rod in the Ø4.2 `HINGE_BORE` | bore is drilled to finish size through the closed, clamped halves — FDM prints it undersized/drooped, so "finished" here means post-drill, not as-printed |
+| Kinematic clearance | ≥0.4 mm | door-swing sweep, knuckle-to-knuckle gaps | closure engagement clearance `clr` kept at 0.5 (unchanged from v0.5) |
+| Entry corridor margin (`COR_Z`) | 24.0 mm half-height (was 23.5) | tube entry slab | max tube Ø46 → ±23 mm, +1.0 mm margin |
+| Door-edge fringe float | 1.0 mm (was 0.6) | pod left-fringe relief vs. the closed door's top edge | relief plane at z=32.0 |
+
+**Pilot / clearance / countersink numbers, by thread:**
+
+| Thread | Self-tap pilot | Through clearance | Countersink / counterbore | Insert pocket |
+|---|---|---|---|---|
+| M3 machine (into heat-set) | — | 3.4 mm | 90° CS, Ø6.4×1.8 (ISO 10642 flat head) | Ø4.1×6.5 brass heat-set (VERIFY insert brand dims) |
+| M3 self-tap | 2.5 mm | 3.4 mm | CS Ø7.2×2.4 (ISO 7050 flat head — VERIFY 80°/90° head angle) | — |
+| M4 machine/self-tap | 3.3 mm | 4.5 mm | pan-head counterbore Ø8.6×4.35 (head fully sub-flush of the bore) | — |
+| M4-short (closure) | — | 4.5 mm | none — low-profile socket head | Ø5.7 through-pocket, L3 heat-set (VERIFY sourcing) |
+| M2.5 machine (into heat-set) | — | 2.7 mm | none | Ø3.6×4.5 brass heat-set |
+| Generic pad-boss pilot | 2.5 mm (was 2.6) | — | — | — |
+
+**Fastening plan — every joint in the assembly:**
+
+| Joint | Fastener | Pilot / clearance / CS | Driver access | Visible / hidden | Flush treatment |
+|---|---|---|---|---|---|
+| Closure (consumer screw) | M4×8 low-profile socket + washer ×1, into short M4 heat-set | clr 4.5 through boss; insert Ø5.7 through-pocket | long 2.5 mm hex key, down the open latch bore | hidden — cable head covers it when locked | recessed at bore bottom |
+| Bay module ×4 | M4×12 pan self-tap | pilot 3.3; clr 4.5; counterbore Ø8.6×4.35 | from inside the open clamp bore | hidden — clamp must be open | pan head fully sub-flush of the bore (fixes D5 — heads used to stand 1–2.5 mm proud into the liner zone) |
+| Lid ×4 | M3×10 CS machine (ISO 10642), into M3 heat-set in body rim bosses | clr 3.4; CS Ø6.4×1.8 | external, straight down from the lid's top face | **visible — externally removable on the locked bike** | countersunk flush with the lid's crowned top face |
+| Hatch ×2 | M3×10 CS machine (ISO 10642), into M3 heat-set in the TP4056 block + drum web | clr 3.4; CS Ø6.4×1.8 on the **external** face | external, from the bay module's underside | **visible — externally removable on the locked bike** | countersunk flush; fixes D6 (v0.5's counterbore was on the internal face, so heads stood proud outside) |
+| Spool cover ×3 (90/210/330) | M3×10 CS self-tap | pilot 2.5 into the ring-wall annulus boss at r31.25 (~5.5 mm engagement, fixes D4); clr 3.4; CS Ø7.2×2.4 | external, from the +Y outboard face | visible | outer face reads flat — CS depth absorbed by an underside pad nesting in a rabbet-floor relief pocket, not a dish in the visible face |
+| Spine cover ×2 | M3×10 CS self-tap | pilot 2.5 into raceway end walls; clr 3.4; CS Ø7.2×2.4 | external, from the outer skin | **visible — externally removable on the locked bike** | countersunk flush |
+| Hinge cap ×1 | M3×10 CS self-tap | pilot 2.5 into the shell end face; clr 3.4; CS Ø7.2×2.4 | external, rear end face | **visible — externally removable on the locked bike; removing it frees the hinge rod (§7)** | countersunk flush |
+| Pedestal pads ×2 | M3×10 pan self-tap | clr ~3.4 through the base pads; driver access bored Ø6.5 through the tower | through the tower access holes, before the solenoid is mounted | hidden — heads covered once the solenoid body seats | none (pan head, buried) |
+| Solenoid mount ×2 | M2.5×8 machine, into M2.5 heat-set in the tower top | clr 2.7; insert Ø3.6×4.5 | top-down into the tower, before the solenoid covers its own screws | hidden once seated | none — cyclic load joint, no CS; a captured-nut scheme was tried and rejected (no nut-insertion path once pads moved to 76/86) |
+| PN532 mount ×4 | M2.5×8 **nylon** machine, self-tapping into printed drop-bosses (no insert — antenna wraps the board perimeter, no metal at the edge) | pilot 1.05, blind 2.6 mm deep, boss dropped 1.5 mm from the pocket ceiling | from inside the lid, before the lid seats on the body | hidden once assembled | none |
+
+Deleted from the BOM: the Ø3 mm hinge pins, the glued end plugs, and an M4×14 closure
+screw that was sized and rejected on paper (hits tubes ≥Ø38 mm — never buy it). Hinge rod
+stock is Ø6 mm 303 stainless bar × 165 mm — not a fastener, listed here for BOM
+completeness; the turning operation is in §6.9.
+
+### 6.9 DFM & CNC path
+
+Per-part machinability for the steel-shell / production phase (§6.2, §10 Phase 2). None
+of this blocks the v1 printed build — it's forward-looking so the CAD doesn't need a
+second redesign when the shell moves to metal.
+
+| Part | Verdict | Setups | Notes |
+|---|---|---|---|
+| body | 3-axis, plus a 4th-axis feature | 4 (+ rotary) | see below |
+| door | 3-axis, plus a 4th-axis feature | 3 (+ rotary) | see below |
+| bay_module | 3-axis | 4 | top, bottom, +Y outboard face, and the front (−X) wall each carry features that can't share one fixture orientation |
+| bay_hatch | 3-axis | 1 | flat plate — tray pad, 2× CS, zip-anchor grid all reachable from one face; through-holes carry the far-side features |
+| pedestal_cart | 3-axis | 1 | every hole (pad clearances, insert pockets, driver-access bores, boss scallop) runs along Z — one top-down setup |
+| lid | 3-axis | 1 | window pocket, PN532 bosses, button/LED holes, and the 4× CS all sit within reach of a single blank held once |
+| spool_cover | lathe + secondary drill | turn, then drill/mill | disc + hub + hubcap dish are rotationally symmetric — turn those; the 3× M3 holes at 90/210/330 break symmetry and need a secondary drilling op (live-tooling lathe or a simple jig) |
+| hinge_rod | lathe, one op | 1 | Ø6 303 stainless bar → integral Ø6×1.6 head, R0.5 head fillet, 0.4×45° head chamfer, R2.2 domed tail, trimmed at dry-fit. Center-drill the tail and support it on a tailstock live center — this is a 35:1 slender turn and **will chatter unsupported** |
+| hinge_cap | 3-axis | 1 | disc + ear + bridge, one blind pocket, one through-hole, one CS — all from the same face |
+| spine_cover | 3-axis | 1 | curved plate cut from the outside face; 2× through-hole + CS on the arc midline |
+| liner_right / liner_left / shim | stays printed or molded | — | TPU 95A — not a metal-era part; injection/compression molding is the production path if volume ever justifies a tool, CNC doesn't apply to a flexible finned part |
+
+**Body/door — the 3 changes that get them (mostly) to 3-axis, and the one feature that
+doesn't:**
+
+1. **Hinge bore** is now one straight Ø4.2 finished bore through every knuckle and
+   standoff (was two blind Ø3.2 channels + stepped pockets for the glued end plugs) — a
+   single axial drill pass replaces stepped/blind tooling.
+2. **Dovetail liner groove**: one straight full-length axial pass per shell half, cut
+   with a form tool from the end face — no plunge, no pocket-clearing.
+3. **Bay-mount and spine-cover holes** sit on constant radial lines (`bay_screw_y`, the
+   raceway end-wall plane) rather than scattered depths, so the through-holes and
+   counterbores on each line come off one fixture angle instead of several.
+
+The exception: the **closure sweep pockets** (flange prism + pad prism — the volume the
+door's flange and pad sweep through as it swings shut, §6.4) are literal swept forms about
+the hinge axis, cut into both `body` and `door`/`liner_right`. A rigid 3-axis mill can't
+cut a true swept pocket in one pass; it needs a **4th axis** (rotary about the hinge axis)
+to index the cut through the arc — for the steel version that rotary axis is physically
+the **piano-hinge direction**, so it's a natural addition rather than a special fixture.
+FDM sidesteps this entirely (the sweep is baked into the printed geometry).
+
+**Tube-stock strategy (body/door):** both parts are fundamentally a cylindrical shell
+(`outer_cyl()` cut by `tube_bore()`, then split at the parting plane), so the steel
+version should start from **tube stock** close to the finished OD (Ø57 mm steel target,
+§6.1) and wall (1.5 mm), not a solid round bar turned down. Roughing a solid bar to a
+1.5 mm wall removes the overwhelming majority of the stock as chips; starting from tube
+removes most of that roughing volume before the half-shell split, pod, and boss features
+are even touched.
+
+**Taps replace self-taps once the shell is metal.** The pilot-hole parameter set (§6.8)
+was sized for FDM self-tapping in plastic, but two of the three thread sizes already carry
+over as standard tap-drill sizes — no redesign needed, just add a tapping pass instead of
+relying on the screw to cut its own thread:
+
+| Thread | Tap drill (metal) | Matches the existing plastic self-tap pilot? |
+|---|---|---|
+| M2.5 × 0.45 | 2.05 mm | No — the two M2.5 joints (solenoid, PN532) use heat-sets or a nylon self-tap in the printed version, not a bare pilot; size the metal tap drill fresh |
+| M3 × 0.5 | 2.5 mm | Yes — `M3_PILOT = 2.5` already matches the standard M3 tap drill |
+| M4 × 0.7 | 3.3 mm | Yes — `M4_PILOT = 3.3` already matches the standard M4 tap drill |
+
+**Dovetail groove:** slide-in from the end face. `dovetail_groove()` is a constant
+cross-section extrusion the full 146 mm length, so it's cut with a single straight pass of
+a dovetail form tool started at the front face — same operation on a manual or CNC mill,
+no plunge-milling, no multi-axis motion.
+
 ---
 
 ## 7. Security analysis — honest version
@@ -589,7 +751,7 @@ window.
 | Attack | Resistance | Mitigation / status |
 |---|---|---|
 | Bolt-cut the 4 mm cable | ❌ seconds | **This is the real limit of any cable lock.** 4 mm is a deterrent (opportunists, café stops), not U-lock security. Going to 6 mm cable roughly doubles cut resistance but grows the spool pod to ~Ø120 mm. ⚠️ Decide after seeing the v1 size on a real bike. |
-| Unscrew the housing from the frame | ✅ while locked | **Solved by the self-guarding closure screw (§6.4):** the only external screw sits at the bottom of the latch bore, physically covered by the locked cable head; every other seam is a captive hook joint or riveted hinge. Opening the housing requires unlocking the cable first, which requires the RFID. |
+| Unscrew the housing from the frame | ⚠️ partially, while locked | **The self-guarding closure screw (§6.4) still holds — but "every other seam is captive" is no longer true, and this row is rewritten for v0.6 honesty.** The tongue-and-groove seam itself can't be slid apart while the cable head covers its screw. Four *other* joints, though, are ordinary external screws reachable on the locked bike without unlocking anything: the **hatch** (2× M3, bay underside), the **spine cover** (2× M3, over the wire raceway), the **hinge cap** (1× M3, rear end face), and the **lid** (4× M3, top face) — full spec in §6.8. Consequences: removing the hatch or spine cover exposes the solenoid's bare drive leads, which run off the regulated 5 V rail — with those two leads and any 5 V source an attacker can fire the solenoid directly, a non-destructive unlock that never touches the RFID. Removing the hinge cap frees the rod's axial float and lets the single hinge rod slide out the front; the two shell halves then come apart, but the **bike stays cable-tethered** — the cable head is still latched in the boss/receiver, so the housing detaches while the lock itself doesn't release. The lid is the fourth instance of the same class: v0.5's lid screws had no working pilots (D3), so the lid was never really a fastened joint; v0.6 gives it real M3 pilots in the body rim (§6.8), which means removing it now gives direct mechanical access to the top of the latch boss and the solenoid's own plunger — the same "external screw → internal mechanism access" trade-off as the hatch/spine-cover lead exposure, just reaching the pin instead of the leads. **Owner-accepted for the prototype phase** ("reasonable outward screws OK for now" — a schedule trade-off being logged, not a security requirement being waived). Production mitigation list, not yet built: one-way/security screw heads or staking on lid, hatch, spine cover, and hinge cap; potted or sleeved solenoid drive leads so they can't be tapped from outside; hidden lid fastening (already roadmapped independently of this finding). |
 | Cut the printed (plastic) housing | ❌ v1 only | Inherent to the printed model — it's a functional prototype, not a security device (§6.2). The steel shell closes this. |
 | Clone a fob UID | ⚠️ | Real but low-likelihood for a bike; fixed by v2 challenge–response (§5). |
 | Drain/wait out the battery | depends | See §8 — this is why fail-open is dangerous. |

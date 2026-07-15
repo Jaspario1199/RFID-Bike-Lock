@@ -42,7 +42,8 @@ now honestly covers.
 
 - Single assembly direction (top-down into the open pod); no simultaneous-hold operations.
 - Modules connect by JST — any board swaps without soldering; lid tethers by a plug.
-- Battery/cell replaceable without tools once the hatch/tray is off.
+- Battery/cell reachable by removing the hatch/tray's 2 screws — no soldering, no glue,
+  and the service loop in the leads means dropping the tray can't strain the wiring.
 - Fastener variety, by BOM (v0.6): M4 ×5 (1 closure + 4 bay, pan self-tap), M3 ×14
   (6 machine-flat into heat-sets: lid 4 + hatch 2; 6 self-tap flat: spool 3 + spine 2 +
   hinge cap 1; 2 pan self-tap: pedestal), M2.5 ×6 (2 machine into heat-sets: solenoid;
@@ -77,11 +78,28 @@ now honestly covers.
 
 ## 4. Security note recorded during the audit
 
-With the v1 lid held by 4 exposed M3s, removing the lid exposes the plunger — it can be
-retracted by hand, releasing the cable. On the printed prototype this is accepted (the
-housing itself is plastic and cuttable; the prototype is a function model, per
-DESIGN.md §6.2). The steel version must use the hidden lid fastening already on the CAD
-TODO list — this is the same item, now with the concrete reason.
+v0.6 status (full rewrite — see DESIGN.md §7 "Security analysis — honest version" for
+the complete analysis; a judge finding forced that section's rewrite because its old
+"every other seam is captive" claim is false): four fastener groups are externally
+removable on the locked, closed bike — the lid (4× M3), the hatch/tray (2× M3), the
+spine cover (2× M3), and the hinge cap (1× M3). Consequences:
+
+- Removing the hatch or the spine cover exposes the solenoid's drive leads — a 5V
+  source is a non-destructive path to actuate the latch without going through the app.
+- Removing the hinge cap lets the rod slide out the rear; the housing detaches from the
+  clamp. The bike stays cable-tethered (the clamshell is still closed around the tube),
+  but the lock body itself comes off.
+
+This is the same class of finding as the v0.5-accepted lid→plunger exposure and is
+accepted on the same basis: this is a prototype, and the owner has signed off on
+"reasonable outward screws OK for now." It is not accepted silently — it is the
+documented state, not an oversight.
+
+Production mitigation list (now covering all four seams, not just the lid): one-way or
+security-drive fastener heads, or staking, on the lid, hatch, spine cover, and hinge
+cap; potted or sleeved solenoid drive leads so they can't be tapped from outside;
+hidden lid fastening (already on the CAD TODO list — same item as before, now with a
+concrete reason and three siblings).
 
 ## 5. Print plan (v0.3)
 
@@ -122,3 +140,53 @@ only ever does step 13 (open door, close on tube, one screw). Parts renamed:
 with the slim Y-axis drum (Ø68×32) behind it; one hatch; spool cover faces outboard
 (spool serviceable in place again). Latch line moved to y +10; the door carries flange
 + lip that engage through swept pockets.
+
+## 8. v0.6 "no-glue rebuild" delta (current CAD)
+
+A full defect sweep (D1–D12, machine-confirmed by the new `--gaps` min-distance probe
+and an extended `--sweep` whose moving set is now door+liner_left against *all* other
+parts — the old body+bay+lid-only sweep is what let D10 hide) found that most of the
+housing's fastened joints either couldn't be assembled at all or weren't fastened
+correctly. The kinematic rules from §6.6 are untouched; the sequence above (§1) is the
+rewrite. What actually moved, in build order:
+
+- **Step 1 grew from one insert to nine.** v0.5 needed a single M4 insert for the
+  closure; v0.6 needs 6× M3 + 2× M2.5 + 1× M4-short, because D3 (lid), D4 (spool
+  cover), D6 (hatch), and D12 (pedestal/solenoid) all turned out to be missing- or
+  wrong-fastener defects, not just missing-hole ones. Doing all of them in one bench
+  pass, before anything else is bolted on, is the only way to keep the build linear.
+- **The closure screw path is fixed, not just re-specified.** D1 and D2 meant the
+  v0.5 "ONE hidden M4" in step 13 physically could not be driven — the clearance hole
+  hit the wrong z-segment and the insert pocket punched through the flange. The pad
+  geometry, insert, and screw are new; step 13's *description* is unchanged because
+  the consumer-facing action never changed, only the mechanism it now correctly drives.
+- **Pedestal and solenoid split into two verified operations.** D12 found the pedestal
+  attach holes and the solenoid mounting holes only 1 mm apart (68/94 vs. 69/93) —
+  effectively merged into one hole. The attach pads moved to 76/86, giving each a clear
+  ~7 mm to its nearest solenoid hole, and installing the solenoid's own inserts now
+  waits on a VERIFY of the real unit's hole spacing.
+- **The battery mount changed shape, not just fastening.** D11: the old flat-frame
+  LiPo pocket and the TP4056 block occupied the same floor real estate — the cell
+  could never have fit as drawn. It now stands on edge against a wall it can't collide
+  with.
+- **The hatch became a real, correctly-fastened service joint.** D6: it used to cover
+  a solid floor with no pilots and heads that stood proud outside. It's now a
+  removable component tray, with heads flush on the external face, threading into the
+  inserts placed in step 1.
+- **The spine went from a sealed, blind-fished conduit to an open lay-in raceway with
+  a screwed cover** (owner request) — step 7 no longer starts with "fish it with a
+  pull wire."
+- **The hinge is one rod, not two glued-pin joints — this is the biggest sequence
+  change.** D7 (glued plugs, no axial retention) is gone. Step 12 used to be
+  glue-and-wait at each end face; it's now a single measured drill-through (Ø4.2,
+  8 segments ≤14 mm, pick the bit off the actual rod OD) followed by a tail-first
+  insertion and a *screwed* cap with a thermally-sized float. No adhesive appears
+  anywhere in the v0.6 sequence.
+- **PN532 mounting lost its foam tape.** Nylon screws into drop-bosses (steel would
+  sit inside the antenna loop) plus a captive, non-adhesive foam pad.
+- **Step 13's text is unchanged** — one M4×8, consumer-only — but see the closure-path
+  point above: in v0.5 that step described a screw that could not reach its insert.
+
+Net effect: 12 printed parts (was 13 — the two glued end plugs are deleted) + 1 lathe
+rod, zero glued joints, and every removable fastener now has somewhere real to bite.
+The security cost of that serviceability is in §4 and DESIGN.md §7.
