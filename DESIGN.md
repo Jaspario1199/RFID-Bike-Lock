@@ -263,11 +263,14 @@ a $20 gadget by someone who taps your fob. For a bike lock this is an acceptable
 **v1 housing is 3D printed** (see §6.2 print spec); the stainless shell moves to a later
 phase once the geometry is proven. All dimensions below apply to both.
 
-*CAD v0.3 (CadQuery/STEP) implements this section as a **13-part modular assembly**: the
-two shells stay structural/integral (clamp + pod + belt + latch boss), the spool drum is
-a separate zero-support module bolted from inside the clamp bore (screws reachable only
-when unlocked), and all interior furniture is drop-in cartridges on a standard pad
-system — full rationale in ASSEMBLY.md and cad/README.md.*
+*CAD v0.6 (CadQuery/STEP) implements this section as a **12-printed-part + 1-lathe-part
+assembly** (was a 13-part all-printed count through v0.3 — the two Ø3 mm hinge pins and
+their glued end plugs are gone, replaced by one lathe-turned hinge rod + a screwed cap;
+no glue anywhere in the current assembly): the two shells stay structural/integral (clamp
++ pod + belt + latch boss), the spool drum is a separate zero-support module bolted from
+inside the clamp bore (screws reachable only when unlocked), and all interior furniture
+is drop-in cartridges on a standard pad system — full rationale in ASSEMBLY.md and
+cad/README.md.*
 
 ### 6.1 Overall envelope
 
@@ -287,8 +290,8 @@ No single feature spans Ø27–46 mm, so the fit stacks **three** mechanisms —
 | Clamp length | 150 mm | sized by the top pod (§6.6 packing study): battery + latch + antenna zones can't overlap, so the pod needs 150 mm and the clamp matches it. Bonus: more grip, less rocking |
 | Liner | Printed TPU ribbed sleeve, 12 mm radial fins (§6.2) | free bore Ø30 mm; grips Ø32–46 mm tubes |
 | Shim sleeve | Clip-in TPU ring, 3 mm solid + its own 4 mm fins | extends range down to Ø27 mm |
-| Hinges | Printed knuckles + Ø3 mm stainless pin along the bottom seam (steel version: riveted piano hinge) | |
-| Closure | Full-length hooked tongue-and-groove flange joint + **one M4 screw recessed at the bottom of the latch bore** (§6.4) | the locked cable head covers the only screw → housing can't be opened while the bike is locked. Preload adjustment: 3 tongue detent depths + slotted hinge-pin position (≈ ±2.5 mm effective clamp diameter) |
+| Hinges | Printed knuckles + **one Ø4.0 mm 303-stainless rod** (~152 mm, integral Ø6×1.6 head, running fit in a finished Ø4.2 bore) the full length of the bottom seam, retained by a screwed hinge cap at the rear (§6.8/§6.9); steel version: same single-rod axis, riveted piano hinge | replaces the two Ø3 mm pins + glued end plugs (through v0.5) |
+| Closure | Full-length hooked tongue-and-groove flange joint + **one M4×8 screw into a short M4 heat-set at the bottom of the latch bore** (§6.4) | the locked cable head covers the only screw → housing can't be opened while the bike is locked. Preload adjustment: **3 tongue detent depths only** (≈ ±2.5 mm effective clamp diameter) — the single fixed-diameter hinge rod removes the hinge-side preload freedom v0.5 relied on; the detents remain the sole adjustment and are still unmodeled in CAD (TODO) |
 | Top pod (electronics) | 150 × 55 mm footprint, lid 34 mm above the shell crown | full internal layout + wiring plan in §6.6; the lid over the PN532 antenna must be plastic even on the steel version (13.56 MHz passes through plastic, not steel) |
 | Bottom pod (spool) | Ø95 mm × 34 mm drum hanging under shell | |
 | Total added weight | v1 printed ~500–650 g; steel ~750–900 g | comparable to a mid U-lock |
@@ -337,8 +340,9 @@ The three stacked fit mechanisms, in order of action:
 
 1. **Fins** absorb the big spread (Ø32–46 mm) elastically.
 2. **Closure adjustment** (±2.5 mm effective diameter via three tongue-detent depths on
-   the hook joint plus a slotted hinge-pin position, §6.4) tunes preload at install time
-   and re-tightens years later if the fins relax.
+   the hook joint, §6.4 — the v0.6 hinge is a single fixed-diameter rod with no slotted
+   position, so the detents are the only preload knob that exists) tunes preload at
+   install time and re-tightens years later if the fins relax.
 3. **Shim sleeve** (included) clips over the fins for Ø27–32 mm skinny tubes.
 
 **v1 print spec (housing):** PETG for the first print (easy), **ASA for the outdoor

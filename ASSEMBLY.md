@@ -5,36 +5,52 @@ Verdict at v0.2: sound skeleton, three real gaps. **v0.3 (the CadQuery restructu
 implements every fix in §3** plus the modular split: separate drum module bolted from
 inside the bore, and all interior furniture as pad-mounted cartridges.
 
-## 1. Intended assembly sequence
+## 1. Intended assembly sequence (v0.6)
+
+Part set: 12 printed parts + 1 lathe-turned hinge rod (13 items; `end_plug` ×2 is
+deleted — no more glued joints anywhere in the build). New parts vs. v0.5: `hinge_rod`,
+`hinge_cap`, `spine_cover`.
 
 | Step | Operation | Access | Fasteners |
 |---|---|---|---|
-| 1 | Print 13 parts; install brass insert in left screw pad | open bench | 1× M4 insert |
-| 2 | Bolt all cartridges onto their pads (pedestal, tray, saddles, board pocket) | from above, open pod | 7× M3 self-tap |
-| 2b | Solenoid onto the pedestal cartridge (bench-test the latch action first!) | open bench or in place | 2× M2.5 self-tap |
-| 3 | Plunger nose = locking pin (see §3.1) | — | none |
-| 4 | Battery holder into saddles, zip-tie through pass-unders | from above | zip ties |
-| 5 | TP4056 + MT3608 into card-edge pockets (§3.3); USB-C self-aligns to rear slot | from above | none (pockets) |
-| 6 | Nano under driver tray; perfboard onto tray, zip-tied | slides from front / above | zip ties |
-| 7 | Harness: JST runs laid into the two raceways, loop on strain posts | from above | clips |
-| 8 | PN532 into the lid pocket (foam tape) + button + LEDs; plug lid's JST service loop | open bench | tape / panel nut |
-| 9 | Lid on | from above | 4× M3 self-tap |
+| 1 | Print all 12 parts; lathe the hinge rod (one op from Ø6 303 stainless bar). Install **all** heat-set inserts on the open bench: 4× M3 into the lid's pod-rim bosses (driven from the open pod top, before the lid goes on); 2× M3 into the bay module's TP4056 block and drum web (driven from below, before the hatch/tray goes on); 2× M2.5 into the pedestal cartridge's tower top (for the solenoid); 1× short M4 into the door's closure pad, from the pad's **top** face with the door open and flange-up on the bench | open bench, various faces per insert | 6× M3 (Ø4.1×6.5) + 2× M2.5 (Ø3.6×4.5) + 1× M4-short (Ø5.6×L3, VERIFY sourcing) heat-sets — 9 total |
+| 2 | Bolt the pedestal cartridge onto the body's pod-rim pads: screws drive down through the tower's Ø6.5 access holes, so heads land on the pad boss and end up hidden once the solenoid covers them | from above, through the tower, open pod | 2× M3 pan self-tap |
+| 2b | Solenoid onto the pedestal tower. **VERIFY the real unit's mounting-hole spacing before installing the M2.5 inserts** — `sol_hole_dx` is drawn at 24 mm; if the measured unit differs, reprint the pedestal cartridge (a minutes-long print, not a redesign) rather than force the fit. Bench-test the latch action before moving on | open bench or in place | 2× M2.5×8 machine, into brass heat-sets |
+| 3 | Plunger nose = locking pin (see §3.1, unchanged) | — | none |
+| 4 | LiPo cell into the bay: it stands **on edge** against the +Y wall — the block face, one retaining rail, and the wall bound it. No zip-tie pass-unders anymore | from above, open bay | — |
+| 5 | TP4056 into its front-wall slot; USB-C self-aligns to the port | from above | none (pocket) |
+| 6 | Hatch-tray build and close: zip the Nano (mounted **diagonally** — the service window is 40.5×29.5), MT3608, and perfboard to the tray's anchor grid. **Leave a documented service loop in the cell leads** before closing — dropping the tray for service must never strain the battery wiring. Close the tray onto the bay, countersunk on the **external** face | slides in from the front, then closes from outside | 2× M3 machine flat, into brass heat-sets from step 1 |
+| 7 | Harness: lay the wire run **into** the open wire-spine raceway (it's an open lay-in channel now, not a sealed conduit you fish blind) and screw the spine cover down over it. Bay↔pod feed-hole path is unchanged | from above, open raceway | 2× M3 self-tap flat, countersunk |
+| 8 | PN532 into the lid pocket: nylon screws through the board's corner holes into the lid's drop-bosses (no steel near the antenna loop, which wraps the full board perimeter), plus a captive 1 mm foam pad over the antenna face — pressure-fit, **no adhesive**. If a clone board lacks the corner holes, print the corner-clip fallback onto the same bosses. Then button + LEDs; plug the lid's JST service loop | open bench | 4× M2.5×8 NYLON machine |
+| 9 | Lid on | from above | 4× M3 machine flat, into rim heat-sets from step 1 |
 | 10 | Donor spool into drum module, cable out the snout, wind preload | open bench (module off the bike!) | — |
-| 10b | Spool cover into rabbet | open bench | 3× M3 self-tap |
-| 11 | Bolt drum module to the right shell — screws drop through the clamp bore wall | from inside the open clamp | 4× M4 self-tap |
-| 12 | Hinge: mate halves, insert TWO short pins from the end faces, glue end plugs (§3.2) | end faces | 2× Ø3 pins |
-| 13 | On the bike: close clamshell, lip engages, ONE M4 down the latch bore (magnet-tip 2.5 mm hex) | top | 1× M4 |
+| 10b | Spool cover on, re-clocked so one screw sits on the vertical axis (90/210/330°) | open bench | 3× M3 self-tap flat, countersunk |
+| 11 | Bolt the loaded bay module (drum + spool + electronics + tray) to the body — screws drop through the clamp bore wall | from inside the open clamp | 4× M4 pan self-tap |
+| 12 | Hinge: door closed and clamped against the body, **drill** the Ø4.2 finished bore through all knuckles — 8 segments, each ≤14 mm, no deep-hole drilling. Measure the actual rod OD first and pick a drill for 0.15–0.2 mm diametral clearance. Deburr all 16 mouths. Insert the hinge rod **tail-first from the front**, seat the integral head in its front counterbore, fit the hinge cap over the tail (0.5 mm axial float) and drive its screw into the shell end face. **No glue anywhere in this joint** | door closed, end faces + through-bore | 1× M3 self-tap flat, countersunk |
+| 13 | On the bike: open door, press onto the down tube, swing shut, lip engages, ONE M4 down the latch bore (magnet-tip 2.5 mm hex) | top | 1× M4×8 low-profile socket + washer |
 
-Every operation is top-down or open-face — no blind assembly except step 13, which is
-one screw and is the security feature working as intended.
+Steps 1–12 are the factory build; step 13 is the only thing the consumer ever does.
+Steps 1–11 are top-down or open-face bench operations. Step 12 is not blind — it's a
+through-drill on an assembled, clamped pair of halves with full visual/tactile access
+at both ends — but it is a machining step, not a snap-together one, and it's the last
+factory operation before the unit ships. Step 13 remains the only genuinely blind
+fastener (one screw, driven down a bore you can't see the bottom of) and is the
+security feature working as intended — see §4 and DESIGN.md §7 for what "intended"
+now honestly covers.
 
 ## 2. What already passes DFA
 
 - Single assembly direction (top-down into the open pod); no simultaneous-hold operations.
 - Modules connect by JST — any board swaps without soldering; lid tethers by a plug.
-- Battery/cell replaceable without tools (leaf-spring holder) once the lid is off.
-- Low fastener variety: M4 ×1, M3 ×7, M2.5 ×2, plus two hinge pins.
-- The one awkward fastener (bore-bottom M4) is deliberate — it's the tamper defense.
+- Battery/cell replaceable without tools once the hatch/tray is off.
+- Fastener variety, by BOM (v0.6): M4 ×5 (1 closure + 4 bay, pan self-tap), M3 ×14
+  (6 machine-flat into heat-sets: lid 4 + hatch 2; 6 self-tap flat: spool 3 + spine 2 +
+  hinge cap 1; 2 pan self-tap: pedestal), M2.5 ×6 (2 machine into heat-sets: solenoid;
+  4 nylon machine: PN532), plus the one-piece hinge rod and its screwed cap. Every
+  joint is a heat-set-and-machine-screw or a direct self-tap — no glue anywhere.
+- The one awkward fastener (bore-bottom M4) is deliberate — it's the tamper defense,
+  and as of v0.6 it actually reaches its insert (D1/D2 fixed the broken screw path
+  and insert pocket — see §8).
 
 ## 3. Gaps found — ✅ all implemented in CAD v0.3 (CadQuery)
 

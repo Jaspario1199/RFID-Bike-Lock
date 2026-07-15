@@ -1,4 +1,4 @@
-// v0.5 assembly preview — composites the CadQuery-exported STLs.
+// v0.6 assembly preview — composites the CadQuery-exported STLs.
 view = "closed"; // ["closed", "open", "exploded"]
 hinge_z = -33;
 
@@ -12,10 +12,14 @@ module fixed_set(e=0) {
     color("#2E4057") import("stl/body.stl");
     color("#C8CDD2") translate([0, 0, 53 + 1.6*e]) import("stl/lid.stl");
     color("#22303C") translate([0, e, -1.2*e]) import("stl/bay_module.stl");
-    color("#455A64") translate([4, 27.5, -58 - 2.5 - 2.2*e]) import("stl/bay_hatch.stl");
+    color("#455A64") translate([4, 27.5, -58 - 3.0 - 2.2*e]) import("stl/bay_hatch.stl");
     color("#D95D39") translate([0, 0, e]) import("stl/pedestal_cart.stl");
     color("#3A3A3A") import("stl/liner_right.stl");
     color("#AEB4BA") translate([98, 36.1 + 1.5*e, -60]) rotate([-90, 0, 0]) import("stl/spool_cover.stl");
+    // v0.6: single hinge rod + screwed tail cap (replace glued end plugs), spine cover
+    color("#C2C6CB") translate([-1.4*e, 0, 0]) import("stl/hinge_rod.stl");
+    color("#4C6172") translate([1.8*e, 0, 0]) import("stl/hinge_cap.stl");
+    color("#4C6172") translate([0, 0.9*e, 1.4*e]) import("stl/spine_cover.stl");
 }
 // ghost tube to show the clamp target in the open view
 module tube_ghost() { color("#88AA88", 0.5) rotate([0, 90, 0]) translate([0,0,-15]) cylinder(d=42, h=180); }
