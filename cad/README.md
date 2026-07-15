@@ -1,4 +1,4 @@
-# CAD — parametric housing model (v0.3, CadQuery → STEP)
+# CAD — parametric housing model (v0.6, CadQuery → STEP)
 
 `bike_lock_cq.py` is the source of truth: a parametric [CadQuery](https://cadquery.readthedocs.io)
 model that builds true BREP solids and exports **STEP** (SolidWorks-ready) and STL for
@@ -194,20 +194,32 @@ Standard FDM design-for-manufacturing + product-design practice:
 - LiPo edge-stand fit — measure your actual 103450 pouch (`lipo_l/w/t`) against the
   on-edge bay repack (D11) before trusting it packable
 - Donor spool: the drum interior is Ø89 × 28 — check the reel you gut fits, or resize
-  `drum_od`/`drum_w`
-- LiPo: frame is cut for 34.5 × 51 × 11 (103450 + margin) — measure yours (`lipo_*`)
+  `drum_od`/`drum_w` (frame otherwise cut for 34.5 × 51 × 11 / 103450 + margin — measure
+  yours against `lipo_*`)
 
-## Known v0.2 simplifications (TODO after first fit-check print)
+## Known simplifications (TODO after first fit-check print)
 
 1. Closure lip is a single snug hook — the 3 preload detent depths (DESIGN.md §6.4) get
    added once the on-bike fit is measured; `clr` (0.5) needs a fit print.
-2. Liner halves rely on friction + adhesive; dovetail keys into the shell come later.
+2. ~~Liner halves rely on friction + adhesive; dovetail keys into the shell come later.~~
+   **SOLVED in v0.6:** a full-length 60° dovetail groove per shell half (mid-arc, one
+   straight axial pass) with 4× 28 mm TPU keys sliding in from the front, captive both
+   ways (blind stop + click-bump) — no adhesive anywhere in the liner retention path.
 3. Shim is a plain C-ring approximation of the clip-over design.
-4. Lid uses 4 exposed corner M3 screws — acceptable on the prototype; steel version needs
-   hidden lid fastening (see ASSEMBLY.md §4 for the concrete reason).
+4. Lid uses 4 M3 screws. In v0.6 these landed on **real pilots in the body rim for the
+   first time** (D3 — v0.5's screws had no working pilots at all, two of them even fell
+   inside the PN532 window's 1.2 mm skin) and drive into brass M3 heat-sets, so it's now
+   an actual fastened joint rather than a nominal one. It is still externally removable
+   on the locked bike — that's now documented as one of four such joints (hatch, spine
+   cover, hinge cap, lid), not a uniquely accepted exception; see DESIGN.md §7 for the
+   full consequence list and the production mitigation plan (security/one-way heads,
+   staking, eventual hidden lid fastening).
 5. Spool spring anchoring is not modeled — depends on the donor reel's spring.
-6. The bay tunnels and wire-spine rib are functional but unblended boxes/bands — a
-   cosmetic fairing pass comes after fit is proven (same trade as v0.3 made).
+6. The bay tunnels are functional but unblended boxes — the v0.6 industrial-design pass
+   (bay-brick bottom chamfer, knuckle chamfers, lid inset/reveal, radius family) softened
+   the visible skin, but a full cosmetic fairing pass on the bay tunnels still comes
+   after fit is proven. The wire-spine rib itself is gone: it's now an open raceway under
+   a separate screwed `spine_cover` (see the part table above), not a molded-in band.
 7. The plunger nose needs its 45° ramp filed/ground by hand — 10 minutes with a file;
    the cable-head groove width (≥6.5 mm) must match, noted in DESIGN.md §6.4.
 

@@ -1,7 +1,7 @@
 # HANDOFF — RFID Bike Lock project
 
 Context document for an agent taking over this project. State is current through
-**CAD v0.5, all pushed to `main`** of `Jaspario1199/RFID-Bike-Lock`. Read this, then
+**CAD v0.6, all pushed to `main`** of `Jaspario1199/RFID-Bike-Lock`. Read this, then
 skim DESIGN.md → ASSEMBLY.md → cad/README.md in that order.
 
 ## 1. What this project is
@@ -34,16 +34,26 @@ manufacturer (Jasper, at first) bench-builds everything else.
   (trade study vs the owner's original square tang: rotation-free insertion won; the
   square tang remains the recommended hand-tools bench mule). Insert-to-lock needs no
   power; unlock = 300 ms pulse.
-- **Closure/security:** ONE M4 down the latch bore into an insert in the door's flange —
-  covered by the locked cable head, so the housing can't be opened while locked.
-  Fail-secure on dead battery; **USB-C port doubles as the power-bank emergency unlock**
-  (wire the system rail from TP4056 OUT, not the cell). Cam-lock backstop was deleted at
-  v0.4 (no wall for it).
+- **Closure/security:** ONE M4×8 low-profile socket screw, driven from the pad top with
+  the door open, into a short brass heat-set (Ø5.6×L3) in a low pad on the door's
+  closure flange (y6.5–13, z21.8–25.2) — covered by the locked cable head, so the
+  housing can't be opened while locked. v0.6 fixed the path itself: v0.5's clearance
+  hole ran through the wrong segment and a 1.3 mm solid floor blocked the screw from
+  ever reaching the insert (D1), and the insert pocket had already punched through the
+  flange (D2) — neither defect was survivable. Fail-secure on dead battery; **USB-C
+  port doubles as the power-bank emergency unlock** (wire the system rail from TP4056
+  OUT, not the cell). Cam-lock backstop was deleted at v0.4 (no wall for it).
 - **Firmware:** complete and committed (`firmware/`) — sleep/wake, scan window,
   EEPROM tag list, master enrollment, admin add/remove, battery check. Not yet run on
   hardware (parts NOT ordered yet — that's the standing critical path).
-- **Fasteners:** all M3 self-tap (2.6 pilots) except: the one M4 closure (brass heat-set
-  in the door flange), 4× M4 bay screws, 2× M2.5 solenoid screws, 2× Ø3 hinge pins.
+- **Fasteners:** M3 self-tap (2.5 pilot) is the default — spool cover, spine cover,
+  hinge cap, pedestal pads. Two service joints (lid ×4, hatch ×2) upgraded to M3
+  machine screws into brass heat-sets in v0.6 so they're real fastened joints, not
+  nominal ones (D3/D6). Plus: one M4×8 low-profile socket into a short M4 heat-set
+  (closure), 4× M4 pan self-tap (bay module, now sub-flush — D5), 2× M2.5 machine into
+  brass heat-sets (solenoid, cyclic load), 4× M2.5 NYLON self-tap (PN532, RF keep-out).
+  No pins: the hinge is a single Ø4×~152 stainless rod (integral turned head) with a
+  screwed tail cap, replacing the old two blind Ø3 hinge pins and their glued end plugs.
 
 ## 3. v0.5 architecture ("spine + door") — WHY it is this way
 
@@ -72,17 +82,25 @@ pod's left floor IS the closed door; nothing may stand on it.
   Z up, tube axis at origin; hinge axis at (y 0, z −33) along X.
 - `python bike_lock_cq.py` → exports every part as **STEP (SolidWorks) + STL** into
   `cad/step/`, `cad/stl/`. The exporter **refuses multi-body parts** (fuses or dies loud).
-- **Three automated verifications — run them after ANY geometry change:**
+- **Automated verifications — run them after ANY geometry change:**
   - entry-corridor interference (in `verify()`),
-  - `--sweep`: door rotated 0–110° vs body+bay+lid, asserts 0 overlap,
-  - `--matrix`: full pairwise static interference over all placed parts.
-  All currently **PASS at 0.00 mm³ / 0 pairs**. The `placements()` table is the single
-  source for `--matrix`, `step/placed/`, and both assembly STEPs — keep it that way.
+  - `--sweep`: door + `liner_left` rotated 0–110° vs everything else, asserts 0 overlap
+    (v0.6 widened the moving/fixed split from door-vs-body+bay+lid — that gap is what
+    hid D10, a real gouge through the liner's base ring),
+  - `--matrix`: full pairwise static interference over all placed parts, clash floor
+    tightened to **0.01 mm³** (`--strict` drops it to 0.001 mm³),
+  - `--gaps` (v0.6, new): exact min-distance check per pair against spec bands, a
+    `CONTACT_OK` whitelist for intended clamped contact, and feature probes for fits a
+    whole-pair distance can't isolate (knuckle axial float, hinge-rod running bore).
+  All currently **PASS at 0.00 mm³ / 0 pairs / 0 gap violations**. The `placements()`
+  table is the single source for `--matrix`, `--gaps`, `step/placed/`, and both
+  assembly STEPs — keep it that way.
 - **SolidWorks workflow (owner's preference):** owner opens STEPs directly. His SW
   chokes on multi-body/assembly STEP display (viewport blank, cause unresolved), so the
-  reliable path is `step/placed/01..11_*.step` — every part pre-positioned, inserted at
+  reliable path is `step/placed/01..12_*.step` — every part pre-positioned, inserted at
   the assembly origin one by one (README documents it). Regenerate placed/combined/
-  assembly files after every export (script pattern lives in the last few commits).
+  assembly files after every export with `python bike_lock_cq.py --export-assembly`
+  (v0.6: a real CLI mode now, no longer an ad-hoc script pattern).
 - **Renders:** OpenSCAD (installed via apt) composites `stl/` via `cad/render_v05.scad`
   (closed / open / exploded) → `cad/renders/`. The owner is shown renders after every
   significant change (send as files). Visual inspection of renders has caught real bugs.
@@ -135,6 +153,11 @@ pod's left floor IS the closed door; nothing may stand on it.
 2. Measure the VERIFY dimensions when parts arrive → update parameters → reprint the
    small cartridges (that's why they're separate parts).
 3. First prints: liner test ring + latch region before any big shell.
-4. Known cosmetic debt: bay brick / wire-spine rib are unblended boxes pending a fairing
-   pass after fit is proven; closure `clr = 0.5` needs a fit print to tune.
+4. Known cosmetic debt: the bay brick is still an unblended box pending a fairing pass
+   after fit is proven (the wire-spine rib itself is gone in v0.6 — it's now an open
+   lay-in raceway closed by a screwed `spine_cover`, not a molded rib); closure
+   `clr = 0.5` needs a fit print to tune. v0.6 also repacked the bay (D11: the LiPo
+   and TP4056 block used to occupy the same floor and the cell physically could not
+   fit) — LiPo now stands on edge along the +Y wall; re-check the fit once the real
+   cell is in hand.
 5. Steel (Phase 2) and hidden-lid-fastening remain future items (ASSEMBLY.md §4).

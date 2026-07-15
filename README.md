@@ -16,7 +16,7 @@ releases the cable, which then reels itself back in.
 | [`DESIGN.md`](DESIGN.md) | The full engineering design document: user workflow, electronics, wiring, power budget, mechanical dimensions, security analysis, open questions |
 | [`BOM.md`](BOM.md) | Bill of materials — every part, quantity, and estimated price |
 | [`firmware/`](firmware/) | Arduino sketch (v1, ready to flash) + bench bring-up guide |
-| [`cad/`](cad/) | Parametric CadQuery model (v0.3, modular) + **STEP files for SolidWorks**, STLs, renders, print guide |
+| [`cad/`](cad/) | Parametric CadQuery model (v0.6, 12 printed parts + 1 lathe part) + **STEP files for SolidWorks**, STLs, renders, print guide |
 | [`ASSEMBLY.md`](ASSEMBLY.md) | Step-by-step assembly sequence + DFM/DFA audit with queued CAD changes |
 
 ## Status
@@ -44,9 +44,14 @@ releases the cable, which then reels itself back in.
   steel frames — see `DESIGN.md` §6.2
 - **Self-guarding closure:** the only screw holding the housing shut sits at the bottom
   of the latch bore, so the locked cable head physically covers it — the case can't be
-  unscrewed off the frame while the bike is locked (`DESIGN.md` §6.4)
+  unscrewed off the frame while the bike is locked (`DESIGN.md` §6.4). Note: as of the
+  v0.6 CAD audit, four *other* service joints (hatch, spine cover, hinge cap, lid) are
+  ordinary external screws reachable on the locked bike without unlocking anything —
+  see `DESIGN.md` §7 for the honest security consequences and the production mitigation
+  plan
 - **v1 housing is 3D printed** (ASA for outdoor UV resistance); the latch keeps a steel
   pin + bushing even in plastic
 - **Dead-battery behavior:** fail-secure — a dead battery stays locked, and the USB-C
-  charge port doubles as an emergency input: any phone power bank runs the lock instantly
-  for an unlock (`DESIGN.md` §8). v1 also carries a hidden cam-lock backstop
+  charge port doubles as the sole emergency input: any phone power bank runs the lock
+  instantly for an unlock (`DESIGN.md` §8). There is no cam-lock backstop — it was
+  deleted at v0.4 (the slim top never had a wall tall enough for its barrel)
