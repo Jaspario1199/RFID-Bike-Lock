@@ -86,7 +86,7 @@ spine cover (2× M3), and the hinge cap (1× M3). Consequences:
 
 - Removing the hatch or the spine cover exposes the solenoid's drive leads — a 5V
   source is a non-destructive path to actuate the latch without going through the app.
-- Removing the hinge cap lets the rod slide out the rear; the housing detaches from the
+- Removing the hinge cap lets the rod slide out the front (the O6 head cannot pass the O4.2 bore, so it exits head-first from its front counterbore); the housing detaches from the
   clamp. The bike stays cable-tethered (the clamshell is still closed around the tube),
   but the lock body itself comes off.
 

@@ -1,7 +1,13 @@
 #!/usr/bin/env python3
 """
-RFID Bike Lock - parametric housing v0.5 "spine + door" (CadQuery / STEP)
-==========================================================================
+RFID Bike Lock - parametric housing v0.6 "no-glue rebuild" (CadQuery / STEP)
+============================================================================
+v0.6 on top of the v0.5 "spine + door" architecture: every joint mechanically
+fastened (zero adhesive), single full-length hinge rod, open wire raceway +
+screwed cover, bay repack (edge-standing LiPo, hatch = service tray), liner
+dovetail retention, parametric fastener/tolerance tables, and a much stronger
+verification suite (see Usage below). v0.5 notes follow.
+
 Consumer-install architecture. v0.4 (archived in cad/archive/v0.4/) could
 not actually be installed: the pod overhung the seam and the full-width
 bay blocked both the door swing and the tube entry path. v0.5 rules:
@@ -21,12 +27,19 @@ bay blocked both the door swing and the tube entry path. v0.5 rules:
   Consumer flow: swing door open, press onto down tube, swing shut,
   ONE hidden M4 down the latch bore. Done.
 
-  The exporter runs an ENTRY-CORRIDOR interference check on every build;
-  `python bike_lock_cq.py --sweep` additionally rotates the door through
-  0..110 deg and asserts the swept volume misses body+bay+lid.
+  Verification (all placements()-driven):
+    --sweep   entry corridor + door+liner_left rotated 0..110 deg against ALL
+              other placed parts (the narrower v0.5 fixed set hid a real
+              flange-vs-liner clash)
+    --matrix  pairwise boolean interference, floor OVERLAP_FLOOR (0.01 mm^3;
+              --strict drops it to 0.001)
+    --gaps    exact BRepExtrema min-distance per pair vs spec bands +
+              CONTACT_OK whitelist + feature probes + screw-path probes
+    --export-assembly   regenerates step/placed/, combined and assembly STEPs
 
 Usage:  python bike_lock_cq.py [part ...]   ->  step/<part>.step + stl/<part>.stl
-        python bike_lock_cq.py --sweep      ->  kinematic verification only
+        python bike_lock_cq.py --sweep|--matrix|--gaps [--strict]
+        python bike_lock_cq.py --export-assembly
 """
 import itertools
 import math
@@ -48,7 +61,7 @@ z_crown = R_out                     # 31
 z_lid0 = z_crown + pod_h            # 53
 z_lidtop = z_lid0 + lid_t           # 56
 pod_ox = pod_ix + 2 * pod_wall
-draft, r_pod, edge = 1.5, 10.0, 1.2
+draft, r_pod = 1.5, 10.0            # lid crown draft is 2.2, set inline in build_lid
 POD_CX = 60.0                       # pod spans x -3..123
 clr = 0.5                           # closure engagement clearance (TODO tune)
 
@@ -128,7 +141,8 @@ LINER_CLR = 0.10                    # radial base-ring clearance (dovetails carr
 # dovetail retention (no glue): one full-length 60-deg groove per shell half at
 # mid-arc (+/-90 deg), cut as a straight axial pass (CNC: form-tool from the end
 # face, no plunge). TPU keys are 4x28mm segments that slide in from the front;
-# a 1mm floor bump at x8-10 clicks past key #1 (captive), blind stop at x145.
+# a ~1mm-proud floor bump at x3.5-5.5 sits just ahead of key #1's face (x6):
+# the key clicks past it on insertion and rests captive; blind stop at x145.
 DT_MOUTH, DT_FLOOR, DT_DEPTH = 4.3, 6.6, 2.2         # groove: at r27 / at r29.2
 KEY_ROOT, KEY_TIP, KEY_H = 4.0, 6.3, 2.0             # key, 0.15/side running clearance
 KEY_XC, KEY_LEN = (20, 55, 95, 130), 28.0
@@ -309,6 +323,12 @@ def spine_cover_screws():
         d = cq.Workplane("XY", origin=(0, 0, 0)).circle(M3_PILOT / 2).extrude(-7.5)
         d = d.rotate((0, 0, 0), (1, 0, 0), -math.degrees(amid))
         out.append(d.translate((sx, 36.0 * math.sin(amid), 36.0 * math.cos(amid))))
+        # ledge relief pocket for the cover's underside countersink pad; extends
+        # 0.25 above the ledge so the pad's nose clears the un-rabbeted rib
+        # strips (x20-21, x35-36) that its O8 footprint overhangs
+        p = cq.Workplane("XY", origin=(0, 0, 0.25)).circle(4.3).extrude(-1.6)
+        p = p.rotate((0, 0, 0), (1, 0, 0), -math.degrees(amid))
+        out.append(p.translate((sx, SP_RAB_R * math.sin(amid), SP_RAB_R * math.cos(amid))))
     return out
 
 
@@ -492,7 +512,8 @@ def build_body():
         body = body.cut(drill)
     body = body.cut(knuckle_clear(hinge_left)).cut(hinge_channel())
     # tail-cap screw pilot: into the shell-wall end face beside the rear standoff
-    body = body.cut(cq.Workplane("YZ", origin=(shell_len + 1, 3.0, -29.0)).circle(M3_PILOT / 2).extrude(-9))
+    # (y3.5 matches the cap's ear/clearance/countersink axis exactly)
+    body = body.cut(cq.Workplane("YZ", origin=(shell_len + 1, 3.5, -29.0)).circle(M3_PILOT / 2).extrude(-9))
     # bay mounting: M4 through-holes from inside the bore, counterbored so the pan
     # head sits fully below the bore surface (was 2.6 deep -> head stood 1-2.5mm
     # proud, into the liner zone)
@@ -511,13 +532,14 @@ def build_body():
         boss = boss.union(g)
     boss = boss.cut(tube_bore())
     boss = boss.cut(cq.Workplane("XY", origin=(bore_x, bore_y, z_lidtop - bore_depth)).circle(bore_d / 2).extrude(bore_depth + 2))
-    # closure clearance: through the 1.3mm floor between the bore bottom (z30) and
-    # the flange pocket ceiling ONLY. (The old cut ran z-31..+24 - the wrong
-    # segment: it pierced the bottom shell into the tube cavity and never reached
-    # the flange, so the single consumer screw could not work at all.)
-    boss = boss.cut(cq.Workplane("XY", origin=(bore_x, bore_y, pad_z1 + 0.5)).circle(closure_screw_d / 2).extrude(z_lidtop - bore_depth - pad_z1 + 1))
     boss = boss.cut(cq.Workplane("YZ", origin=(bore_x - 1, bore_y, pin_z)).circle(pin_ch_d / 2).extrude(boss_d + 2))
     body = body.union(boss)
+    # closure clearance: MUST be cut from body AFTER the boss union - the screw
+    # axis also crosses the solid shell wall (z26.5-29.5), and a pre-union cut
+    # on the boss sub-solid gets refilled by the union. (The v0.5 cut was both
+    # pre-union AND in the wrong z-segment entirely - the single consumer screw
+    # could never be installed. Asserted by SCREW_PATHS in --gaps.)
+    body = body.cut(cq.Workplane("XY", origin=(bore_x, bore_y, pad_z1 + 0.5)).circle(closure_screw_d / 2).extrude(z_lidtop - bore_depth - pad_z1 + 1))
     # lid screw bosses: O8 columns fused into the pod cavity walls, M3 heat-set
     # pockets from the rim face (the lid's old x=5 screws landed over open cavity
     # AND inside the PN532 window span - nothing to bite, only 1.2mm skin)
@@ -801,10 +823,16 @@ def build_spine_cover():
         )
     amid = math.radians((SP_A0 + SP_A1) / 2 + 0.25)
     for sx in (22.5, 33.5):
+        # underside pad (nests into a ledge relief pocket, spool-cover pattern):
+        # plate is only 1.85 thick - a bare countersink would perforate it.
+        # 1.85 + 1.2 pad = 3.05 local; machine-flat cs 1.8 leaves 1.25.
+        pad = cq.Workplane("XY", origin=(0, 0, -3.0)).circle(4.0).extrude(1.3)
+        pad = pad.rotate((0, 0, 0), (1, 0, 0), -math.degrees(amid))
+        plate = plate.union(pad.translate((sx, 36.9 * math.sin(amid), 36.9 * math.cos(amid))))
         hole = cq.Workplane("XY", origin=(0, 0, 2)).circle(M3_CLR / 2).extrude(-8)
         cone = (
-            cq.Workplane("XY", origin=(0, 0, 0.01)).circle(M3_ST_CS_D / 2 + 0.01)
-            .workplane(offset=-(M3_ST_CS_T + 0.01)).circle(max(M3_ST_CS_D / 2 - M3_ST_CS_T, 0.2)).loft()
+            cq.Workplane("XY", origin=(0, 0, 0.01)).circle(M3_CS_D / 2 + 0.01)
+            .workplane(offset=-(M3_CS_T + 0.01)).circle(max(M3_CS_D / 2 - M3_CS_T, 0.2)).loft()
         )
         for c in (hole, cone):
             c = c.rotate((0, 0, 0), (1, 0, 0), -math.degrees(amid))
@@ -1005,6 +1033,27 @@ def feature_probes():
     return probes
 
 
+def screw_path_probes():
+    """Screws are not modeled parts, so pair checks can't see a blocked screw
+    path (the v0.6 closure clearance was silently refilled by a union - twice).
+    Each probe cylinder must be AIR inside the named part."""
+    probes = [
+        ("closure screw shank through body floor", "01_body",
+         cq.Workplane("XY", origin=(bore_x, bore_y, 26.2)).circle(2.15).extrude(3.6)),
+        ("closure screw reach into door insert pocket", "02_door",
+         cq.Workplane("XY", origin=(bore_x, bore_y, 22.4)).circle(2.15).extrude(2.6)),
+        ("tail-cap screw pilot alignment in body", "01_body",
+         cq.Workplane("YZ", origin=(146, 3.5, -29.0)).circle(1.2).extrude(3.8)),
+        ("tail-cap screw clearance through cap", "11_hinge_cap",
+         cq.Workplane("YZ", origin=(150.2, 3.5, -29.0)).circle(1.6).extrude(3.0)),
+    ] + [
+        (f"lid screw insert pocket @({sx},{sy})", "01_body",
+         cq.Workplane("XY", origin=(sx, sy, z_lid0 - INS3_T + 0.2)).circle(1.9).extrude(INS3_T - 0.4))
+        for sx, sy in LID_SCREWS
+    ]
+    return probes
+
+
 def _min_dist(a, b):
     """Exact min distance (mm). 0.0 for touching OR overlapping - pair with
     overlap_volume() to tell those apart."""
@@ -1052,6 +1101,11 @@ def verify_gaps(floor=OVERLAP_FLOOR):
         d = _min_dist(fa, fb)
         if d < lo - 1e-6 or d > hi + 1e-6:
             bad.append((f"probe {label}", f"measured {d:.3f} outside [{lo}, {hi}]"))
+    for label, part, probe in screw_path_probes():
+        checked += 1
+        v = overlap_volume(named[part], probe)
+        if v > floor:
+            bad.append((f"screw-path {label}", f"{v:.3f} mm^3 of {part} blocks the path"))
     for what, why in bad:
         print(f"  FAIL {what}: {why}", flush=True)
     print(f"[verify] gap matrix: {len(bad)} violations / {checked} checks "
@@ -1070,8 +1124,11 @@ PART_COLORS = {
 def export_assembly():
     """Regenerate step/placed/, the combined multibody STEP, and the assembly
     STEP - all driven by the same placements() table as --matrix/--gaps."""
+    import glob
     import os
     os.makedirs("step/placed", exist_ok=True)
+    for stale in glob.glob("step/placed/*.step"):
+        os.remove(stale)                # deleted/renamed parts must not leave ghosts
     ps = placed_solids()
     asm = cq.Assembly(name="bike_lock_v06")
     for (name, wp), (_, part, _t, _ax, _ang) in zip(ps, placements()):
