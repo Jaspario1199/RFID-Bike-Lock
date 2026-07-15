@@ -150,8 +150,22 @@ KEY_XC, KEY_LEN = (20, 55, 95, 130), 28.0
 # ---------------- bay (rule 2: everything at y >= BAY_Y0) ----------------
 BAY_Y0, BAY_Y1 = 7.0, 48.0          # left face clears the door knuckles (loft top grows 2)
 BK_X0, BK_X1, BK_BOT = 4.0, 62.0, -58.0
-lipo_l, lipo_w, lipo_t = 51.0, 35.0, 11.0            # 103450 + margin, long side along X
-usb_z = -46.0
+lipo_l, lipo_w, lipo_t = 51.0, 35.0, 11.0            # 103450 + margin (bump end absorbs protection PCB)
+usb_z = -51.8                       # TP4056 lies FLAT, port through the wall (the old vertical card
+                                    # slot pointed the USB-C at the floor - geometrically impossible)
+
+# ---------------- electronics mockup dims (v0.7, nominal - VERIFY on arrival) ----------------
+NANO_L, NANO_W, NANO_T = 45.0, 18.0, 1.6             # SOLID; pins TRIMMED flush policy: 2.0 below
+NANO_STACK = 6.0                    # tallest top-side feature (USB shell) - NOMINAL
+MT_L, MT_W, MT_H = 36.0, 17.0, 7.6  # MT3608 incl. inductor est. 6 (+PCB); conflicting 14mm listing = VERIFY
+TP_L, TP_W, TP_T = 29.0, 17.3, 4.3  # TP4056 USB-C; port overhang 0.5-1.5 VERIFY
+PERF_L, PERF_W = 40.0, 29.0         # 4x6cm perfboard CUT to fit the tray window (0.25-0.5 clr/side)
+PERF_STACK = 13.0                   # component envelope above shelf board (O8x12.5 cap-driven)
+SOL_W_MAX = 16.0                    # clone body width spread 13-16: holders design to 16 (VERIFY)
+BTN_BODY_D, BTN_BODY_L = 14.0, 9.0  # 12mm button behind-panel body + nut stack (NOMINAL)
+BTN_LUGS = 8.0                      # solder-lug keep-out behind the body
+LIPO_CELL = (50.0, 10.0, 34.0)      # edge-stand: 50 along X, 10 across Y, 34 tall (z)
+SHELF_Z = -41.0                     # perfboard shelf plane (Nano below: USB top -45.4, 4.4 clear)
 bay_screw_y = 12.11                 # .11/.13 nudges break an exactly-tangent OCC edge that crashed STEP export
 bay_screw_xs = (10.13, 28.13, 46.13, 60.13)          # M4s from inside the bore, +Y line
 
@@ -600,12 +614,19 @@ def build_bay_module():
         body = body.cut(cq.Workplane("XY", origin=(sx, bay_screw_y, zs2)).circle(M4_PILOT / 2).extrude(-12))
     # spine landing window (brick top, +Y side)
     body = body.cut(cq.Workplane("XY", origin=(28, 30, -18)).box(12, 12, 10))
-    # TP4056 slot block at the front wall + USB-C port + niche
-    blk = cq.Workplane("XY", origin=(BK_X0 + 8.5, 24, BK_BOT + 3)).box(9, 20, 20, centered=(True, True, False))
-    blk = blk.cut(cq.Workplane("XY", origin=(BK_X0 + 8.5, 24, BK_BOT + 5)).box(4.9, 18, 21, centered=(True, True, False)))
-    body = body.union(blk)
-    body = body.cut(cq.Workplane("XY", origin=(BK_X0 - 1, 24, usb_z)).box(10, 10.2, 4.6, centered=(True, True, True)))
-    body = body.cut(cq.Workplane("XY", origin=(BK_X0 - 0.5, 24, usb_z)).box(3, 15, 10, centered=(True, True, True)))
+    # TP4056 cradle (v0.7): the board lies FLAT at lane y=22, USB-C through the
+    # front wall. (The v0.5 vertical card slot pointed the port at the floor -
+    # geometrically impossible; and a lane at y=24 would rail into the
+    # edge-standing cell at y34.2.) Board slides -X under the rail noses until
+    # its port edge registers at the wall; rear rests on the tray pad.
+    TP_CY = 22.0
+    for s in (-1, 1):
+        ry = TP_CY + s * (TP_W / 2 + 0.2 + 1.5)
+        rail = cq.Workplane("XY", origin=(15.5, ry, BK_BOT + 3)).box(17, 3.0, 4.6, centered=(True, True, False))
+        nose = cq.Workplane("XY", origin=(15.5, ry - s * 1.1, BK_BOT + 3 + 1.8)).box(17, 1.4, 1.2, centered=(True, True, False))
+        body = body.union(rail).union(nose)
+    body = body.cut(cq.Workplane("XY", origin=(BK_X0 - 1, TP_CY, usb_z)).box(10, 10.2, 4.6, centered=(True, True, True)))
+    body = body.cut(cq.Workplane("XY", origin=(BK_X0 - 0.5, TP_CY, usb_z)).box(3, 15, 10, centered=(True, True, True)))
     # LiPo stands ON EDGE along the +Y wall (50 x 34 x 10 cell, 10mm face down).
     # The old flat-frame pocket (51x35) overlapped the TP4056 block (x8..17) -
     # the cell physically could not fit its own frame. Edge-wise it clears the
@@ -664,6 +685,13 @@ def build_bay_hatch():
     for lx in range(18, 52, 11):
         for ly in (-9, 0, 9):
             p = p.cut(cq.Workplane("XY", origin=(lx, ly, -1)).circle(1.6).extrude(8))
+    # cartridge screws (M3x8 ST flat, external face): 2x nano sled + 2x shelf walls
+    ang = math.atan2(29.5 - 3, 40.5 - 3)
+    sled_pts = [(37.75 + s * 14 * math.cos(ang) - BK_X0, 27.75 + s * 14 * math.sin(ang) - (BAY_Y0 + BAY_Y1) / 2) for s in (-1, 1)]
+    shelf_pts = [(37.75 + sx * 11.8 - BK_X0, 27.75 + sy * 12.3 - (BAY_Y0 + BAY_Y1) / 2) for sx, sy in ((-1, 1), (1, -1))]
+    for lx, ly in sled_pts + shelf_pts:
+        p = p.cut(cq.Workplane("XY", origin=(lx, ly, -1)).circle(M3_CLR / 2).extrude(9))
+        p = p.cut(csink(lx, ly, 0, M3_ST_CS_D, M3_ST_CS_T))
     return p
 
 
@@ -871,6 +899,107 @@ def build_hinge_cap():
     return cap.cut(cs)
 
 
+def build_nano_sled():
+    """Nano carrier on the hatch tray: the 45mm board only fits the 40.5x29.5
+    window DIAGONALLY (50.1mm diagonal). Sled = base plate + two rail walls at
+    the board width (18+0.3), end nubs, standoff 2.0 under the trimmed-flush
+    pins (TRIM POLICY: pins cut flush after soldering - untrimmed pins need
+    8.5mm and don't fit the stack). Pegs drop into the tray zip grid; the
+    Nano is strapped with one zip over the mid-board through the sled slots.
+    Reflash happens with the tray out - no in-situ USB keep-out needed.
+    Modeled in place (diagonal, window center)."""
+    ang = math.degrees(math.atan2(29.5 - 3, 40.5 - 3))
+    base = cq.Workplane("XY").box(NANO_L + 6, NANO_W + 7, 1.6, centered=(True, True, False))
+    for s in (-1, 1):
+        base = base.union(cq.Workplane("XY", origin=(0, s * (NANO_W / 2 + 1.65), 1.6 - EPS)).box(NANO_L - 8, 3.0, 4.0, centered=(True, True, False)))
+        base = base.union(cq.Workplane("XY", origin=(s * (NANO_L / 2 + 1.5), 0, 1.6 - EPS)).box(3.0, 12.0, 3.6, centered=(True, True, False)))
+        base = base.cut(cq.Workplane("XY", origin=(0, s * (NANO_W / 2 - 2), -1)).box(4.0, 2.4, 4))  # zip slots
+    base = base.union(cq.Workplane("XY", origin=(0, 0, 1.6 - EPS)).box(NANO_L - 8, 4, 2.0, centered=(True, True, False)))  # pin-clearance standoff spine
+    for px in (-14.0, 14.0):              # M3x8 ST flat from the hatch's external face
+        base = base.union(cq.Workplane("XY", origin=(px, 0, EPS)).circle(3.5).extrude(-0.05))
+        base = base.cut(cq.Workplane("XY", origin=(px, 0, -1)).circle(M3_PILOT / 2).extrude(4))
+    sled = base.rotate((0, 0, 0), (0, 0, 1), ang)
+    return sled.translate(((17.5 + 58) / 2, (13 + 42.5) / 2, -55))
+
+
+def build_shelf_cart():
+    """Perfboard shelf (level 2 of the tray cartridge): the window cannot hold
+    Nano + MT3608 + perfboard co-planar (~2600mm2 of boards, 1195mm2 window).
+    The 40x29 cut perfboard (from 4x6cm stock) rides a rabbeted frame on four
+    legs above the Nano; MT3608 + power parts mount ON the perfboard.
+    Legs peg into the tray grid; 2x M3x8 ST flat drive up from the hatch's
+    external face. Modeled in place."""
+    cx, cy = (17.5 + 58) / 2, (13 + 42.5) / 2
+    fr_l, fr_w = PERF_L + 4.6, PERF_W + 4.6
+    frame = cq.Workplane("XY", origin=(cx, cy, SHELF_Z)).box(fr_l, fr_w, 3.0, centered=(True, True, False))
+    frame = frame.cut(cq.Workplane("XY", origin=(cx, cy, SHELF_Z + 1.4)).box(PERF_L + 0.4, PERF_W + 0.4, 3, centered=(True, True, False)))
+    frame = frame.cut(cq.Workplane("XY", origin=(cx, cy, SHELF_Z - 1)).box(PERF_L - 6, PERF_W - 6, 6, centered=(True, True, False)))
+    # two L-shaped corner walls at the ANTI-diagonal corners (the main-diagonal
+    # corners belong to the Nano sled below); torsionally stiff, one screw each
+    for sx, sy in ((-1, 1), (1, -1)):
+        arm_x = cq.Workplane("XY", origin=(cx + sx * 11.8, cy + sy * 12.3, -55)).box(12, 3, SHELF_Z + 55 + EPS, centered=(True, True, False))
+        arm_y = cq.Workplane("XY", origin=(cx + sx * 17.8, cy + sy * 6.8, -55)).box(3, 12, SHELF_Z + 55 + EPS, centered=(True, True, False))
+        frame = frame.union(arm_x).union(arm_y)
+        frame = frame.cut(cq.Workplane("XY", origin=(cx + sx * 11.8, cy + sy * 12.3, -56)).circle(M3_PILOT / 2).extrude(6))
+    # board retention pegs into the perfboard's own 2.54 grid at two corners
+    for px, py in ((cx - PERF_L / 2 + 3.8, cy - PERF_W / 2 + 3.8), (cx + PERF_L / 2 - 3.8, cy + PERF_W / 2 - 3.8)):
+        frame = frame.union(cq.Workplane("XY", origin=(px, py, SHELF_Z + 1.4 - EPS)).circle(0.45).extrude(2.2))
+    return largest_solid(frame)
+
+
+# ---------------- electronics mockups (reference bodies - NOT printed) ----------------
+def _mk_box(cx, cy, z0, l, w, t):
+    return cq.Workplane("XY", origin=(cx, cy, z0)).box(l, w, t, centered=(True, True, False))
+
+
+def build_mock_nano():
+    ang = math.degrees(math.atan2(29.5 - 3, 40.5 - 3))
+    pcb = cq.Workplane("XY", origin=(0, 0, 0)).box(NANO_L, NANO_W, NANO_T, centered=(True, True, False))
+    usb = cq.Workplane("XY", origin=(-NANO_L / 2 + 3.8, 0, NANO_T - EPS)).box(7.6, 7.5, 4.4, centered=(True, True, False))
+    m = pcb.union(usb).rotate((0, 0, 0), (0, 0, 1), ang)
+    return m.translate(((17.5 + 58) / 2, (13 + 42.5) / 2, -55 + 3.6))
+
+
+def build_mock_perf_stack():
+    """Cut perfboard + conservative component envelope (cap-driven) + MT3608
+    mounted on it - one fused reference body on the shelf plane."""
+    cx, cy = (17.5 + 58) / 2, (13 + 42.5) / 2
+    board = _mk_box(cx, cy, SHELF_Z + 1.4, PERF_L, PERF_W, 1.6)
+    comps = _mk_box(cx, cy, SHELF_Z + 3.0, PERF_L - 4, PERF_W - 4, PERF_STACK)
+    return board.union(comps)
+
+
+def build_mock_tp4056():
+    pcb = _mk_box(7.2 + TP_L / 2, 22.0, BK_BOT + 3.2, TP_L, TP_W, 1.6)
+    usb = _mk_box(7.2 + 3.6, 22.0, BK_BOT + 4.8 - EPS, 7.2, 9.0, 3.2)
+    return pcb.union(usb)
+
+
+def build_mock_lipo():
+    return _mk_box(33, 39.3, -55, LIPO_CELL[0], LIPO_CELL[1], LIPO_CELL[2])
+
+
+def build_mock_pn532():
+    return _mk_box(pn532_x + pn532_l / 2, pod_yc, 53.3 - 4.0, pn532_l - 0.5, pn532_w - 0.6, 4.0)
+
+
+def build_mock_solenoid():
+    body = _mk_box(66 + sol_len / 2, bore_y, pin_z - sol_axis_h, sol_len, SOL_W_MAX, sol_h)
+    # plunger TRIMMED to end at x98 (untrimmed x110 tail hits the wake button body)
+    plunger = cq.Workplane("YZ", origin=(52, bore_y, pin_z)).circle(plunger_d / 2).extrude(98 - 52)
+    return body.union(plunger)
+
+
+def build_mock_button():
+    b = cq.Workplane("XY", origin=(button_x, button_y, z_lid0)).circle(BTN_BODY_D / 2).extrude(-BTN_BODY_L)
+    lugs = cq.Workplane("XY", origin=(button_x, button_y, z_lid0 - BTN_BODY_L)).circle(4.0).extrude(-BTN_LUGS)
+    return b.union(lugs)
+
+
+def build_mock_led():
+    return cq.Workplane("XY").circle(1.5).extrude(5.0)
+
+
 PARTS = {
     "body": build_body,
     "door": build_door,
@@ -885,7 +1014,22 @@ PARTS = {
     "hinge_rod": build_hinge_rod,
     "hinge_cap": build_hinge_cap,
     "spine_cover": build_spine_cover,
+    "nano_sled": build_nano_sled,
+    "shelf_cart": build_shelf_cart,
 }
+
+# reference bodies for packaging verification + SolidWorks placement - NOT printed
+MOCKUPS = {
+    "mock_nano": build_mock_nano,
+    "mock_perf_stack": build_mock_perf_stack,
+    "mock_tp4056": build_mock_tp4056,
+    "mock_lipo": build_mock_lipo,
+    "mock_pn532": build_mock_pn532,
+    "mock_solenoid": build_mock_solenoid,
+    "mock_button": build_mock_button,
+    "mock_led": build_mock_led,
+}
+ALL_BUILDERS = {**PARTS, **MOCKUPS}
 
 
 # =====================================================================
@@ -953,6 +1097,18 @@ def placements():
         ("10_hinge_rod", "hinge_rod", (0, 0, 0), None, 0),
         ("11_hinge_cap", "hinge_cap", (0, 0, 0), None, 0),
         ("12_spine_cover", "spine_cover", (0, 0, 0), None, 0),
+        ("13_nano_sled", "nano_sled", (0, 0, 0), None, 0),
+        ("14_shelf_cart", "shelf_cart", (0, 0, 0), None, 0),
+        # 90+ = electronics reference bodies (packaging verification + placement)
+        ("90_mock_nano", "mock_nano", (0, 0, 0), None, 0),
+        ("91_mock_perf_stack", "mock_perf_stack", (0, 0, 0), None, 0),
+        ("92_mock_tp4056", "mock_tp4056", (0, 0, 0), None, 0),
+        ("93_mock_lipo", "mock_lipo", (0, 0, 0), None, 0),
+        ("94_mock_pn532", "mock_pn532", (0, 0, 0), None, 0),
+        ("95_mock_solenoid", "mock_solenoid", (0, 0, 0), None, 0),
+        ("96_mock_button", "mock_button", (0, 0, 0), None, 0),
+        ("97_mock_led_a", "mock_led", (button_x, 6, z_lid0 - 1), None, 0),
+        ("98_mock_led_b", "mock_led", (button_x, 0, z_lid0 - 1), None, 0),
     ]
 
 
@@ -961,7 +1117,7 @@ def placed_solids():
     cache = {}
     for name, part, t, axis, ang in placements():
         if part not in cache:
-            cache[part] = PARTS[part]()
+            cache[part] = ALL_BUILDERS[part]()
         v = cache[part].val()
         if ang:
             v = v.rotate(cq.Vector(0, 0, 0), cq.Vector(*axis), ang)
@@ -1007,6 +1163,25 @@ GAP_SPECS = {
     ("01_body", "11_hinge_cap"):         CONTACT_OK,   # cap seats on the standoff face, screwed
     ("02_door", "11_hinge_cap"):         (0.05, None), # door end face relieved past the cap disc
     ("01_body", "12_spine_cover"):       CONTACT_OK,   # seats on the rabbet ledge, screwed
+    ("08_bay_hatch", "13_nano_sled"):    CONTACT_OK,   # sled screwed to the tray pad
+    ("08_bay_hatch", "14_shelf_cart"):   CONTACT_OK,   # shelf L-walls screwed to the tray pad
+    # electronics reference bodies: seated = CONTACT_OK; packaging assertions = bands
+    ("13_nano_sled", "90_mock_nano"):    CONTACT_OK,
+    ("14_shelf_cart", "91_mock_perf_stack"): CONTACT_OK,
+    ("03_bay_module", "92_mock_tp4056"): CONTACT_OK,   # rails + wall register
+    ("08_bay_hatch", "92_mock_tp4056"):  CONTACT_OK,   # rear rests on the tray pad
+    ("03_bay_module", "93_mock_lipo"):   CONTACT_OK,   # floor strips + rail + wall + block face
+    ("08_bay_hatch", "93_mock_lipo"):    CONTACT_OK,
+    ("04_lid", "94_mock_pn532"):         CONTACT_OK,   # pressed against the drop bosses
+    ("05_pedestal_cart", "95_mock_solenoid"): CONTACT_OK,  # bolted to the tower
+    ("01_body", "95_mock_solenoid"):     (0.10, 0.60), # plunger running in the O6.6 pin channel
+    ("04_lid", "95_mock_solenoid"):      (0.50, None), # body top z52 vs lid 53 - packaging assertion
+    ("95_mock_solenoid", "96_mock_button"): (0.50, None),  # plunger tail TRIMMED to x98 vs button x99
+    ("94_mock_pn532", "95_mock_solenoid"): (1.0, None),
+    ("90_mock_nano", "14_shelf_cart"):   (1.0, None),  # USB stack under the shelf frame
+    ("04_lid", "96_mock_button"):        CONTACT_OK,   # panel-mounted through its own hole
+    ("04_lid", "97_mock_led_a"):         CONTACT_OK,
+    ("04_lid", "98_mock_led_b"):         CONTACT_OK,
 }
 
 # Local probes for features a whole-part pair distance can't isolate (a 0.00
@@ -1118,6 +1293,10 @@ PART_COLORS = {
     "bay_hatch": (0.27, 0.35, 0.39), "pedestal_cart": (0.85, 0.36, 0.22), "lid": (0.78, 0.80, 0.82),
     "liner_right": (0.23, 0.23, 0.23), "liner_left": (0.27, 0.27, 0.27), "spool_cover": (0.68, 0.71, 0.73),
     "hinge_rod": (0.75, 0.75, 0.78), "hinge_cap": (0.3, 0.38, 0.47), "spine_cover": (0.3, 0.38, 0.47),
+    "nano_sled": (0.85, 0.36, 0.22), "shelf_cart": (0.85, 0.36, 0.22),
+    "mock_nano": (0.13, 0.45, 0.22), "mock_perf_stack": (0.13, 0.45, 0.22), "mock_tp4056": (0.13, 0.45, 0.22),
+    "mock_pn532": (0.13, 0.45, 0.22), "mock_lipo": (0.55, 0.55, 0.6), "mock_solenoid": (0.45, 0.45, 0.5),
+    "mock_button": (0.2, 0.2, 0.2), "mock_led": (0.8, 0.1, 0.1),
 }
 
 
@@ -1156,12 +1335,12 @@ def main():
     if "--export-assembly" in sys.argv:
         export_assembly()
         sys.exit(0)
-    names = args or list(PARTS.keys())
+    names = args or list(ALL_BUILDERS.keys())
     os.makedirs("step", exist_ok=True)
     os.makedirs("stl", exist_ok=True)
     for n in names:
         print(f"[build] {n} ...", flush=True)
-        s = PARTS[n]()
+        s = ALL_BUILDERS[n]()
         sol = s.solids().vals()
         if len(sol) > 1:
             fused = sol[0]

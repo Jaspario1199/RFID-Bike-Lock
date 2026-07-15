@@ -622,6 +622,23 @@ attention. Implemented in CAD v0.4 (`cad/bike_lock_cq.py`):
   clamp) — the cover can't slide out past the rear tunnel in place. Rare operation,
   accepted.
 
+
+### 6.6c v0.7 delta — electronics as first-class placed bodies
+
+Every BOM electronic now exists in the CAD as a dimensioned reference body (nominal
+dims, VERIFY on arrival), placed in the assembly and covered by `--matrix`/`--gaps`:
+packaging claims (solenoid body vs lid: >=1.0 mm; plunger tail TRIMMED to x98 vs the
+wake button: >=1.0 mm; PN532 vs solenoid) are now machine-checked assertions, not
+prose. Modeling them exposed two more v0.5 impossibilities, both fixed: (D13) the
+TP4056 card slot pointed the USB-C at the floor - the board now lies FLAT in a rail
+cradle at lane y=22 with the port through the wall (`usb_z` -46 -> -51.8); (D14) Nano
++ MT3608 + perfboard cannot fit the tray window co-planar (~2600 mm2 of boards vs
+1195 mm2) - the tray is now a TWO-LEVEL cartridge: `nano_sled` carries the Nano
+diagonally (pins trimmed flush - the only way the stack fits), and `shelf_cart` holds
+a 40x29 perfboard (cut from 4x6 cm stock) on L-walls above it, carrying the MT3608
+and all power parts. Each cartridge lands on the hatch tray with two M3x10 ST flats
+driven from the hatch's external face - service drops the whole loaded tray.
+
 ### 6.7 RFID face
 
 The PN532 antenna sits directly under a **plastic** window on the top face (13.56 MHz does

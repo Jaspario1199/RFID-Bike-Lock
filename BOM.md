@@ -37,13 +37,17 @@ lot from AliExpress roughly halves the Amazon total but takes 2–4 weeks.
 | 22 | Silicone sponge sheet — *only if TPU printing is unavailable* (fallback liner) | 10 mm, medium density | 1 | ($8) |
 | 23a | Closure screw + insert | M4×8 low-profile socket machine screw + washer ×1 + short M4 heat-set (Ø5.6×L3, VERIFY sourcing) ×1 — closure | 1 | $2 |
 | 23b | Bay module screws | M4×12 pan self-tap ×4 — bay module (counterbored sub-flush, inside bore) | 4 | $1 |
-| 23c | Lid/hatch screws + inserts | M3×10 countersunk machine (ISO 10642) ×6 + M3 brass heat-set ×6 — lid 4, hatch 2 (service joints) | 6 + 6 | $2 |
-| 23d | Spool/spine/hinge-cap screws | M3×10 countersunk self-tap ×6 — spool 3, spine cover 2, hinge cap 1 (visible, flush) | 6 | $1.50 |
+| 23c | Lid/hatch/spine screws + inserts | M3×10 countersunk machine (ISO 10642) ×8 + M3 brass heat-set ×6 — lid 4, hatch 2 (into inserts, service joints); spine cover 2 (thread-forming into Ø2.5 pilots, no insert — the ST flat head cone was too deep for the 1.85mm plate) | 8 + 6 | $2 |
+| 23d | Spool/spine/hinge-cap/cartridge screws | M3×10 countersunk self-tap ×10 — spool 3, hinge cap 1 (visible, flush); nano sled 2, perfboard shelf 2 (hatch external face); spine cover 2 switched to machine flat (23c) | 8 | $1.50 |
 | 23e | Pedestal screws | M3×10 pan self-tap ×2 — pedestal pads (hidden) | 2 | $0.50 |
 | 23f | Solenoid screws + inserts | M2.5×8 machine ×2 + M2.5 brass heat-set ×2 — solenoid (cyclic load) | 2 + 2 | $1 |
 | 23g | PN532 screws | M2.5×8 **NYLON** machine ×4 — PN532 (RF keep-out; the antenna loop wraps the whole board perimeter, no steel at the edges) | 4 | $1.50 |
 | 23h | Hinge rod stock | Ø6 303 stainless bar, 165 mm. ONE lathe op: center-drill the far end and support it on the tailstock live center — a 140 mm Ø4 turn is 35:1 slenderness and **will chatter unsupported**; turn the Ø4.00 shank in light passes, leave the Ø6.0×1.6 head integral, R0.5 head fillet, 0.4×45° head chamfer, R2.2 domed tail; trim to length at dry-fit. Zero-lathe fallback: plain Ø4 ground rod or drill rod stock, cut to length, with a screwed cap at EACH end (no integral head, no lathe op) | 1 | $3 |
 | 23i | ~~Cam lock backstop~~ | dropped in v0.4 (no wall tall enough in the slim pod); USB power-bank unlock is the dead-battery path | — | — |
+
+| 23h | Nano sled + perfboard shelf | printed cartridges on the hatch tray (v0.7): Nano rides the tray DIAGONALLY (45mm board, 40.5×29.5 window), pins trimmed flush; perfboard shelf on L-walls above it carries MT3608 + power parts | — | — |
+| 23i | Perfboard | 4×6 cm (40×60 mm) stock, CUT to 40×29 along a hole row — neither stock size fits the tray window as purchased | 1 | $1 |
+| 23j | Reservoir cap size spec | order Ø8×12.5 mm 1000 µF/10 V explicitly — taller Ø10×16.8 variants exist and eat the shelf headroom | 1 | — |
 
 ## Mechanical — Phase 2 steel housing (TBD, ~$40–80)
 

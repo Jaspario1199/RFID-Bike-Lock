@@ -57,7 +57,7 @@ To regenerate everything: `pip install cadquery` then `python bike_lock_cq.py`
 `legacy_bike_lock_v02.scad` is the retired OpenSCAD v0.2, kept for reference;
 `render_v03.scad` only composites the exported STLs for preview renders.
 
-## v0.6 part set (12 printed parts + 1 lathe part)
+## v0.7 part set (14 printed parts + 1 lathe part + 9 electronics reference bodies)
 
 | Part | Role |
 |---|---|
@@ -193,7 +193,7 @@ Standard FDM design-for-manufacturing + product-design practice:
 - Spine cover warp/orientation test — dry-fit flush on the rabbet ledge before drilling
 - LiPo edge-stand fit — measure your actual 103450 pouch (`lipo_l/w/t`) against the
   on-edge bay repack (D11) before trusting it packable
-- Donor spool: the drum interior is Ø89 × 28 — check the reel you gut fits, or resize
+- Donor spool: the drum interior is Ø61 × 28.5 (v0.5 slim drum) — check the reel you gut fits, or resize
   `drum_od`/`drum_w` (frame otherwise cut for 34.5 × 51 × 11 / 103450 + margin — measure
   yours against `lipo_*`)
 

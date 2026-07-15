@@ -76,6 +76,14 @@ now honestly covers.
 5. **Build-guide notes:** magnet-tip long hex key for the bore screw; thread the cable
    before winding spring preload.
 
+### v0.7 addendum — tray cartridges
+Steps 4-6 refine to: (i) screw the `nano_sled` and `shelf_cart` to the tray (4x M3x10
+ST flat from the external face); (ii) zip the Nano to the sled (pins TRIMMED flush),
+seat the cut 40x29 perfboard on the shelf pegs; (iii) TP4056 slides -X under the bay
+cradle noses until the USB-C registers in the wall port; (iv) the cell stands on edge
+against the +Y wall. Reflash = drop the tray, plug in on the bench - no in-situ USB
+access needed.
+
 ## 4. Security note recorded during the audit
 
 v0.6 status (full rewrite — see DESIGN.md §7 "Security analysis — honest version" for

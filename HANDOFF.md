@@ -1,7 +1,7 @@
 # HANDOFF — RFID Bike Lock project
 
 Context document for an agent taking over this project. State is current through
-**CAD v0.6, all pushed to `main`** of `Jaspario1199/RFID-Bike-Lock`. Read this, then
+**CAD v0.6, all pushed to `main` (v0.7: electronics mockups + tray cartridges on the PR branch)** of `Jaspario1199/RFID-Bike-Lock`. Read this, then
 skim DESIGN.md → ASSEMBLY.md → cad/README.md in that order.
 
 ## 1. What this project is
