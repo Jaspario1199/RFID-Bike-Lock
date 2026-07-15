@@ -28,9 +28,11 @@ bay blocked both the door swing and the tube entry path. v0.5 rules:
 Usage:  python bike_lock_cq.py [part ...]   ->  step/<part>.step + stl/<part>.stl
         python bike_lock_cq.py --sweep      ->  kinematic verification only
 """
+import itertools
 import math
 import sys
 import cadquery as cq
+from OCP.BRepExtrema import BRepExtrema_DistShapeShape
 
 # ---------------- core ----------------
 shell_id, shell_wall, shell_len = 54.0, 4.0, 150.0
@@ -51,7 +53,12 @@ POD_CX = 60.0                       # pod spans x -3..123
 clr = 0.5                           # closure engagement clearance (TODO tune)
 
 # ---------------- entry corridor (rule 1) ----------------
-COR_Z = 23.5                        # half-height of the tube entry capsule (max tube 046 -> +/-23, +0.5)
+COR_Z = 24.0                        # half-height of the tube entry capsule (max tube 046 -> +/-23, +1.0 margin)
+
+# ---------------- verification thresholds ----------------
+OVERLAP_FLOOR = 0.01                # mm^3 true-clash gate shared by --matrix and --gaps; OCC noise study
+STRICT_FLOOR = 0.001                # showed clean zeros at exact tangency, but FDM can't act below this
+CONTACT_OK = "CONTACT_OK"           # gap-spec sentinel: flush/clamped contact intended; only overlap fails
 
 # ---------------- latch (plunger-as-pin) ----------------
 bore_d, bore_depth, bore_x = 11.0, 26.0, 58.0
@@ -550,21 +557,27 @@ def verify_corridor(fixed):
     return overlap_volume(fixed, entry_corridor())
 
 
+MOVING_PARTS = ("02_door", "07_liner_left")   # swing with the hinge; everything else is the fixed set
+
+
 def verify(sweep=False):
-    print("[verify] building fixed set (body+bay+lid)...", flush=True)
-    body = build_body()
-    bay = build_bay_module()
-    lid = cq.Workplane(obj=build_lid().val().moved(cq.Location(cq.Vector(0, 0, z_lid0))))
-    fixed = body.union(bay).union(lid)
+    print("[verify] building full placed set...", flush=True)
+    ps = placed_solids()
+    fixed = None
+    moving = None
+    for name, wp in ps:
+        if name in MOVING_PARTS:
+            moving = wp if moving is None else moving.union(wp)
+        else:
+            fixed = wp if fixed is None else fixed.union(wp)
     v = verify_corridor(fixed)
     print(f"[verify] entry-corridor intersection volume = {v:.2f} mm^3 " + ("PASS" if v < 1 else "FAIL"), flush=True)
     ok = v < 1
     if sweep:
-        print("[verify] door sweep 0..110 deg ...", flush=True)
-        door = build_door()
+        print("[verify] door(+liner) sweep 0..110 deg vs full fixed set ...", flush=True)
         worst = 0.0
         for a in range(0, 111, 10):
-            iv = overlap_volume(rot_about_hinge(door, a), fixed)
+            iv = overlap_volume(rot_about_hinge(moving, a), fixed)
             print(f"  theta={a:3d}  overlap={iv:9.2f} mm^3", flush=True)
             worst = max(worst, iv)
         print(f"[verify] max sweep overlap = {worst:.2f} mm^3 " + ("PASS" if worst < 1 else "FAIL"), flush=True)
@@ -603,27 +616,155 @@ def placed_solids():
     return out
 
 
-def verify_matrix():
-    import itertools
+def verify_matrix(floor=OVERLAP_FLOOR):
     ps = placed_solids()
     bad = 0
     for (na, a), (nb, b) in itertools.combinations(ps, 2):
         v = overlap_volume(a, b)
-        if v > 1:
-            print(f"  CLASH {na} x {nb}: {v:.1f} mm^3", flush=True)
+        if v > floor:
+            print(f"  CLASH {na} x {nb}: {v:.3f} mm^3", flush=True)
             bad += 1
-    print(f"[verify] static interference matrix: {bad} clashing pairs " + ("PASS" if bad == 0 else "FAIL"), flush=True)
+    print(f"[verify] static interference matrix (floor {floor} mm^3): {bad} clashing pairs "
+          + ("PASS" if bad == 0 else "FAIL"), flush=True)
     return bad == 0
+
+
+# ---------------------------------------------------------------------
+# --gaps: exact minimum-distance verification (BRepExtrema), on top of the
+# boolean overlap gate. Distinguishes: true clash (overlap > floor), intended
+# clamped contact (CONTACT_OK, 0.00 gap), and fits that must sit in a band.
+# Keys are placements() instance names. Unlisted pairs get the clash-only gate.
+GAP_SPECS = {
+    ("01_body", "02_door"):              CONTACT_OK,   # seam + hook joint, clamped by closure screw
+    ("01_body", "04_lid"):               CONTACT_OK,   # pod rim faying face, screwed
+    ("01_body", "05_pedestal_cart"):     CONTACT_OK,   # seats on pad bosses z=32, screwed
+    ("01_body", "03_bay_module"):        (0.15, 0.50), # bore-side relief outer_cyl(0.3)
+    ("01_body", "06_liner_right"):       (0.05, 0.30), # liner base ring in bore
+    ("01_body", "07_liner_left"):        (0.05, 0.30),
+    ("02_door", "06_liner_right"):       (0.05, 0.30),
+    ("02_door", "07_liner_left"):        (0.05, 0.30),
+    ("06_liner_right", "07_liner_left"): CONTACT_OK,   # TPU halves butt at the seam
+    ("03_bay_module", "08_bay_hatch"):   CONTACT_OK,   # clamped faying face, screwed
+    ("03_bay_module", "09_spool_cover"): (0.02, 0.30), # rabbet: radial 0.2 / axial 0.1
+    ("02_door", "03_bay_module"):        (1.0, None),  # non-mating sanity floor
+    ("01_body", "10_end_plug_front"):    CONTACT_OK,   # flange seats (part slated for deletion)
+    ("01_body", "11_end_plug_rear"):     CONTACT_OK,
+    ("02_door", "10_end_plug_front"):    CONTACT_OK,
+    ("02_door", "11_end_plug_rear"):     CONTACT_OK,
+}
+
+# Local probes for features a whole-part pair distance can't isolate (a 0.00
+# contact elsewhere on the same pair swamps them). Each: (label, box(center,size),
+# partA, partB, (min,max)). Knuckle axial gaps: hinge_gap is applied per-side by
+# both parts -> nets ~0.8 by construction; band asserts it stays there.
+def _probe_box(cx, cy, cz, dx, dy, dz):
+    return cq.Workplane("XY", origin=(cx, cy, cz)).box(dx, dy, dz, centered=(True, True, True))
+
+
+def feature_probes():
+    probes = []
+    for xb in (20, 34, 48, 102, 116, 130):
+        # box stays below the shell OD (z < -31.2) so the y=0 seam contact of the
+        # continuous shell walls can't swamp the knuckle end-face measurement
+        probes.append((f"knuckle_axial@x{xb}", _probe_box(xb, 0, -34.6, 7, 11, 6.8),
+                       "01_body", "02_door", (0.6, 1.0)))
+    return probes
+
+
+def _min_dist(a, b):
+    """Exact min distance (mm). 0.0 for touching OR overlapping - pair with
+    overlap_volume() to tell those apart."""
+    dss = BRepExtrema_DistShapeShape(a.val().wrapped, b.val().wrapped)
+    if not dss.IsDone():
+        raise RuntimeError("BRepExtrema_DistShapeShape did not converge")
+    return dss.Value()
+
+
+def _spec_for(na, nb, specs):
+    return specs.get((na, nb), specs.get((nb, na)))
+
+
+def verify_gaps(floor=OVERLAP_FLOOR):
+    ps = placed_solids()
+    bad = []
+    checked = 0
+    for (na, a), (nb, b) in itertools.combinations(ps, 2):
+        checked += 1
+        ov = overlap_volume(a, b)
+        dist = _min_dist(a, b)
+        spec = _spec_for(na, nb, GAP_SPECS)
+        if ov > floor:
+            bad.append((f"OVERLAP {na} x {nb}", f"{ov:.3f} mm^3 interpenetration"))
+            continue
+        if spec is None or spec == CONTACT_OK:
+            continue
+        lo, hi = spec
+        if lo is not None and dist < lo - 1e-6:
+            bad.append((f"gap {na} x {nb}", f"measured {dist:.3f} < min {lo}"))
+        elif hi is not None and dist > hi + 1e-6:
+            bad.append((f"gap {na} x {nb}", f"measured {dist:.3f} > max {hi}"))
+    named = dict(ps)
+    for label, box, na, nb, (lo, hi) in feature_probes():
+        checked += 1
+        try:
+            fa = named[na].intersect(box)
+            fb = named[nb].intersect(box)
+        except ValueError:
+            bad.append((f"probe {label}", "probe box misses a part - stale probe"))
+            continue
+        if not fa.solids().vals() or not fb.solids().vals():
+            bad.append((f"probe {label}", "probe box misses a part - stale probe"))
+            continue
+        d = _min_dist(fa, fb)
+        if d < lo - 1e-6 or d > hi + 1e-6:
+            bad.append((f"probe {label}", f"measured {d:.3f} outside [{lo}, {hi}]"))
+    for what, why in bad:
+        print(f"  FAIL {what}: {why}", flush=True)
+    print(f"[verify] gap matrix: {len(bad)} violations / {checked} checks "
+          + ("PASS" if not bad else "FAIL"), flush=True)
+    return not bad
+
+
+PART_COLORS = {
+    "body": (0.18, 0.25, 0.34), "door": (0.24, 0.35, 0.45), "bay_module": (0.13, 0.19, 0.24),
+    "bay_hatch": (0.27, 0.35, 0.39), "pedestal_cart": (0.85, 0.36, 0.22), "lid": (0.78, 0.80, 0.82),
+    "liner_right": (0.23, 0.23, 0.23), "liner_left": (0.27, 0.27, 0.27), "spool_cover": (0.68, 0.71, 0.73),
+    "end_plug": (0.6, 0.6, 0.6),
+}
+
+
+def export_assembly():
+    """Regenerate step/placed/, the combined multibody STEP, and the assembly
+    STEP - all driven by the same placements() table as --matrix/--gaps."""
+    import os
+    os.makedirs("step/placed", exist_ok=True)
+    ps = placed_solids()
+    asm = cq.Assembly(name="bike_lock_v06")
+    for (name, wp), (_, part, _t, _ax, _ang) in zip(ps, placements()):
+        cq.exporters.export(wp, f"step/placed/{name}.step")
+        print(f"[ok]    step/placed/{name}.step", flush=True)
+        asm.add(wp, name=name, color=cq.Color(*PART_COLORS.get(part, (0.5, 0.5, 0.5))))
+    comp = cq.Compound.makeCompound([wp.val() for _, wp in ps])
+    cq.exporters.export(cq.Workplane(obj=comp), "step/bike_lock_combined.step")
+    print("[ok]    step/bike_lock_combined.step", flush=True)
+    asm.save("step/bike_lock_assembly.step")
+    print("[ok]    step/bike_lock_assembly.step", flush=True)
 
 
 def main():
     import os
 
     args = [a for a in sys.argv[1:] if not a.startswith("--")]
+    floor = STRICT_FLOOR if "--strict" in sys.argv else OVERLAP_FLOOR
     if "--sweep" in sys.argv:
         sys.exit(0 if verify(sweep=True) else 1)
     if "--matrix" in sys.argv:
-        sys.exit(0 if verify_matrix() else 1)
+        sys.exit(0 if verify_matrix(floor) else 1)
+    if "--gaps" in sys.argv:
+        sys.exit(0 if verify_gaps(floor) else 1)
+    if "--export-assembly" in sys.argv:
+        export_assembly()
+        sys.exit(0)
     names = args or list(PARTS.keys())
     os.makedirs("step", exist_ok=True)
     os.makedirs("stl", exist_ok=True)
