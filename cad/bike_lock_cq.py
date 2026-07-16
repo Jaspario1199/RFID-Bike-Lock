@@ -569,11 +569,22 @@ def build_body():
     # lid screw bosses: O8 columns fused into the pod cavity walls, M3 heat-set
     # pockets from the rim face (the lid's old x=5 screws landed over open cavity
     # AND inside the PN532 window span - nothing to bite, only 1.2mm skin)
+    # Nano edge-stand recess + crown clamp bosses (the board fits NOWHERE flat:
+    # pod interior 45.6x40.2 rejects a 45x18 rect at every angle, and the tray
+    # is owned by the perf rack + TP4056 + cell)
+    body = body.cut(cq.Workplane("XY", origin=(1.5, 26.3, 20.5)).box(46, 1.7, 19, centered=(False, False, False)))
+    for bx in (12.0, 37.0):
+        boss = cq.Workplane("XY", origin=(bx, 18.0, 20)).circle(3.5).extrude(13)
+        body = body.union(boss.cut(tube_bore()))
+        body = body.cut(cq.Workplane("XY", origin=(bx, 18.0, 33 - 5)).circle(M3_PILOT / 2).extrude(6))
     # PN532 wall recesses: the 41mm board exceeds the drafted pod interior
     # (39.1 at lid height) - relieve the RF-zone walls 1.6 deep so the board
     # hangs with 1.0/side clearance (D15)
     for ry in (-14.2, 26.4):
         body = body.cut(cq.Workplane("XY", origin=(1.0, ry, 47.5)).box(45.5, 1.8, 6.5, centered=(False, False, False)))
+    for cy in (-14.2, 17.0):          # interior corner arcs bulge past the straight walls
+        body = body.cut(cq.Workplane("XY", origin=(0.8, cy, 47.5)).box(10.5, 11.2, 6.5, centered=(False, False, False)))
+    body = body.cut(cq.Workplane("XY", origin=(0.6, -14.2, 47.5)).box(1.4, 42.4, 6.5, centered=(False, False, False)))
     for (sx, sy) in LID_SCREWS:
         b = cq.Workplane("XY", origin=(sx, sy, 40)).circle(4.5).extrude(z_lid0 - 40)
         body = body.union(b.cut(outer_cyl()))
@@ -946,14 +957,27 @@ def _mk_box(cx, cy, z0, l, w, t):
     return cq.Workplane("XY", origin=(cx, cy, z0)).box(l, w, t, centered=(True, True, False))
 
 
+def build_nano_clamp():
+    """Clamp bar holding the edge-standing Nano against its wall recess: rides
+    two crown bosses (z33 tops), presses the board's -y face with two pads,
+    2x M3x10 ST flat countersunk. Modeled in place."""
+    bar = cq.Workplane("XY", origin=(6.0, 15.8, 33.0)).box(37, 4.4, 3.0, centered=(False, False, False))
+    for bx in (12.0, 37.0):
+        pad = cq.Workplane("XY", origin=(bx, 20.0, 30.0)).box(5, 8.0, 3.0, centered=(True, False, False))
+        bar = bar.union(pad)
+        bar = bar.cut(cq.Workplane("XY", origin=(bx, 18.0, 26)).circle(M3_CLR / 2).extrude(9))
+        bar = bar.cut(csink(bx, 18.0, 36.0, M3_ST_CS_D, M3_ST_CS_T, up=False))
+    return largest_solid(bar)
+
+
 def build_mock_nano():
-    """Bare Nano diagonal on the tray (48.5 board diagonal in the 50.1 window
-    diagonal - v0.5's zip retention, now with locator nubs). Pins trimmed."""
-    ang = math.degrees(math.atan2(29.5 - 3, 40.5 - 3))
-    pcb = cq.Workplane("XY").box(NANO_L, NANO_W, NANO_T, centered=(True, True, False))
-    usb = cq.Workplane("XY", origin=(NANO_L / 2 - 3.7, 0, NANO_T - EPS)).box(7.6, 7.5, 4.4, centered=(True, True, False))
-    m = pcb.union(usb).rotate((0, 0, 0), (0, 0, 1), ang)
-    return m.translate(((17.5 + 58) / 2, (13 + 42.5) / 2, -55 + 2.5))
+    """Nano edge-standing along the pod +y wall: PCB in the wall recess
+    (y26.4..28.0), SMDs 2.5 deep toward -y, USB shell at the x39..47 end
+    (clear of the spine feed hole at x24.5..31.5). Pins trimmed flush."""
+    pcb = _mk_box(2.0 + NANO_L / 2, 27.2, 21.0, NANO_L, NANO_T, NANO_W)
+    smd = _mk_box(2.0 + NANO_L / 2, 25.15, 22.0, NANO_L - 4, 2.5, NANO_W - 4)
+    usb = _mk_box(43.0, 24.2, 26.0, 7.5, 4.4, 8.0)
+    return pcb.union(smd).union(usb)
 
 
 def build_mock_perf_stack():
@@ -1013,6 +1037,7 @@ PARTS = {
     "liner_right": lambda: build_liner(True),
     "liner_left": lambda: build_liner(False),
     "shim": build_shim,
+    "nano_clamp": build_nano_clamp,
     "spool_cover": build_spool_cover,
     "hinge_rod": build_hinge_rod,
     "hinge_cap": build_hinge_cap,
@@ -1101,6 +1126,7 @@ def placements():
         ("11_hinge_cap", "hinge_cap", (0, 0, 0), None, 0),
         ("12_spine_cover", "spine_cover", (0, 0, 0), None, 0),
         ("13_perf_rack", "perf_rack", (0, 0, 0), None, 0),
+        ("14_nano_clamp", "nano_clamp", (0, 0, 0), None, 0),
         # 90+ = electronics reference bodies (packaging verification + placement)
         ("90_mock_nano", "mock_nano", (0, 0, 0), None, 0),
         ("91_mock_perf_stack", "mock_perf_stack", (0, 0, 0), None, 0),
@@ -1169,7 +1195,11 @@ GAP_SPECS = {
     ("01_body", "13_nano_sled"):         CONTACT_OK,   # sled feet screwed to the pod crown
     ("08_bay_hatch", "13_perf_rack"):    CONTACT_OK,   # rack feet screwed to the tray pad
     # electronics reference bodies: seated = CONTACT_OK; packaging assertions = bands
-    ("08_bay_hatch", "90_mock_nano"):    CONTACT_OK,   # bare board on tray nubs + zips
+    ("01_body", "90_mock_nano"):         CONTACT_OK,   # PCB seated in the wall recess
+    ("14_nano_clamp", "90_mock_nano"):   CONTACT_OK,   # clamp pads press the -y face
+    ("01_body", "14_nano_clamp"):        CONTACT_OK,   # bar screwed to the crown bosses
+    ("04_lid", "90_mock_nano"):          (1.0, None),
+    ("94_mock_pn532", "90_mock_nano"):   (1.0, None),
     ("13_perf_rack", "91_mock_perf_stack"): CONTACT_OK,
     ("03_bay_module", "91_mock_perf_stack"): (0.3, None),
     ("04_lid", "90_mock_nano"):          (0.5, None),  # USB stack under the lid plane
@@ -1301,7 +1331,7 @@ PART_COLORS = {
     "bay_hatch": (0.27, 0.35, 0.39), "pedestal_cart": (0.85, 0.36, 0.22), "lid": (0.78, 0.80, 0.82),
     "liner_right": (0.23, 0.23, 0.23), "liner_left": (0.27, 0.27, 0.27), "spool_cover": (0.68, 0.71, 0.73),
     "hinge_rod": (0.75, 0.75, 0.78), "hinge_cap": (0.3, 0.38, 0.47), "spine_cover": (0.3, 0.38, 0.47),
-    "perf_rack": (0.85, 0.36, 0.22),
+    "perf_rack": (0.85, 0.36, 0.22), "nano_clamp": (0.85, 0.36, 0.22),
     "mock_nano": (0.13, 0.45, 0.22), "mock_perf_stack": (0.13, 0.45, 0.22), "mock_tp4056": (0.13, 0.45, 0.22),
     "mock_pn532": (0.13, 0.45, 0.22), "mock_lipo": (0.55, 0.55, 0.6), "mock_solenoid": (0.45, 0.45, 0.5),
     "mock_button": (0.2, 0.2, 0.2), "mock_led": (0.8, 0.1, 0.1), "mock_mt3608": (0.13, 0.45, 0.22),
