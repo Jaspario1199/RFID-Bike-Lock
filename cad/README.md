@@ -57,7 +57,18 @@ To regenerate everything: `pip install cadquery` then `python bike_lock_cq.py`
 `legacy_bike_lock_v02.scad` is the retired OpenSCAD v0.2, kept for reference;
 `render_v03.scad` only composites the exported STLs for preview renders.
 
-## v0.7 part set (14 printed parts + 1 lathe part + 9 electronics reference bodies)
+## v0.7 part set (15 printed parts + 1 lathe rod + 10 electronics reference bodies)
+
+v0.7 adds machine-verified ELECTRONICS PACKAGING: every BOM electronic is a
+placed reference body (90+ numbering, green in renders, in `step/placed/` for
+SolidWorks placement work - NOT printed), and every board has a modular
+holder: `perf_rack` (vertical 40×23 cut perfboard against the bay wall),
+`nano_clamp` (edge-standing Nano in a pod wall recess, clamp bar on crown
+bosses), TP4056 flat cradle rails (USB correctly through the wall - the v0.5
+vertical slot pointed it at the floor), MT3608 end-posts on the pedestal
+tower, edge-standing LiPo with rail + wall + block face. The --gaps table
+asserts the packaging: solenoid-to-lid 1.0, plunger-tail-to-button 1.0 (tail
+MUST be trimmed to x98), board recess seats, cell containment - 292 checks.
 
 | Part | Role |
 |---|---|

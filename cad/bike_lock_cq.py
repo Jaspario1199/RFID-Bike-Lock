@@ -573,10 +573,11 @@ def build_body():
     # pod interior 45.6x40.2 rejects a 45x18 rect at every angle, and the tray
     # is owned by the perf rack + TP4056 + cell)
     body = body.cut(cq.Workplane("XY", origin=(1.5, 26.3, 20.5)).box(46, 1.7, 19, centered=(False, False, False)))
+    body = body.cut(cq.Workplane("XY", origin=(1.2, 24.8, 20.5)).box(9, 3.2, 19, centered=(False, False, False)))
     for bx in (12.0, 37.0):
-        boss = cq.Workplane("XY", origin=(bx, 18.0, 20)).circle(3.5).extrude(13)
+        boss = cq.Workplane("XY", origin=(bx, 18.0, 20)).circle(3.5).extrude(16)
         body = body.union(boss.cut(tube_bore()))
-        body = body.cut(cq.Workplane("XY", origin=(bx, 18.0, 33 - 5)).circle(M3_PILOT / 2).extrude(6))
+        body = body.cut(cq.Workplane("XY", origin=(bx, 18.0, 36 - 5.5)).circle(M3_PILOT / 2).extrude(6))
     # PN532 wall recesses: the 41mm board exceeds the drafted pod interior
     # (39.1 at lid height) - relieve the RF-zone walls 1.6 deep so the board
     # hangs with 1.0/side clearance (D15)
@@ -958,15 +959,13 @@ def _mk_box(cx, cy, z0, l, w, t):
 
 
 def build_nano_clamp():
-    """Clamp bar holding the edge-standing Nano against its wall recess: rides
-    two crown bosses (z33 tops), presses the board's -y face with two pads,
-    2x M3x10 ST flat countersunk. Modeled in place."""
-    bar = cq.Workplane("XY", origin=(6.0, 15.8, 33.0)).box(37, 4.4, 3.0, centered=(False, False, False))
+    """Clamp bar for the edge-standing Nano: one plate at z36..39 seated on the
+    two crown bosses, its edge pressing the PCB's -y face along the SMD-free
+    top margin (z36..39). 2x M3x10 ST flat, countersunk. Modeled in place."""
+    bar = cq.Workplane("XY", origin=(6.0, 14.4, 36.0)).box(37, 11.58, 3.0, centered=(False, False, False))
     for bx in (12.0, 37.0):
-        pad = cq.Workplane("XY", origin=(bx, 20.0, 30.0)).box(5, 8.0, 3.0, centered=(True, False, False))
-        bar = bar.union(pad)
-        bar = bar.cut(cq.Workplane("XY", origin=(bx, 18.0, 26)).circle(M3_CLR / 2).extrude(9))
-        bar = bar.cut(csink(bx, 18.0, 36.0, M3_ST_CS_D, M3_ST_CS_T, up=False))
+        bar = bar.cut(cq.Workplane("XY", origin=(bx, 18.0, 35)).circle(M3_CLR / 2).extrude(5))
+        bar = bar.cut(csink(bx, 18.0, 39.0, M3_ST_CS_D, M3_ST_CS_T, up=False))
     return largest_solid(bar)
 
 
@@ -974,9 +973,9 @@ def build_mock_nano():
     """Nano edge-standing along the pod +y wall: PCB in the wall recess
     (y26.4..28.0), SMDs 2.5 deep toward -y, USB shell at the x39..47 end
     (clear of the spine feed hole at x24.5..31.5). Pins trimmed flush."""
-    pcb = _mk_box(2.0 + NANO_L / 2, 27.2, 21.0, NANO_L, NANO_T, NANO_W)
-    smd = _mk_box(2.0 + NANO_L / 2, 25.15, 22.0, NANO_L - 4, 2.5, NANO_W - 4)
-    usb = _mk_box(43.0, 24.2, 26.0, 7.5, 4.4, 8.0)
+    pcb = _mk_box(2.0 + NANO_L / 2, 26.8, 21.0, NANO_L, NANO_T, NANO_W)
+    smd = _mk_box(2.0 + NANO_L / 2, 24.75, 22.0, NANO_L - 4, 2.5, NANO_W - 4)
+    usb = _mk_box(43.0, 23.8, 26.0, 7.5, 4.4, 8.0)
     return pcb.union(smd).union(usb)
 
 

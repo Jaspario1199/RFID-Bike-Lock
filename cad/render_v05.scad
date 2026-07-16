@@ -20,6 +20,17 @@ module fixed_set(e=0) {
     color("#C2C6CB") translate([-1.4*e, 0, 0]) import("stl/hinge_rod.stl");
     color("#4C6172") translate([1.8*e, 0, 0]) import("stl/hinge_cap.stl");
     color("#4C6172") translate([0, 0.9*e, 1.4*e]) import("stl/spine_cover.stl");
+    color("#D95D39") translate([0, 0.5*e, -1.6*e]) import("stl/perf_rack.stl");
+    color("#D95D39") translate([0, -0.4*e, 1.2*e]) import("stl/nano_clamp.stl");
+    // electronics reference bodies (green PCBs / grey cell+solenoid)
+    color("#22703A") translate([0, -0.7*e, 0.8*e]) import("stl/mock_nano.stl");
+    color("#22703A") translate([0, 0.6*e, -1.9*e]) import("stl/mock_perf_stack.stl");
+    color("#22703A") translate([0, 0.3*e, -2.2*e]) import("stl/mock_tp4056.stl");
+    color("#22703A") translate([0, 0, 0.9*e]) import("stl/mock_pn532.stl");
+    color("#22703A") translate([0, 0.8*e, 0.6*e]) import("stl/mock_mt3608.stl");
+    color("#8A8F96") translate([0, 1.1*e, -1.4*e]) import("stl/mock_lipo.stl");
+    color("#6E7480") translate([0, 0, 0.5*e]) import("stl/mock_solenoid.stl");
+    color("#26262A") import("stl/mock_button.stl");
 }
 // ghost tube to show the clamp target in the open view
 module tube_ghost() { color("#88AA88", 0.5) rotate([0, 90, 0]) translate([0,0,-15]) cylinder(d=42, h=180); }

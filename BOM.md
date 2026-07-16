@@ -22,7 +22,7 @@ lot from AliExpress roughly halves the Amazon total but takes 2–4 weeks.
 | 13 | LEDs + resistors | red + green 3 mm, 470 Ω ×2, 100 Ω, 100 kΩ ×3 | — | $1 |
 | 14 | MIFARE Classic fobs | 13.56 MHz keychain fobs | 3 | $2 |
 | 15 | NTAG213 stickers | for phone case "phone unlock" | 5 | $2 |
-| 16 | Perfboard, wire, heatshrink | — | — | $3 |
+| 16 | Perfboard 4×6 cm, wire, heatshrink | CUT the 40×60 board to **40×23 mm** (v0.7: it stands vertically against the bay wall; the clamp-bore wedge caps the height). 1000 µF cap mounts **lying down** (Ø8×12.5 spec — order that case size). MT3608 mounts on the pedestal tower rails in the pod, NOT on the perfboard. Nano pins: **trim flush** after soldering (edge-stand recess policy) | — | $3 |
 
 ## Mechanical — Phase 1 printed v1 (~$40)
 
