@@ -124,6 +124,8 @@ pad_x0, pad_x1 = 52.0, 64.0         # closure-insert pad under the bore
 pad_y0, pad_y1 = 6.5, 13.0
 pad_z0, pad_z1 = 21.8, 25.2         # bottom limited by the O46 max-tube envelope (r>=23.4
 PAD_CHAMFER = 2.4                   # after the 2.4x45 chamfer on the lower -Y edge)
+lip_y1, lip_z1 = 16.5, 23.5         # stepped flap tip: visible extension under the latch; its
+                                    # sweep peaks z26.2 (3.8mm floor kept); roots into the shell wall
 lip_x0, lip_x1 = 8.0, 116.0         # lip ridge along the pod's left wall
 
 # ---------------- lid ----------------
@@ -132,7 +134,8 @@ PN532_CLR = 0.4                     # pocket in-plane clearance (was 0.0 - clone
 PN532_HOLE_INSET = 2.54             # VERIFY - Elechouse V3 corner mounting holes (O3, may be absent
 PN532_BOSS_DROP = 1.5               # on clones -> printed corner clips, same bosses). NYLON M2.5
 window_remain, nfc_cx = 1.2, 23.6   # screws only: the antenna loop wraps the board perimeter.
-button_d, button_x, button_y = 12.4, 106.0, 16.0     # VERIFY
+button_d, button_x, button_y = 12.4, 106.0, 13.5    # VERIFY thread; y13.5 keeps the O14 body out of
+LED_X = 98.0                        # the pod's rounded interior corner (gate-probed at y16)
 led_d = 3.3
 
 # ---------------- liner ----------------
@@ -373,6 +376,10 @@ def door_flange():
         .extrude(pad_x1 - pad_x0 + 2)
     )
     f = f.union(pad.cut(ch))
+    flap = cq.Workplane("XY", origin=((pad_x0 + pad_x1) / 2, (pad_y1 + lip_y1) / 2 - 0.25, pad_z0)).box(
+        pad_x1 - pad_x0, lip_y1 - pad_y1 + 0.5, lip_z1 - pad_z0, centered=(True, True, False)
+    )
+    f = f.union(flap)
     # SHORT M4 heat-set (O5.6xL3, VERIFY), through pocket, installed from the pad's
     # TOP face with the door open flange-up on the bench (insert mouth faces the
     # screw, which enters from above down the latch bore; M4x8 - tip z22 clears
@@ -419,9 +426,10 @@ def closure_sweep_cut():
     g = clr
     flange = sector_prism(-18 - g, fl_y1 + g, fl_z0 - g, fl_z1 + g, fl_x0 - g, fl_x1 + g)
     pad = sector_prism(pad_y0 - g, pad_y1 + g, pad_z0 - g, pad_z1 + g, pad_x0 - g, pad_x1 + g)
+    flap = sector_prism(pad_y1 - g, lip_y1 + g, pad_z0 - g, lip_z1 + g, pad_x0 - g, pad_x1 + g)
     lipw = sector_prism(-17.8 - g, -16 + g, 26 - g, 34 + g, lip_x0 - g, lip_x1 + g)
     nose = sector_prism(-16 - g, -14.2 + g, 31.8 - g, 33.8 + g, lip_x0 - g, lip_x1 + g)
-    return flange.union(pad).union(lipw).union(nose)
+    return flange.union(pad).union(flap).union(lipw).union(nose)
 
 
 def drum_ring():
@@ -561,6 +569,11 @@ def build_body():
     # lid screw bosses: O8 columns fused into the pod cavity walls, M3 heat-set
     # pockets from the rim face (the lid's old x=5 screws landed over open cavity
     # AND inside the PN532 window span - nothing to bite, only 1.2mm skin)
+    # PN532 wall recesses: the 41mm board exceeds the drafted pod interior
+    # (39.1 at lid height) - relieve the RF-zone walls 1.6 deep so the board
+    # hangs with 1.0/side clearance (D15)
+    for ry in (-14.2, 26.4):
+        body = body.cut(cq.Workplane("XY", origin=(1.0, ry, 47.5)).box(45.5, 1.8, 6.5, centered=(False, False, False)))
     for (sx, sy) in LID_SCREWS:
         b = cq.Workplane("XY", origin=(sx, sy, 40)).circle(4.5).extrude(z_lid0 - 40)
         body = body.union(b.cut(outer_cyl()))
@@ -604,6 +617,8 @@ def build_bay_module():
         b = cq.Workplane("XY", origin=(sx, bay_screw_y, zs2 + 2)).circle(4.5).extrude(-12)
         body = body.union(b)
     body = body.cut(cav).cut(snout_hole())
+    for nx, ny in ((6.8, 40.8), (54.8, 40.8), (53.0, 9.8)):
+        body = body.cut(cq.Workplane("XY", origin=(nx, ny, -55)).box(4.4 if ny > 20 else 6.2, 4.4, 36, centered=(False, False, False)))
     # cover rabbet on the outboard (+Y) face - cut AFTER all unions so the web is trimmed too
     body = body.cut(cq.Workplane("XZ", origin=(drum_cx, DR_Y1 - 3, drum_cz)).circle(drum_od / 2 - 1).extrude(-3.3))
     # spool-cover screw pilots: the cover's old screw circle (r29.75) sat 0.75
@@ -628,9 +643,9 @@ def build_bay_module():
     # (v0.5's slot pointed the port at the floor; the v0.7 flat lane collided
     # with the cell - gate-proven. Long-edge standing threads the needle.)
     TP_CY = 29.85                       # PCB mid-plane
-    for bx in (11.0, 33.0):
+    for bx in (18.5, 33.0):
         tblk = cq.Workplane("XY", origin=(bx, TP_CY, BK_BOT + 3)).box(6, 6.4, 8, centered=(True, True, False))
-        tblk = tblk.cut(cq.Workplane("XY", origin=(bx, TP_CY, BK_BOT + 4)).box(7, 2.0, 8, centered=(True, True, False)))
+        tblk = tblk.cut(cq.Workplane("XY", origin=(bx, TP_CY, BK_BOT + 3.05)).box(7, 2.0, 9, centered=(True, True, False)))
         body = body.union(tblk)
     body = body.cut(cq.Workplane("XY", origin=(BK_X0 - 1, TP_CY - 2.4, usb_z)).box(10, 5.4, 10.6, centered=(True, True, True)))
     body = body.cut(cq.Workplane("XY", origin=(BK_X0 - 0.5, TP_CY - 2.4, usb_z)).box(3, 10, 15, centered=(True, True, True)))
@@ -713,7 +728,7 @@ def build_pedestal_cart():
     # a captured-nut scheme collided with the pad attach holes and had no nut
     # insertion path, judge-probed). VERIFY hole spacing before installing
     # inserts - the cart is a minutes-long reprint.
-    for hx in (66 + sol_len / 2 - sol_hole_dx / 2, 66 + sol_len / 2 + sol_hole_dx / 2):
+    for hx in (68 + sol_len / 2 - sol_hole_dx / 2, 68 + sol_len / 2 + sol_hole_dx / 2):
         body = body.cut(cq.Workplane("XY", origin=(hx, bore_y, ped_top + 1)).circle(INS25_D / 2).extrude(-(INS25_T + 1)))
     # driver access for the M3 pad screws (heads land on the base, hidden under
     # the solenoid body once it is mounted)
@@ -723,9 +738,10 @@ def build_pedestal_cart():
     # length): integral slot rails hold the PCB vertical, components facing the
     # tower (inductor in the 4.2 gap), slide-in from the top. Bay had no room -
     # gate-proven; the v2 Pro-Mini upgrade deletes this module entirely.
-    for rx in (66.5, 95.5):
-        r = cq.Workplane("XY", origin=(rx, 22.55, PAD_Z + 3)).box(3, 3.3, 10, centered=(True, True, False))
-        body = body.union(r)
+    for rx in (65.5, 102.5):
+        post = cq.Workplane("XY", origin=(rx, 22.3, PAD_Z + 3)).box(3.6, 8.0, 8.5, centered=(True, True, False))
+        post = post.cut(cq.Workplane("XY", origin=(rx, 25.1, PAD_Z + 3.2)).box(4.6, 2.0, 30, centered=(True, True, False)))
+        body = body.union(post)
     # scallop: clear the latch boss column (+0.5)
     body = body.cut(cq.Workplane("XY", origin=(bore_x, bore_y, PAD_Z - 1)).circle(boss_d / 2 + 0.5).extrude(ped_top - PAD_Z + 3))
     return body
@@ -770,9 +786,9 @@ def build_lid():
     body = body.cut(cq.Workplane("XY", origin=(bore_x, bore_y, -1)).circle((bore_d + 0.6) / 2).extrude(lid_t + 4))
     body = body.cut(cq.Workplane("XY", origin=(button_x, button_y, lid_t - 1)).circle(9.5).extrude(3))
     body = body.cut(cq.Workplane("XY", origin=(button_x, button_y, -1)).circle(button_d / 2).extrude(lid_t + 2))
-    body = body.cut(cq.Workplane("XY", origin=(button_x, 3, lid_t - 0.8)).box(8, 12, 3, centered=(True, True, False)))
+    body = body.cut(cq.Workplane("XY", origin=(LED_X, 3, lid_t - 0.8)).box(8, 12, 3, centered=(True, True, False)))
     for ly in (6, 0):
-        body = body.cut(cq.Workplane("XY", origin=(button_x, ly, -1)).circle(led_d / 2).extrude(lid_t + 2))
+        body = body.cut(cq.Workplane("XY", origin=(LED_X, ly, -1)).circle(led_d / 2).extrude(lid_t + 2))
     # 4x M3 machine flat-heads into the body's rim-boss heat-sets, countersunk
     # flush. Frame sits at x50/113 on y rails -9/23: the old x=5 corners were
     # INSIDE the PN532 pocket span - two screws pierced the 1.2mm window skin.
@@ -910,29 +926,6 @@ def build_hinge_cap():
     return cap.cut(cs)
 
 
-def build_nano_sled():
-    """Nano carrier in the POD (v0.7 layout v3): most Nano signals terminate
-    up top (PN532, button, LEDs, solenoid gate), and the bay cannot hold a
-    45mm board anywhere - the pod's free floor (x2..45.5, y-10..26 under the
-    PN532 keep-out) takes it DIAGONALLY on a crown-bridging sled. Pins trimmed
-    flush (policy); 2x M3x10 ST flat down through the sled feet into crown
-    pilots. Reflash: lid off, USB faces the open x+ diagonal. Modeled in place."""
-    ang = 40.0
-    cx, cy = 23.5, 8.0
-    base = cq.Workplane("XY").box(NANO_L + 5, NANO_W + 7, 1.8, centered=(True, True, False))
-    for s in (-1, 1):
-        base = base.union(cq.Workplane("XY", origin=(0, s * (NANO_W / 2 + 1.65), 1.8 - EPS)).box(NANO_L - 8, 3.0, 4.0, centered=(True, True, False)))
-        base = base.union(cq.Workplane("XY", origin=(s * (NANO_L / 2 + 1.25), 0, 1.8 - EPS)).box(2.5, 12.0, 3.6, centered=(True, True, False)))
-        base = base.cut(cq.Workplane("XY", origin=(0, s * (NANO_W / 2 - 2), -1)).box(4.0, 2.4, 5))  # zip slots
-    base = base.union(cq.Workplane("XY", origin=(0, 0, 1.8 - EPS)).box(NANO_L - 8, 4, 2.0, centered=(True, True, False)))  # pin-clearance spine
-    for px in (-16.0, 16.0):              # feet bridging the crown curve + screw pilots
-        base = base.union(cq.Workplane("XY", origin=(px, 0, -8)).box(6, 10, 8 + EPS, centered=(True, True, False)))
-        base = base.cut(cq.Workplane("XY", origin=(px, 0, -9)).circle(M3_CLR / 2).extrude(11))
-        base = base.cut(csink(px, 0, 1.8, M3_ST_CS_D, M3_ST_CS_T, up=False))
-    sled = base.rotate((0, 0, 0), (0, 0, 1), ang).translate((cx, cy, 34.0))
-    return largest_solid(sled.cut(outer_cyl()))       # feet sit on the crown
-
-
 def build_perf_rack():
     """Vertical perfboard rack (v0.7 layout v3): the 40x29 cut board stands
     against the bay's -Y wall (PCB plane y10.4-12.0, components facing +Y,
@@ -941,8 +934,8 @@ def build_perf_rack():
     rack = None
     for bx in (20.0, 56.0):
         t = cq.Workplane("XY", origin=(bx, 13.85, -55)).box(4.5, 6.9, 24, centered=(True, True, False))
-        t = t.cut(cq.Workplane("XY", origin=(bx, 13.0, -53)).box(5.5, 2.0, 26, centered=(True, True, False)))
         t = t.union(cq.Workplane("XY", origin=(bx, 15.4, -55)).box(4.5, 8, 3, centered=(True, True, False)))
+        t = t.cut(cq.Workplane("XY", origin=(bx, 13.0, -53)).box(5.5, 2.0, 26, centered=(True, True, False)))
         t = t.cut(cq.Workplane("XY", origin=(bx, 16.4, -56)).circle(M3_PILOT / 2).extrude(6))
         rack = t if rack is None else rack.union(t)
     return rack
@@ -954,16 +947,19 @@ def _mk_box(cx, cy, z0, l, w, t):
 
 
 def build_mock_nano():
-    pcb = cq.Workplane("XY", origin=(0, 0, 0)).box(NANO_L, NANO_W, NANO_T, centered=(True, True, False))
-    usb = cq.Workplane("XY", origin=(NANO_L / 2 - 3.8, 0, NANO_T - EPS)).box(7.6, 7.5, 4.4, centered=(True, True, False))
-    m = pcb.union(usb).rotate((0, 0, 0), (0, 0, 1), 40.0)
-    return m.translate((23.5, 8.0, 34.0 + 3.8))
+    """Bare Nano diagonal on the tray (48.5 board diagonal in the 50.1 window
+    diagonal - v0.5's zip retention, now with locator nubs). Pins trimmed."""
+    ang = math.degrees(math.atan2(29.5 - 3, 40.5 - 3))
+    pcb = cq.Workplane("XY").box(NANO_L, NANO_W, NANO_T, centered=(True, True, False))
+    usb = cq.Workplane("XY", origin=(NANO_L / 2 - 3.7, 0, NANO_T - EPS)).box(7.6, 7.5, 4.4, centered=(True, True, False))
+    m = pcb.union(usb).rotate((0, 0, 0), (0, 0, 1), ang)
+    return m.translate(((17.5 + 58) / 2, (13 + 42.5) / 2, -55 + 2.5))
 
 
 def build_mock_perf_stack():
     """Cut perfboard standing against the -Y bay wall + component envelope
     (cap stack pointing +Y sideways) + MT3608 mounted on it - one fused body."""
-    board = cq.Workplane("XY", origin=(38, 12.1, -53)).box(PERF_L, 1.6, PERF_CUT_H, centered=(True, True, False))
+    board = cq.Workplane("XY", origin=(38, 12.1, -53)).box(PERF_L, 1.6, PERF_CUT_H, centered=(True, False, False))
     comps = cq.Workplane("XY", origin=(38, 13.7 - EPS, -51)).box(PERF_L - 12, PERF_STACK, PERF_CUT_H - 4, centered=(False, False, False)).translate((-(PERF_L - 12) / 2, 0, 0))
     return board.union(comps)
 
@@ -985,15 +981,15 @@ def build_mock_pn532():
 
 
 def build_mock_solenoid():
-    body = _mk_box(66 + sol_len / 2, bore_y, pin_z - sol_axis_h, sol_len, SOL_W_MAX, sol_h)
+    body = _mk_box(68 + sol_len / 2, bore_y, pin_z - sol_axis_h, sol_len, SOL_W_MAX, sol_h)
     # plunger TRIMMED to end at x98 (untrimmed x110 tail hits the wake button body)
-    plunger = cq.Workplane("YZ", origin=(52, bore_y, pin_z)).circle(plunger_d / 2).extrude(98 - 52)
+    plunger = cq.Workplane("YZ", origin=(54, bore_y, pin_z)).circle(plunger_d / 2).extrude(98 - 54)
     return body.union(plunger)
 
 
 def build_mock_mt3608():
-    pcb = cq.Workplane("XY", origin=(63, 24.3, 35)).box(MT_L, 1.6, 17, centered=(False, False, False))
-    comps = cq.Workplane("XY", origin=(65, 24.3 - (MT_H - 1.6), 37)).box(MT_L - 4, MT_H - 1.6, 13, centered=(False, False, False))
+    pcb = cq.Workplane("XY", origin=(66, 24.3, 35.2)).box(MT_L, 1.6, 17, centered=(False, False, False))
+    comps = cq.Workplane("XY", origin=(69, 24.3 - (MT_H - 1.6), 37)).box(MT_L - 6, MT_H - 1.6, 13, centered=(False, False, False))
     return pcb.union(comps)
 
 
@@ -1021,7 +1017,6 @@ PARTS = {
     "hinge_rod": build_hinge_rod,
     "hinge_cap": build_hinge_cap,
     "spine_cover": build_spine_cover,
-    "nano_sled": build_nano_sled,
     "perf_rack": build_perf_rack,
 }
 
@@ -1105,8 +1100,7 @@ def placements():
         ("10_hinge_rod", "hinge_rod", (0, 0, 0), None, 0),
         ("11_hinge_cap", "hinge_cap", (0, 0, 0), None, 0),
         ("12_spine_cover", "spine_cover", (0, 0, 0), None, 0),
-        ("13_nano_sled", "nano_sled", (0, 0, 0), None, 0),
-        ("14_perf_rack", "perf_rack", (0, 0, 0), None, 0),
+        ("13_perf_rack", "perf_rack", (0, 0, 0), None, 0),
         # 90+ = electronics reference bodies (packaging verification + placement)
         ("90_mock_nano", "mock_nano", (0, 0, 0), None, 0),
         ("91_mock_perf_stack", "mock_perf_stack", (0, 0, 0), None, 0),
@@ -1116,8 +1110,8 @@ def placements():
         ("94_mock_pn532", "mock_pn532", (0, 0, 0), None, 0),
         ("95_mock_solenoid", "mock_solenoid", (0, 0, 0), None, 0),
         ("96_mock_button", "mock_button", (0, 0, 0), None, 0),
-        ("97_mock_led_a", "mock_led", (button_x, 6, z_lid0 - 1), None, 0),
-        ("98_mock_led_b", "mock_led", (button_x, 0, z_lid0 - 1), None, 0),
+        ("97_mock_led_a", "mock_led", (LED_X, 6, z_lid0 - 1), None, 0),
+        ("98_mock_led_b", "mock_led", (LED_X, 0, z_lid0 - 1), None, 0),
     ]
 
 
@@ -1173,10 +1167,10 @@ GAP_SPECS = {
     ("02_door", "11_hinge_cap"):         (0.05, None), # door end face relieved past the cap disc
     ("01_body", "12_spine_cover"):       CONTACT_OK,   # seats on the rabbet ledge, screwed
     ("01_body", "13_nano_sled"):         CONTACT_OK,   # sled feet screwed to the pod crown
-    ("08_bay_hatch", "14_perf_rack"):    CONTACT_OK,   # rack feet screwed to the tray pad
+    ("08_bay_hatch", "13_perf_rack"):    CONTACT_OK,   # rack feet screwed to the tray pad
     # electronics reference bodies: seated = CONTACT_OK; packaging assertions = bands
-    ("13_nano_sled", "90_mock_nano"):    CONTACT_OK,
-    ("14_perf_rack", "91_mock_perf_stack"): CONTACT_OK,
+    ("08_bay_hatch", "90_mock_nano"):    CONTACT_OK,   # bare board on tray nubs + zips
+    ("13_perf_rack", "91_mock_perf_stack"): CONTACT_OK,
     ("03_bay_module", "91_mock_perf_stack"): (0.3, None),
     ("04_lid", "90_mock_nano"):          (0.5, None),  # USB stack under the lid plane
     ("90_mock_nano", "94_mock_pn532"):   (1.0, None),  # sled stack under the reader board
@@ -1307,7 +1301,7 @@ PART_COLORS = {
     "bay_hatch": (0.27, 0.35, 0.39), "pedestal_cart": (0.85, 0.36, 0.22), "lid": (0.78, 0.80, 0.82),
     "liner_right": (0.23, 0.23, 0.23), "liner_left": (0.27, 0.27, 0.27), "spool_cover": (0.68, 0.71, 0.73),
     "hinge_rod": (0.75, 0.75, 0.78), "hinge_cap": (0.3, 0.38, 0.47), "spine_cover": (0.3, 0.38, 0.47),
-    "nano_sled": (0.85, 0.36, 0.22), "perf_rack": (0.85, 0.36, 0.22),
+    "perf_rack": (0.85, 0.36, 0.22),
     "mock_nano": (0.13, 0.45, 0.22), "mock_perf_stack": (0.13, 0.45, 0.22), "mock_tp4056": (0.13, 0.45, 0.22),
     "mock_pn532": (0.13, 0.45, 0.22), "mock_lipo": (0.55, 0.55, 0.6), "mock_solenoid": (0.45, 0.45, 0.5),
     "mock_button": (0.2, 0.2, 0.2), "mock_led": (0.8, 0.1, 0.1), "mock_mt3608": (0.13, 0.45, 0.22),
