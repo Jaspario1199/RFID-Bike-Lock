@@ -72,18 +72,18 @@ MUST be trimmed to x98), board recess seats, cell containment - 292 checks.
 
 | Part | Role |
 |---|---|
-| `body` | right clamp + asymmetric pod + latch boss + **open wire-spine raceway** + pedestal pads + swept closure pockets (D1/D2 fixed: the screw now reaches a real insert over a 3.7 mm solid floor instead of piercing the flange) |
-| `door` | light arc panel + closure hook flange & low insert pad + hinge knuckles — verified to swing clear |
-| `bay_module` | right-side brick (LiPo stood on edge to clear the TP4056 block — D11 — plus zip grids), slim Y-axis drum Ø68×32, snout; bolts by 4× M4 pan screws from inside the bore, now fully sub-flush (D5) |
-| `bay_hatch` | bottom cover, doubles as the component **tray** (nesting pad + zip-anchor grid); 2× M3 machine screws into heat-sets on the external face — leave a service loop so pulling the tray doesn't strain the cell leads |
-| `pedestal_cart` | solenoid mount on the pad system; attach pads moved off the solenoid holes (D12; VERIFY dims live here) |
-| `lid` | window skin, NFC ring, button dish, PN532 pocket on drop-bosses (4× nylon M2.5, no tape); now has real pilots in the body rim (D3) — 4× M3 CS machine into heat-sets |
-| `liner_right` / `liner_left` | TPU fit system, dovetail-keyed into each shell half (no adhesive); `liner_left` carries the closure's swept-form transit window (D10 fix) |
-| `shim` | TPU fit-system C-ring extension (unchanged; not in `placements()` — occupies the liner's space) |
-| `spool_cover` | outboard (+Y) drum face plate; screw circle moved onto the ring-wall boss and re-clocked so one screw sits on the vertical axis (D4/D5 fix) |
-| `hinge_cap` | screwed tail cap capturing the hinge rod's 0.5 mm axial float — replaces the glued end plugs (D7) |
-| `spine_cover` | screwed cover plate closing the wire raceway, drip grooves on the underside (owner request) |
-| `hinge_rod` *(lathe, not printed)* | single Ø4.00×~152 mm 303-stainless rod, integral Ø6.0×1.6 turned head — one lathe op from Ø6 bar |
+| `body` (v0.7) | right clamp + asymmetric pod + latch boss + **open wire-spine raceway** + pedestal pads + swept closure pockets (D1/D2 fixed: the screw now reaches a real insert over a 3.7 mm solid floor instead of piercing the flange) |
+| `door` (v0.7) | light arc panel + closure hook flange & low insert pad + hinge knuckles — verified to swing clear |
+| `bay_module` (v0.7) | right-side brick (LiPo stood on edge to clear the TP4056 block — D11 — plus zip grids), slim Y-axis drum Ø68×32, snout; bolts by 4× M4 pan screws from inside the bore, now fully sub-flush (D5) |
+| `bay_hatch` (v0.7) | bottom cover, doubles as the component **tray** (nesting pad + zip-anchor grid); 2× M3 machine screws into heat-sets on the external face — leave a service loop so pulling the tray doesn't strain the cell leads |
+| `pedestal_cart` (v0.7) | solenoid mount on the pad system; attach pads moved off the solenoid holes (D12; VERIFY dims live here) |
+| `lid` (v0.7) | window skin, NFC ring, button dish, PN532 pocket on drop-bosses (4× nylon M2.5, no tape); now has real pilots in the body rim (D3) — 4× M3 CS machine into heat-sets |
+| `liner_right` / `liner_left` (v0.7) | TPU fit system, dovetail-keyed into each shell half (no adhesive); `liner_left` carries the closure's swept-form transit window (D10 fix) |
+| `shim` (v0.7) | TPU fit-system C-ring extension (unchanged; not in `placements()` — occupies the liner's space) |
+| `spool_cover` (v0.7) | outboard (+Y) drum face plate; screw circle moved onto the ring-wall boss and re-clocked so one screw sits on the vertical axis (D4/D5 fix) |
+| `hinge_cap` (v0.7) | screwed tail cap capturing the hinge rod's 0.5 mm axial float — replaces the glued end plugs (D7) |
+| `spine_cover` (v0.7) | screwed cover plate closing the wire raceway, drip grooves on the underside (owner request) |
+| `hinge_rod` *(lathe, not printed)* (v0.7) | single Ø4.00×~152 mm 303-stainless rod, integral Ø6.0×1.6 turned head — one lathe op from Ø6 bar |
 
 The pedestal still uses the standardized flat-pad system (12 mm pads, tops at z=32).
 
