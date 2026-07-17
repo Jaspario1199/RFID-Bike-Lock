@@ -633,11 +633,13 @@ prose. Modeling them exposed two more v0.5 impossibilities, both fixed: (D13) th
 TP4056 card slot pointed the USB-C at the floor - the board now lies FLAT in a rail
 cradle at lane y=22 with the port through the wall (`usb_z` -46 -> -51.8); (D14) Nano
 + MT3608 + perfboard cannot fit the tray window co-planar (~2600 mm2 of boards vs
-1195 mm2) - the tray is now a TWO-LEVEL cartridge: `nano_sled` carries the Nano
-diagonally (pins trimmed flush - the only way the stack fits), and `shelf_cart` holds
-a 40x29 perfboard (cut from 4x6 cm stock) on L-walls above it, carrying the MT3608
-and all power parts. Each cartridge lands on the hatch tray with two M3x10 ST flats
-driven from the hatch's external face - service drops the whole loaded tray.
+1195 mm2) - the tray is now a TWO-LEVEL cartridge: `nano_clamp (pod wall recess - superseded sled concept)` carries the Nano
+diagonally (pins trimmed flush - the only way the stack fits), and a driver card held
+a 40x29 perfboard on L-walls above it. **v0.7 final superseded all of this**: the Nano
+edge-stands in the pod wall recess under `nano_clamp`, and ALL driver electronics sit
+on a 42×10.7 card on two Ø7 crown bosses (x66/x96, −y strip of the pod, 2× M3 ST),
+<30 mm from the solenoid. The bay holds only the cell + TP4056; the spine carries
+exactly 2 conductors. See BUILD.md §2.
 
 ### 6.7 RFID face
 

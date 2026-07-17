@@ -57,33 +57,37 @@ To regenerate everything: `pip install cadquery` then `python bike_lock_cq.py`
 `legacy_bike_lock_v02.scad` is the retired OpenSCAD v0.2, kept for reference;
 `render_v03.scad` only composites the exported STLs for preview renders.
 
-## v0.7 part set (15 printed parts + 1 lathe rod + 10 electronics reference bodies)
+## v0.7 part set (14 printed parts + 1 lathe rod + 11 electronics reference bodies)
 
 v0.7 adds machine-verified ELECTRONICS PACKAGING: every BOM electronic is a
-placed reference body (90+ numbering, green in renders, in `step/placed/` for
+placed reference body (89+ numbering, green in renders, in `step/placed/` for
 SolidWorks placement work - NOT printed), and every board has a modular
-holder: `perf_rack` (vertical 40×23 cut perfboard against the bay wall),
-`nano_clamp` (edge-standing Nano in a pod wall recess, clamp bar on crown
-bosses), TP4056 flat cradle rails (USB correctly through the wall - the v0.5
-vertical slot pointed it at the floor), MT3608 end-posts on the pedestal
-tower, edge-standing LiPo with rail + wall + block face. The --gaps table
-asserts the packaging: solenoid-to-lid 1.0, plunger-tail-to-button 1.0 (tail
-MUST be trimmed to x98), board recess seats, cell containment - 292 checks.
+holder: the driver card (42×10.7 cut perfboard) sits on two Ø7 crown bosses
+on the pod's −y strip (x66/x96, 2× M3 ST, <30 mm from the solenoid — the bay
+perf rack was deleted, see BUILD.md §2), `nano_clamp` (edge-standing Nano in
+a pod wall recess, clamp bar on crown bosses), TP4056 flat cradle rails (USB
+correctly through the wall - the v0.5 vertical slot pointed it at the floor),
+MT3608 end-posts on the pedestal tower, edge-standing LiPo with rail + wall +
+block face. `89_mock_cable_head` models the latched cable head (Ø10 head,
+ring groove at the plunger line, ~1.6 mm plunger engagement). The --gaps
+table asserts the packaging: solenoid-to-lid 1.0, plunger-tail-to-button 1.0
+(tail MUST be trimmed to x98), board recess seats, cell containment,
+cable-head latch engagement - 292 checks.
 
 | Part | Role |
 |---|---|
-| `body` | right clamp + asymmetric pod + latch boss + **open wire-spine raceway** + pedestal pads + swept closure pockets (D1/D2 fixed: the screw now reaches a real insert over a 3.7 mm solid floor instead of piercing the flange) |
-| `door` | light arc panel + closure hook flange & low insert pad + hinge knuckles — verified to swing clear |
-| `bay_module` | right-side brick (LiPo stood on edge to clear the TP4056 block — D11 — plus zip grids), slim Y-axis drum Ø68×32, snout; bolts by 4× M4 pan screws from inside the bore, now fully sub-flush (D5) |
-| `bay_hatch` | bottom cover, doubles as the component **tray** (nesting pad + zip-anchor grid); 2× M3 machine screws into heat-sets on the external face — leave a service loop so pulling the tray doesn't strain the cell leads |
-| `pedestal_cart` | solenoid mount on the pad system; attach pads moved off the solenoid holes (D12; VERIFY dims live here) |
-| `lid` | window skin, NFC ring, button dish, PN532 pocket on drop-bosses (4× nylon M2.5, no tape); now has real pilots in the body rim (D3) — 4× M3 CS machine into heat-sets |
-| `liner_right` / `liner_left` | TPU fit system, dovetail-keyed into each shell half (no adhesive); `liner_left` carries the closure's swept-form transit window (D10 fix) |
-| `shim` | TPU fit-system C-ring extension (unchanged; not in `placements()` — occupies the liner's space) |
-| `spool_cover` | outboard (+Y) drum face plate; screw circle moved onto the ring-wall boss and re-clocked so one screw sits on the vertical axis (D4/D5 fix) |
-| `hinge_cap` | screwed tail cap capturing the hinge rod's 0.5 mm axial float — replaces the glued end plugs (D7) |
-| `spine_cover` | screwed cover plate closing the wire raceway, drip grooves on the underside (owner request) |
-| `hinge_rod` *(lathe, not printed)* | single Ø4.00×~152 mm 303-stainless rod, integral Ø6.0×1.6 turned head — one lathe op from Ø6 bar |
+| `body` (v0.7) | right clamp + asymmetric pod + latch boss + **open wire-spine raceway** + pedestal pads + swept closure pockets (D1/D2 fixed: the screw now reaches a real insert over a 3.7 mm solid floor instead of piercing the flange) |
+| `door` (v0.7) | light arc panel + closure hook flange & low insert pad + hinge knuckles — verified to swing clear |
+| `bay_module` (v0.7) | right-side brick (LiPo stood on edge to clear the TP4056 block — D11 — plus zip grids), slim Y-axis drum Ø68×32, snout; bolts by 4× M4 pan screws from inside the bore, now fully sub-flush (D5) |
+| `bay_hatch` (v0.7) | bottom cover, doubles as the component **tray** (nesting pad + zip-anchor grid); 2× M3 machine screws into heat-sets on the external face — leave a service loop so pulling the tray doesn't strain the cell leads |
+| `pedestal_cart` (v0.7) | solenoid mount on the pad system; attach pads moved off the solenoid holes (D12; VERIFY dims live here) |
+| `lid` (v0.7) | window skin, NFC ring, button dish, PN532 pocket on drop-bosses (4× nylon M2.5, no tape); now has real pilots in the body rim (D3) — 4× M3 CS machine into heat-sets |
+| `liner_right` / `liner_left` (v0.7) | TPU fit system, dovetail-keyed into each shell half (no adhesive); `liner_left` carries the closure's swept-form transit window (D10 fix) |
+| `shim` (v0.7) | TPU fit-system C-ring extension (unchanged; not in `placements()` — occupies the liner's space) |
+| `spool_cover` (v0.7) | outboard (+Y) drum face plate; screw circle moved onto the ring-wall boss and re-clocked so one screw sits on the vertical axis (D4/D5 fix) |
+| `hinge_cap` (v0.7) | screwed tail cap capturing the hinge rod's 0.5 mm axial float — replaces the glued end plugs (D7) |
+| `spine_cover` (v0.7) | screwed cover plate closing the wire raceway, drip grooves on the underside (owner request) |
+| `hinge_rod` *(lathe, not printed)* (v0.7) | single Ø4.00×~152 mm 303-stainless rod, integral Ø6.0×1.6 turned head — one lathe op from Ø6 bar |
 
 The pedestal still uses the standardized flat-pad system (12 mm pads, tops at z=32).
 

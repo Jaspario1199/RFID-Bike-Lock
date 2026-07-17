@@ -24,16 +24,16 @@ door sweep 0.00 mm³ (0–110°) · entry corridor 0.00 mm³.**
 | placed/10_hinge_rod_v07.step | Hinge rod — Ø4×~152 303 stainless, integral Ø6 head; ONE lathe op, see BOM callouts (v0.7) |
 | placed/11_hinge_cap_v07.step | Hinge tail cap — screwed rod retention, 0.5 mm thermal float (v0.7) |
 | placed/12_spine_cover_v07.step | Spine cover — flush raceway lid, 0.5 reveal, drip grooves (v0.7) |
-| placed/13_perf_rack_v07.step | Perf rack — end towers for the vertical 40×23 cut perfboard (v0.7) |
-| placed/14_nano_clamp_v07.step | Nano clamp — bar on crown bosses pressing the edge-standing Nano (v0.7) |
+| placed/13_nano_clamp_v07.step | Nano clamp — bar on crown bosses pressing the edge-standing Nano (v0.7) |
 | stl/shim_v07.stl | Shim sleeve — TPU clip-in for Ø27–32 tubes, optional, not in the placed assembly (v0.7) |
 
 ## Electronics reference bodies (NOT printed — placement/packaging verification)
 
 | File | Reference body (v0.7) |
 |---|---|
+| placed/89_mock_cable_head_v07.step | Cable head (Phase-1 lathe job) — Ø10 head latched in the bore, ring groove at the plunger line, Ø5 stem (v0.7) |
 | placed/90_mock_nano_v07.step | Arduino Nano — edge-standing in the pod wall recess, pins trimmed flush (v0.7) |
-| placed/91_mock_perf_stack_v07.step | Perfboard 40×23 + component envelope, cap lying (v0.7) |
+| placed/91_mock_driver_stack_v07.step | Driver card 42×10.7 + component envelope — on pod crown bosses, <30 mm from the solenoid (v0.7) |
 | placed/92_mock_tp4056_v07.step | TP4056 USB-C — flat in the bay cradle, port through the wall (v0.7) |
 | placed/93_mock_lipo_v07.step | LiPo 103450 — edge-standing at the +Y bay wall (v0.7) |
 | placed/94_mock_pn532_v07.step | PN532 — under the lid window on drop bosses, nylon M2.5 (v0.7) |

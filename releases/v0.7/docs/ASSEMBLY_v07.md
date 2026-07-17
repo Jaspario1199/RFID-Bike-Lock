@@ -1,5 +1,15 @@
 # Assembly Plan & DFM/DFA Audit
 
+> **v0.7 FINAL: the authoritative bench build sequence now lives in [BUILD.md](BUILD.md)**
+> (4-lens audited: BOM mapping, harness, build-order simulation, bring-up checkpoints).
+> Key corrections vs the tables below: the Nano edge-stands in the POD wall recess
+> (nano_clamp on crown bosses - reflash = lid off, NOT the tray); ALL driver
+> electronics sit on a 42×10.7 card on pod crown bosses <30mm from the solenoid (the bay perf rack
+> is deleted; the spine carries only 2 conductors); MT3608 mounts BEFORE the
+> solenoid (0.3mm clearance); liners install AFTER hinge drilling (swarf); the
+> spine is wired AFTER the bay is bolted (window halves align only then); the
+> ejector spring drops into the bore AFTER the consumer closure screw.
+
 Design-level review of whether the design can actually be put together easily.
 Verdict at v0.2: sound skeleton, three real gaps. **v0.3 (the CadQuery restructure)
 implements every fix in §3** plus the modular split: separate drum module bolted from

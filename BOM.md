@@ -22,7 +22,7 @@ lot from AliExpress roughly halves the Amazon total but takes 2–4 weeks.
 | 13 | LEDs + resistors | red + green 3 mm, 470 Ω ×2, 100 Ω, 100 kΩ ×3 | — | $1 |
 | 14 | MIFARE Classic fobs | 13.56 MHz keychain fobs | 3 | $2 |
 | 15 | NTAG213 stickers | for phone case "phone unlock" | 5 | $2 |
-| 16 | Perfboard 4×6 cm, wire, heatshrink | CUT the 40×60 board to **40×23 mm** (v0.7: it stands vertically against the bay wall; the clamp-bore wedge caps the height). 1000 µF cap mounts **lying down** (Ø8×12.5 spec — order that case size). MT3608 mounts on the pedestal tower rails in the pod, NOT on the perfboard. Nano pins: **trim flush** after soldering (edge-stand recess policy) | — | $3 |
+| 16 | Perfboard 4×6 cm, wire, heatshrink | CUT a **42×10.7 mm driver card** from the 40×60 board's long edge (v0.7 final: ALL driver electronics live on a card on two crown bosses in the pod, <30mm from the solenoid; the bay perf rack was deleted - the bay holds only the cell + TP4056). 1000 µF cap mounts **lying down** (Ø8×12.5 spec — order that case size). MT3608 mounts on the pedestal tower rails in the pod, NOT on the perfboard. Nano pins: **trim flush** after soldering (edge-stand recess policy) | — | $3 |
 
 ## Mechanical — Phase 1 printed v1 (~$40)
 
@@ -33,7 +33,7 @@ lot from AliExpress roughly halves the Amazon total but takes 2–4 weeks.
 | 18 | Wire rope | 4 mm 7×7 stainless, PVC-coated, 1.5 m (1.2 m on the v0.5 slim drum) | 1 | $8 |
 | 19 | Cable end stop / swage sleeves | 4 mm aluminum, crimp | 4 | $2 |
 | 20 | Donor retractable reel | heavy-duty dog leash or badge reel (spring + spool) | 1 | $8 |
-| 21 | Ejector spring | light compression, under the bore floor (the locking preload now comes from the solenoid's own return spring — v0.3 plunger-as-pin) | 1 | $2 |
+| 21 | Ejector spring | light compression, **O9 x ~15 free length**: sits IN the latch bore on the closure screw’s washer, compressed ~5mm by the seated head; dropped in AFTER the consumer screw (v0.7) | 1 | $2 |
 | 22 | Silicone sponge sheet — *only if TPU printing is unavailable* (fallback liner) | 10 mm, medium density | 1 | ($8) |
 | 23a | Closure screw + insert | M4×8 low-profile socket machine screw + washer ×1 + short M4 heat-set (Ø5.6×L3, VERIFY sourcing) ×1 — closure | 1 | $2 |
 | 23b | Bay module screws | M4×12 pan self-tap ×4 — bay module (counterbored sub-flush, inside bore) | 4 | $1 |
@@ -45,9 +45,10 @@ lot from AliExpress roughly halves the Amazon total but takes 2–4 weeks.
 | 23h | Hinge rod stock | Ø6 303 stainless bar, 165 mm. ONE lathe op: center-drill the far end and support it on the tailstock live center — a 140 mm Ø4 turn is 35:1 slenderness and **will chatter unsupported**; turn the Ø4.00 shank in light passes, leave the Ø6.0×1.6 head integral, R0.5 head fillet, 0.4×45° head chamfer, R2.2 domed tail; trim to length at dry-fit. Zero-lathe fallback: plain Ø4 ground rod or drill rod stock, cut to length, with a screwed cap at EACH end (no integral head, no lathe op) | 1 | $3 |
 | 23i | ~~Cam lock backstop~~ | dropped in v0.4 (no wall tall enough in the slim pod); USB power-bank unlock is the dead-battery path | — | — |
 
-| 23h | Nano sled + perfboard shelf | printed cartridges on the hatch tray (v0.7): Nano rides the tray DIAGONALLY (45mm board, 40.5×29.5 window), pins trimmed flush; perfboard shelf on L-walls above it carries MT3608 + power parts | — | — |
-| 23i | Perfboard | 4×6 cm (40×60 mm) stock, CUT to 40×29 along a hole row — neither stock size fits the tray window as purchased | 1 | $1 |
 | 23j | Reservoir cap size spec | order Ø8×12.5 mm 1000 µF/10 V explicitly — taller Ø10×16.8 variants exist and eat the shelf headroom | 1 | — |
+
+| 16b | JST-XH connector kit (2/3/4-pin) + crimps | pod-side connectorization; NOTE: factory-protected 103450 cells ship with JST-PH 2.0 pigtails - buy one PH pigtail or re-terminate | 1 kit | $4 |
+| 23k | **Cable head, Phase 1** | (a) bench mule: steel flat bar ~12x6x60 square tang + cross-hole (hand tools, DESIGN 6.4) AND/OR (b) round mushroom head - ONE lathe op at the TAMU shop: O10 head, square-flanked ring groove to O6.6 x 3 deep, O5 stem swaged to the 4mm cable. The latch cannot lock without one of these; modeled as 89_mock_cable_head | 1 | $3 stock |
 
 ## Mechanical — Phase 2 steel housing (TBD, ~$40–80)
 

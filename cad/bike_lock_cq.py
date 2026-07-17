@@ -578,6 +578,14 @@ def build_body():
         boss = cq.Workplane("XY", origin=(bx, 18.0, 20)).circle(3.5).extrude(16)
         body = body.union(boss.cut(tube_bore()))
         body = body.cut(cq.Workplane("XY", origin=(bx, 18.0, 36 - 5.5)).circle(M3_PILOT / 2).extrude(6))
+    # driver-card bosses (v0.7 final): the solenoid driver stage lives on a
+    # 42x10.7 cut card flat on the crown at the pod's -y strip - <25mm wire
+    # run to the solenoid (the audited bay location was 150-200mm: flyback/
+    # reservoir-cap defeating). 2x M3 ST into these bosses.
+    for bx in (66.0, 96.0):
+        boss = cq.Workplane("XY", origin=(bx, -7.65, 24)).circle(3.5).extrude(7.4)
+        body = body.union(boss.cut(tube_bore()))
+        body = body.cut(cq.Workplane("XY", origin=(bx, -7.65, 26.4)).circle(M3_PILOT / 2).extrude(5.2))
     # PN532 wall recesses: the 41mm board exceeds the drafted pod interior
     # (39.1 at lid height) - relieve the RF-zone walls 1.6 deep so the board
     # hangs with 1.0/side clearance (D15)
@@ -938,21 +946,6 @@ def build_hinge_cap():
     return cap.cut(cs)
 
 
-def build_perf_rack():
-    """Vertical perfboard rack (v0.7 layout v3): the 40x29 cut board stands
-    against the bay's -Y wall (PCB plane y10.4-12.0, components facing +Y,
-    cap stack pointing sideways). Floor-standing end towers with edge slots;
-    2x M3x10 ST flat up from the hatch's external face. Modeled in place."""
-    rack = None
-    for bx in (20.0, 56.0):
-        t = cq.Workplane("XY", origin=(bx, 13.85, -55)).box(4.5, 6.9, 24, centered=(True, True, False))
-        t = t.union(cq.Workplane("XY", origin=(bx, 15.4, -55)).box(4.5, 8, 3, centered=(True, True, False)))
-        t = t.cut(cq.Workplane("XY", origin=(bx, 13.0, -53)).box(5.5, 2.0, 26, centered=(True, True, False)))
-        t = t.cut(cq.Workplane("XY", origin=(bx, 16.4, -56)).circle(M3_PILOT / 2).extrude(6))
-        rack = t if rack is None else rack.union(t)
-    return rack
-
-
 # ---------------- electronics mockups (reference bodies - NOT printed) ----------------
 def _mk_box(cx, cy, z0, l, w, t):
     return cq.Workplane("XY", origin=(cx, cy, z0)).box(l, w, t, centered=(True, True, False))
@@ -979,11 +972,12 @@ def build_mock_nano():
     return pcb.union(smd).union(usb)
 
 
-def build_mock_perf_stack():
-    """Cut perfboard standing against the -Y bay wall + component envelope
-    (cap stack pointing +Y sideways) + MT3608 mounted on it - one fused body."""
-    board = cq.Workplane("XY", origin=(38, 12.1, -53)).box(PERF_L, 1.6, PERF_CUT_H, centered=(True, False, False))
-    comps = cq.Workplane("XY", origin=(38, 13.7 - EPS, -51)).box(PERF_L - 12, PERF_STACK, PERF_CUT_H - 4, centered=(False, False, False)).translate((-(PERF_L - 12) / 2, 0, 0))
+def build_mock_driver_stack():
+    """Driver card on the pedestal wing: 25x16.5 cut perfboard (from the same
+    4x6cm stock) carrying IRLZ44N (flat), AO3401 breakout, 1N5819, O8x12.5 cap
+    LYING, divider resistors - <30mm wire run to the solenoid it drives."""
+    board = _mk_box(81.0, -7.65, 31.4, 42.0, 10.7, 1.6)
+    comps = _mk_box(81.0, -7.65, 33.0, 38.0, 9.9, 8.4)
     return board.union(comps)
 
 
@@ -1006,7 +1000,9 @@ def build_mock_pn532():
 def build_mock_solenoid():
     body = _mk_box(68 + sol_len / 2, bore_y, pin_z - sol_axis_h, sol_len, SOL_W_MAX, sol_h)
     # plunger TRIMMED to end at x98 (untrimmed x110 tail hits the wake button body)
-    plunger = cq.Workplane("YZ", origin=(54, bore_y, pin_z)).circle(plunger_d / 2).extrude(98 - 54)
+    # nose latched into the ring groove: stops 0.1 off the groove floor (core far
+    # surface x = bore_x + 3.3), ~1.6 mm radial engagement into the annulus
+    plunger = cq.Workplane("YZ", origin=(61.4, bore_y, pin_z)).circle(plunger_d / 2).extrude(98 - 61.4)
     return body.union(plunger)
 
 
@@ -1014,6 +1010,17 @@ def build_mock_mt3608():
     pcb = cq.Workplane("XY", origin=(66, 24.3, 35.2)).box(MT_L, 1.6, 17, centered=(False, False, False))
     comps = cq.Workplane("XY", origin=(69, 24.3 - (MT_H - 1.6), 37)).box(MT_L - 6, MT_H - 1.6, 13, centered=(False, False, False))
     return pcb.union(comps)
+
+
+def build_mock_cable_head():
+    """Cable head (Phase-1 shop job / bench mule) LATCHED: O10 head seated in
+    the O11 bore, square-flanked ring groove at the plunger line (pin_z), O5
+    stem down the bore over the ejector-spring column."""
+    head = cq.Workplane("XY", origin=(bore_x, bore_y, pin_z - 5.0)).circle(5.0).extrude(12.0)
+    groove = cq.Workplane("XY", origin=(bore_x, bore_y, pin_z - 3.3)).circle(5.01).extrude(6.6)
+    head = head.cut(groove.cut(cq.Workplane("XY", origin=(bore_x, bore_y, pin_z - 3.4)).circle(3.3).extrude(6.8)))
+    stem = cq.Workplane("XY", origin=(bore_x, bore_y, 33.0)).circle(2.5).extrude(pin_z - 5 - 33 + 0.1)
+    return head.union(stem)
 
 
 def build_mock_button():
@@ -1041,15 +1048,15 @@ PARTS = {
     "hinge_rod": build_hinge_rod,
     "hinge_cap": build_hinge_cap,
     "spine_cover": build_spine_cover,
-    "perf_rack": build_perf_rack,
 }
 
 # reference bodies for packaging verification + SolidWorks placement - NOT printed
 MOCKUPS = {
     "mock_nano": build_mock_nano,
-    "mock_perf_stack": build_mock_perf_stack,
+    "mock_driver_stack": build_mock_driver_stack,
     "mock_tp4056": build_mock_tp4056,
     "mock_mt3608": build_mock_mt3608,
+    "mock_cable_head": build_mock_cable_head,
     "mock_lipo": build_mock_lipo,
     "mock_pn532": build_mock_pn532,
     "mock_solenoid": build_mock_solenoid,
@@ -1124,13 +1131,13 @@ def placements():
         ("10_hinge_rod", "hinge_rod", (0, 0, 0), None, 0),
         ("11_hinge_cap", "hinge_cap", (0, 0, 0), None, 0),
         ("12_spine_cover", "spine_cover", (0, 0, 0), None, 0),
-        ("13_perf_rack", "perf_rack", (0, 0, 0), None, 0),
-        ("14_nano_clamp", "nano_clamp", (0, 0, 0), None, 0),
+        ("13_nano_clamp", "nano_clamp", (0, 0, 0), None, 0),
         # 90+ = electronics reference bodies (packaging verification + placement)
         ("90_mock_nano", "mock_nano", (0, 0, 0), None, 0),
-        ("91_mock_perf_stack", "mock_perf_stack", (0, 0, 0), None, 0),
+        ("91_mock_driver_stack", "mock_driver_stack", (0, 0, 0), None, 0),
         ("92_mock_tp4056", "mock_tp4056", (0, 0, 0), None, 0),
         ("99_mock_mt3608", "mock_mt3608", (0, 0, 0), None, 0),
+        ("89_mock_cable_head", "mock_cable_head", (0, 0, 0), None, 0),
         ("93_mock_lipo", "mock_lipo", (0, 0, 0), None, 0),
         ("94_mock_pn532", "mock_pn532", (0, 0, 0), None, 0),
         ("95_mock_solenoid", "mock_solenoid", (0, 0, 0), None, 0),
@@ -1184,6 +1191,9 @@ GAP_SPECS = {
     ("03_bay_module", "08_bay_hatch"):   CONTACT_OK,   # clamped faying face, screwed
     ("03_bay_module", "09_spool_cover"): (0.02, 0.30), # rabbet: radial 0.2 / axial 0.1
     ("02_door", "03_bay_module"):        (1.0, None),  # non-mating sanity floor
+    ("01_body", "89_mock_cable_head"):   (0.2, 0.8),   # O10 head in O11 bore (0.5 dia), stem clear
+    ("89_mock_cable_head", "95_mock_solenoid"): (0.05, 0.4),  # nose 0.1 shy of the groove floor
+    ("04_lid", "89_mock_cable_head"):    (0.1, None),  # head under the lid pass-through
     ("01_body", "10_hinge_rod"):         CONTACT_OK,   # head SEATS on the counterbore floor (clamped
                                                        # by the cap); bore fit asserted by feature probe
     ("02_door", "10_hinge_rod"):         (0.04, 0.25), # running bore 0.10 rad
@@ -1195,11 +1205,15 @@ GAP_SPECS = {
     ("08_bay_hatch", "13_perf_rack"):    CONTACT_OK,   # rack feet screwed to the tray pad
     # electronics reference bodies: seated = CONTACT_OK; packaging assertions = bands
     ("01_body", "90_mock_nano"):         CONTACT_OK,   # PCB seated in the wall recess
-    ("14_nano_clamp", "90_mock_nano"):   CONTACT_OK,   # clamp pads press the -y face
-    ("01_body", "14_nano_clamp"):        CONTACT_OK,   # bar screwed to the crown bosses
+    ("13_nano_clamp", "90_mock_nano"):   CONTACT_OK,   # clamp pads press the -y face
+    ("01_body", "13_nano_clamp"):        CONTACT_OK,   # bar screwed to the crown bosses
     ("04_lid", "90_mock_nano"):          (1.0, None),
     ("94_mock_pn532", "90_mock_nano"):   (1.0, None),
-    ("13_perf_rack", "91_mock_perf_stack"): CONTACT_OK,
+    ("01_body", "91_mock_driver_stack"): CONTACT_OK,  # card screwed to the crown bosses
+    ("05_pedestal_cart", "91_mock_driver_stack"): (0.1, None),
+    ("91_mock_driver_stack", "96_mock_button"): (0.3, None),   # cap top z43.4 vs button z44
+    ("91_mock_driver_stack", "95_mock_solenoid"): (0.3, None),
+    ("91_mock_driver_stack", "99_mock_mt3608"): (0.3, None),
     ("03_bay_module", "91_mock_perf_stack"): (0.3, None),
     ("04_lid", "90_mock_nano"):          (0.5, None),  # USB stack under the lid plane
     ("90_mock_nano", "94_mock_pn532"):   (1.0, None),  # sled stack under the reader board
@@ -1330,10 +1344,10 @@ PART_COLORS = {
     "bay_hatch": (0.27, 0.35, 0.39), "pedestal_cart": (0.85, 0.36, 0.22), "lid": (0.78, 0.80, 0.82),
     "liner_right": (0.23, 0.23, 0.23), "liner_left": (0.27, 0.27, 0.27), "spool_cover": (0.68, 0.71, 0.73),
     "hinge_rod": (0.75, 0.75, 0.78), "hinge_cap": (0.3, 0.38, 0.47), "spine_cover": (0.3, 0.38, 0.47),
-    "perf_rack": (0.85, 0.36, 0.22), "nano_clamp": (0.85, 0.36, 0.22),
-    "mock_nano": (0.13, 0.45, 0.22), "mock_perf_stack": (0.13, 0.45, 0.22), "mock_tp4056": (0.13, 0.45, 0.22),
+    "nano_clamp": (0.85, 0.36, 0.22),
+    "mock_nano": (0.13, 0.45, 0.22), "mock_driver_stack": (0.13, 0.45, 0.22), "mock_tp4056": (0.13, 0.45, 0.22),
     "mock_pn532": (0.13, 0.45, 0.22), "mock_lipo": (0.55, 0.55, 0.6), "mock_solenoid": (0.45, 0.45, 0.5),
-    "mock_button": (0.2, 0.2, 0.2), "mock_led": (0.8, 0.1, 0.1), "mock_mt3608": (0.13, 0.45, 0.22),
+    "mock_button": (0.2, 0.2, 0.2), "mock_cable_head": (0.62, 0.6, 0.55), "mock_led": (0.8, 0.1, 0.1), "mock_mt3608": (0.13, 0.45, 0.22),
 }
 
 

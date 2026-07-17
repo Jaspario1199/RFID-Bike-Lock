@@ -57,18 +57,22 @@ To regenerate everything: `pip install cadquery` then `python bike_lock_cq.py`
 `legacy_bike_lock_v02.scad` is the retired OpenSCAD v0.2, kept for reference;
 `render_v03.scad` only composites the exported STLs for preview renders.
 
-## v0.7 part set (15 printed parts + 1 lathe rod + 10 electronics reference bodies)
+## v0.7 part set (14 printed parts + 1 lathe rod + 11 electronics reference bodies)
 
 v0.7 adds machine-verified ELECTRONICS PACKAGING: every BOM electronic is a
-placed reference body (90+ numbering, green in renders, in `step/placed/` for
+placed reference body (89+ numbering, green in renders, in `step/placed/` for
 SolidWorks placement work - NOT printed), and every board has a modular
-holder: `perf_rack` (vertical 40×23 cut perfboard against the bay wall),
-`nano_clamp` (edge-standing Nano in a pod wall recess, clamp bar on crown
-bosses), TP4056 flat cradle rails (USB correctly through the wall - the v0.5
-vertical slot pointed it at the floor), MT3608 end-posts on the pedestal
-tower, edge-standing LiPo with rail + wall + block face. The --gaps table
-asserts the packaging: solenoid-to-lid 1.0, plunger-tail-to-button 1.0 (tail
-MUST be trimmed to x98), board recess seats, cell containment - 292 checks.
+holder: the driver card (42×10.7 cut perfboard) sits on two Ø7 crown bosses
+on the pod's −y strip (x66/x96, 2× M3 ST, <30 mm from the solenoid — the bay
+perf rack was deleted, see BUILD.md §2), `nano_clamp` (edge-standing Nano in
+a pod wall recess, clamp bar on crown bosses), TP4056 flat cradle rails (USB
+correctly through the wall - the v0.5 vertical slot pointed it at the floor),
+MT3608 end-posts on the pedestal tower, edge-standing LiPo with rail + wall +
+block face. `89_mock_cable_head` models the latched cable head (Ø10 head,
+ring groove at the plunger line, ~1.6 mm plunger engagement). The --gaps
+table asserts the packaging: solenoid-to-lid 1.0, plunger-tail-to-button 1.0
+(tail MUST be trimmed to x98), board recess seats, cell containment,
+cable-head latch engagement - 292 checks.
 
 | Part | Role |
 |---|---|
