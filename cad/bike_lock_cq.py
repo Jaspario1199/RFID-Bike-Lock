@@ -601,7 +601,9 @@ def build_body():
     body = body.cut(cq.Workplane("XY", origin=(1.5, 26.3, 20.5)).box(46, 1.7, 19, centered=(False, False, False)))
     body = body.cut(cq.Workplane("XY", origin=(1.2, 24.8, 20.5)).box(9, 3.2, 19, centered=(False, False, False)))
     for bx in (12.0, 37.0):
-        boss = cq.Workplane("XY", origin=(bx, 18.0, 20)).circle(3.5).extrude(16)
+        # v0.8.2: O8 boss (was O7) so the O4.0 insert keeps a 2.0mm solid wall (--support);
+        # O9 was tried but kissed the edge-standing Nano (gate-caught) - O8 clears it
+        boss = cq.Workplane("XY", origin=(bx, 18.0, 20)).circle(4.0).extrude(16)
         body = body.union(boss.cut(tube_bore()))
         body = body.cut(cq.Workplane("XY", origin=(bx, 18.0, 36 - INS3_T)).circle(INS3_D / 2).extrude(INS3_T + 1))  # v0.8 nano-clamp M3 heat-set
         body = body.cut(hs_cb("XY", bx, 18.0, 36.0, -1))
@@ -1408,6 +1410,92 @@ def verify_gaps(floor=OVERLAP_FLOOR):
     return not bad
 
 
+# ---------------- --support: every threaded hole must sit in enough solid wall ----------------
+# A heat-set/threaded pocket cut into a wall thinner than the pocket has nothing to
+# grip and may daylight out the side. This gate builds, for each load-bearing hole,
+# the ANNULAR COLLAR of solid that MUST exist around it (ID=hole, OD=hole+2*wall) over
+# its grip depth, and checks that collar is fully contained in the part (collar - part
+# ~ empty). It reports the ACTUAL min wall per hole and FAILs any below its requirement.
+SUPPORT_FLOOR = 1.0                  # mm^3 of 'missing' collar tolerated (OCC facet noise)
+MOUTH_SKIP = 1.3                     # skip past the 1.0mm lead-in counterbore before testing wall
+WALL_STEPS = (2.5, 2.0, 1.5, 1.2, 1.0, 0.6)   # descending probe thicknesses
+
+
+def _collar(mouth, direction, dia, wall, depth):
+    p = cq.Vector(*mouth)
+    d = cq.Vector(*direction)
+    d = d.multiply(1.0 / d.Length)
+    outer = cq.Solid.makeCylinder((dia + 2 * wall) / 2.0, depth, p, d)
+    inner = cq.Solid.makeCylinder(dia / 2.0 + 0.05, depth + 0.4, p.sub(d.multiply(0.2)), d)
+    return cq.Workplane(obj=outer.cut(inner))
+
+
+def support_features():
+    """Registry (single source of truth) of every LOAD-BEARING threaded hole, in each
+    part's LOCAL build frame. (part, label, mouth, inward-dir, dia, grip-depth, min_wall)."""
+    R_out = (shell_id + 2 * shell_wall) / 2.0
+    zs2 = -math.sqrt(R_out * R_out - bay_screw_y ** 2)
+    f = []
+    for sx, sy in LID_SCREWS:
+        f.append(("body", f"lid-rim insert @({sx},{sy})", (sx, sy, z_lid0), (0, 0, -1), INS3_D, INS3_T, 2.0))
+    for bx in (12.0, 37.0):
+        f.append(("body", f"nano-clamp boss @x{bx}", (bx, 18.0, 36.0), (0, 0, -1), INS3_D, INS3_T, 2.0))
+    for bx in (66.0, 96.0):
+        f.append(("body", f"driver-card boss @x{bx}", (bx, -7.65, 31.4), (0, 0, -1), INS3S_D, INS3S_T, 2.0))
+    f.append(("body", "hinge-cap shell-end insert", (shell_len, 3.5, -29.0), (-1, 0, 0), INS3_D, INS3_T, 1.5))
+    f.append(("door", "closure short insert (radial)", (bore_x, bore_y, pad_z1), (0, 0, -1), INS3S_D, pad_z1 - pad_z0, 1.5))
+    for px, py in pads_pedestal:
+        f.append(("body", f"pedestal pad insert @({px},{py})", (px, py, PAD_Z), (0, 0, -1), INS3_D, INS3_T, 2.0))
+    for sx in bay_screw_xs:
+        f.append(("bay_module", f"bay bolt insert @x{sx:.1f}", (sx, bay_screw_y, zs2), (0, 0, -1), INS3_D, INS3_T, 2.0))
+    for a in (90, 210, 330):
+        bx = drum_cx + 31.25 * math.cos(math.radians(a))
+        bz = drum_cz - 31.25 * math.sin(math.radians(a))
+        f.append(("bay_module", f"spool-cover insert @{a}deg", (bx, DR_Y1 - 3.0, bz), (0, -1, 0), INS3_D, INS3_T, 1.5))
+    for hx, hy in ((12.5, 24.0), (60.0, 23.0)):
+        f.append(("bay_module", f"hatch insert @({hx},{hy})", (hx, hy, BK_BOT), (0, 0, 1), INS3_D, INS3_T, 2.0))
+    for hx in (68 + sol_len / 2 - sol_hole_dx / 2, 68 + sol_len / 2 + sol_hole_dx / 2):
+        f.append(("pedestal_cart", f"solenoid insert @x{hx:.1f}", (hx, bore_y, ped_top + 1), (0, 0, -1), INS25_D, INS25_T, 1.5))
+    bcx, bcy = pn532_x + pn532_l / 2, pod_yc
+    for hx in (-1, 1):
+        for hy in (-1, 1):
+            px = bcx + hx * (pn532_l / 2 - PN532_HOLE_INSET)
+            py = bcy + hy * (pn532_w / 2 - PN532_HOLE_INSET)
+            f.append(("lid", f"PN532 nylon boss @({px:.1f},{py:.1f})", (px, py, lid_t - window_remain - PN532_BOSS_DROP), (0, 0, 1), M3_PILOT, 1.5, 1.2))
+    return f
+
+
+def verify_support():
+    parts = {}
+    for pn in sorted({feat[0] for feat in support_features()}):
+        print(f"[verify] building {pn} for wall check ...", flush=True)
+        parts[pn] = ALL_BUILDERS[pn]()
+    bad = []
+    for pn, label, mouth, direction, dia, depth, req in support_features():
+        part = parts[pn]
+        d = cq.Vector(*direction)
+        d = d.multiply(1.0 / d.Length)
+        # skip past the lead-in counterbore at the mouth; test the real grip wall
+        m = cq.Vector(*mouth).add(d.multiply(MOUTH_SKIP))
+        m = (m.x, m.y, m.z)
+        actual = 0.0
+        for w in WALL_STEPS:
+            # the wall is >= w where (required collar) - (part) is empty
+            miss = _collar(m, direction, dia, w, max(depth - MOUTH_SKIP, 0.8)).cut(part)
+            mv = sum(s.Volume() for s in miss.solids().vals())
+            if mv <= SUPPORT_FLOOR:
+                actual = w
+                break
+        flag = actual < req - 1e-6
+        mark = "FAIL" if flag else "ok"
+        print(f"  [{mark}] {pn:13s} {label:34s} wall~{actual:.1f}mm (need {req})", flush=True)
+        if flag:
+            bad.append((pn, label, actual, req))
+    print(f"[verify] wall-support: {len(bad)} under-supported holes / {len(support_features())} checked "
+          + ("PASS" if not bad else "FAIL"), flush=True)
+    return not bad
+
+
 PART_COLORS = {
     "body": (0.18, 0.25, 0.34), "door": (0.24, 0.35, 0.45), "bay_module": (0.13, 0.19, 0.24),
     "bay_hatch": (0.27, 0.35, 0.39), "pedestal_cart": (0.85, 0.36, 0.22), "lid": (0.78, 0.80, 0.82),
@@ -1452,6 +1540,8 @@ def main():
         sys.exit(0 if verify_matrix(floor) else 1)
     if "--gaps" in sys.argv:
         sys.exit(0 if verify_gaps(floor) else 1)
+    if "--support" in sys.argv:
+        sys.exit(0 if verify_support() else 1)
     if "--export-assembly" in sys.argv:
         export_assembly()
         sys.exit(0)
