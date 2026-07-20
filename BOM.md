@@ -75,13 +75,17 @@ lot from AliExpress roughly halves the Amazon total but takes 2–4 weeks.
 
 ### VERIFY before buying / installing (v0.6)
 
-- Items 23a/23c/23f (inserts): confirm the actual brass heat-set brand/dims match the
-  pockets they're pressed into before ordering a set — M3 Ø4.1×6.5, M2.5 Ø3.6×4.5, and the
-  short M4 Ø5.6×L3 (item 23a). The M4×L3 length is the least common of the three and may
-  need to be sourced from a specialty kit or trimmed down from a longer M4 insert on a
-  belt sander/lathe before pressing in; if it can't be sourced at all, the fallback is a
-  self-tapped M4 pilot straight into the PETG/ASA pad (no insert) — treat that joint as
-  single-use, since re-tapping PETG/ASA repeatedly strips the pilot.
+- **v0.8.1 SNUG-FIT (do this first):** print the **`heatset_coupon`** part and press one M3
+  insert from your kit into its graduated holes (3.7/3.8/3.9/**4.0**/4.1/4.2) — pick the Ø
+  that grips snug + seats clean, and tell me; every pocket then locks to that one number.
+  The design currently ships at the standard **M3 Ø4.0×6.5** (full) / Ø4.0×L3.8 (short) /
+  **M2.5 Ø3.6×4.5**, each with a lead-in relief so the displaced plastic doesn't mushroom.
+- (legacy note, superseded by the coupon) Items 23a/23c/23f (inserts): confirm the actual
+  brass heat-set brand/dims match the pockets — for the assortment kit, the M3 length just
+  needs to be ≤6.5 (full pockets) or ≤3.8 (short: closure + driver-card), and M2.5 ≤4.5.
+  There is no longer any M4 insert (all M3 in v0.8), so the old short-M4 sourcing risk is
+  gone. Nylon PN532 screws (item 23g) self-tap into printed bosses and are single-use-ish,
+  since re-tapping PETG/ASA repeatedly strips the pilot — keep a couple spare.
 - Item 23d (ST flat-head self-tap screws — spool, spine cover, hinge cap): measure the
   actual screw's included head angle — clone self-tap flat heads ship as either 80° or
   90° — **before** countersinking; the printed countersink (Ø7.2×2.4) is cut for one

@@ -8,6 +8,23 @@ working copies under `cad/`; this folder is the fixed reference set.
 **Gate at freeze: gaps 0 violations / 292 checks · matrix 0 clashing pairs @ 0.01 mm³ ·
 door sweep 0.00 mm³ (0–110°) · entry corridor 0.00 mm³.**
 
+## v0.8.1 refinement — heat-set holes tuned for a snug, clean fit
+
+- **Pocket Ø 4.1 → 4.0** (the standard snug hole for M3 brass heat-sets — CNC Kitchen /
+  Ruthex / most generic kits all spec ~Ø4.0). Short pockets already Ø4.0. **One number**
+  (`INS3_D` / `INS3S_D` in the CAD) sets every M3 pocket — change it once and the whole
+  design re-cuts.
+- **Lead-in relief at every pocket mouth** (Ø `INS3_D+1.4` × 1.0, plus a smaller one at the
+  M2.5 solenoid pocket): gives the plastic the insert displaces somewhere to go, so the
+  insert seats flush and clean instead of mushrooming. This relief is wider than any
+  candidate bore (3.7–4.2), so tuning the pocket Ø never disturbs it.
+- **`heatset_coupon` (new, NOT in the assembly)** — a graduated test bar: M3 holes at
+  3.7/3.8/3.9/4.0/4.1/4.2 (front row) + M2.5 at 3.4/3.5 (back row), each with the same
+  lead-in relief and a corner notch marking the small-Ø end. **Print it first** in the same
+  material/settings, press one insert from your kit into each hole, and pick the Ø that
+  grips snug + seats clean. Report that number and every pocket in the design locks to it.
+  Exported at `stl/heatset_coupon_v08.stl` and `heatset_coupon_v08.step`.
+
 ## What changed from v0.7 → v0.8
 
 Fastening only — the geometry envelope is identical to v0.7 (all changes are internal

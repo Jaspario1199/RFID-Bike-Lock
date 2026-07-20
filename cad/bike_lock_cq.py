@@ -110,8 +110,9 @@ M3_ST_CS_D, M3_ST_CS_T = 7.2, 2.4   # 80deg self-tap flat head cs (v0.8: unused 
 M3_CB_D, M3_CB_T = 6.0, 3.2         # M3 socket-cap counterbore (bay screws, head sub-flush of bore)
 M25_CLR = 2.7
 INS25_D, INS25_T = 3.6, 4.5         # M2.5 brass heat-set pocket (solenoid carve-out - cyclic load)
-INS3_D, INS3_T = 4.1, 6.5           # M3 brass heat-set pocket - THE v0.8 STANDARD (VERIFY insert brand)
-INS3S_D, INS3S_T = 4.0, 3.8         # SHORT M3 brass heat-set (O4.0 x L3.8) - the shallow closure pad
+INS3_D, INS3_T = 4.0, 6.5           # M3 brass heat-set pocket - v0.8.1 snug (was 4.1). CONFIRM with
+INS3S_D, INS3S_T = 4.0, 3.8         # the printed test coupon + your kit, then set this one number.
+INS_CHAMF = 0.7                     # lead-in chamfer at every pocket mouth (displaced-plastic relief)
 LID_SCREWS = [(50, -9), (50, 23), (114, -9), (114, 23)]  # shared by lid holes + body bosses;
                                     # x=5 corners are INSIDE the PN532 pocket span (x 2..45.2) - only
                                     # 1.2mm window skin there, so the frame sits at x 50/114 instead
@@ -350,6 +351,10 @@ def spine_cover_screws():
         d = cq.Workplane("XY", origin=(0, 0, 0)).circle(INS3_D / 2).extrude(-(INS3_T + 1))
         d = d.rotate((0, 0, 0), (1, 0, 0), -math.degrees(amid))
         out.append(d.translate((sx, 36.0 * math.sin(amid), 36.0 * math.cos(amid))))
+        # v0.8.1 lead-in relief at the pocket mouth (same rotate/translate as the bore)
+        c = cq.Workplane("XY", origin=(0, 0, 0)).circle((INS3_D + 1.4) / 2).extrude(-1.0)
+        c = c.rotate((0, 0, 0), (1, 0, 0), -math.degrees(amid))
+        out.append(c.translate((sx, 36.0 * math.sin(amid), 36.0 * math.cos(amid))))
         # ledge relief pocket for the cover's underside countersink pad; extends
         # 0.25 above the ledge so the pad's nose clears the un-rabbeted rib
         # strips (x20-21, x35-36) that its O8 footprint overhangs
@@ -391,9 +396,10 @@ def door_flange():
     # screw, which enters from above down the latch bore; M3x10 - tip clears the
     # O46 tube and the liner's swept transit window removes the ring there). The
     # 3.4mm pad is too shallow for a full 6.5 insert, so a short M3 is used here.
-    return f.cut(
+    f = f.cut(
         cq.Workplane("XY", origin=(bore_x, bore_y, pad_z0 - 1)).circle(INS3S_D / 2).extrude(pad_z1 - pad_z0 + 2)
     )
+    return f.cut(hs_cb("XY", bore_x, bore_y, pad_z1, -1))
 
 
 def door_lip():
@@ -503,7 +509,8 @@ def liner_keys(sign):
 def pad_boss(cx, cy):
     b = cq.Workplane("XY", origin=(cx, cy, 10)).box(PAD, PAD, PAD_Z - 10, centered=(True, True, False))
     # v0.8: M3 heat-set from the pad top (was O2.5 self-tap pilot); O12 pad, ample wall
-    return b.cut(cq.Workplane("XY", origin=(cx, cy, PAD_Z - INS3_T)).circle(INS3_D / 2).extrude(INS3_T + 1))
+    b = b.cut(cq.Workplane("XY", origin=(cx, cy, PAD_Z - INS3_T)).circle(INS3_D / 2).extrude(INS3_T + 1))
+    return b.cut(hs_cb("XY", cx, cy, PAD_Z, -1))
 
 
 def csink(cx, cy, z_face, d_head, t, up=True):
@@ -517,6 +524,14 @@ def csink(cx, cy, z_face, d_head, t, up=True):
         .circle(max(d_head / 2 - t, 0.2))
         .loft()
     )
+
+
+def hs_cb(plane, ox, oy, oz, sign):
+    """v0.8.1 lead-in / displaced-plastic relief at a heat-set pocket mouth, in the
+    pocket's native workplane (no rotation). O(INS3_D+1.4) x 1.0 counterbore so the
+    plastic the insert displaces has somewhere to go and seats flush/clean. Wider
+    than any candidate bore (3.7-4.2), so tuning the pocket O never touches this."""
+    return cq.Workplane(plane, origin=(ox, oy, oz)).circle((INS3_D + 1.4) / 2).extrude(sign * 1.0)
 
 
 def largest_solid(wp):
@@ -548,6 +563,7 @@ def build_body():
     # tail-cap screw pilot: into the shell-wall end face beside the rear standoff
     # (y3.5 matches the cap's ear/clearance/countersink axis exactly)
     body = body.cut(cq.Workplane("YZ", origin=(shell_len + 1, 3.5, -29.0)).circle(INS3_D / 2).extrude(-(INS3_T + 1)))  # v0.8 hinge-cap M3 heat-set
+    body = body.cut(hs_cb("YZ", shell_len + 1, 3.5, -29.0, -1))
     # bay mounting: M4 through-holes from inside the bore, counterbored so the pan
     # head sits fully below the bore surface (was 2.6 deep -> head stood 1-2.5mm
     # proud, into the liner zone)
@@ -586,6 +602,7 @@ def build_body():
         boss = cq.Workplane("XY", origin=(bx, 18.0, 20)).circle(3.5).extrude(16)
         body = body.union(boss.cut(tube_bore()))
         body = body.cut(cq.Workplane("XY", origin=(bx, 18.0, 36 - INS3_T)).circle(INS3_D / 2).extrude(INS3_T + 1))  # v0.8 nano-clamp M3 heat-set
+        body = body.cut(hs_cb("XY", bx, 18.0, 36.0, -1))
     # driver-card bosses (v0.7 final): the solenoid driver stage lives on a
     # 42x10.7 cut card flat on the crown at the pod's -y strip - <25mm wire
     # run to the solenoid (the audited bay location was 150-200mm: flyback/
@@ -596,6 +613,7 @@ def build_body():
         boss = cq.Workplane("XY", origin=(bx, -7.65, 24)).circle(3.5).extrude(7.4)
         body = body.union(boss.cut(tube_bore()))
         body = body.cut(cq.Workplane("XY", origin=(bx, -7.65, 31.4 - INS3S_T)).circle(INS3S_D / 2).extrude(INS3S_T + 1))
+        body = body.cut(hs_cb("XY", bx, -7.65, 31.4, -1))
     # PN532 wall recesses: the 41mm board exceeds the drafted pod interior
     # (39.1 at lid height) - relieve the RF-zone walls 1.6 deep so the board
     # hangs with 1.0/side clearance (D15)
@@ -608,6 +626,7 @@ def build_body():
         b = cq.Workplane("XY", origin=(sx, sy, 40)).circle(4.5).extrude(z_lid0 - 40)
         body = body.union(b.cut(outer_cyl()))
         body = body.cut(cq.Workplane("XY", origin=(sx, sy, z_lid0 - INS3_T)).circle(INS3_D / 2).extrude(INS3_T + 1))
+        body = body.cut(hs_cb("XY", sx, sy, z_lid0, -1))
     # (v0.8: removed 2 vestigial nano-SLED foot pilots - that part was superseded
     # by nano_clamp in v0.7; the stray O2.5 blind holes served no screw)
     for (px, py) in pads_pedestal:
@@ -669,10 +688,12 @@ def build_bay_module():
         buttress = cq.Workplane("XZ", origin=(bx, DR_Y1 - 3.0, bz)).circle(5.0).extrude(8.0)
         body = body.union(buttress.intersect(id_clip))
         body = body.cut(cq.Workplane("XZ", origin=(bx, DR_Y1 - 3.0, bz)).circle(INS3_D / 2).extrude(INS3_T + 1))
+        body = body.cut(hs_cb("XZ", bx, DR_Y1 - 3.0, bz, 1))
         # relief pocket in the rabbet floor for the cover's underside countersink pad
         body = body.cut(cq.Workplane("XZ", origin=(bx, DR_Y1 - 3, bz)).circle(4.8).extrude(0.85))
     for sx in bay_screw_xs:
         body = body.cut(cq.Workplane("XY", origin=(sx, bay_screw_y, zs2)).circle(INS3_D / 2).extrude(-(INS3_T + 1)))  # v0.8 bay M3 heat-set
+        body = body.cut(hs_cb("XY", sx, bay_screw_y, zs2, -1))
     # spine landing window (brick top, +Y side)
     body = body.cut(cq.Workplane("XY", origin=(28, 30, -18)).box(12, 12, 10))
     # TP4056 cradle (v0.7 layout v3): board stands on its LONG edge in a middle
@@ -713,6 +734,7 @@ def build_bay_module():
     # corner bosses are impossible: the cell owns nearly the whole cavity plan.
     for hx, hy in ((12.5, 24.0), (60.0, 23.0)):
         body = body.cut(cq.Workplane("XY", origin=(hx, hy, BK_BOT - 1)).circle(INS3_D / 2).extrude(INS3_T + 1))
+        body = body.cut(hs_cb("XY", hx, hy, BK_BOT, 1))
     body = body.cut(outer_cyl(0.3))
     body = body.cut(tube_bore())
     return largest_solid(body)
@@ -767,6 +789,7 @@ def build_pedestal_cart():
     # inserts - the cart is a minutes-long reprint.
     for hx in (68 + sol_len / 2 - sol_hole_dx / 2, 68 + sol_len / 2 + sol_hole_dx / 2):
         body = body.cut(cq.Workplane("XY", origin=(hx, bore_y, ped_top + 1)).circle(INS25_D / 2).extrude(-(INS25_T + 1)))
+        body = body.cut(cq.Workplane("XY", origin=(hx, bore_y, ped_top + 1)).circle((INS25_D + 1.2) / 2).extrude(-1.0))  # M2.5 lead-in
     # driver access for the M3 pad screws (heads land on the base, hidden under
     # the solenoid body once it is mounted)
     for (px, _py) in pads_pedestal:
@@ -873,6 +896,29 @@ def build_shim():
     solid = cq.Workplane("YZ").placeSketch(sk).extrude(shell_len)
     wedge = cq.Workplane("YZ", origin=(-1, 0, 0)).polyline([(0, 0), (40, -23), (40, 23)]).close().extrude(shell_len + 2)
     return largest_solid(solid.cut(wedge))
+
+
+def build_heatset_coupon():
+    """v0.8.1 test coupon (NOT in the assembly - print by itself in the SAME material
+    and settings as the real parts). A graduated bar of blind pockets: press ONE M3
+    insert from your kit into each of the 3.7/3.8/3.9/4.0/4.1/4.2 holes (front row) and
+    one M2.5 into the 3.4/3.5 holes (back row), find the O that grips snug + seats clean,
+    and report it - then every pocket in the design gets locked to that number. Each
+    pocket has the same O(INS3_D+1.4) lead-in relief as the real parts. A corner notch
+    marks the SMALL-O (3.7) end for orientation."""
+    m3 = [3.7, 3.8, 3.9, 4.0, 4.1, 4.2]
+    x0 = -((len(m3) - 1) * 10) / 2
+    bar = cq.Workplane("XY").box(len(m3) * 10 + 12, 22, 8, centered=(True, True, False))
+    for i, d in enumerate(m3):
+        x = x0 + i * 10
+        bar = bar.cut(cq.Workplane("XY", origin=(x, 4.0, 8)).circle(d / 2).extrude(-6.5))
+        bar = bar.cut(cq.Workplane("XY", origin=(x, 4.0, 8)).circle((d + 1.4) / 2).extrude(-1.0))
+    for i, d in enumerate([3.4, 3.5]):
+        x = x0 + i * 10
+        bar = bar.cut(cq.Workplane("XY", origin=(x, -6.0, 8)).circle(d / 2).extrude(-4.5))
+        bar = bar.cut(cq.Workplane("XY", origin=(x, -6.0, 8)).circle((d + 1.2) / 2).extrude(-0.9))
+    bar = bar.cut(cq.Workplane("XY", origin=(x0 - 5.5, -10.5, -1)).box(3, 3, 10, centered=(True, True, False)))
+    return bar
 
 
 def build_spool_cover():
@@ -1063,6 +1109,7 @@ PARTS = {
     "liner_right": lambda: build_liner(True),
     "liner_left": lambda: build_liner(False),
     "shim": build_shim,
+    "heatset_coupon": build_heatset_coupon,   # v0.8.1 - test/tune the snug O (not in the assembly)
     "nano_clamp": build_nano_clamp,
     "spool_cover": build_spool_cover,
     "hinge_rod": build_hinge_rod,
