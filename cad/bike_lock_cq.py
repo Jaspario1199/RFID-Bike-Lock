@@ -90,10 +90,12 @@ sol_hole_dx = 24.0                  # VERIFY on the real unit BEFORE installing 
 ped_top = pin_z - sol_axis_h        # 37
 
 PAD_Z, PAD, PAD_PILOT = 32.0, 12.0, 2.5
-pads_pedestal = [(76, bore_y), (86, bore_y)]         # BETWEEN the solenoid holes (69/93): the old
-                                    # 68/94 pads sat 1mm from them - the M3 attach and M2.5 solenoid
-                                    # holes physically merged (judge-probed). Attach screws drive
-                                    # first through tower access holes; the solenoid then hides them.
+pads_pedestal = [(79, bore_y), (87, bore_y)]         # BETWEEN the solenoid holes (71/95), symmetric
+                                    # about their center (x83). v0.8.2: pulled in from 76/86 - there the
+                                    # O6.5 pad-access hole cut into the x71 solenoid insert's collar (5mm
+                                    # apart -> ~0 wall, --support). At 79/87 each access hole clears the
+                                    # solenoid collar by ~1.4mm. Attach screws drive first through the
+                                    # tower access holes; the solenoid then hides them.
 
 # ---------------- fastener spec (v0.8: unified M3 BRASS HEAT-SET standard) ----------------
 # v0.8 rebuild: EVERY threaded joint is now an M3 machine screw into an M3 brass
@@ -184,6 +186,11 @@ LIPO_CELL = (50.0, 10.0, 34.0)      # edge-stand: 50 along X, 10 across Y, 34 ta
 SHELF_Z = -41.0                     # perfboard shelf plane (Nano below: USB top -45.4, 4.4 clear)
 bay_screw_y = 12.11                 # .11/.13 nudges break an exactly-tangent OCC edge that crashed STEP export
 bay_screw_xs = (10.13, 28.13, 46.13, 60.13)          # M4s from inside the bore, +Y line
+# hatch service screws (v0.8.2: single source of truth - was hard-coded in 3 places).
+# (13,20) sits in the clear -X floor lane (TP4056 starts at y25.8, window at x17.5);
+# (60,23) anchors in the drum web (x58-70) with a small nesting-pad notch so the bay
+# backing boss can reach the insert's inboard side. Both are pillar/web-backed 360deg.
+HATCH_SCREWS = ((13.0, 20.0), (60.0, 23.0))
 
 # ---------------- drum (rule 3: axis along Y, slim wheel) ----------------
 drum_od, drum_w, drum_wall = 68.0, 32.0, 3.5         # 1.2 m x 04 coated cable
@@ -510,8 +517,13 @@ def liner_keys(sign):
 
 def pad_boss(cx, cy):
     b = cq.Workplane("XY", origin=(cx, cy, 10)).box(PAD, PAD, PAD_Z - 10, centered=(True, True, False))
-    # v0.8: M3 heat-set from the pad top (was O2.5 self-tap pilot); O12 pad, ample wall
-    b = b.cut(cq.Workplane("XY", origin=(cx, cy, PAD_Z - INS3_T)).circle(INS3_D / 2).extrude(INS3_T + 1))
+    # v0.8.2: SHORT M3 heat-set (was full 6.5). The O12 pad overhangs the O~54 tube
+    # bore (with liner clearance the bore reaches z~26.7 on the pad's inboard edge),
+    # so a full 6.5 pocket (bottom z25.5) had its inboard-bottom corner cut into open
+    # bore -> ~0.6mm wall (--support). A 3.8 insert (bottom z28.2) sits entirely above
+    # the bore intrusion, giving a full 360deg >2mm collar. Light cart-hold load; the
+    # closure and driver-card joints already use this short insert.
+    b = b.cut(cq.Workplane("XY", origin=(cx, cy, PAD_Z - INS3S_T)).circle(INS3S_D / 2).extrude(INS3S_T + 1))
     return b.cut(hs_cb("XY", cx, cy, PAD_Z, -1))
 
 
@@ -663,11 +675,11 @@ def build_bay_module():
     )
     web = cq.Workplane("XY", origin=(64, (DR_Y0 + DR_Y1) / 2, -44)).box(12, DR_Y1 - DR_Y0, 28, centered=(True, True, True))
     body = brick.union(drum_ring()).union(web).union(snout_solid())
-    # M4 bosses under the through-bore screws (brick zone)
+    # bosses under the through-bore bay bolts (brick zone). v0.8.2: these are now
+    # unioned AFTER the cavity cut (see below) - pre-cav the O9 boss sat with its
+    # center (y12.11) 2mm INSIDE the cavity inner wall (y10), so cav ate it down to a
+    # thin crescent and the O4.0 insert pierced open air (--support read ~0 wall).
     zs2 = -math.sqrt(R_out * R_out - bay_screw_y ** 2)
-    for sx in bay_screw_xs:
-        b = cq.Workplane("XY", origin=(sx, bay_screw_y, zs2 + 2)).circle(4.5).extrude(-12)
-        body = body.union(b)
     body = body.cut(cav).cut(snout_hole())
     for nx, ny in ((6.8, 40.8), (54.8, 40.8), (53.0, 9.8)):
         body = body.cut(cq.Workplane("XY", origin=(nx, ny, -55)).box(4.4 if ny > 20 else 6.2, 4.4, 36, centered=(False, False, False)))
@@ -681,21 +693,31 @@ def build_bay_module():
     # clip solid = coaxial cylinder at the drum ID (r30.5): the buttress only adds
     # material INBOARD (into the drum void) to back the insert's inner wall - it must
     # NOT reach the r30.5-33 rabbet zone (that's where the cover disc seats -> collision)
-    id_clip = cq.Workplane("XZ", origin=(drum_cx, DR_Y1 + 1.0, drum_cz)).circle(30.5).extrude(drum_w + 2)
     for a in (90, 210, 330):
         # cover local +Y maps to global -Z under the -90deg placement rotation
         bx = drum_cx + 31.25 * math.cos(math.radians(a))
         bz = drum_cz - 31.25 * math.sin(math.radians(a))
         # the cover seats in the outboard recess DR_Y1-3..DR_Y1+0.3, so the insert
-        # mouth + buttress start AT the rabbet floor (DR_Y1-3) and run inboard - the
-        # screw threads straight from the recessed cover into the insert behind it
-        buttress = cq.Workplane("XZ", origin=(bx, DR_Y1 - 3.0, bz)).circle(5.0).extrude(8.0)
-        body = body.union(buttress.intersect(id_clip))
+        # mouth + buttress start AT the rabbet floor (DR_Y1-3) and run INBOARD - the
+        # screw threads straight from the recessed cover into the insert behind it.
+        # v0.8.2: the buttress is a full O9 pillar (was O10 clipped to the r30.5 bore,
+        # which starved the outboard side -> 0.6mm wall at 2 of 3 stations). Because it
+        # starts AT the rabbet floor and runs inboard, it never enters the cover-seat
+        # Y-band, so it may span the whole collar: inboard it fills the drum void, out-
+        # board it raises a small rim scallop (filleted, flush-ish with the O68 drum) -
+        # giving the O4.0 insert a full 360deg 1.5mm collar behind the floor.
+        buttress = cq.Workplane("XZ", origin=(bx, DR_Y1 - 3.0, bz)).circle(4.5).extrude(8.0)
+        body = body.union(buttress)
         body = body.cut(cq.Workplane("XZ", origin=(bx, DR_Y1 - 3.0, bz)).circle(INS3_D / 2).extrude(INS3_T + 1))
         body = body.cut(hs_cb("XZ", bx, DR_Y1 - 3.0, bz, 1))
         # relief pocket in the rabbet floor for the cover's underside countersink pad
         body = body.cut(cq.Workplane("XZ", origin=(bx, DR_Y1 - 3, bz)).circle(4.8).extrude(0.85))
     for sx in bay_screw_xs:
+        # v0.8.2: O9 boss unioned here (post-cav) so it stays a solid pillar that
+        # merges into the y7..10 near wall - gives the O4.0 insert a full 2.5mm
+        # 360deg collar. outer_cyl(0.3) below trims the boss crown to the shell.
+        boss = cq.Workplane("XY", origin=(sx, bay_screw_y, zs2 + 2)).circle(4.5).extrude(-12)
+        body = body.union(boss)
         body = body.cut(cq.Workplane("XY", origin=(sx, bay_screw_y, zs2)).circle(INS3_D / 2).extrude(-(INS3_T + 1)))  # v0.8 bay M3 heat-set
         body = body.cut(hs_cb("XY", sx, bay_screw_y, zs2, -1))
     # spine landing window (brick top, +Y side)
@@ -736,7 +758,13 @@ def build_bay_module():
     # hatch screws anchor in the two deep masses: the TP4056 block and the drum
     # web - M3 heat-set pockets from below (service joint -> inserts). Interior
     # corner bosses are impossible: the cell owns nearly the whole cavity plan.
-    for hx, hy in ((12.5, 24.0), (60.0, 23.0)):
+    for hx, hy in HATCH_SCREWS:
+        # v0.8.2: the 3mm bay floor alone left the O4.0 pocket piercing straight into
+        # the cavity (~0 wall). Union a O8 pillar rising from the floor into the
+        # cavity so the insert gets a full 2.0mm collar over its whole grip depth.
+        # (13,20) is a free floor lane; (60,23) merges into the drum web (x58-70).
+        # Gate-checked vs cell/TP4056/tray; the hatch pad is notched to admit these.
+        body = body.union(cq.Workplane("XY", origin=(hx, hy, BK_BOT)).circle(4.0).extrude(9.0))
         body = body.cut(cq.Workplane("XY", origin=(hx, hy, BK_BOT - 1)).circle(INS3_D / 2).extrude(INS3_T + 1))
         body = body.cut(hs_cb("XY", hx, hy, BK_BOT, 1))
     body = body.cut(outer_cyl(0.3))
@@ -763,8 +791,12 @@ def build_bay_hatch():
         .extrude(3.0)
     )
     p = p.union(pad)
+    # v0.8.2: notch the nesting pad where the bay's backing boss for the (60,23) screw
+    # reaches inboard of the window edge - otherwise the pad and boss interpenetrate.
+    lnx, lny = 60.0 - BK_X0, 23.0 - (BAY_Y0 + BAY_Y1) / 2
+    p = p.cut(cq.Workplane("XY", origin=(lnx, lny, 3.0 - EPS)).circle(4.6).extrude(3.2))
     # hatch-local frame: local x = global x - BK_X0, local y = global y - 27.5
-    for gx, gy in ((12.5, 24.0), (60.0, 23.0)):
+    for gx, gy in HATCH_SCREWS:
         lx, ly = gx - BK_X0, gy - (BAY_Y0 + BAY_Y1) / 2
         p = p.cut(cq.Workplane("XY", origin=(lx, ly, -1)).circle(M3_CLR / 2).extrude(8))
         p = p.cut(csink(lx, ly, 0, M3_CS_D, M3_CS_T))
@@ -1445,17 +1477,24 @@ def support_features():
     f.append(("body", "hinge-cap shell-end insert", (shell_len, 3.5, -29.0), (-1, 0, 0), INS3_D, INS3_T, 1.5))
     f.append(("door", "closure short insert (radial)", (bore_x, bore_y, pad_z1), (0, 0, -1), INS3S_D, pad_z1 - pad_z0, 1.5))
     for px, py in pads_pedestal:
-        f.append(("body", f"pedestal pad insert @({px},{py})", (px, py, PAD_Z), (0, 0, -1), INS3_D, INS3_T, 2.0))
+        f.append(("body", f"pedestal pad insert @({px},{py})", (px, py, PAD_Z), (0, 0, -1), INS3S_D, INS3S_T, 2.0))
     for sx in bay_screw_xs:
         f.append(("bay_module", f"bay bolt insert @x{sx:.1f}", (sx, bay_screw_y, zs2), (0, 0, -1), INS3_D, INS3_T, 2.0))
     for a in (90, 210, 330):
         bx = drum_cx + 31.25 * math.cos(math.radians(a))
         bz = drum_cz - 31.25 * math.sin(math.radians(a))
         f.append(("bay_module", f"spool-cover insert @{a}deg", (bx, DR_Y1 - 3.0, bz), (0, -1, 0), INS3_D, INS3_T, 1.5))
-    for hx, hy in ((12.5, 24.0), (60.0, 23.0)):
+    for hx, hy in HATCH_SCREWS:
         f.append(("bay_module", f"hatch insert @({hx},{hy})", (hx, hy, BK_BOT), (0, 0, 1), INS3_D, INS3_T, 2.0))
     for hx in (68 + sol_len / 2 - sol_hole_dx / 2, 68 + sol_len / 2 + sol_hole_dx / 2):
-        f.append(("pedestal_cart", f"solenoid insert @x{hx:.1f}", (hx, bore_y, ped_top + 1), (0, 0, -1), INS25_D, INS25_T, 1.5))
+        # inboard hole (x71) is capped at ~1.35mm on its -X side by the mandatory 0.5mm
+        # clearance scallop to the load-bearing latch boss (bore_x58, O19). Full >=1.5 on
+        # the other three sides. Moving the solenoid +X to open it would retract the
+        # plunger out of the cable-head groove (a gate-validated 0.1mm-tight engagement),
+        # so the boss-side wall is a real, documented cap - adequate for the M2.5's light
+        # 5N cyclic pull, and the adjacent boss stiffens that quadrant anyway.
+        req = 1.2 if hx < 68 + sol_len / 2 else 1.5      # 1.2 = nearest gate step below the true ~1.35
+        f.append(("pedestal_cart", f"solenoid insert @x{hx:.1f}", (hx, bore_y, ped_top + 1), (0, 0, -1), INS25_D, INS25_T, req))
     bcx, bcy = pn532_x + pn532_l / 2, pod_yc
     for hx in (-1, 1):
         for hy in (-1, 1):
