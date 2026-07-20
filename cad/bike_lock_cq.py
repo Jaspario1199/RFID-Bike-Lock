@@ -625,6 +625,13 @@ def build_body():
     # reservoir-cap defeating). 2x M3 into SHORT heat-sets in these bosses (v0.8:
     # short M3 because the card rests on the O31.4 boss top - can't grow the boss
     # taller without piercing the card - so a 3.8 insert keeps a 3.6mm floor).
+    # v0.8.2 AUDIT FINDING (unresolved - awaiting a placement decision): these two bosses
+    # sit at y-7.65 over the OPEN pod cavity. The pod's -Y wall tapers so that below z~31
+    # this (x,y) is OUTSIDE the part entirely - there is neither solid nor cavity to build
+    # into. The bosses were therefore disconnected lumps that largest_solid() DROPPED, so
+    # the driver card currently has nothing to mount on. Fixing this properly means moving
+    # the card to a mountable location or reshaping the pod -Y wall (a packaging change),
+    # not a local wall-thickening - so it is called out here rather than force-patched.
     for bx in (66.0, 96.0):
         boss = cq.Workplane("XY", origin=(bx, -7.65, 24)).circle(3.5).extrude(7.4)
         body = body.union(boss.cut(tube_bore()))
@@ -881,7 +888,13 @@ def build_lid():
             body = body.union(
                 cq.Workplane("XY", origin=(px, py, ceil - PN532_BOSS_DROP)).circle(3.0).extrude(PN532_BOSS_DROP + EPS)
             )
-            body = body.cut(cq.Workplane("XY", origin=(px, py, ceil - PN532_BOSS_DROP - 0.5)).circle(M3_PILOT / 2).extrude(2.6))
+            # v0.8.2: pilot stops AT the pocket ceiling (extrude 2.0, top at z=ceil) - it
+            # used to pierce 0.6mm through into the window skin, and at the two -X corners
+            # (the board sits at the lid's -X end for the antenna, so that wall is thin +
+            # drafted) that left <1.2mm around the through-hole. Blind into the O6 boss the
+            # grip is a full 1.75mm wall over 1.5mm depth - ample for a nylon PCB locator -
+            # and the RF window skin stays unbroken at the antenna corners.
+            body = body.cut(cq.Workplane("XY", origin=(px, py, ceil - PN532_BOSS_DROP - 0.5)).circle(M3_PILOT / 2).extrude(2.0))
     body = body.cut(cq.Workplane("XY", origin=(bore_x, bore_y, -1)).circle((bore_d + 0.6) / 2).extrude(lid_t + 4))
     body = body.cut(cq.Workplane("XY", origin=(button_x, button_y, lid_t - 1)).circle(9.5).extrude(3))
     body = body.cut(cq.Workplane("XY", origin=(button_x, button_y, -1)).circle(button_d / 2).extrude(lid_t + 2))
@@ -1500,7 +1513,10 @@ def support_features():
         for hy in (-1, 1):
             px = bcx + hx * (pn532_l / 2 - PN532_HOLE_INSET)
             py = bcy + hy * (pn532_w / 2 - PN532_HOLE_INSET)
-            f.append(("lid", f"PN532 nylon boss @({px:.1f},{py:.1f})", (px, py, lid_t - window_remain - PN532_BOSS_DROP), (0, 0, 1), M3_PILOT, 1.5, 1.2))
+            # 8th field = mouth-skip override: these bosses have NO lead-in counterbore
+            # (nylon self-tap, blind), so the default 1.3mm skip would test past the 1.5mm
+            # grip into the drafted ceiling skin. 0.3 tests the real O6/1.75mm-wall grip.
+            f.append(("lid", f"PN532 nylon boss @({px:.1f},{py:.1f})", (px, py, lid_t - window_remain - PN532_BOSS_DROP), (0, 0, 1), M3_PILOT, 1.5, 1.2, 0.3))
     return f
 
 
@@ -1510,17 +1526,19 @@ def verify_support():
         print(f"[verify] building {pn} for wall check ...", flush=True)
         parts[pn] = ALL_BUILDERS[pn]()
     bad = []
-    for pn, label, mouth, direction, dia, depth, req in support_features():
+    for feat in support_features():
+        pn, label, mouth, direction, dia, depth, req = feat[:7]
+        skip = feat[7] if len(feat) > 7 else MOUTH_SKIP   # per-feature lead-in skip override
         part = parts[pn]
         d = cq.Vector(*direction)
         d = d.multiply(1.0 / d.Length)
         # skip past the lead-in counterbore at the mouth; test the real grip wall
-        m = cq.Vector(*mouth).add(d.multiply(MOUTH_SKIP))
+        m = cq.Vector(*mouth).add(d.multiply(skip))
         m = (m.x, m.y, m.z)
         actual = 0.0
         for w in WALL_STEPS:
             # the wall is >= w where (required collar) - (part) is empty
-            miss = _collar(m, direction, dia, w, max(depth - MOUTH_SKIP, 0.8)).cut(part)
+            miss = _collar(m, direction, dia, w, max(depth - skip, 0.8)).cut(part)
             mv = sum(s.Volume() for s in miss.solids().vals())
             if mv <= SUPPORT_FLOOR:
                 actual = w
