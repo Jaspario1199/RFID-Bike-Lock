@@ -75,11 +75,14 @@ lot from AliExpress roughly halves the Amazon total but takes 2–4 weeks.
 
 ### VERIFY before buying / installing (v0.6)
 
-- **v0.8.1 SNUG-FIT (do this first):** print the **`heatset_coupon`** part and press one M3
-  insert from your kit into its graduated holes (3.7/3.8/3.9/**4.0**/4.1/4.2) — pick the Ø
-  that grips snug + seats clean, and tell me; every pocket then locks to that one number.
-  The design currently ships at the standard **M3 Ø4.0×6.5** (full) / Ø4.0×L3.8 (short) /
-  **M2.5 Ø3.6×4.5**, each with a lead-in relief so the displaced plastic doesn't mushroom.
+- **v0.8.1 SNUG-FIT — LOCKED at Ø4.0 (M3):** the pockets ship at **M3 Ø4.0×6.5** (full) /
+  Ø4.0×L3.8 (short) / **M2.5 Ø3.6×4.5**, each with a lead-in relief so displaced plastic
+  doesn't mushroom. Ø4.0 is the research-backed standard for M3 heat-sets (ruthex, Prusa/
+  Voron, CNC Kitchen, and the Hiren size chart all spec ~4.0 for M3 OD ~4.4–4.6, which is
+  the typical generic-assortment M3). No test needed to order. The **`heatset_coupon`** part
+  (Ø3.7–4.2 M3 + 3.4/3.5 M2.5) is now just an *optional* 2-minute sanity check — only worth
+  printing if your kit's M3 feels tight to seat flush (a sign of a rarer ~5 mm-OD variant,
+  where Ø4.1 would be the move).
 - (legacy note, superseded by the coupon) Items 23a/23c/23f (inserts): confirm the actual
   brass heat-set brand/dims match the pockets — for the assortment kit, the M3 length just
   needs to be ≤6.5 (full pockets) or ≤3.8 (short: closure + driver-card), and M2.5 ≤4.5.

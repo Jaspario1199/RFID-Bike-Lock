@@ -110,8 +110,10 @@ M3_ST_CS_D, M3_ST_CS_T = 7.2, 2.4   # 80deg self-tap flat head cs (v0.8: unused 
 M3_CB_D, M3_CB_T = 6.0, 3.2         # M3 socket-cap counterbore (bay screws, head sub-flush of bore)
 M25_CLR = 2.7
 INS25_D, INS25_T = 3.6, 4.5         # M2.5 brass heat-set pocket (solenoid carve-out - cyclic load)
-INS3_D, INS3_T = 4.0, 6.5           # M3 brass heat-set pocket - v0.8.1 snug (was 4.1). CONFIRM with
-INS3S_D, INS3S_T = 4.0, 3.8         # the printed test coupon + your kit, then set this one number.
+INS3_D, INS3_T = 4.0, 6.5           # M3 brass heat-set pocket - LOCKED at 4.0 (owner decision +
+INS3S_D, INS3S_T = 4.0, 3.8         # research: ruthex/Prusa/CNC Kitchen/Hiren all spec ~4.0 for
+                                    # M3 OD ~4.4-4.6). One number sets every M3 pocket. Coupon is
+                                    # now just an optional sanity check, not a prerequisite.
 INS_CHAMF = 0.7                     # lead-in chamfer at every pocket mouth (displaced-plastic relief)
 LID_SCREWS = [(50, -9), (50, 23), (114, -9), (114, 23)]  # shared by lid holes + body bosses;
                                     # x=5 corners are INSIDE the PN532 pocket span (x 2..45.2) - only

@@ -10,10 +10,10 @@ door sweep 0.00 mm³ (0–110°) · entry corridor 0.00 mm³.**
 
 ## v0.8.1 refinement — heat-set holes tuned for a snug, clean fit
 
-- **Pocket Ø 4.1 → 4.0** (the standard snug hole for M3 brass heat-sets — CNC Kitchen /
-  Ruthex / most generic kits all spec ~Ø4.0). Short pockets already Ø4.0. **One number**
-  (`INS3_D` / `INS3S_D` in the CAD) sets every M3 pocket — change it once and the whole
-  design re-cuts.
+- **Pocket Ø 4.1 → 4.0, LOCKED** (owner decision + research: ruthex / Prusa/Voron / CNC
+  Kitchen / Hiren size chart all spec ~Ø4.0 for M3 heat-sets with OD ~4.4–4.6, which is the
+  typical generic-assortment M3). No test-fit needed to order. **One number** (`INS3_D` /
+  `INS3S_D` in the CAD) sets every M3 pocket — change it once and the whole design re-cuts.
 - **Lead-in relief at every pocket mouth** (Ø `INS3_D+1.4` × 1.0, plus a smaller one at the
   M2.5 solenoid pocket): gives the plastic the insert displaces somewhere to go, so the
   insert seats flush and clean instead of mushrooming. This relief is wider than any
