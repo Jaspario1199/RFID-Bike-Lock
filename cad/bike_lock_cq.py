@@ -889,6 +889,10 @@ def build_lid():
         top = top.faces("<Z").chamfer(0.5)            # reveal chamfer; cosmetic - skip if OCC objects
     except Exception:
         pass
+    try:
+        top = top.faces(">Z").edges().fillet(1.2)     # v0.8.2: soften the top-cover perimeter so
+    except Exception:                                 # the crowned face flows into the sides (was a
+        pass                                          # sharp arris); cosmetic - skip if OCC objects
     ring = cq.Workplane("XY", origin=(nfc_cx, pod_yc, lid_t)).circle(17).extrude(0.6)
     ring = ring.cut(cq.Workplane("XY", origin=(nfc_cx, pod_yc, lid_t - 1)).circle(14).extrude(3))
     body = top.union(ring)

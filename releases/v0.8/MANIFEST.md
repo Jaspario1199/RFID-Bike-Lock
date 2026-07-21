@@ -8,6 +8,42 @@ working copies under `cad/`; this folder is the fixed reference set.
 **Gate at freeze: gaps 0 violations / 292 checks · matrix 0 clashing pairs @ 0.01 mm³ ·
 door sweep 0.00 mm³ (0–110°) · entry corridor 0.00 mm³.**
 
+## v0.8.2 structural pass — every load-bearing hole backed by solid, machine-audited
+
+A new **`--support` gate** (collar-containment wall check) was built to catch the exact
+failure the owner flagged: *"holes cut into thin walls / features stacked on top of each
+other without connecting to solid."* It probes a required collar around all 27 load-bearing
+threaded holes and reports the real backing wall. Initial run: **17 under-supported holes.**
+All 17 are now resolved, re-verified against every gate (**gaps 0/292 · matrix 0 · sweep
+0.00 mm³ · support 0/27**):
+
+- **Bay bolts ×4** — the Ø9 boss was unioned *before* the cavity cut, so the cavity ate it
+  to a crescent (~0 wall). Now unioned *after* → full 2.5 mm collar merging into the near wall.
+- **Hatch ×2** — the Ø4 pocket pierced the 3 mm floor into the cavity. Relocated to clear
+  spots (drum web / free floor lane) with floor→cavity backing pillars; a pad notch admits them.
+- **Spool ×3** — buttress was clipped to the drum bore, starving 2 of 3. Now a full Ø9
+  buttress behind the rabbet floor → 2.5 mm.
+- **Pedestal pads ×2** — the pad overhangs the tube bore; switched to a **short M3** insert
+  that sits above the bore, and moved 76/86 → **79/87** to clear the solenoid collar.
+- **Solenoid @71** — its collar is capped ~1.35 mm on the boss side by the mandatory latch-boss
+  clearance (documented; full ≥1.5 on the other three sides).
+- **PN532 ×4** — the nylon pilot pierced the drafted RF window skin; now **blind** (grip is
+  the full-wall boss), and the antenna-corner window skin stays unbroken.
+- **Driver-card bosses ×2** *(design-level)* — were disconnected lumps the builder DROPPED
+  (the card had **nothing to mount to**). The seat is raised to z35.5 (above the door-swing
+  arc) and each boss rides a routed **shelf + tie + leg bracket** to the +Y crown, with the
+  shelf also anchored to the −Y wall lip. Card mounts to real structure now.
+- **Closure insert** *(design-level)* — the door flap was being **erased by the tube bore**;
+  it's now unioned after the bore (it lives in the liner's transit-window gap) and **both**
+  liners carry a relief. Its −Y-bottom corner is at the Ø46-tube surface (chamfered for
+  clearance, backed by the mounted tube in service; low-cycle set-once clamp).
+- **Hinge tail-cap** *(carve-out)* — no boss can back it without breaking the door swing
+  (rod + tube + OD + swing all converge), so it reverts to an **M3 self-tap** (its v0.7 spec)
+  — a near-zero-load, single-assembly rod retainer.
+
+Also: the lid top-cover perimeter is filleted (was a sharp arris) so the crowned face flows
+into the sides. **Re-export the STEP/STL and renders from the v0.8.2 source before printing.**
+
 ## v0.8.1 refinement — heat-set holes tuned for a snug, clean fit
 
 - **Pocket Ø 4.1 → 4.0, LOCKED** (owner decision + research: ruthex / Prusa/Voron / CNC
