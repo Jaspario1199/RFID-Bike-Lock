@@ -650,7 +650,7 @@ def build_body():
         # -Y side (y<-2.2, clear of the cart), a thin TIE threads the z31-32 gap across the
         # seam, and a LEG runs under the cart floor (top z31.8) out to the +Y crown (solid at
         # y>=8). All of it stays above the door swing. Clipped to the pod skin (no outer poke).
-        shelf = cq.Workplane("XY", origin=(bx, -7.0, DRV_SEAT - 4.2)).box(6.0, 9.6, 4.2, centered=(True, True, False))   # y-11.8..-2.2
+        shelf = cq.Workplane("XY", origin=(bx, -8.6, DRV_SEAT - 4.2)).box(6.0, 12.8, 4.2, centered=(True, True, False))   # y-15..-2.2 (reaches the -Y wall lip for a 2nd anchor)
         tie = cq.Workplane("XY", origin=(bx, -0.6, 31.0)).box(6.0, 3.6, 0.9, centered=(True, True, False))              # y-2.4..1.2, z31-31.9
         leg = cq.Workplane("XY", origin=(bx, 5.5, 27.8)).box(6.0, 11.0, 4.0, centered=(True, True, False))             # y0..11, z27.8-31.8
         boss = cq.Workplane("XY", origin=(bx, -7.65, DRV_SEAT - 4.2)).circle(4.0).extrude(4.2)
