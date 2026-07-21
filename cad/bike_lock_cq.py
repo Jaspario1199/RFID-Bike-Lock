@@ -90,8 +90,8 @@ sol_hole_dx = 24.0                  # VERIFY on the real unit BEFORE installing 
 ped_top = pin_z - sol_axis_h        # 37
 
 PAD_Z, PAD, PAD_PILOT = 32.0, 12.0, 2.5
-DRV_SEAT = 35.5                      # driver-card seat z (v0.8.2: raised from 31.4 so the short-M3
-                                    # insert clears the door-swing arc; card is bracket-borne)
+DRV_SEAT = 35.0                      # driver-card seat z = the pedestal-cart platform top (PAD_Z+3).
+                                    # v0.8.2 Option C: the driver rides the cart's -Y platform.
 pads_pedestal = [(79, bore_y), (87, bore_y)]         # BETWEEN the solenoid holes (71/95), symmetric
                                     # about their center (x83). v0.8.2: pulled in from 76/86 - there the
                                     # O6.5 pad-access hole cut into the x71 solenoid insert's collar (5mm
@@ -629,35 +629,12 @@ def build_body():
         body = body.union(boss.cut(tube_bore()))
         body = body.cut(cq.Workplane("XY", origin=(bx, 18.0, 36 - INS3_T)).circle(INS3_D / 2).extrude(INS3_T + 1))  # v0.8 nano-clamp M3 heat-set
         body = body.cut(hs_cb("XY", bx, 18.0, 36.0, -1))
-    # driver-card bosses (v0.7 final): the solenoid driver stage lives on a
-    # 42x10.7 cut card flat on the crown at the pod's -y strip - <25mm wire
-    # run to the solenoid (the audited bay location was 150-200mm: flyback/
-    # reservoir-cap defeating). 2x M3 into SHORT heat-sets in these bosses (v0.8:
-    # short M3 because the card rests on the O31.4 boss top - can't grow the boss
-    # taller without piercing the card - so a 3.8 insert keeps a 3.6mm floor).
-    # v0.8.2 STRUCTURAL FIX: these two bosses used to sit at y-7.65 over OPEN pod cavity -
-    # the pod's -Y wall tapers away below z~31, so they were disconnected lumps that
-    # largest_solid() DROPPED (the card had nothing to mount on). They also can't drop a
-    # boss straight down: the required grip depth (z27.6-31.4) crosses the door-swing arc
-    # (r27-31 sweeps z25.9-30 at this x,y). The fix: raise the card seat to z34.5 so the
-    # short-M3 insert (z30.7-34.5) sits ABOVE the swing, and carry each boss on a cantilever
-    # bracket from the +Y crown (solid at y>=8, under the solenoid) out to y-7.65, entirely
-    # above the swing. Clipped to the pod envelope so it can't punch the outer skin.
-    for bx in (66.0, 96.0):
-        # The boss region is boxed in: the door swing arc fills z<31 at y<=0, and the
-        # pedestal-cart floor fills z>=32 at y>=-2, leaving only a ~1mm gap at y-2..0/z31-32.
-        # So the mount is a routed bracket: a SHELF carries the O8 boss + card seat on the
-        # -Y side (y<-2.2, clear of the cart), a thin TIE threads the z31-32 gap across the
-        # seam, and a LEG runs under the cart floor (top z31.8) out to the +Y crown (solid at
-        # y>=8). All of it stays above the door swing. Clipped to the pod skin (no outer poke).
-        shelf = cq.Workplane("XY", origin=(bx, -8.6, DRV_SEAT - 4.2)).box(6.0, 12.8, 4.2, centered=(True, True, False))   # y-15..-2.2 (reaches the -Y wall lip for a 2nd anchor)
-        tie = cq.Workplane("XY", origin=(bx, -0.6, 31.0)).box(6.0, 3.6, 0.9, centered=(True, True, False))              # y-2.4..1.2, z31-31.9
-        leg = cq.Workplane("XY", origin=(bx, 5.5, 27.8)).box(6.0, 11.0, 4.0, centered=(True, True, False))             # y0..11, z27.8-31.8
-        boss = cq.Workplane("XY", origin=(bx, -7.65, DRV_SEAT - 4.2)).circle(4.0).extrude(4.2)
-        support = shelf.union(tie).union(leg).union(boss).intersect(pod_form())
-        body = body.union(support)
-        body = body.cut(cq.Workplane("XY", origin=(bx, -7.65, DRV_SEAT - INS3S_T)).circle(INS3S_D / 2).extrude(INS3S_T + 1))
-        body = body.cut(hs_cb("XY", bx, -7.65, DRV_SEAT, -1))
+    # driver-card mount: MOVED TO THE PEDESTAL CART in v0.8.2 (Option C). The solenoid
+    # driver stage now rides the cart's -Y platform - a tiny flyback loop with the solenoid
+    # the cart carries, a solid mount to a printed part (not a body bracket), and a single
+    # serviceable driver+solenoid+cart module. The old body mount was a contorted shelf+tie+
+    # leg routed through the 1mm gap between the door swing (below) and the cart floor (above);
+    # that whole bracket is deleted here. See build_pedestal_cart for the new platform.
     # PN532 wall recesses: the 41mm board exceeds the drafted pod interior
     # (39.1 at lid height) - relieve the RF-zone walls 1.6 deep so the board
     # hangs with 1.0/side clearance (D15)
@@ -854,6 +831,18 @@ def build_pedestal_cart():
         sol_len + 6, sol_w + 6, max(ped_top - PAD_Z - 3, 2), centered=(True, True, False)
     )
     body = base.union(tower)
+    # v0.8.2 Option C: driver-card platform. The solenoid driver stage rides the cart's -Y
+    # side (a tiny flyback loop with the solenoid this same cart carries). A 3mm platform
+    # extends -Y from the base to y-13 (top z35 = card seat), staying above the door swing
+    # (r>31 at z>=32 here). Two short-M3 heat-set bosses hang to z31 under the card screws so
+    # the O4.0x3.8 insert has full grip; at y-7.65 the boss floor z31 clears the swing (z~30).
+    plat = cq.Workplane("XY", origin=(81, -7.5, PAD_Z)).box(44, 11.0, 3, centered=(True, True, False))  # x59-103, y-13..-2
+    body = body.union(plat)
+    for bx in (66.0, 96.0):
+        boss = cq.Workplane("XY", origin=(bx, -7.65, PAD_Z - 1)).circle(4.0).extrude(4.0)   # z31-35, O8
+        body = body.union(boss)
+        body = body.cut(cq.Workplane("XY", origin=(bx, -7.65, DRV_SEAT - INS3S_T)).circle(INS3S_D / 2).extrude(INS3S_T + 1))
+        body = body.cut(hs_cb("XY", bx, -7.65, DRV_SEAT, -1))
     # solenoid mounting: M2.5 machine screws into brass heat-sets in the tower
     # top (cyclic pull load every unlock - self-tapped plastic threads relax;
     # a captured-nut scheme collided with the pad attach holes and had no nut
@@ -1123,9 +1112,10 @@ def build_mock_nano():
 
 
 def build_mock_driver_stack():
-    """Driver card on the pedestal wing: 25x16.5 cut perfboard (from the same
-    4x6cm stock) carrying IRLZ44N (flat), AO3401 breakout, 1N5819, O8x12.5 cap
-    LYING, divider resistors - <30mm wire run to the solenoid it drives."""
+    """Driver card on the pedestal cart's -Y platform (v0.8.2): 42x10.7 cut perfboard
+    (from the 40x60 stock's long edge, per BOM) carrying IRLZ44N (flat), AO3401 breakout,
+    1N5819, O8x12.5 cap LYING, divider resistors - a tiny flyback loop with the solenoid the
+    same cart carries."""
     board = _mk_box(81.0, -7.65, DRV_SEAT, 42.0, 10.7, 1.6)
     comps = _mk_box(81.0, -7.65, DRV_SEAT + 1.6, 38.0, 9.9, 8.4)   # v0.8.2: components ride ON TOP of
     return board.union(comps)                                     # the board (was hardcoded z33)
@@ -1360,8 +1350,8 @@ GAP_SPECS = {
     ("01_body", "13_nano_clamp"):        CONTACT_OK,   # bar screwed to the crown bosses
     ("04_lid", "90_mock_nano"):          (1.0, None),
     ("94_mock_pn532", "90_mock_nano"):   (1.0, None),
-    ("01_body", "91_mock_driver_stack"): CONTACT_OK,  # card screwed to the crown bosses
-    ("05_pedestal_cart", "91_mock_driver_stack"): (0.1, None),
+    ("01_body", "91_mock_driver_stack"): (0.1, None),   # v0.8.2: card no longer body-mounted
+    ("05_pedestal_cart", "91_mock_driver_stack"): CONTACT_OK,  # card screwed to the cart platform
     ("91_mock_driver_stack", "96_mock_button"): (0.3, None),   # cap top z43.4 vs button z44
     ("91_mock_driver_stack", "95_mock_solenoid"): (0.3, None),
     ("91_mock_driver_stack", "99_mock_mt3608"): (0.3, None),
@@ -1521,7 +1511,7 @@ def support_features():
     for bx in (12.0, 37.0):
         f.append(("body", f"nano-clamp boss @x{bx}", (bx, 18.0, 36.0), (0, 0, -1), INS3_D, INS3_T, 2.0))
     for bx in (66.0, 96.0):
-        f.append(("body", f"driver-card boss @x{bx}", (bx, -7.65, DRV_SEAT), (0, 0, -1), INS3S_D, INS3S_T, 2.0))
+        f.append(("pedestal_cart", f"driver-card boss @x{bx}", (bx, -7.65, DRV_SEAT), (0, 0, -1), INS3S_D, INS3S_T, 2.0))
     # hinge-cap: M3 SELF-TAP carve-out (see build_body). Not a heat-set - a O2.5 pilot in the
     # 4mm end wall, threaded directly, near-zero rod-retention load. A backing collar is
     # geometrically impossible here (tube bore + OD + rod bore + door-swing all converge), so

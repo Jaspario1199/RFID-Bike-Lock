@@ -30,9 +30,11 @@ All 17 are now resolved, re-verified against every gate (**gaps 0/292 · matrix 
 - **PN532 ×4** — the nylon pilot pierced the drafted RF window skin; now **blind** (grip is
   the full-wall boss), and the antenna-corner window skin stays unbroken.
 - **Driver-card bosses ×2** *(design-level)* — were disconnected lumps the builder DROPPED
-  (the card had **nothing to mount to**). The seat is raised to z35.5 (above the door-swing
-  arc) and each boss rides a routed **shelf + tie + leg bracket** to the +Y crown, with the
-  shelf also anchored to the −Y wall lip. Card mounts to real structure now.
+  (the card had **nothing to mount to**). **Final resolution (Option C): the driver card now
+  rides the pedestal-cart's −Y platform**, not the body — the cart already carries the
+  solenoid, so this puts the driver in a tiny flyback loop with the coil it drives, on a
+  solid printed part (no body bracket), and makes driver+solenoid+cart one serviceable module
+  with good RF separation from the lid antenna. The platform stays above the door-swing arc.
 - **Closure insert** *(design-level)* — the door flap was being **erased by the tube bore**;
   it's now unioned after the bore (it lives in the liner's transit-window gap) and **both**
   liners carry a relief. Its −Y-bottom corner is at the Ø46-tube surface (chamfered for
