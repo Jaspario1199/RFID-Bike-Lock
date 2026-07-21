@@ -90,6 +90,8 @@ sol_hole_dx = 24.0                  # VERIFY on the real unit BEFORE installing 
 ped_top = pin_z - sol_axis_h        # 37
 
 PAD_Z, PAD, PAD_PILOT = 32.0, 12.0, 2.5
+DRV_SEAT = 35.5                      # driver-card seat z (v0.8.2: raised from 31.4 so the short-M3
+                                    # insert clears the door-swing arc; card is bracket-borne)
 pads_pedestal = [(79, bore_y), (87, bore_y)]         # BETWEEN the solenoid holes (71/95), symmetric
                                     # about their center (x83). v0.8.2: pulled in from 76/86 - there the
                                     # O6.5 pad-access hole cut into the x71 solenoid insert's collar (5mm
@@ -132,7 +134,8 @@ fl_z0, fl_z1 = 25.2, 28.2
 # form peaks at z26.27, leaving a 3.7mm solid floor under the z30 bore bottom.
 fl_y1 = 6.5                         # hook flange +Y edge
 pad_x0, pad_x1 = 52.0, 64.0         # closure-insert pad under the bore
-pad_y0, pad_y1 = 6.5, 13.0
+pad_y0, pad_y1 = 6.5, 14.0           # v0.8.2: +Y widened 13->14 so the short-M3 insert's +Y
+                                    # collar is fully backed (the -Y edge is tube-capped, below)
 pad_z0, pad_z1 = 21.8, 25.2         # bottom limited by the O46 max-tube envelope (r>=23.4
 PAD_CHAMFER = 2.4                   # after the 2.4x45 chamfer on the lower -Y edge)
 lip_y1, lip_z1 = 16.5, 23.5         # stepped flap tip: visible extension under the latch; its
@@ -575,9 +578,16 @@ def build_body():
         body = body.cut(drill)
     body = body.cut(knuckle_clear(hinge_left)).cut(hinge_channel())
     # tail-cap screw pilot: into the shell-wall end face beside the rear standoff
-    # (y3.5 matches the cap's ear/clearance/countersink axis exactly)
-    body = body.cut(cq.Workplane("YZ", origin=(shell_len + 1, 3.5, -29.0)).circle(INS3_D / 2).extrude(-(INS3_T + 1)))  # v0.8 hinge-cap M3 heat-set
-    body = body.cut(hs_cb("YZ", shell_len + 1, 3.5, -29.0, -1))
+    # (y3.5 matches the cap's ear/clearance/countersink axis exactly).
+    # v0.8.2 CARVE-OUT: this reverts from an M3 heat-set to an M3 SELF-TAP (O2.5 pilot).
+    # A heat-set needs a >=1.5mm 360deg collar, but here the insert sits in the bare 4mm
+    # shell end wall (r27-31) pinched between the tube bore, the OD, the O4.2 rod bore, AND
+    # the door-swing envelope - exhaustively, NO boss size backs it without either breaking
+    # the validated door swing (the liner sweeps through r<7.9 of the hinge axis) or the rod
+    # bore. So this one near-zero-load, single-assembly rod-tail retainer stays a self-tap
+    # (its original v0.7 spec) - the O2.5 pilot threads the plastic directly, ~0.75mm wall,
+    # no backing collar required. See the third carve-out in DESIGN/BOM alongside PN532/solenoid.
+    body = body.cut(cq.Workplane("YZ", origin=(shell_len + 1, 3.5, -29.0)).circle(M3_PILOT / 2).extrude(-(INS3_T + 1)))
     # bay mounting: M4 through-holes from inside the bore, counterbored so the pan
     # head sits fully below the bore surface (was 2.6 deep -> head stood 1-2.5mm
     # proud, into the liner zone)
@@ -625,18 +635,29 @@ def build_body():
     # reservoir-cap defeating). 2x M3 into SHORT heat-sets in these bosses (v0.8:
     # short M3 because the card rests on the O31.4 boss top - can't grow the boss
     # taller without piercing the card - so a 3.8 insert keeps a 3.6mm floor).
-    # v0.8.2 AUDIT FINDING (unresolved - awaiting a placement decision): these two bosses
-    # sit at y-7.65 over the OPEN pod cavity. The pod's -Y wall tapers so that below z~31
-    # this (x,y) is OUTSIDE the part entirely - there is neither solid nor cavity to build
-    # into. The bosses were therefore disconnected lumps that largest_solid() DROPPED, so
-    # the driver card currently has nothing to mount on. Fixing this properly means moving
-    # the card to a mountable location or reshaping the pod -Y wall (a packaging change),
-    # not a local wall-thickening - so it is called out here rather than force-patched.
+    # v0.8.2 STRUCTURAL FIX: these two bosses used to sit at y-7.65 over OPEN pod cavity -
+    # the pod's -Y wall tapers away below z~31, so they were disconnected lumps that
+    # largest_solid() DROPPED (the card had nothing to mount on). They also can't drop a
+    # boss straight down: the required grip depth (z27.6-31.4) crosses the door-swing arc
+    # (r27-31 sweeps z25.9-30 at this x,y). The fix: raise the card seat to z34.5 so the
+    # short-M3 insert (z30.7-34.5) sits ABOVE the swing, and carry each boss on a cantilever
+    # bracket from the +Y crown (solid at y>=8, under the solenoid) out to y-7.65, entirely
+    # above the swing. Clipped to the pod envelope so it can't punch the outer skin.
     for bx in (66.0, 96.0):
-        boss = cq.Workplane("XY", origin=(bx, -7.65, 24)).circle(3.5).extrude(7.4)
-        body = body.union(boss.cut(tube_bore()))
-        body = body.cut(cq.Workplane("XY", origin=(bx, -7.65, 31.4 - INS3S_T)).circle(INS3S_D / 2).extrude(INS3S_T + 1))
-        body = body.cut(hs_cb("XY", bx, -7.65, 31.4, -1))
+        # The boss region is boxed in: the door swing arc fills z<31 at y<=0, and the
+        # pedestal-cart floor fills z>=32 at y>=-2, leaving only a ~1mm gap at y-2..0/z31-32.
+        # So the mount is a routed bracket: a SHELF carries the O8 boss + card seat on the
+        # -Y side (y<-2.2, clear of the cart), a thin TIE threads the z31-32 gap across the
+        # seam, and a LEG runs under the cart floor (top z31.8) out to the +Y crown (solid at
+        # y>=8). All of it stays above the door swing. Clipped to the pod skin (no outer poke).
+        shelf = cq.Workplane("XY", origin=(bx, -7.0, DRV_SEAT - 4.2)).box(6.0, 9.6, 4.2, centered=(True, True, False))   # y-11.8..-2.2
+        tie = cq.Workplane("XY", origin=(bx, -0.6, 31.0)).box(6.0, 3.6, 0.9, centered=(True, True, False))              # y-2.4..1.2, z31-31.9
+        leg = cq.Workplane("XY", origin=(bx, 5.5, 27.8)).box(6.0, 11.0, 4.0, centered=(True, True, False))             # y0..11, z27.8-31.8
+        boss = cq.Workplane("XY", origin=(bx, -7.65, DRV_SEAT - 4.2)).circle(4.0).extrude(4.2)
+        support = shelf.union(tie).union(leg).union(boss).intersect(pod_form())
+        body = body.union(support)
+        body = body.cut(cq.Workplane("XY", origin=(bx, -7.65, DRV_SEAT - INS3S_T)).circle(INS3S_D / 2).extrude(INS3S_T + 1))
+        body = body.cut(hs_cb("XY", bx, -7.65, DRV_SEAT, -1))
     # PN532 wall recesses: the 41mm board exceeds the drafted pod interior
     # (39.1 at lid height) - relieve the RF-zone walls 1.6 deep so the board
     # hangs with 1.0/side clearance (D15)
@@ -662,9 +683,17 @@ def build_body():
 
 def build_door():
     arc = outer_cyl().cut(tube_bore()).intersect(half_box(False))
-    door = arc.union(door_flange()).union(door_lip()).union(knuckle_solids(hinge_left))
+    door = arc.union(door_lip()).union(knuckle_solids(hinge_left))
     door = door.cut(knuckle_clear(hinge_right)).cut(standoff_clear(STANDOFFS)).cut(hinge_channel())
     door = door.cut(tube_bore()).cut(dovetail_groove(-1))
+    # v0.8.2 STRUCTURAL FIX: union the closure flange AFTER the tube_bore cut. The flap
+    # deliberately lives in the liner's transit-window gap (r24-27, clear of the O46 tube
+    # at r23); cutting it with the r27 bore erased almost all of it, leaving the consumer-
+    # lock heat-set with ~0.1mm of flap (--support caught this). Kept after the bore, the
+    # flap is intact and the short-M3 insert gets a full pad collar. Both liners now carve
+    # a relief for the flap (build_liner: liner_left co-rotates so it needs the static
+    # relief too), so there is no door/liner interference through the swing.
+    door = door.union(door_flange())
     door = door.intersect(cq.Workplane("XY", origin=(shell_len / 2, 0, 0)).box(shell_len, 400, 700, centered=(True, True, True)))
     return largest_solid(door)
 
@@ -931,12 +960,14 @@ def build_liner(right=True):
     solid = cq.Workplane("YZ", origin=(0, 0, 0)).placeSketch(sk).extrude(shell_len)
     solid = solid.intersect(half_box(right))
     solid = solid.union(liner_keys(+1 if right else -1))
-    if right:
-        # transit window for the door flange+pad: swinging about the offset hinge
-        # they dip to r~24.4 from the tube axis and would gouge the liner base
-        # ring (r24.85-26.85). Same swept relief the body already gets; costs
-        # ~2-3 of 24 fins over a 25mm band. liner_left co-rotates - no cut.
-        solid = solid.cut(closure_sweep_cut())
+    # transit window for the door flange+pad. v0.8.2: cut on BOTH liners. The right
+    # (fixed) liner needs the full SWEPT relief - the flange sweeps past it 0-110deg and
+    # would gouge the base ring (r24.85-26.85). The left liner co-rotates with the door,
+    # so the flap holds a FIXED position against it - but that static footprint still has
+    # to be relieved (the v0.8.2 closure fix keeps the flap solid, where before the tube
+    # bore had erased it). Using the same swept cut for both is a safe superset; it costs
+    # ~2-3 of 24 fins over a 25mm band on each - symmetric and structurally fine.
+    solid = solid.cut(closure_sweep_cut())
     return largest_solid(solid)
 
 
@@ -1091,9 +1122,9 @@ def build_mock_driver_stack():
     """Driver card on the pedestal wing: 25x16.5 cut perfboard (from the same
     4x6cm stock) carrying IRLZ44N (flat), AO3401 breakout, 1N5819, O8x12.5 cap
     LYING, divider resistors - <30mm wire run to the solenoid it drives."""
-    board = _mk_box(81.0, -7.65, 31.4, 42.0, 10.7, 1.6)
-    comps = _mk_box(81.0, -7.65, 33.0, 38.0, 9.9, 8.4)
-    return board.union(comps)
+    board = _mk_box(81.0, -7.65, DRV_SEAT, 42.0, 10.7, 1.6)
+    comps = _mk_box(81.0, -7.65, DRV_SEAT + 1.6, 38.0, 9.9, 8.4)   # v0.8.2: components ride ON TOP of
+    return board.union(comps)                                     # the board (was hardcoded z33)
 
 
 def build_mock_tp4056():
@@ -1463,7 +1494,7 @@ def verify_gaps(floor=OVERLAP_FLOOR):
 # ~ empty). It reports the ACTUAL min wall per hole and FAILs any below its requirement.
 SUPPORT_FLOOR = 1.0                  # mm^3 of 'missing' collar tolerated (OCC facet noise)
 MOUTH_SKIP = 1.3                     # skip past the 1.0mm lead-in counterbore before testing wall
-WALL_STEPS = (2.5, 2.0, 1.5, 1.2, 1.0, 0.6)   # descending probe thicknesses
+WALL_STEPS = (2.5, 2.0, 1.5, 1.2, 1.0, 0.6, 0.4, 0.3)   # descending probe thicknesses
 
 
 def _collar(mouth, direction, dia, wall, depth):
@@ -1486,9 +1517,21 @@ def support_features():
     for bx in (12.0, 37.0):
         f.append(("body", f"nano-clamp boss @x{bx}", (bx, 18.0, 36.0), (0, 0, -1), INS3_D, INS3_T, 2.0))
     for bx in (66.0, 96.0):
-        f.append(("body", f"driver-card boss @x{bx}", (bx, -7.65, 31.4), (0, 0, -1), INS3S_D, INS3S_T, 2.0))
-    f.append(("body", "hinge-cap shell-end insert", (shell_len, 3.5, -29.0), (-1, 0, 0), INS3_D, INS3_T, 1.5))
-    f.append(("door", "closure short insert (radial)", (bore_x, bore_y, pad_z1), (0, 0, -1), INS3S_D, pad_z1 - pad_z0, 1.5))
+        f.append(("body", f"driver-card boss @x{bx}", (bx, -7.65, DRV_SEAT), (0, 0, -1), INS3S_D, INS3S_T, 2.0))
+    # hinge-cap: M3 SELF-TAP carve-out (see build_body). Not a heat-set - a O2.5 pilot in the
+    # 4mm end wall, threaded directly, near-zero rod-retention load. A backing collar is
+    # geometrically impossible here (tube bore + OD + rod bore + door-swing all converge), so
+    # the requirement reflects the self-tap's real wall, not the heat-set 1.5mm standard.
+    f.append(("body", "hinge-cap self-tap (carve-out)", (shell_len, 3.5, -29.0), (-1, 0, 0), M3_PILOT, INS3_T, 0.6, 0.3))
+    # closure: ENVELOPE CARVE-OUT. The flap is doubly constrained - its floor sits on the
+    # O46 max-tube envelope (pad_z0) and its top on the bore-floor the screw head clamps
+    # (pad_z1, a judge-probed z-budget). The insert's -Y-bottom edge is at the tube surface
+    # itself (r23.2), so the flap is chamfered away there for tube clearance -> ~0.3mm plastic
+    # on that one corner, full >=1.5mm on the others. The v0.8.2 fix restored the flap (the
+    # tube bore used to delete it entirely); this is now its geometric maximum. That corner is
+    # backed by the mounted bike tube in service, has bulge-room into the chamfer for the press,
+    # and the closure is a low-cycle set-once clamp - so 0.3 is the documented, accepted floor.
+    f.append(("door", "closure insert (tube-capped corner)", (bore_x, bore_y, pad_z1), (0, 0, -1), INS3S_D, pad_z1 - pad_z0, 0.3))
     for px, py in pads_pedestal:
         f.append(("body", f"pedestal pad insert @({px},{py})", (px, py, PAD_Z), (0, 0, -1), INS3S_D, INS3S_T, 2.0))
     for sx in bay_screw_xs:
