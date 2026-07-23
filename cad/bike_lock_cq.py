@@ -125,7 +125,11 @@ INS3S_D, INS3S_T = 4.0, 3.8         # research: ruthex/Prusa/CNC Kitchen/Hiren a
                                     # M3 OD ~4.4-4.6). One number sets every M3 pocket. Coupon is
                                     # now just an optional sanity check, not a prerequisite.
 INS_CHAMF = 0.7                     # lead-in chamfer at every pocket mouth (displaced-plastic relief)
-LID_SCREWS = [(50, -9), (50, 23), (114, -9), (114, 23)]  # shared by lid holes + body bosses;
+LID_SCREWS = [(54, -9), (54, 23), (114, -9), (114, 23)]  # shared by lid holes + body bosses;
+                                    # v0.8.3c: front pair 50 -> 54 - the PN532's +3 shift put the
+                                    # board edge (x48.2) and the lid's drop-bosses into the old x50
+                                    # rim-boss columns (gate-caught, 110mm^3); at 54 everything
+                                    # clears by >=1mm and the rebate still terminates in the bosses.
                                     # x=5 corners are INSIDE the PN532 pocket span (x 2..45.2) - only
                                     # 1.2mm window skin there, so the frame sits at x 50/114 instead
                                     # (x asymmetry is forced by the antenna RF keep-out; y rails match)
@@ -149,11 +153,23 @@ lip_y1, lip_z1 = 16.5, 23.5         # stepped flap tip: visible extension under 
 lip_x0, lip_x1 = 8.0, 116.0         # lip ridge along the pod's left wall
 
 # ---------------- lid ----------------
-pn532_l, pn532_w, pn532_x = 43.2, 41.0, 2.0          # VERIFY
+pn532_l, pn532_w, pn532_x = 43.2, 41.0, 5.0          # VERIFY
+                                    # v0.8.3c: pn532_x 2.0 -> 5.0. At x2 the board's square -X
+                                    # corners sat 0.3mm from the pod's OUTER corner surface - no
+                                    # relief could clear them without carving the corner wall to a
+                                    # knife edge (the owner-flagged "swooping" horns). At x5 the
+                                    # corners fit inside a uniform-wall rebate with 0.4 clearance.
 PN532_CLR = 0.4                     # pocket in-plane clearance (was 0.0 - clone dims vary)
 PN532_HOLE_INSET = 2.54             # VERIFY - Elechouse V3 corner mounting holes (O3, may be absent
-PN532_BOSS_DROP = 1.5               # on clones -> printed corner clips, same bosses). NYLON M2.5
-window_remain, nfc_cx = 1.2, 23.6   # screws only: the antenna loop wraps the board perimeter.
+PN532_BOSS_DROP = 2.1               # on clones -> printed corner clips, same bosses). NYLON M2.5
+                                    # v0.8.3c: 1.5 -> 2.1 - drops the board 0.6 so its top (z52.7)
+                                    # sits fully BELOW the z53 lid-seat plane. The board used to poke
+                                    # 0.3 above it, forcing the wall rebate to pierce the rim and
+                                    # slice the pod's outer lip to a 1.2mm blade (owner-flagged as
+                                    # structurally unsound). Antenna-to-face distance grows 3.1mm
+                                    # total - negligible at 13.56MHz; nylon screws gain engagement.
+window_remain, nfc_cx = 1.2, 26.6   # screws only: the antenna loop wraps the board perimeter.
+                                    # (nfc_cx follows the board's +3 shift - ring stays antenna-centered)
 button_d, button_x, button_y = 12.4, 106.0, 13.5    # VERIFY thread; y13.5 keeps the O14 body out of
 LED_X = 98.0                        # the pod's rounded interior corner (gate-probed at y16)
 led_d = 3.3
@@ -657,12 +673,20 @@ def build_body():
     # around both side walls and terminates AT the x=50 lid-boss centerlines, so the step
     # ends are swallowed by the boss cylinders instead of stopping mid-wall. Reads as an
     # intentional board-seat ledge; the lid covers the whole band at z53.
+    # v0.8.3c (the horn fix, root-caused): the rebate contour is now an inward OFFSET OF
+    # THE OUTER PLAN (-1.3/side, corner arcs concentric with the pod's outer corners), so
+    # the remaining wall is a UNIFORM 1.3mm by construction - corners included. The old r4
+    # corner (needed to clear the board's square corners at pn532_x=2) reached to within
+    # ~0mm of the outer corner surface, leaving the knife-edge "swooping" cusps the owner
+    # flagged. With the board shifted to x5 its corners fit inside this uniform boundary
+    # with 0.4 clearance. The rebate also STOPS at the z53 seat plane (board top z52.7 via
+    # BOSS_DROP 2.1 sits fully below it), so the seat rim above stays full thickness.
     rebate = (
         cq.Workplane("XY", origin=(POD_CX, pod_yc, 47.5))
-        .placeSketch(rrect_sk(pod_ix - 2 * draft + 3.6, pod_iy - 2 * draft + 3.6, 4.0))
-        .extrude(7.0)
+        .placeSketch(rrect_sk(pod_ox - 2 * draft - 2.6, pod_oy - 2 * draft - 2.6, r_pod - draft - 1.3))
+        .extrude(5.5)
     )
-    rebate = rebate.intersect(cq.Workplane("XY", origin=(-10, pod_yc, 40)).box(60, 200, 30, centered=(False, True, False)))  # clip at x=50 (the boss line)
+    rebate = rebate.intersect(cq.Workplane("XY", origin=(-10, pod_yc, 40)).box(64, 200, 30, centered=(False, True, False)))  # clip at x=54 (the boss line)
     body = body.cut(rebate)
     for (sx, sy) in LID_SCREWS:
         b = cq.Workplane("XY", origin=(sx, sy, 40)).circle(4.5).extrude(z_lid0 - 40)
@@ -1178,7 +1202,7 @@ def build_mock_lipo():
 
 
 def build_mock_pn532():
-    return _mk_box(pn532_x + pn532_l / 2, pod_yc, 53.3 - 4.0, pn532_l - 0.5, pn532_w - 0.6, 4.0)
+    return _mk_box(pn532_x + pn532_l / 2, pod_yc, 52.7 - 4.0, pn532_l - 0.5, pn532_w - 0.6, 4.0)  # v0.8.3c: top z52.7, follows BOSS_DROP 2.1
 
 
 def build_mock_solenoid():

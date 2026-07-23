@@ -6,6 +6,21 @@ v0.8.3); older sub-states are recoverable from git history. Per the repo reorg, 
 **STEP-only** (per-part `placed/` + assembly + combined); STL/renders/doc-snapshots are
 regenerable from the source at this tag.
 
+## v0.8.3c — pod-corner "swooping horn" root-cause fix (owner-flagged)
+
+The knife-edge cusps at the pod's top corners were root-caused past the rebate itself: the
+**PN532 board's square corners sat only 0.3 mm from the pod's OUTER corner surface** — no
+relief could clear them without carving the corner wall to a blade. Systemic fix, all
+machine-verified (gaps 0/292 · support 0/27 · matrix 0 · sweep 0.00):
+- **Board shifted +3 mm in X** (`pn532_x` 2→5; lid window/bezel/bosses/NFC ring follow the
+  one parameter) so its corners fit inside a uniform-wall boundary with 0.4 clearance.
+- **Rebate contour rebuilt as an inward offset of the OUTER plan** (−1.3/side, corner arcs
+  concentric with the pod's outer corners) → the remaining wall is a uniform 1.3 mm by
+  construction, corners included. It also now stops at the z53 seat plane (the board top
+  dropped to z52.7 via `PN532_BOSS_DROP` 1.5→2.1), so the seat rim stays full thickness.
+- **Front lid screws moved x50→x54** — the board shift put the board edge and the lid's
+  drop-bosses into the old rim-boss columns (gate-caught); at x54 everything clears ≥1 mm.
+
 ## v0.8.3b — pod-rim visual-flow fix (owner-flagged divots)
 
 The PN532 wall reliefs were FIVE separate stepped box cuts whose raw terminations read as
