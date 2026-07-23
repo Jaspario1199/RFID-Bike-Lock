@@ -128,7 +128,7 @@ pod's left floor IS the closed door; nothing may stand on it.
   matrix exists because one reported clash turned out to be seven).
 - When he asks for "minimal fixes," touch the fewest parts possible.
 - Ship every change: commit with substantive messages, push to `main`, send renders.
-- Version discipline: architecture pivots get archived (`cad/archive/v0.3/`, `v0.4/`)
+- Version discipline: architecture pivots get archived (`archive/v0.3/`, `archive/v0.4/`)
   before rebuilding; he explicitly asked that old versions never be deleted.
 - He works in SolidWorks and checks the assembly himself — expect sharp follow-ups.
 
@@ -143,8 +143,8 @@ pod's left floor IS the closed door; nothing may stand on it.
 | `cad/bike_lock_cq.py` | Parametric model + all verification modes |
 | `cad/step/`, `cad/stl/` | Current exports; `step/placed/` = pre-positioned set |
 | `cad/renders/` | closed / open / exploded previews |
-| `cad/archive/` | v0.3 and v0.4 complete snapshots |
-| `cad/legacy_bike_lock_v02.scad` | retired OpenSCAD v0.2 |
+| `archive/` | v0.2–v0.4 + v0.7 complete snapshots (v0.8.x lives in `newest-design/`) |
+| `archive/v0.2-openscad/` | retired OpenSCAD v0.2 |
 
 ## 8. Standing next steps (as of handoff)
 

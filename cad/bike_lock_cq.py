@@ -8,7 +8,7 @@ screwed cover, bay repack (edge-standing LiPo, hatch = service tray), liner
 dovetail retention, parametric fastener/tolerance tables, and a much stronger
 verification suite (see Usage below). v0.5 notes follow.
 
-Consumer-install architecture. v0.4 (archived in cad/archive/v0.4/) could
+Consumer-install architecture. v0.4 (archived in archive/v0.4/) could
 not actually be installed: the pod overhung the seam and the full-width
 bay blocked both the door swing and the tube entry path. v0.5 rules:
 

@@ -54,7 +54,7 @@ enable software OpenGL — and verify the file itself in eDrawings.
 
 To regenerate everything: `pip install cadquery` then `python bike_lock_cq.py`
 (or `python bike_lock_cq.py lid drum_module` for specific parts).
-`legacy_bike_lock_v02.scad` is the retired OpenSCAD v0.2, kept for reference;
+`archive/v0.2-openscad/legacy_bike_lock_v02.scad` (repo root) is the retired OpenSCAD v0.2, kept for reference;
 `render_v03.scad` only composites the exported STLs for preview renders.
 
 ## v0.7 part set (14 printed parts + 1 lathe rod + 11 electronics reference bodies)
