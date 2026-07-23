@@ -9,15 +9,36 @@ and click the cable head into a latch on top. Tapping an authorized NFC fob (or 
 see the design doc for the honest caveats) fires a solenoid that pulls the locking pin and
 releases the cable, which then reels itself back in.
 
-## Repo map
+## Repo map — everything lives on one branch, organized by iteration
 
-| File | What it is |
+| Path | What it is |
 |---|---|
-| [`DESIGN.md`](DESIGN.md) | The full engineering design document: user workflow, electronics, wiring, power budget, mechanical dimensions, security analysis, open questions |
-| [`BOM.md`](BOM.md) | Bill of materials — every part, quantity, and estimated price |
+| [`DESIGN.md`](DESIGN.md) | The full engineering design document: user workflow, electronics, wiring, power budget, mechanical dimensions, water/power hardening (§4.5), security analysis |
+| [`BOM.md`](BOM.md) | Bill of materials — every part, quantity, estimated price (v0.8 all-M3 heat-set fastener standard + v0.8.3 weatherproofing items) |
+| [`BUILD.md`](BUILD.md) | The authoritative bench build sequence + print-orientation table (`--dfm`) |
+| [`ASSEMBLY.md`](ASSEMBLY.md) | Assembly/DFM audit + v0.8.3 weatherproofing steps |
 | [`firmware/`](firmware/) | Arduino sketch (v1, ready to flash) + bench bring-up guide |
-| [`cad/`](cad/) | Parametric CadQuery model (v0.6, 12 printed parts + 1 lathe part) + **STEP files for SolidWorks**, STLs, renders, print guide |
-| [`ASSEMBLY.md`](ASSEMBLY.md) | Step-by-step assembly sequence + DFM/DFA audit with queued CAD changes |
+| [`cad/bike_lock_cq.py`](cad/) | **The single source of truth**: parametric CadQuery model with built-in verification gates (`--gaps`, `--matrix`, `--sweep`, `--support`, `--dfm`) |
+| [`releases/`](releases/) | **Frozen STEP file sets, one folder per iteration** (see index below) |
+| `renders/` | Current assembly renders (closed / open / exploded) |
+| `step/`, `stl/` | *Generated build outputs — gitignored; `python cad/bike_lock_cq.py` regenerates them* |
+
+## Iteration index (newest first)
+
+Each `releases/vX/` folder holds the frozen **STEP files** for that iteration (per-part
+`placed/` set + full assembly + combined multibody) and a `MANIFEST.md` describing exactly
+what changed. Older bulk formats (STL, doc snapshots) were trimmed for clarity — git
+history preserves every byte.
+
+| Iteration | Where | What it was |
+|---|---|---|
+| **v0.8.3** (current) | [`releases/v0.8.3/`](releases/v0.8.3/) | Environmental + DFM hardening: latch-bore & drum weep drains, TPU USB port plug, flush-printing cart, `--dfm` orientation scan, 6 V-rail power option, weatherproofing BOM |
+| v0.8.2 | git history of `releases/v0.8.3/` (MANIFEST §v0.8.2) | Structural audit: `--support` gate, all 17 under-supported heat-set holes fixed, driver card moved onto the pedestal cart (Option C) |
+| v0.8 / v0.8.1 | same MANIFEST, §v0.8/§v0.8.1 | All-M3 heat-set fastener rebuild + snug-fit pocket tuning (Ø4.0 locked) + test coupon |
+| v0.7 | [`releases/v0.7/`](releases/v0.7/) | Electronics as placed reference bodies; driver relocation; release process begins |
+| v0.5–v0.6 | `cad/` git history | Spine+door consumer-install architecture; hinge rod; verification gates born |
+| v0.3–v0.4 | [`cad/archive/`](cad/archive/) | Early CadQuery restructure + slim-top architecture (source + STEP kept) |
+| v0.2 | `cad/legacy_bike_lock_v02.scad` | Original OpenSCAD sketch |
 
 ## Status
 
@@ -26,7 +47,8 @@ releases the cable, which then reels itself back in.
 
 1. Breadboard the electronics (Nano + PN532 + solenoid) and prove the unlock flow —
    the firmware and a step-by-step bring-up guide are waiting in `firmware/`
-2. 3D-print the v1 housing (ASA/PETG) — the first real model is plastic, steel comes later
+2. 3D-print the v1 housing (PETG first article; ASA for the outdoor unit) from
+   `releases/v0.8.3/` — print orientations in `BUILD.md` §3b
 3. Fabricate the stainless housing
 
 ## Key design decisions so far
@@ -35,7 +57,7 @@ releases the cable, which then reels itself back in.
 - **Reader:** PN532 NFC module. Keys: NTAG213 sticker on the owner's phone case +
   keychain fobs (owner has an iPhone, which can't act as a hobby NFC key, so no
   companion app is planned)
-- **Battery:** single 18650 Li-ion + TP4056 USB-C charge board
+- **Battery:** 103450 LiPo pouch 2000 mAh (protected) + TP4056 USB-C charge board — the 18650 stopped packaging at v0.4
 - **Locking:** insert-to-lock needs **no power** (ramped cable head snaps past a spring pin);
   power is only used for the ~300 ms unlock pulse and brief scan windows
 - **One-size-fits-all fit:** a printed TPU *finned* liner (fins bend instead of foam

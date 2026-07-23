@@ -1,2 +1,6 @@
 __pycache__/
 *.pyc
+
+# generated build outputs (python cad/bike_lock_cq.py regenerates)
+step/
+stl/

@@ -1,4 +1,48 @@
-# Release v0.8 — manifest
+# Release v0.8.3 — manifest
+
+This folder holds the **current frozen STEP set** (files labeled `_v083`). It carries the
+whole v0.8 lineage — the sections below record each sub-iteration (v0.8 → v0.8.1 → v0.8.2 →
+v0.8.3); older sub-states are recoverable from git history. Per the repo reorg, releases are
+**STEP-only** (per-part `placed/` + assembly + combined); STL/renders/doc-snapshots are
+regenerable from the source at this tag.
+
+## v0.8.3 — environmental + DFM hardening (hard critique pass)
+
+Multi-domain critique (manufacturability / water ingress / power), every finding either
+fixed in CAD and machine-verified, or resolved in the docs:
+
+**Water** (nothing was addressed before this pass — full table in DESIGN.md §4.5):
+- **Latch-bore weep** (Ø2.2, offset from the screw axis): the Ø11×26 bore is open to the
+  sky and pooled rain on the plunger — it now drains into the tube bore. Grease the plunger.
+- **Drum-void weep** (Ø2.5 at the ring's lowest point): the snout enters at z≈−74 but the
+  void bottoms at −90.5 — a 16 mm bucket under the donor spring, now drained.
+- **New `usb_plug` printed TPU part**: squish-fit plug for the bay USB-C port (wheel-spray
+  zone), flange + pull tab + lanyard hole.
+- Documented seals (ASSEMBLY + BOM 30a-30c): EPDM foam tape on the lid rim, clear RTV over
+  the LED domes, silicone grease on the plunger. Weeps must NOT be plugged.
+
+**Manufacturability:**
+- **Pedestal cart now prints dead flat**: the driver bosses hung 1 mm below the base plane
+  (the part rocked on the plate). Base + platform + bosses now share one z32 bottom;
+  DRV_SEAT rose to 36.3 (insert pocket keeps a 0.5 printed floor); the card gained an
+  air gap under it (bonus drainage). Driver station nudged +0.4 y for wall clearance
+  (gate-caught at 0.075 mm).
+- **New `--dfm` mode**: report-only overhang scan of every printed part in its declared
+  orientation (`DFM_ORIENT` = the documented orientation table, mirrored in BUILD.md §3b).
+  Spool cover: print with a raft (its 3 nesting pads hold the disc 0.8 off the plate).
+
+**Power (DESIGN.md §4.5):**
+- **6 V-rail option documented as the first fallback**: MT3608 → 6.0 V, solenoid at full
+  rated force (kills the 70%-at-5V compromise), Nano moves to VIN, PN532 feeds from the
+  Nano 5 V pin through the existing P-FET gate. Zero new parts.
+- **TP4056 load-sharing honesty**: charge with the lock asleep; clean load-share fix
+  logged as a v2 item.
+
+**Gate at freeze: gaps 0/292 · matrix 0 · sweep 0.00 mm³ · support 0/27 · dfm reviewed.**
+
+---
+
+# v0.8 lineage notes (original v0.8 manifest follows)
 
 Snapshot of CAD v0.8 ("all-M3 heat-set fastening rebuild"), frozen from branch
 `claude/file-contents-review-q89289` at the gate-green state. Every file in this
@@ -61,7 +105,7 @@ into the sides. **Re-export the STEP/STL and renders from the v0.8.2 source befo
   lead-in relief and a corner notch marking the small-Ø end. **Print it first** in the same
   material/settings, press one insert from your kit into each hole, and pick the Ø that
   grips snug + seats clean. Report that number and every pocket in the design locks to it.
-  Exported at `stl/heatset_coupon_v08.stl` and `heatset_coupon_v08.step`.
+  Exported at `heatset_coupon_v083.step` (STL regenerable from source).
 
 ## What changed from v0.7 → v0.8
 
@@ -104,7 +148,7 @@ cartridge screws). Insert tally: **~19 full M3 (Ø4.1×6.5) + 3 short M3 (Ø4.0�
 | placed/11_hinge_cap_v08.step | Hinge tail cap — M3 machine-flat into the shell-end heat-set, 0.5 mm thermal float (v0.8) |
 | placed/12_spine_cover_v08.step | Spine cover — flush raceway lid, 2× M3 machine-flat into raceway heat-sets, drip grooves (v0.8) |
 | placed/13_nano_clamp_v08.step | Nano clamp — bar on crown bosses, 2× M3 machine-flat into heat-sets (v0.8) |
-| stl/shim_v08.stl | Shim sleeve — TPU clip-in for Ø27–32 tubes, optional (v0.8) |
+| shim_v083.step | Shim sleeve — TPU clip-in for Ø27–32 tubes, optional (print from STEP or regenerate the STL) |
 
 ## Electronics reference bodies (NOT printed — placement/packaging verification)
 
