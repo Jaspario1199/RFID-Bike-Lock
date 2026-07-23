@@ -13,11 +13,26 @@
 > (4-lens audited: BOM mapping, harness, build-order simulation, bring-up checkpoints).
 > Key corrections vs the tables below: the Nano edge-stands in the POD wall recess
 > (nano_clamp on crown bosses - reflash = lid off, NOT the tray); ALL driver
-> electronics sit on a 42×10.7 card on pod crown bosses <30mm from the solenoid (the bay perf rack
-> is deleted; the spine carries only 2 conductors); MT3608 mounts BEFORE the
+> electronics sit on a 42×10.7 card **on the pedestal-cart's −Y platform (v0.8.2 Option C —
+> short M3 heat-sets in the cart bosses, driver+solenoid+cart pull as one module)**; the
+> bay perf rack is deleted (the spine carries only 2 conductors); MT3608 mounts BEFORE the
 > solenoid (0.3mm clearance); liners install AFTER hinge drilling (swarf); the
 > spine is wired AFTER the bay is bolted (window halves align only then); the
 > ejector spring drops into the bore AFTER the consumer closure screw.
+>
+> **v0.8.3 weatherproofing steps (do these at the marked points in BUILD.md):**
+> 1. Before the lid goes on (BUILD step 16): lay **1 mm EPDM foam tape** (BOM 30a) on the
+>    pod rim, holes punched at the 4 screw bosses — the 4 lid screws compress it into the
+>    water stop behind the cosmetic reveal gap.
+> 2. When the LEDs go in: seat them from below, then pot the domes + the two Ø3.3 lid
+>    holes with **clear RTV silicone** (BOM 30b). Fill from the top recess; wipe flush.
+> 3. At solenoid install: film of **silicone grease** (BOM 30c) on the plunger and the pin
+>    channel mouth — the latch-bore weep drains the rain, the grease keeps the residue from
+>    freezing the pin.
+> 4. After charging, always press the **`usb_plug`** (TPU, printed) back into the bay USB
+>    port — it's the only thing between wheel spray and the TP4056.
+> 5. Do NOT plug the two small weep holes (latch-bore floor, drum-ring bottom): they are
+>    drains, not defects.
 
 Design-level review of whether the design can actually be put together easily.
 Verdict at v0.2: sound skeleton, three real gaps. **v0.3 (the CadQuery restructure)

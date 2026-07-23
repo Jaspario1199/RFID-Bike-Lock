@@ -47,6 +47,10 @@ lot from AliExpress roughly halves the Amazon total but takes 2–4 weeks.
 | 23i | ~~Cam lock backstop~~ | dropped in v0.4 (no wall tall enough in the slim pod); USB power-bank unlock is the dead-battery path | — | — |
 
 | 23j | Reservoir cap size spec | order Ø8×12.5 mm 1000 µF/10 V explicitly — taller Ø10×16.8 variants exist and eat the shelf headroom | 1 | — |
+| 30a | **EPDM foam tape** (v0.8.3 weatherproofing) | 1 mm × ~10 mm wide adhesive strip — lid-rim gasket under the 4 lid screws (+ optional hatch-pad lip strip). The reveal gap stays cosmetic; this is the water stop | 1 roll | $4 |
+| 30b | **Clear RTV silicone** (v0.8.3) | small tube — pot the 2 LED domes into the lid holes; general seam sealer | 1 | $4 |
+| 30c | **Silicone grease** (v0.8.3) | small tube — plunger + pin-channel anti-freeze film; also eases TPU liner install | 1 | $3 |
+| 30d | **`usb_plug`** (v0.8.3, printed) | TPU 95A squish-fit plug for the bay USB-C port (wheel-spray zone) — print 2, tether one by the Ø2 lanyard hole. Uses grams of item 17b's TPU | 2 | — |
 
 | 16b | JST-XH connector kit (2/3/4-pin) + crimps | pod-side connectorization; NOTE: factory-protected 103450 cells ship with JST-PH 2.0 pigtails - buy one PH pigtail or re-terminate | 1 kit | $4 |
 | 23k | **Cable head, Phase 1** | (a) bench mule: steel flat bar ~12x6x60 square tang + cross-hole (hand tools, DESIGN 6.4) AND/OR (b) round mushroom head - ONE lathe op at the TAMU shop: O10 head, square-flanked ring groove to O6.6 x 3 deep, O5 stem swaged to the 4mm cable. The latch cannot lock without one of these; modeled as 89_mock_cable_head | 1 | $3 stock |

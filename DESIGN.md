@@ -222,6 +222,40 @@ prototype works.
 ⚠️ Winter note: Li-ion loses capacity below 0 °C and must not be *charged* below 0 °C.
 Fine for College Station; document it anyway.
 
+### 4.5 v0.8.3 hardening addendum — water ingress + power refinements
+
+**Water (the lock lives outdoors, rain + wheel spray; none of this was addressed before
+v0.8.3).** Machine-verified CAD changes plus documented seals, worst paths first:
+
+| Ingress path | Severity | v0.8.3 resolution |
+|---|---|---|
+| **Latch bore** — Ø11 × 26 cup open to the sky at the lid; rain pools on the z30 floor around the consumer screw; a freeze seizes the plunger | HIGH | **Ø2.2 weep drilled in the CAD**, offset 3.5 mm from the screw axis, draining the bore floor into the tube bore (water exits axially along the liner). Plus: silicone grease on the plunger at assembly (§ASSEMBLY) |
+| **Drum void** — the snout enters at z≈−74 but the void bottoms at −90.5: a 16 mm bucket under the spool + return spring | HIGH | **Ø2.5 weep drilled in the CAD** at the ring's lowest point; the void now drains instead of rusting the donor spring |
+| **USB-C port** — open slot in the bay wall, wheel-spray zone, straight shot onto the TP4056 | HIGH | **New `usb_plug` TPU part** (printed, tethered by lanyard hole): squish-fit stem + flange, pull to charge |
+| **Lid seam** — 0.5 mm open reveal around the lid perimeter, dripping onto the PN532/Nano | MED | 1 mm **EPDM foam tape gasket** on the pod rim, compressed by the 4 lid screws (BOM 30a). The reveal stays (cosmetic); the tape is the water stop behind it |
+| **LED holes** — 2 × Ø3.3 through the lid top inside a water-collecting recess | MED | LEDs inserted from below, domes potted with **clear RTV silicone** (BOM 30b); the recess then sheds instead of pooling |
+| **Bay hatch seam** — underside, spray zone | LOW | Nesting pad + downward orientation already shed most of it; optional strip of the same EPDM tape on the pad lip; the tray's zip holes double as weeps |
+| Wake button / spine cover | LOW | Button is a *sealed* panel-mount type (BOM 12, its own nut gasket); spine cover already has drip grooves |
+
+**Power refinements:**
+
+- **Full solenoid force with zero new parts (recommended before the 12 V fallback):** trim
+  the MT3608 to **6.0 V** instead of 5.0. Solenoid gets its full rated winding voltage
+  (~300 mA, 100% force — the 70%-at-5V compromise in §4.2 disappears). The Nano moves from
+  the 5 V pin to **VIN** (its onboard AMS1117 makes 5 V from the 6 V rail), and the PN532 +
+  LEDs feed from the **Nano's 5 V pin** (AMS1117 output, 800 mA headroom vs ~150 mA peak
+  load) through the existing P-FET gate. Two wires move and one pot turns; try this FIRST
+  if measured pull force is short. (Cost: the AMS1117 adds ~5 mA awake — irrelevant next to
+  the PN532 field — and ~1 mA asleep, which the v2 Pro-Mini path deletes anyway.)
+- **Charging honesty (TP4056 has no load sharing):** the basic board charges the cell while
+  the system is still connected, so a scan burst during charge can fool the termination
+  detection (charge "completes" early, or cycles). Prototype rule: **charge with the lock
+  asleep and don't wake it mid-charge**; the clean fix (load-sharing P-FET between charger
+  and load, or a TP4056 board with OUT+/OUT− wired as designed) is a v2 item logged in §9.
+- **Standby reality check** (unchanged math, restated with the boost included): MT3608
+  quiescent ~1–1.5 mA is inside the §4.4 sleep row — the ~62 mAh/day → **3.5–4 week**
+  figure already carries it. The v2 Pro-Mini/no-boost path remains the real fix.
+
 ---
 
 ## 5. Firmware design (state machine)
@@ -643,7 +677,7 @@ cradle at lane y=22 with the port through the wall (`usb_z` -46 -> -51.8); (D14)
 diagonally (pins trimmed flush - the only way the stack fits), and a driver card held
 a 40x29 perfboard on L-walls above it. **v0.7 final superseded all of this**: the Nano
 edge-stands in the pod wall recess under `nano_clamp`, and ALL driver electronics sit
-on a 42×10.7 card on two Ø7 crown bosses (x66/x96, −y strip of the pod, 2× M3 ST),
+on a 42×10.7 card on the pedestal-cart’s −Y platform (v0.8.2 Option C: two Ø8 cart bosses at x66/x96, short M3 heat-sets — driver+solenoid+cart are one serviceable module),
 <30 mm from the solenoid. The bay holds only the cell + TP4056; the spine carries
 exactly 2 conductors. See BUILD.md §2.
 

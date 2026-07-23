@@ -90,8 +90,14 @@ sol_hole_dx = 24.0                  # VERIFY on the real unit BEFORE installing 
 ped_top = pin_z - sol_axis_h        # 37
 
 PAD_Z, PAD, PAD_PILOT = 32.0, 12.0, 2.5
-DRV_SEAT = 35.0                      # driver-card seat z = the pedestal-cart platform top (PAD_Z+3).
+DRV_Y = -7.25                        # driver-card centerline y. v0.8.3: nudged +0.4 from -7.65 - the
+                                    # raised seat put the component stack 0.075 from the inward-
+                                    # drafted -Y pod wall (gate-caught); 0.4 restores real clearance.
+DRV_SEAT = 36.3                      # driver-card seat z = boss tops on the pedestal-cart platform.
                                     # v0.8.2 Option C: the driver rides the cart's -Y platform.
+                                    # v0.8.3 DFM: bosses start AT the cart's z32 bottom plane (they
+                                    # used to hang 1mm below it - the cart rocked on the build plate);
+                                    # seat raised so the 3.8 insert still keeps a 0.5mm pocket floor.
 pads_pedestal = [(79, bore_y), (87, bore_y)]         # BETWEEN the solenoid holes (71/95), symmetric
                                     # about their center (x83). v0.8.2: pulled in from 76/86 - there the
                                     # O6.5 pad-access hole cut into the x71 solenoid insert's collar (5mm
@@ -614,6 +620,12 @@ def build_body():
     # pre-union AND in the wrong z-segment entirely - the single consumer screw
     # could never be installed. Asserted by SCREW_PATHS in --gaps.)
     body = body.cut(cq.Workplane("XY", origin=(bore_x, bore_y, pad_z1 + 0.5)).circle(closure_screw_d / 2).extrude(z_lidtop - bore_depth - pad_z1 + 1))
+    # v0.8.3 WATER: latch-bore weep. The O11 bore is a 26mm cup open to the sky at the
+    # lid (rain runs straight in, pools on the z30 floor around the consumer screw/washer,
+    # and a freeze would seize the plunger). A O2.2 weep, offset 3.5 from the screw axis
+    # (clear of the O3.4 screw clearance AND the r1.55 screw-path probe), drains the bore
+    # floor down into the tube-bore void, where water runs axially out along the liner.
+    body = body.cut(cq.Workplane("XY", origin=(bore_x + 3.5, bore_y, 24.5)).circle(1.1).extrude(z_lidtop - bore_depth - 24.5 + 0.5))
     # lid screw bosses: O8 columns fused into the pod cavity walls, M3 heat-set
     # pockets from the rim face (the lid's old x=5 screws landed over open cavity
     # AND inside the PN532 window span - nothing to bite, only 1.2mm skin)
@@ -780,6 +792,11 @@ def build_bay_module():
         body = body.union(cq.Workplane("XY", origin=(hx, hy, BK_BOT)).circle(4.0).extrude(9.0))
         body = body.cut(cq.Workplane("XY", origin=(hx, hy, BK_BOT - 1)).circle(INS3_D / 2).extrude(INS3_T + 1))
         body = body.cut(hs_cb("XY", hx, hy, BK_BOT, 1))
+    # v0.8.3 WATER: drum-void weep. The snout enters the void at z~-74 but the void
+    # bottoms at -90.5 - a 16mm-deep bucket under the spool/return spring (rain wicks in
+    # along the cable, splash + condensation collect, the spring rusts). A O2.5 weep at
+    # the ring's lowest point drains the void straight down and out.
+    body = body.cut(cq.Workplane("XY", origin=(drum_cx, (DR_Y0 + DR_Y1) / 2, drum_cz - drum_od / 2 - 1)).circle(1.25).extrude(5.0))
     body = body.cut(outer_cyl(0.3))
     body = body.cut(tube_bore())
     return largest_solid(body)
@@ -833,16 +850,19 @@ def build_pedestal_cart():
     body = base.union(tower)
     # v0.8.2 Option C: driver-card platform. The solenoid driver stage rides the cart's -Y
     # side (a tiny flyback loop with the solenoid this same cart carries). A 3mm platform
-    # extends -Y from the base to y-13 (top z35 = card seat), staying above the door swing
-    # (r>31 at z>=32 here). Two short-M3 heat-set bosses hang to z31 under the card screws so
-    # the O4.0x3.8 insert has full grip; at y-7.65 the boss floor z31 clears the swing (z~30).
+    # extends -Y from the base to y-13, staying above the door swing (r>31 at z>=32 here).
+    # v0.8.3 DFM: base, platform AND bosses all share ONE flat z32 bottom so the cart prints
+    # base-down without rocking (bosses used to hang to z31). Bosses rise 1.3 proud of the
+    # platform to DRV_SEAT=36.3 - the card sits on the boss tops with an air gap under it
+    # (drainage + no trapped water against the PCB), and the O4.0x3.8 short-insert pocket
+    # bottoms at z32.5, keeping a 0.5 printed floor above the build plane.
     plat = cq.Workplane("XY", origin=(81, -7.5, PAD_Z)).box(44, 11.0, 3, centered=(True, True, False))  # x59-103, y-13..-2
     body = body.union(plat)
     for bx in (66.0, 96.0):
-        boss = cq.Workplane("XY", origin=(bx, -7.65, PAD_Z - 1)).circle(4.0).extrude(4.0)   # z31-35, O8
+        boss = cq.Workplane("XY", origin=(bx, DRV_Y, PAD_Z)).circle(4.0).extrude(DRV_SEAT - PAD_Z)   # z32-36.3, O8
         body = body.union(boss)
-        body = body.cut(cq.Workplane("XY", origin=(bx, -7.65, DRV_SEAT - INS3S_T)).circle(INS3S_D / 2).extrude(INS3S_T + 1))
-        body = body.cut(hs_cb("XY", bx, -7.65, DRV_SEAT, -1))
+        body = body.cut(cq.Workplane("XY", origin=(bx, DRV_Y, DRV_SEAT - INS3S_T)).circle(INS3S_D / 2).extrude(INS3S_T + 1))
+        body = body.cut(hs_cb("XY", bx, DRV_Y, DRV_SEAT, -1))
     # solenoid mounting: M2.5 machine screws into brass heat-sets in the tower
     # top (cyclic pull load every unlock - self-tapped plastic threads relax;
     # a captured-nut scheme collided with the pad attach holes and had no nut
@@ -969,6 +989,21 @@ def build_shim():
     solid = cq.Workplane("YZ").placeSketch(sk).extrude(shell_len)
     wedge = cq.Workplane("YZ", origin=(-1, 0, 0)).polyline([(0, 0), (40, -23), (40, 23)]).close().extrude(shell_len + 2)
     return largest_solid(solid.cut(wedge))
+
+
+def build_usb_plug():
+    """v0.8.3 WATER: TPU plug for the bay-wall USB-C opening (print-only part, like the
+    shim - NOT in the assembly). The port faces the wheel-spray zone; unplugged it is a
+    straight water path onto the TP4056. Flat-printed in TPU 95A: a flange that seats in
+    the outer face recess, a squish-fit stem into the 5.4 x 10.6 wall slot (+0.15/side
+    interference - TPU compresses), and a pull tab with a O2 lanyard hole. Local frame:
+    flange on the XY plate (prints flat, no supports)."""
+    flange = cq.Workplane("XY").box(14.0, 9.0, 1.6, centered=(True, True, False))
+    stem = cq.Workplane("XY", origin=(0, 0, 1.6 - EPS)).box(10.9, 5.7, 3.4 + EPS, centered=(True, True, False))
+    tab = cq.Workplane("XY", origin=(0, -8.0, 0)).box(6.0, 8.0, 1.6, centered=(True, True, False))
+    plug = flange.union(stem).union(tab)
+    plug = plug.cut(cq.Workplane("XY", origin=(0, -9.5, -1)).circle(1.0).extrude(4))  # lanyard hole
+    return plug
 
 
 def build_heatset_coupon():
@@ -1116,8 +1151,8 @@ def build_mock_driver_stack():
     (from the 40x60 stock's long edge, per BOM) carrying IRLZ44N (flat), AO3401 breakout,
     1N5819, O8x12.5 cap LYING, divider resistors - a tiny flyback loop with the solenoid the
     same cart carries."""
-    board = _mk_box(81.0, -7.65, DRV_SEAT, 42.0, 10.7, 1.6)
-    comps = _mk_box(81.0, -7.65, DRV_SEAT + 1.6, 38.0, 9.9, 8.4)   # v0.8.2: components ride ON TOP of
+    board = _mk_box(81.0, DRV_Y, DRV_SEAT, 42.0, 10.7, 1.6)
+    comps = _mk_box(81.0, DRV_Y, DRV_SEAT + 1.6, 38.0, 9.9, 8.4)   # v0.8.2: components ride ON TOP of
     return board.union(comps)                                     # the board (was hardcoded z33)
 
 
@@ -1184,6 +1219,7 @@ PARTS = {
     "liner_left": lambda: build_liner(False),
     "shim": build_shim,
     "heatset_coupon": build_heatset_coupon,   # v0.8.1 - test/tune the snug O (not in the assembly)
+    "usb_plug": build_usb_plug,               # v0.8.3 - TPU wheel-spray plug for the USB-C port (not in the assembly)
     "nano_clamp": build_nano_clamp,
     "spool_cover": build_spool_cover,
     "hinge_rod": build_hinge_rod,
@@ -1511,7 +1547,7 @@ def support_features():
     for bx in (12.0, 37.0):
         f.append(("body", f"nano-clamp boss @x{bx}", (bx, 18.0, 36.0), (0, 0, -1), INS3_D, INS3_T, 2.0))
     for bx in (66.0, 96.0):
-        f.append(("pedestal_cart", f"driver-card boss @x{bx}", (bx, -7.65, DRV_SEAT), (0, 0, -1), INS3S_D, INS3S_T, 2.0))
+        f.append(("pedestal_cart", f"driver-card boss @x{bx}", (bx, DRV_Y, DRV_SEAT), (0, 0, -1), INS3S_D, INS3S_T, 2.0))
     # hinge-cap: M3 SELF-TAP carve-out (see build_body). Not a heat-set - a O2.5 pilot in the
     # 4mm end wall, threaded directly, near-zero rod-retention load. A backing collar is
     # geometrically impossible here (tube bore + OD + rod bore + door-swing all converge), so
@@ -1590,6 +1626,58 @@ def verify_support():
     return not bad
 
 
+# ---------------- v0.8.3: FDM overhang report (--dfm, report-only) ----------------
+# Declared print orientation per part: (rotation axis, degrees) applied before the scan,
+# or None = print as modeled (min-z face on the plate). This table IS the documented
+# orientation spec (BUILD.md references it).
+DFM_ORIENT = {
+    "body":          (None, "pod rim up; supports expected under shell + knuckles"),
+    "door":          (((1, 0, 0), -90), "seam face down; supports under knuckles"),
+    "bay_module":    (((1, 0, 0), -90), "cover/rabbet face down; supports in the brick overhangs"),
+    "lid":           (None, "underside on plate; PN532 drop-bosses start 0.3 above plate (minimal supports)"),
+    "pedestal_cart": (None, "flat z32 bottom on plate (v0.8.3 flush fix); rails/tower up"),
+    "bay_hatch":     (None, "external face down (countersinks bridge)"),
+    "spool_cover":   (None, "as modeled WITH A RAFT - the 3 nesting pads hold the disc 0.8 off the plate, so the big % here is the pad gap, not a design flaw"),
+    "spine_cover":   (None, "flat side down"),
+    "nano_clamp":    (None, "bar flat"),
+    "hinge_cap":     (((0, 1, 0), 90), "disc face down"),
+    "usb_plug":      (None, "TPU, flange down, no supports"),
+}
+DFM_OVERHANG_NZ = -0.707             # faces whose normal is >45deg below horizontal need support
+
+
+def verify_dfm():
+    """Report-only DFM scan: tessellate each printed part in its declared orientation and
+    report the down-facing area steeper than 45deg (excluding the build-plate face). High
+    numbers on body/door/bay are EXPECTED (supports declared); watch the flat-printed parts."""
+    print("[dfm] overhang report (>45deg down-faces, plate face excluded; report-only)")
+    for pn, (rot, note) in DFM_ORIENT.items():
+        s = ALL_BUILDERS[pn]()
+        solid = s.val()
+        if rot is not None:
+            axis, ang = rot
+            solid = solid.rotate(cq.Vector(0, 0, 0), cq.Vector(*axis), ang)
+        verts, tris = solid.tessellate(0.8)
+        zmin = min(v.z for v in verts)
+        tot = bad = 0.0
+        for a, b, c in tris:
+            va, vb, vc = verts[a], verts[b], verts[c]
+            ux, uy, uz = vb.x - va.x, vb.y - va.y, vb.z - va.z
+            wx, wy, wz = vc.x - va.x, vc.y - va.y, vc.z - va.z
+            nx, ny, nz = uy * wz - uz * wy, uz * wx - ux * wz, ux * wy - uy * wx
+            area2 = math.sqrt(nx * nx + ny * ny + nz * nz)
+            if area2 < 1e-9:
+                continue
+            area = area2 / 2.0
+            tot += area
+            on_plate = max(va.z, vb.z, vc.z) < zmin + 0.3
+            if not on_plate and (nz / area2) < DFM_OVERHANG_NZ:
+                bad += area
+        pct = 100.0 * bad / tot if tot else 0.0
+        print(f"  {pn:14s} overhang {bad:8.0f} mm^2 ({pct:4.1f}%)  - {note}", flush=True)
+    print("[dfm] done (informational; thresholds are per-part judgment, see BUILD.md)", flush=True)
+
+
 PART_COLORS = {
     "body": (0.18, 0.25, 0.34), "door": (0.24, 0.35, 0.45), "bay_module": (0.13, 0.19, 0.24),
     "bay_hatch": (0.27, 0.35, 0.39), "pedestal_cart": (0.85, 0.36, 0.22), "lid": (0.78, 0.80, 0.82),
@@ -1634,6 +1722,9 @@ def main():
         sys.exit(0 if verify_matrix(floor) else 1)
     if "--gaps" in sys.argv:
         sys.exit(0 if verify_gaps(floor) else 1)
+    if "--dfm" in sys.argv:
+        verify_dfm()
+        sys.exit(0)
     if "--support" in sys.argv:
         sys.exit(0 if verify_support() else 1)
     if "--export-assembly" in sys.argv:

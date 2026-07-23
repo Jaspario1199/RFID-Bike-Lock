@@ -22,7 +22,7 @@ gate-verified v0.7 geometry.
 The audit found the solenoid driver stage sat in the bay, **150–200 mm of wire
 from the solenoid** — 5–7× the design target, degrading the flyback clamp and
 defeating the reservoir cap. Fixed: **all driver electronics live in the pod**
-on a 42×10.7 card sitting on two Ø7 crown bosses on the pod's −y strip
+on a 42×10.7 card on the pedestal-cart’s −Y platform (v0.8.2: two Ø8 cart bosses, short M3 heat-sets)
 (bosses at x66/x96, 2× M3 ST), components facing up (IRLZ44N flat, AO3401,
 1N5819, Ø8×12.5 cap lying, divider) — **<30 mm to the solenoid**, and the bay
 perf rack is deleted. The bay now holds only the cell + TP4056.
@@ -36,12 +36,12 @@ OUT+ pod-side — no extra crossing. Nothing crosses the door hinge.
 
 **Stage A — parts + inserts (open bench)**
 1. Print 14 parts (+ TPU liners/shim); turn or order the hinge rod (BOM callouts; zero-lathe fallback: plain Ø4 rod + a cap both ends).
-2. Press 9 heat-sets: 4× M3 pod-rim bosses (soldering iron, straight down through the open pod top) · 2× M3 into TP4056-block/drum-web from below · 2× M2.5 pedestal tower top · 1× short M4 into the door pad's TOP face (door open, flange-up). **Gate: VERIFY JF-0530B hole spacing (24?) BEFORE the M2.5 inserts** — the cart is a minutes-long reprint.
+2. Press the heat-sets (see BOM 23a–23f; v0.8.2 adds 2× short M3 in the cart platform bosses): 4× M3 pod-rim bosses (soldering iron, straight down through the open pod top) · 2× M3 into TP4056-block/drum-web from below · 2× M2.5 pedestal tower top · 1× short M3 into the door pad’s TOP face (v0.8: all-M3) (door open, flange-up). **Gate: VERIFY JF-0530B hole spacing (24?) BEFORE the M2.5 inserts** — the cart is a minutes-long reprint.
 
 **Stage B — pod electronics (all straight-down access; MUST finish before the lid ever goes on)**
 3. Nano into the pod wall recess (edge-standing, pins trimmed flush, USB end at x39–47) → `nano_clamp` bar onto the crown bosses, 2× M3 ST flat.
 4. Pedestal cart onto the pod pads — 2× M3 pan through the tower access holes (heads hidden under the solenoid later).
-5. Build + solder the driver card (42×10.7): IRLZ44N flat, AO3401, 1N5819, cap lying, divider → onto the two −y crown bosses (x66/x96), 2× M3 ST, straight down.
+5. Build + solder the driver card (42×10.7): IRLZ44N flat, AO3401, 1N5819, cap lying, divider → onto the cart platform bosses (x66/x96, y−7.25), 2× M3 machine into the short heat-sets, straight down — do this BEFORE the cart goes into the pod if you prefer bench access; the cart+driver+solenoid drop in as one module.
 6. **MT3608 onto the tower end-posts BEFORE the solenoid** (0.3 mm design clearance between them; clone solenoid width varies 13–16). Set 5.00 V under load *now*, on the bench.
 7. Solenoid onto the tower — 2× M2.5×8 machine into the inserts. File the plunger's 45° ramp; **trim the plunger tail to end at x98** (machine-asserted against the wake button — untrimmed it collides).
 8. ⚡ **Checkpoint 1**: bench-power the pod cartridge cluster from a 5 V supply — solenoid pulse test (300 ms via D5), MT3608 rail check, before anything is enclosed.
@@ -67,7 +67,23 @@ OUT+ pod-side — no extra crossing. Nothing crosses the door hinge.
 20. Ejector spring drops into the bore later — **after** the consumer closure screw exists (on-bike step): screw → washer → spring → done.
 
 **Stage G — on-bike (the consumer step)**
-21. Open door → press onto the down tube → swing shut → ONE M4×8 down the latch bore → drop in the ejector spring → enroll the master fob (first boot). Locked cable head now covers the screw.
+21. Open door → press onto the down tube → swing shut → ONE M3×10 machine-flat down the latch bore (v0.8) → drop in the ejector spring → enroll the master fob (first boot). Locked cable head now covers the screw.
+
+## 3b. Print orientations (v0.8.3 — matches the `--dfm` scan table in the CAD)
+
+Run `python cad/bike_lock_cq.py --dfm` for the live overhang report. Declared orientations
+(`DFM_ORIENT` in the CAD is the single source of truth):
+
+| Part | Orientation | Supports |
+|---|---|---|
+| body | pod rim up (as modeled) | yes — under shell + knuckles |
+| door | seam face down | yes — under knuckles + bore ceiling |
+| bay_module | cover/rabbet face down | yes — brick overhangs |
+| lid | underside on plate | minimal — the 4 PN532 drop-bosses start 0.3 above the plate |
+| pedestal_cart | flat z32 bottom on plate (v0.8.3 flush fix) | none |
+| bay_hatch, spine_cover, nano_clamp, hinge_cap, usb_plug | flat | none |
+| spool_cover | as modeled **with a raft** — its 3 nesting pads hold the disc 0.8 off the plate | raft |
+| liners + shim | TPU: fins up, slow (~25 mm/s) | none |
 
 ## 4. Honest remaining gaps (will not stop the build, must not be forgotten)
 - **Donor spool anchoring is unmodeled by design** (donor-dependent) — step 19 is the only improvised step in the workflow.
