@@ -647,14 +647,23 @@ def build_body():
     # serviceable driver+solenoid+cart module. The old body mount was a contorted shelf+tie+
     # leg routed through the 1mm gap between the door swing (below) and the cart floor (above);
     # that whole bracket is deleted here. See build_pedestal_cart for the new platform.
-    # PN532 wall recesses: the 41mm board exceeds the drafted pod interior
-    # (39.1 at lid height) - relieve the RF-zone walls 1.6 deep so the board
-    # hangs with 1.0/side clearance (D15)
-    for ry in (-14.2, 26.4):
-        body = body.cut(cq.Workplane("XY", origin=(1.0, ry, 47.5)).box(45.5, 1.8, 6.5, centered=(False, False, False)))
-    for cy in (-14.2, 17.0):          # interior corner arcs bulge past the straight walls
-        body = body.cut(cq.Workplane("XY", origin=(0.8, cy, 47.5)).box(10.5, 11.2, 6.5, centered=(False, False, False)))
-    body = body.cut(cq.Workplane("XY", origin=(0.6, -14.2, 47.5)).box(1.4, 42.4, 6.5, centered=(False, False, False)))
+    # PN532 board-seat rebate (v0.8.3b): the 41mm board exceeds the drafted pod interior
+    # (39.1 at lid height), so the top wall band is relieved to admit it. This used to be
+    # FIVE separate stepped box cuts (2 straight walls + 2 corner patches + 1 end strip)
+    # whose raw terminations read as divots gouged out of the rim corners (owner-flagged,
+    # twice). Now it is ONE continuous rebate prism that follows the pod interior's own
+    # rounded contour, offset +1.8/side, r4 corners (small enough to clear the board's
+    # square corners where the interior arcs bulge inboard). It runs from the -X end wall
+    # around both side walls and terminates AT the x=50 lid-boss centerlines, so the step
+    # ends are swallowed by the boss cylinders instead of stopping mid-wall. Reads as an
+    # intentional board-seat ledge; the lid covers the whole band at z53.
+    rebate = (
+        cq.Workplane("XY", origin=(POD_CX, pod_yc, 47.5))
+        .placeSketch(rrect_sk(pod_ix - 2 * draft + 3.6, pod_iy - 2 * draft + 3.6, 4.0))
+        .extrude(7.0)
+    )
+    rebate = rebate.intersect(cq.Workplane("XY", origin=(-10, pod_yc, 40)).box(60, 200, 30, centered=(False, True, False)))  # clip at x=50 (the boss line)
+    body = body.cut(rebate)
     for (sx, sy) in LID_SCREWS:
         b = cq.Workplane("XY", origin=(sx, sy, 40)).circle(4.5).extrude(z_lid0 - 40)
         body = body.union(b.cut(outer_cyl()))

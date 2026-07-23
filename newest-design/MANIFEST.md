@@ -6,6 +6,16 @@ v0.8.3); older sub-states are recoverable from git history. Per the repo reorg, 
 **STEP-only** (per-part `placed/` + assembly + combined); STL/renders/doc-snapshots are
 regenerable from the source at this tag.
 
+## v0.8.3b — pod-rim visual-flow fix (owner-flagged divots)
+
+The PN532 wall reliefs were FIVE separate stepped box cuts whose raw terminations read as
+divots gouged out of the top-wall corners. Replaced with **one continuous board-seat
+rebate** following the pod interior's own rounded contour (+1.8/side, r4 corners for the
+board's square-corner clearance), terminating at the x=50 lid-boss centerlines so the step
+ends are swallowed by the boss cylinders. Same function (admits the 41 mm board), now reads
+as an intentional ledge. Re-gated: gaps 0/292 · support 0/27 · matrix 0. STEP set refreshed
+in place (`_v083` labels kept).
+
 ## v0.8.3 — environmental + DFM hardening (hard critique pass)
 
 Multi-domain critique (manufacturability / water ingress / power), every finding either
