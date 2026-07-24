@@ -17,6 +17,7 @@ releases the cable, which then reels itself back in.
 | [`BOM.md`](BOM.md) | Bill of materials — every part, quantity, estimated price (v0.8 all-M3 heat-set fastener standard + v0.8.3 weatherproofing items) |
 | [`BUILD.md`](BUILD.md) | The authoritative bench build sequence + print-orientation table (`--dfm`) |
 | [`ASSEMBLY.md`](ASSEMBLY.md) | Assembly/DFM audit + v0.8.3 weatherproofing steps |
+| [`INTERNALS.md`](INTERNALS.md) | **How every electronic mates inside** — per-part contact faces, screws, wiring paths, keyed to `renders/internals/` |
 | [`firmware/`](firmware/) | Arduino sketch (v1, ready to flash) + bench bring-up guide |
 | [`cad/bike_lock_cq.py`](cad/) | **The single source of truth**: parametric CadQuery model with built-in verification gates (`--gaps`, `--matrix`, `--sweep`, `--support`, `--dfm`) |
 | [`newest-design/`](newest-design/) | **THE CURRENT CAD: latest frozen STEP set (v0.8.3) + MANIFEST** — print/import from here  |
