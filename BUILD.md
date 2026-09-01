@@ -83,7 +83,7 @@ Run `python cad/bike_lock_cq.py --dfm` for the live overhang report. Declared or
 | pedestal_cart | flat z32 bottom on plate (v0.8.3 flush fix) | none |
 | bay_hatch, spine_cover, nano_clamp, hinge_cap, usb_plug | flat | none |
 | spool_cover | as modeled **with a raft** — its 3 nesting pads hold the disc 0.8 off the plate | raft |
-| liners + shim | TPU: fins up, slow (~25 mm/s) | none |
+| liners + shim | TPU: ON END (vertical) - the profile is a constant-section extrusion, so every layer is the same C-with-fins slice: no overhangs, perfect fins. 5mm brim, seam on the base ring, 20-25 mm/s | none |
 
 ## 4. Honest remaining gaps (will not stop the build, must not be forgotten)
 - **Donor spool anchoring is unmodeled by design** (donor-dependent) — step 19 is the only improvised step in the workflow.
