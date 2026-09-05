@@ -1,10 +1,16 @@
 # CNC_CASING.md — the machined-casing redesign (concept + DFM contract)
 
 Goal: a casing **designed for CNC from the first sketch** — fewer parts, simpler parts,
-simpler assembly — not the printed geometry with machining notes bolted on (that's §6.9,
-which honestly scored the printed body at 4 setups **plus a 4th-axis rotary**). This doc
-is the architecture contract to model against (SolidWorks or parametric); the printed
-v0.8.3 remains the functional-prototype lineage.
+simpler assembly. The printed v0.8.3 remains the functional-prototype lineage; DESIGN §6.9
+scored machining THAT geometry at 4 setups + a 4th-axis rotary, which is exactly what this
+redesign deletes.
+
+> **Chosen concept (owner, 2026-09): "dumb chassis + bolt-on boxes."** Two simple tube
+> halves are the chassis; everything with precision or electronics lives in small boxes
+> that bolt onto one half **from the inside of the bore outward**, so every attachment
+> screw is buried under the clamped bike tube + liner. The TPU liner still slips in.
+> §2A below is the contract for this concept; §2B (two integrated billets) is kept as the
+> rejected alternative for the record.
 
 ## 1. The one insight that drives everything
 
@@ -14,8 +20,54 @@ swept-arc pockets, bosses and brackets grown mid-air, 27 heat-set inserts becaus
 can't hold threads. **In metal, every one of those is money — and most exist only because
 of printing or the hinge.** The CNC casing deletes the *reasons*, not just the features.
 
-## 2. The five simplification moves
+## 2A. Chosen architecture — tube-half chassis + inside-out bolted attachments
 
+### The parts
+| # | Part | Stock / process | Setups | What it carries |
+|---|---|---|---|---|
+| C1, C2 | **Tube halves** (left / right, **vertical parting plane**) | Ø60 × 5 mm-wall 6061 tube, saw-cut ~150, split lengthwise | 1–2 each: mill the flat mounting lands, drill + inside-countersink the attachment holes, 2× M5 clamp bolt holes, C2 gets the **closure lug** | The clamp. Nothing precise lives here |
+| A1 | **Top box** (latch + electronics) | small 6061 billet | 2 (pocket side, latch side) | Ø11 receiver bore + Ø6.5H7 plunger channel (reamed), solenoid + driver + Nano cavity, tapped holes for lid + chassis screws |
+| A2 | **Lid plate** | 5 mm plate | 1–2 | RF window cutout + bezel step for the insert, button, LEDs, O-ring groove |
+| A3 | **Bottom box** (spool) | small billet or plate box | 2 | pocket for the printed spool cartridge, **steel-bushed cable exit** (the one attacker-reachable hole) |
+| A4 | **Bottom cover plate** | 3 mm plate | 0–1 | waterjet/laser outline, gasket |
+| — | RF window insert | polycarbonate / printed | — | seats in A2's bezel step (v0.7 lid already modeled this seat) |
+| — | Spool cartridge, pedestal cart, glands | printed | — | interior furniture stays plastic (hybrid) |
+| — | TPU finned liner + shim | printed TPU (unchanged) | — | slips into the smooth Ø54 bore; retained by the clamp sandwich + an end lip (dovetail keys deleted) |
+| — | Cable head | lathe (existing BOM drawing) | 1 | unchanged |
+
+Six machined pieces, but two are saw-cut tube and two are flat plates — **the real
+machining is two small boxes.**
+
+### The three problems this concept has to solve — and the answers
+1. **Where does the self-guarding closure screw go?** Vertical parting plane, top box
+   straddling the seam. A1 bolts inside-out to C1; A1's latch bore sits over the seam;
+   the consumer screw goes down the bore, through A1's floor, into a **tapped lug on C2**
+   that tucks under the box. Locked head covers it — unchanged security logic. Clamp
+   preload from **2× M5 socket screws inside the bore** (the hinge is gone).
+2. **Round chassis meets flat box.** Mill a **flat land** on the tube at each box footprint
+   (one shallow pass; the land is also the gasket face). This is why the stock is
+   **5 mm wall**: ≥3 mm remains under the flat and under the countersinks.
+3. **Screw heads under the liner.** All attachment screws are **M3 flat-head, countersunk
+   from the INSIDE flush with the bore ID** (1.8 deep of the 5 wall). The liner slips over
+   a smooth bore and never feels them.
+
+### Security consequence (a real upgrade)
+Every attachment fastener is under the clamped bike tube. DESIGN §7's honest weakness —
+"four service joints reachable on the locked bike" — is structurally gone. Only the
+closure screw (covered by the cable head) and the bushed cable exit face the attacker.
+
+### Staged path (why this concept also wins on schedule)
+The tube halves are the parts that NEED metal (clamp strength, anti-cut); the boxes are
+what printers do best. **Stage 1: aluminum halves + PETG-printed boxes** using the same
+inside-out bolt pattern — a metal-where-it-matters prototype months early. **Stage 2:**
+machine A1/A3 as drop-in swaps; the chassis and hole patterns never change.
+
+### Assembly
+Bench: liner-free halves → bolt A1 + A3 to C1 from inside (M3 flat, flush) → load
+electronics into A1, spool cartridge into A3 → lid + cover plates. On the bike: slip the
+liner, hang C1 on the tube, C2 on, 2× M5 from inside, 1× closure screw down the latch bore.
+
+## 2B. Rejected alternative — two integrated billets (kept for the record)
 ### Move 1 — Delete the hinge. Two-bolt clamshell instead.
 The door-swing is the single largest complexity source: 8 knuckles, the lathe rod, the
 tail cap, AND the swept closure pockets that force a 4th axis (a rigid mill can't cut a
@@ -54,6 +106,8 @@ size everywhere it can be: M3×0.5, ≥2×D engagement. The insert coupon, press
 displacement reliefs, and collar-wall worries all evaporate. Lid gasket upgrades from
 EPDM tape to an **O-ring cord in a machined groove**.
 
+(Moves 2, 4 and 5 above carry into the chosen concept unchanged: line-bore the pair, hybrid interior, tapped holes / no inserts. Move 1 is superseded by the vertical-seam closure lug; Move 3 by the bolt-on bottom box.)
+
 ## 3. What carries over UNCHANGED (do not redesign these)
 
 | Kept | Why |
@@ -64,7 +118,7 @@ EPDM tape to an **O-ring cord in a machined groove**.
 | RF window strategy | **A metal lid is opaque to 13.56 MHz.** The machined lid gets a rectangular window cutout; the polycarbonate/printed window insert seats in the bezel step the v0.7 lid already modeled "so the split is free later" — this is that later |
 | Drainage philosophy | Weeps + grease notes port over as drilled holes (cheaper than in plastic) |
 
-## 4. Part architecture (machined count: 4, plus plates)
+## 4. (superseded by §2A part table — retained for the billet alternative)
 
 | # | Part | Stock | Setups | Ops summary |
 |---|---|---|---|---|
@@ -117,11 +171,13 @@ M3/M4 plates are SendCutSend-cheap.
 
 | # | Decision | Recommendation |
 |---|---|---|
-| D1 | Hinge: keep vs **two-bolt clamshell** | Delete the hinge (Move 1) — it's the 4th-axis and half the part count |
+| D1 | Hinge | **DECIDED: deleted.** Two M5 inside the bore + closure lug |
 | D2 | Material | 6061-T6 now; steel variant later from the same model |
-| D3 | Drum: round pocket in billet vs **printed cartridge in a rectangular pocket** | Cartridge — billet stays prismatic, spool iterates in plastic |
+| D3 | Spool | **DECIDED: printed cartridge inside the bolt-on bottom box (A3)** |
 | D4 | Who machines | TAMU shop for M1/M2 (design manual-3-axis-friendly), SendCutSend for plates |
-| D5 | Modeling | SolidWorks by owner against this contract, or parametric+gates by Claude — either way the interfaces in §3 are frozen |
+| D5 | Modeling | SolidWorks by owner against §2A; Claude checks hole patterns, wall/countersink stack-ups, and the closure-lug geometry |
+| D6 | Tube stock | **Ø60 × 5 wall 6061** (recommended) vs Ø57 × 3.5 — 5 wall is what makes flats + inside countersinks safe |
+| D7 | Stage 1 boxes printed? | Yes — PETG boxes on aluminum halves first (same bolt pattern), machine later |
 
 ## 9. What verification looks like in this era
 
