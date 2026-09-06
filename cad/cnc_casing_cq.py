@@ -185,13 +185,14 @@ def build_c2():
 
 def saddle_body(x0, x1, y0, y1, z_lo, z_hi, skirt_sign, relief_r):
     """box block spanning z_lo..z_hi minus the tube saddle; +y skirt wraps the tube side."""
-    blk = cq.Workplane("XY", origin=((x0 + x1) / 2, (y0 + y1) / 2, (z_lo + z_hi) / 2)).box(x1 - x0, y1 - y0, z_hi - z_lo)
-    # skirt: extend the +y wall down/up to SKIRT_Z0 on the tube side
+    # the block reaches the skirt height across its whole width, so once the saddle cylinder is
+    # cut the underside follows the tube's diameter continuously from the seam round to the skirt
+    # (owner: no flat shelf between saddle and skirt - the attachment face is all R32)
     if skirt_sign > 0:
-        skirt = cq.Workplane("XY", origin=((x0 + x1) / 2, (SKIRT_Y0 + y1) / 2, (SKIRT_Z0 + z_lo) / 2)).box(x1 - x0, y1 - SKIRT_Y0, z_lo - SKIRT_Z0)
+        blk = xbox(x0, x1, y0, y1, SKIRT_Z0, z_hi)
     else:
-        skirt = cq.Workplane("XY", origin=((x0 + x1) / 2, (SKIRT_Y0 + y1) / 2, (-SKIRT_Z0 + z_hi) / 2)).box(x1 - x0, y1 - SKIRT_Y0, -SKIRT_Z0 - z_hi)
-    body = blk.union(skirt).cut(cyl_x(SADDLE_R, -1, L + 1))
+        blk = xbox(x0, x1, y0, y1, z_lo, -SKIRT_Z0)
+    body = blk.cut(cyl_x(SADDLE_R, -1, L + 1))
     relief = cyl_x(relief_r, -1, L + 1).intersect(yslab(-200, RELIEF_Y))
     return body.cut(relief)
 
@@ -255,7 +256,7 @@ def build_bottom_box():
     power spring load from BELOW; a round cover plate closes it. The cover's external screws
     are NOT a security hole: the cable's inner end carries a swaged ball stop larger than the
     O7 bushed exit, so even with the spool removed the locked loop cannot be freed."""
-    cradle = xbox(SX0, SX1, A3_Y0, CRADLE_Y1, CRADLE_Z0, -20.0)
+    cradle = xbox(SX0, SX1, A3_Y0, CRADLE_Y1, CRADLE_Z0, -SKIRT_Z0)   # full height: saddle arc runs to the skirt, no shelf
     skirt = xbox(SX0, SX1, SKIRT_Y0, SKIRT_Y1, -20.0, -SKIRT_Z0)
     # puck: full round up to the pocket ceiling wall (its flat top is the C2 swing stop); on the
     # C1 side it keeps rising into the cradle / saddle
