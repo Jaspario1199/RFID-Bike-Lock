@@ -138,10 +138,11 @@ between tube and frame). Options weighed:
 | **Snap studs** (chosen) | modest, all directions | yes | pull out | 4 blind Ø4.2 × 2 drills per half from the inside — the same op as the counterbores | zero hardware, zero glue, one drill op, and it is how molded rubber liners are done |
 | Front + rear lips only | axial only | yes | snap in | one more turned lip | a half-ring slides out of a half-bore sideways; lips alone do not hold it |
 
-Studs: Ø4.0 × 1.8 on the liner's outside (print them 0.2 oversize — TPU compresses), holes
-Ø4.2 × 2.0 blind, at x 35 / 115 and 45° / 135° from the seam — 28° from either screw row,
-so nothing collides regardless of x. The gate checks every stud tip ends 0.2 short of its
-hole floor. The rear lip stays as the axial locator.
+Studs: Ø4.5 ±0.1 × 1.8 on the liner's outside (modeled at print size), holes Ø4.2 +0.1/−0 × 2.0
+blind — a 0.3 mm diametral **press fit**, all compliance in the TPU; friction retention, upgrade
+to a Ø4.6-head / Ø3.8-neck mushroom if they walk out in handling. Sited at x 35 / 115 and 45° / 135° from the seam — 28° from either screw row,
+so nothing collides regardless of x. The gates check every stud tip ends 0.2 short of its
+hole floor and that the liner/chassis interference equals the designed press-fit volume. The rear lip stays as the axial locator.
 
 ### Security consequence (a real upgrade)
 Every attachment fastener is under the clamped bike tube. DESIGN §7's honest weakness —

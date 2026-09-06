@@ -323,7 +323,8 @@ def build_window_insert():
 # ---------------- liner: v0.8 finned geometry + snap studs ----------------
 FIN_N, FIN_H, FIN_T, FIN_LEAN = 24, 12.0, 1.4, 30.0   # the v0.8 liner: 24 fins, 12 tall, leaning 30 deg
 LINER_BASE, LINER_CLR = 2.0, 0.15                     # base ring thickness / radial clearance to the bore
-STUD_D, STUD_H, STUD_HOLE_D, STUD_HOLE_H = 4.0, 1.8, 4.2, 2.0   # TPU snap studs into blind holes in the wall
+STUD_D, STUD_H, STUD_HOLE_D, STUD_HOLE_H = 4.5, 1.8, 4.2, 2.0   # TPU press-fit studs: O4.5 printed into O4.2 (+0.1/-0) blind holes,
+                                                                    # 0.3 diametral interference - all the compliance is the TPU
 STUD_X = (35.0, 115.0)                                # clear of every screw row (25/40/75/100/125)
 STUD_PHI = (45.0, 135.0)                              # deg from +y toward +z, mirrored below; 28 deg from both screw rows
 
@@ -409,12 +410,20 @@ def gates():
     names = list(solids)
     bad = 0
     print("[gates] interference matrix")
+    n_studs = len(stud_sites(True))
+    fit_v = n_studs * math.pi / 4 * (STUD_D ** 2 - STUD_HOLE_D ** 2) * STUD_H   # designed press-fit volume per liner
+    PRESS_FIT = {("C1_chassis_half", "liner_right"): fit_v, ("C2_clamp_half", "liner_left"): fit_v}
     for i in range(len(names)):
         for j in range(i + 1, len(names)):
             a, b = names[i], names[j]
             inter = cq.Workplane(obj=solids[a]).intersect(cq.Workplane(obj=solids[b]))
             v = sum(s.Volume() for s in inter.solids().vals())
-            if v > 0.05:
+            want = PRESS_FIT.get((a, b))
+            if want is not None:
+                okfit = abs(v - want) <= 0.2 * want
+                print(f"  press fit {a} x {b}: {v:.2f} mm^3 (designed {want:.2f}) {'OK' if okfit else 'WRONG'}")
+                if not okfit: bad += 1
+            elif v > 0.05:
                 print(f"  CLASH {a} x {b}: {v:.2f} mm^3"); bad += 1
     print(f"[gates] {bad} clashes")
     # wall audit: remaining chassis wall under every counterbore >= 2.3
