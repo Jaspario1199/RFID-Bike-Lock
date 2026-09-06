@@ -139,9 +139,10 @@ between tube and frame). Options weighed:
 | Front + rear lips only | axial only | yes | snap in | one more turned lip | a half-ring slides out of a half-bore sideways; lips alone do not hold it |
 
 Studs: Ø4.5 ±0.1 × 1.8 on the liner's outside (modeled at print size), holes Ø4.2 +0.1/−0 × 2.0
-blind — a 0.3 mm diametral **press fit**, all compliance in the TPU; friction retention, upgrade
-to a Ø4.6-head / Ø3.8-neck mushroom if they walk out in handling (that is what turns a press fit
-into a true snap). Six per half at x 35 / 115, at −45° / 0° / +45° from the half's mid-arc — the 45s are 28° from
+blind — a 0.3 mm diametral **press fit**, all compliance in the TPU; friction retention. If they
+ever walk out: more/longer studs, a barrel stud (Ø4.3 root → Ø4.7 mid-height), or CA in two holes.
+NOT a mushroom head: a blind hole has no shoulder to snap behind, and undercutting one from inside
+the bore needs a lollipop cutter through a Ø4.2 mouth — wrong tooling for a 3-axis shop. Six per half at x 35 / 115, at −45° / 0° / +45° from the half's mid-arc — the 45s are 28° from
 either screw row and the mid-arc one sits between the skirt rows, so nothing collides regardless of x. The gates check every stud tip ends 0.2 short of its
 hole floor and that the liner/chassis interference equals the designed press-fit volume. The rear lip stays as the axial locator.
 
