@@ -541,6 +541,12 @@ if __name__ == "__main__":
     if "--gates" in sys.argv:
         sys.exit(0 if gates() else 1)
     os.makedirs("cnc-design/step", exist_ok=True); os.makedirs("cnc-design/stl", exist_ok=True)
+    # sweep out exports of parts that no longer exist (renamed/retired), so the STEP set = PARTS
+    keep = set(PARTS) | {"cnc_casing_assembly"}
+    for d, ext in (("cnc-design/step", ".step"), ("cnc-design/stl", ".stl")):
+        for f in os.listdir(d):
+            if f.endswith(ext) and f[: -len(ext)] not in keep:
+                os.remove(os.path.join(d, f)); print(f"[clean] removed stale {d}/{f}")
     asm = cq.Assembly()
     for n, f in PARTS.items():
         print(f"[build] {n}", flush=True)
