@@ -117,7 +117,7 @@ part("C2_clamp_half", "C2 - clamp half (hinged)", "6061-T6 tube 2.5\" OD x 3/16\
      ["Mate of C1 (same tube, same line-bore)", "Counterbores from the BORE side", "Rear liner lip: x 148..150, inward to R25.5"],
      [("A", "2x Ø3.4 THRU vertical at y=-7 (closure block), Ø6.2 C'BORE from the bore", f"x {fmt(m.BLK_SCREW_X[0])}, {fmt(m.BLK_SCREW_X[1])}"),
       ("B", f"2x Ø3.4 THRU vertical at y={fmt(m.HB_SCREW_Y)} through the BOTTOM wall (hinge block), Ø6.2 C'BORE from the bore", f"x {fmt(m.HB_SCREW_X[0])}, {fmt(m.HB_SCREW_X[1])}"),
-      ("S", f"4x Ø{fmt(m.STUD_HOLE_D)} +0.1/-0 x {fmt(m.STUD_HOLE_H)} BLIND radial, from the bore (liner press-fit studs)", f"x {fmt(m.STUD_X[0])}, {fmt(m.STUD_X[1])} at 45/135deg from the seam")],
+      ("S", f"6x Ø{fmt(m.STUD_HOLE_D)} +0.1/-0 x {fmt(m.STUD_HOLE_H)} BLIND radial, from the bore (liner press-fit studs)", f"x {fmt(m.STUD_X[0])}, {fmt(m.STUD_X[1])} at -45/0/+45 deg from the mid-arc (6 per half)")],
      {"TOP": [((m.BLK_SCREW_X[0], -7, 31), "A", -8, 10)], "FRONT": [((m.HB_SCREW_X[1], -31, -25), "B", 8, -10)]})
 part("closure_block", "B - closure block (on C2, under A1)", "steel or 6061 (PETG stage 1)", 1,
      ["TOP", "FRONT", "RIGHT"],
@@ -187,9 +187,9 @@ part("A5_window_insert", "A5 - RF window insert (opaque)", "printed PETG/ASA or 
 part("liner_right", "liner (right half, C1 side)", "TPU 95A, printed on its seam face", 1, ["RIGHT", "TOP"],
      ["Base ring R24.85..26.85 with 24 fins (1.2 wide x 4 tall) - fins bend to grip Ø32..46 down tubes", "Left half is the mirror (liner_left)"],
      [("A", "24 fins on 15deg pitch, 1.4 x 12, leaning 30deg", ""),
-      ("B", f"4x press-fit studs Ø{fmt(m.STUD_D)} ±0.1 x {fmt(m.STUD_H)} on the outside; mate: Ø{fmt(m.STUD_HOLE_D)} +0.1/-0 x {fmt(m.STUD_HOLE_H)} blind holes in the tube wall (0.3 interference)", f"x {fmt(m.STUD_X[0])}, {fmt(m.STUD_X[1])} at 45/135deg from the seam")], {})
+      ("B", f"6x press-fit studs Ø{fmt(m.STUD_D)} ±0.1 x {fmt(m.STUD_H)} on the outside; mate: Ø{fmt(m.STUD_HOLE_D)} +0.1/-0 x {fmt(m.STUD_HOLE_H)} blind holes in the tube wall (0.3 interference)", f"x {fmt(m.STUD_X[0])}, {fmt(m.STUD_X[1])} at -45/0/+45 deg from the mid-arc (6 per half)")], {})
 part("liner_left", "liner (left half, C2 side)", "TPU 95A, printed on its seam face", 1, ["LEFT", "TOP"],
-     ["Mirror of liner_right"], [("A", "24 fins on 15deg pitch, 1.4 x 12, leaning 30deg", ""), ("B", f"4x press-fit studs Ø{fmt(m.STUD_D)} x {fmt(m.STUD_H)} - see liner_right", "")], {})
+     ["Mirror of liner_right"], [("A", "24 fins on 15deg pitch, 1.4 x 12, leaning 30deg", ""), ("B", f"6x press-fit studs Ø{fmt(m.STUD_D)} x {fmt(m.STUD_H)} - see liner_right", "")], {})
 
 # ---------------- sheet composer ----------------
 SHEET_W, SHEET_H = 420.0, 297.0   # A3 landscape, mm

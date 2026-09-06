@@ -326,7 +326,8 @@ LINER_BASE, LINER_CLR = 2.0, 0.15                     # base ring thickness / ra
 STUD_D, STUD_H, STUD_HOLE_D, STUD_HOLE_H = 4.5, 1.8, 4.2, 2.0   # TPU press-fit studs: O4.5 printed into O4.2 (+0.1/-0) blind holes,
                                                                     # 0.3 diametral interference - all the compliance is the TPU
 STUD_X = (35.0, 115.0)                                # clear of every screw row (25/40/75/100/125)
-STUD_PHI = (45.0, 135.0)                              # deg from +y toward +z, mirrored below; 28 deg from both screw rows
+STUD_PHI = (-45.0, 0.0, 45.0)                         # deg from the half's mid-arc (+y for C1): 3 per x -> 6 studs per half;
+                                                      # the mid-arc one sits between the skirt rows, the 45s are 28 deg from both rows
 
 def liner_profile(R_hi):
     """v0.8 fin sketch: base ring + FIN_N fins rooted 0.3 into the ring, leaning FIN_LEAN off radial."""
@@ -349,12 +350,11 @@ def stud_sites(pos):
     out = []
     for x in STUD_X:
         for phi in STUD_PHI:
-            for sgn in (+1, -1):
-                a = math.radians(phi) * sgn
-                uy, uz = math.cos(a), math.sin(a)
-                if not pos:
-                    uy = -uy
-                out.append((x, uy, uz))
+            a = math.radians(phi)
+            uy, uz = math.cos(a), math.sin(a)
+            if not pos:
+                uy = -uy
+            out.append((x, uy, uz))
     return out
 
 def stud_cuts(pos):
@@ -411,7 +411,7 @@ def gates():
     bad = 0
     print("[gates] interference matrix")
     n_studs = len(stud_sites(True))
-    fit_v = n_studs * math.pi / 4 * (STUD_D ** 2 - STUD_HOLE_D ** 2) * STUD_H   # designed press-fit volume per liner
+    fit_v = n_studs * math.pi / 4 * (STUD_D ** 2 - STUD_HOLE_D ** 2) * (STUD_H - LINER_CLR)   # designed press-fit volume per liner (embedded depth)
     PRESS_FIT = {("C1_chassis_half", "liner_right"): fit_v, ("C2_clamp_half", "liner_left"): fit_v}
     for i in range(len(names)):
         for j in range(i + 1, len(names)):
