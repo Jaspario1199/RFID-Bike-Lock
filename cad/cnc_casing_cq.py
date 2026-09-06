@@ -6,7 +6,7 @@ attachment), C2 = y<=0 clamp half (carries the closure block + the hinge knuckle
 
 Hinge (CNC_CASING.md 2A "How C2 goes on"): a O5 pin along x at P=(HINGE_Y, HINGE_Z), just
 below the seam on the C2 side. Knuckles on A3 (two lugs + arms) and one lug on C2's hinge
-block. C2 swings OPEN_DEG open for the frame to drop into C1, swings shut, and the single
+block. C2 swings OPEN_DEG open (stop = the puck top) for the frame to enter C1, swings shut, and the single
 guarded closure screw (under the cable head) clamps the top. Everything near the pin is
 circular about it, so the swing is clash-free by construction; the gates prove it.
 
@@ -30,7 +30,8 @@ LUG_R = LUG_D / 2
 HX0, HX1 = 58.0, 98.0            # knuckle zone (centred under the closure block)
 A3_LUGS = [(HX0, HX0 + 8.0), (HX1 - 8.0, HX1)]   # A3's two lugs
 C2_LUG = (HX0 + 8.3, HX1 - 8.3)                  # C2's lug between them (0.3 end float)
-OPEN_DEG = 90.0                  # swing the gates prove
+OPEN_DEG = 60.0                  # swing the gates prove (mouth = 65 mm for a O46 frame; C2 sweeps nothing below z -50)
+                                 # the STOP is the puck top: the hinge block lands on it a few degrees past OPEN_DEG
 LIP_X, LIP_R = 2.0, 25.5         # rear liner lip: x L-2..L, inward to r25.5
 
 # ---------------- attachment fastening (M3 low-head cap, inside-out) ----------------
@@ -82,7 +83,7 @@ HB_Z0 = HINGE_Z                  # body bottom = pin height: nothing of C2 sits 
 HB_SCREW_X, HB_SCREW_Y = (LATCH_X - 12.0, LATCH_X + 12.0), -11.9   # 2x M3 from inside C2, vertical
 
 # ---------------- bottom box A3 (spool cartridge, top-loaded) ----------------
-SX0, SX1 = 40.0, 100.0           # A3 cradle footprint x (60)
+SX0, SX1 = 34.0, 106.0           # A3 cradle footprint x (72): its ends carry the chassis screws outside the centred pocket
 A3_Y0 = 0.5                      # A3 body sits wholly on the C1 side; only its knuckle lugs + arms reach over
 ARM_Y0 = HINGE_Y                 # lug arm: from the pin centre to the body, top at -RELIEF3_R
 A3_CROWN_Y = 10.0                # A3's crown row sits at y=10 (clear of the pin zone y -8.5..2.5)
@@ -91,16 +92,19 @@ SPOOL_W = 24.0                   # cartridge width (6 wraps/layer): 2 layers = 1
 POCKET_D = SPOOL_CORE + 4 * CABLE_D + 3.0   # 51: 2 cable layers + clearance
 PUCK_WALL = 5.5                  # round puck wall (thick enough to carry the cover screws in it)
 PUCK_R = POCKET_D / 2 + PUCK_WALL            # 31 -> O62 puck
-CRADLE_Y1, CRADLE_Z0 = 36.0, -44.0           # saddle cradle along the tube: carries the chassis screws + hinge lugs
+CRADLE_Y1, CRADLE_Z0 = 44.0, -44.0           # saddle cradle along the tube: chassis screws, hinge lugs, skirt rib
 SKIRT_Y1 = 44.0                  # A3 skirt is a 12 mm rib (y 32..44), not the full box width
-POCKET_CY = HINGE_Y + LUG_R + BWALL + POCKET_D / 2   # 33: pocket starts BWALL past the lug zone
+POCKET_CY = 0.0                  # centred under the tube
 PX = (SX0 + SX1) / 2             # puck axis x
 PY1 = POCKET_CY + PUCK_R         # 64: outermost point of the puck
 COVER_T = 3.0                    # bottom cover plate (power spring lives INSIDE the O40 hub, as in every retractable reel)
-POCKET_TOP = -36.0               # pocket ceiling: below the saddle's lowest point (-32) minus a 4mm floor
+STOP_Z = -51.5                   # puck top on the C2 side = the swing STOP: 1.4 mm under everything C2 sweeps in a
+                                 # 60 deg swing (-50.1); C2 lands on it at 64 deg (gated)
+POCKET_TOP = STOP_Z - 2.5        # -54: pocket ceiling (2.5 mm wall under the stop face), so the puck sits CENTRED
+                                 # under the tube (owner) instead of off to the C1 side
 SZ_BOT = POCKET_TOP - SPOOL_W - 3.0   # -64: box bottom face
 EXIT_D = 7.0                     # bushed cable exit, tangential, out the -x end wall along -x
-A3_SCREW_X = (SX0 + 5.0, SX1 - 5.0)   # 45/95: in the cradle corners, 8 mm outside the pocket circle; C1's bottom rows match
+A3_SCREW_X = (SX0 + 6.0, SX1 - 6.0)   # 40/100: in the cradle ends, outside the centred pocket circle; C1's bottom rows match
 COVER_SCREWS = [(PX + (POCKET_D / 2 + 2.75) * math.cos(math.radians(a)), POCKET_CY + (POCKET_D / 2 + 2.75) * math.sin(math.radians(a)))
                 for a in (45, 135, 225, 315)]   # 4 in the puck wall
 
@@ -253,8 +257,11 @@ def build_bottom_box():
     O7 bushed exit, so even with the spool removed the locked loop cannot be freed."""
     cradle = xbox(SX0, SX1, A3_Y0, CRADLE_Y1, CRADLE_Z0, -20.0)
     skirt = xbox(SX0, SX1, SKIRT_Y0, SKIRT_Y1, -20.0, -SKIRT_Z0)
-    puck = cq.Workplane("XY", origin=(PX, POCKET_CY, SZ_BOT)).circle(PUCK_R).extrude(-20.0 - SZ_BOT)
-    b = cradle.union(skirt).union(puck).cut(cyl_x(SADDLE_R, -1, L + 1))
+    # puck: full round up to the pocket ceiling wall (its flat top is the C2 swing stop); on the
+    # C1 side it keeps rising into the cradle / saddle
+    puck = cq.Workplane("XY", origin=(PX, POCKET_CY, SZ_BOT)).circle(PUCK_R).extrude(STOP_Z - SZ_BOT)
+    puck_hi = cq.Workplane("XY", origin=(PX, POCKET_CY, SZ_BOT)).circle(PUCK_R).extrude(-20.0 - SZ_BOT).intersect(yslab(A3_Y0, 200))
+    b = cradle.union(skirt).union(puck).union(puck_hi).cut(cyl_x(SADDLE_R, -1, L + 1))
     b = b.cut(cyl_x(RELIEF3_R, -1, L + 1).intersect(yslab(-200, RELIEF_Y)))
     # knuckle lugs: O11 round the pin + an arm back to the cradle (top at -RELIEF3_R, under C2)
     for (lx0, lx1) in A3_LUGS:
@@ -410,23 +417,42 @@ def gates():
                 if v > 0.05:
                     print(f"  swing {deg:5.1f}deg: {mv} x {fx} {v:.2f} mm^3")
     print(f"[gates] C2 swing 0-{OPEN_DEG:.0f}deg about the pin: max overlap {worst:.2f} mm^3 {'PASS' if worst <= 0.05 else 'FAIL'}")
+    # hinge stop (informational): first angle past OPEN_DEG at which C2's hardware lands on A3
+    for deg in range(int(OPEN_DEG) + 1, int(OPEN_DEG) + 25):
+        hit = None
+        for mv in movers:
+            m = solids[mv].rotate(P0, P1, deg)
+            v = sum(x.Volume() for x in cq.Workplane(obj=m).intersect(cq.Workplane(obj=solids["A3_bottom_box"])).solids().vals())
+            if v > 0.05:
+                hit = mv; break
+        if hit:
+            print(f"[gates] hinge stop: {hit} lands on A3 at {deg} deg (info)"); break
     # frame-entry gate: with C2 at OPEN_DEG, a O46 down tube (the biggest the liner covers)
-    # must slide sideways into C1's half-bore without touching the open C2 or anything on C1
+    # must pass through the MOUTH between C1's rim and C2's swung rim into C1's half-bore.
+    # The path is a straight slide along the mouth's bisector (from the origin toward the
+    # midpoint of the two rims), which is how a person offers the open clamshell to a tube.
+    th = math.radians(OPEN_DEG)
+    c2rim = (HINGE_Y + (0 - HINGE_Y) * math.cos(th) - (R_I - HINGE_Z) * math.sin(th),
+             HINGE_Z + (0 - HINGE_Y) * math.sin(th) + (R_I - HINGE_Z) * math.cos(th))
+    mid = ((0 + c2rim[0]) / 2, (R_I + c2rim[1]) / 2)
+    n = math.hypot(*mid); d = (mid[0] / n, mid[1] / n)
+    mouth = math.hypot(c2rim[0] - 0, c2rim[1] - R_I)
+    print(f"  mouth at {OPEN_DEG:.0f} deg: {mouth:.1f} mm between rims (O46 needs > 46); entry direction ({d[0]:.2f}, {d[1]:.2f})")
     frame_ok = True
     fworst = 0.0
-    for dy in (-70, -60, -50, -40, -30, -20, -10, -5, 0):
-        fr = cq.Workplane("YZ", origin=(-5, dy, 0)).circle(23.0).extrude(L + 10).val()
-        for n in movers:
-            v = sum(x.Volume() for x in cq.Workplane(obj=rot[(OPEN_DEG, n)]).intersect(cq.Workplane(obj=fr)).solids().vals())
+    for t in (80, 70, 60, 50, 40, 30, 20, 12, 6, 0):
+        fr = cq.Workplane("YZ", origin=(-5, t * d[0], t * d[1])).circle(23.0).extrude(L + 10).val()
+        for nme in movers:
+            v = sum(x.Volume() for x in cq.Workplane(obj=rot[(OPEN_DEG, nme)]).intersect(cq.Workplane(obj=fr)).solids().vals())
             fworst = max(fworst, v)
             if v > 0.05:
-                frame_ok = False; print(f"  frame entry dy={dy}: O46 tube x {n} {v:.1f} mm^3")
-        for n in ("C1_chassis_half", "A1_top_box", "A3_bottom_box"):
-            v = sum(x.Volume() for x in cq.Workplane(obj=solids[n]).intersect(cq.Workplane(obj=fr)).solids().vals())
+                frame_ok = False; print(f"  frame entry t={t}: O46 tube x {nme} {v:.1f} mm^3")
+        for nme in ("C1_chassis_half", "A1_top_box", "A3_bottom_box"):
+            v = sum(x.Volume() for x in cq.Workplane(obj=solids[nme]).intersect(cq.Workplane(obj=fr)).solids().vals())
             fworst = max(fworst, v)
             if v > 0.05:
-                frame_ok = False; print(f"  frame entry dy={dy}: O46 tube x {n} {v:.1f} mm^3")
-    print(f"[gates] O46 frame enters C1 with C2 open {OPEN_DEG:.0f}deg: max overlap {fworst:.2f} mm^3 {'PASS' if frame_ok else 'FAIL'}")
+                frame_ok = False; print(f"  frame entry t={t}: O46 tube x {nme} {v:.1f} mm^3")
+    print(f"[gates] O46 frame enters C1 through the mouth with C2 open {OPEN_DEG:.0f}deg: max overlap {fworst:.2f} mm^3 {'PASS' if frame_ok else 'FAIL'}")
     # retention gate: C2 home; pulling it 2 mm in -y MUST be stopped by the pin (hinge block
     # overlaps it) and the closure block MUST seat on the A1 roof (0.2 mm lift overlaps)
     cap = True

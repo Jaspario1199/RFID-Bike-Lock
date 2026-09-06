@@ -24,4 +24,4 @@ module c2side(dy = 0, d = dir) {
 }
 if (view == "iso" || view == "end" || view == "section") { c1side(0); c2side(); }
 if (view == "exploded") { c1side(22); c2side(-30); }
-if (view == "open") { c1side(0); c2side(0, "open/"); color("#9BB7A0", 0.9) rotate([0, 90, 0]) translate([0, -60, -5]) cylinder(h = 160, d = 46, $fn = 96); }
+if (view == "open") { c1side(0); c2side(0, "open/"); color("#9BB7A0", 0.9) translate([-5, -44.6, 17.8]) rotate([0, 90, 0]) cylinder(h = 160, d = 46, $fn = 96); }

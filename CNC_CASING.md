@@ -55,15 +55,21 @@ install). Rev 3 is a real hinge, placed by geometry rather than habit:
   near the pin can ever touch during a swing.
 - **Why the pin is on the C2 side:** every non-round point of C2's hardware then has
   y ≤ pin-y, and rotation about the pin can only move those points *away* from C1's side.
-  The spool box body sits entirely at y ≥ +0.5, so a **90° swing never enters it** — the
-  problem that killed the tongue hinge is gone by construction, not by clearance.
+  The cradle sits at y ≥ +0.5, so the swing never enters it — the problem that killed the
+  tongue hinge is gone by construction, not by clearance.
+- **Why the opening is 60°, not 90° (owner: centre the puck).** With the puck centred
+  under the tube, C2 swings *over* it. Sampling the whole swing envelope: up to 60° nothing
+  on C2 dips below z −50.1 anywhere under the seam; at 90° the tube itself would sweep to
+  z −66. 60° gives a 65 mm mouth between the rims — a Ø46 down tube needs 46 — and the
+  frame enters along the mouth's bisector (gated). The **stop is the puck's flat top** at
+  z −51.5: the tube lands on it at 64° (gated). No extra part.
 - **Why the pin is 1 mm past the seam and not further:** the closure block's +y face is
   at y −1; with the pin at y −1 no point of the block rises as the swing starts (a point
   at +y of the pin arcs *up* first), so the block leaves the A1 roof cleanly.
 - **Rim swell:** because the pin is 6 mm under the tube, C2's rim arcs *outward* during the
   first 12° of swing (r 33.57 at 11°). A1's overhang underside over C2 is relieved to R34.0.
-- **What the swing buys:** with C2 at 90° the whole clamp half lies below z −38; a Ø46
-  down tube slides sideways into C1's half-bore with 15 mm to spare (gated).
+- **What the swing buys:** with C2 at 60° a Ø46 down tube passes through the 65 mm mouth
+  into C1's half-bore along the bisector with 0.00 mm³ of contact (gated).
 - **Closure:** swing shut, the closure block enters A1's pocket through its open −y side,
   one M3 low-head down the latch bore clamps the block to the pocket roof. Liner preload
   pushing C2 away is a moment about the pin, resisted by that screw in shear (~2 kN for
@@ -74,10 +80,10 @@ install). Rev 3 is a real hinge, placed by geometry rather than habit:
   nothing can be punched *in* (already seated), and there is no pin end to grab — the
   same logic as a peened security-hinge pin, without the peening.
 
-The gates for this: `--gates` rotates C2 + both blocks about the pin at 19 angles from 1°
-to 90° against C1/A1/A2/A3/A4/pin (max overlap 0.00 mm³), slides a Ø46 cylinder from
-70 mm out into C1's bore with C2 at 90° (0.00 mm³), and proves retention (a 2 mm pull on
-C2 overlaps the pin by 221 mm³; the block seats on the roof).
+The gates for this: `--gates` rotates C2 + both blocks about the pin at 16 angles from 1°
+to 60° against C1/A1/A2/A3/A4/pin (max overlap 0.00 mm³), reports the stop angle, slides
+a Ø46 cylinder 80 mm along the mouth bisector into C1's bore with C2 at 60° (0.00 mm³),
+and proves retention (a 2 mm pull on C2 overlaps the pin by 221 mm³; the block seats).
 
 ### The problems this concept has to solve — and the answers
 1. **Where does the self-guarding closure screw go?** Vertical parting plane, top box
@@ -106,12 +112,13 @@ C2 overlaps the pin by 221 mm³; the block seats on the roof).
 6. **Spool size and the puck shape (owner: "why is the lower box so bulky?").** 5 ft of
    **3 mm 7×7 wire, PVC-coated to Ø4**, on a Ø32 core (10.7× wire Ø) in a 24-wide cartridge
    = 6 wraps/layer, 2 layers (1.51 m) → outer Ø48, pocket Ø51. The power spring lives
-   INSIDE the hub as in every retractable reel. The pocket starts 3 mm past the knuckle zone
-   (y 7.5..58.5). A3 is no longer a block: a **cradle** along the tube (x 40..100, y 0.5..36,
-   down to z −44) carries the chassis screws, the hinge lugs and the cable exit, and a
-   **round Ø62 puck** (5.5 mm wall, cover screws in the wall) hangs off it around the pocket.
-   The skirt is a 12 mm rib (y 32..44), not the full box width. 85 cm³ instead of 202;
-   the puck reaches 32 mm past the tube side and 31 mm below it. Overall height 133 mm.
+   INSIDE the hub as in every retractable reel. A3 is no longer a block: a **cradle** along
+   the tube (x 34..106, y 0.5..44, down to z −44) carries the chassis screws (x 40/100),
+   the hinge lugs and the skirt rib, and a **round Ø62 puck** (5.5 mm wall, cover screws in
+   the wall) hangs **centred under the tube** (owner) — Ø62 inside the tube's Ø63.5, nothing
+   sticks out sideways. Price of centring: the pocket ceiling drops to z −54 so C2 swings
+   over the puck (its flat top at −51.5 is the hinge stop), which makes the lock 151 mm tall
+   instead of 133. On the C1 side the puck keeps rising into the cradle. 119 cm³.
 7. **RF window.** A metal lid within a few mm of the reader's antenna loop detunes it, so
    the cutout stays antenna-size (45.2 × 43 = PN532 footprint + 1). What the owner wanted
    ("nothing showing") is satisfied by the insert being **opaque** — RF does not care.
@@ -252,14 +259,14 @@ M3/M4 plates are SendCutSend-cheap.
 |---|---|---|
 | D1 | Hinge | **DECIDED: real hinge** (owner): Ø5 pin at y −1 / z −38 along the tube, knuckles on A3 + a hinge block on C2, 90° swing gated. Rev 2's slide-and-lift is retired |
 | D2 | Material | 6061-T6 now; steel variant later from the same model |
-| D3 | Spool | **DECIDED: vertical-axis printed cartridge, Ø32 core × 24 wide for Ø4 (3 mm wire) coated cable, loads from below (A4); round Ø62 puck on a cradle** |
+| D3 | Spool | **DECIDED: vertical-axis printed cartridge, Ø32 core × 24 wide for Ø4 (3 mm wire) coated cable, loads from below (A4); round Ø62 puck CENTRED under the tube, 60° hinge opening** |
 | D4 | Who machines | TAMU shop for the boxes (manual-3-axis-friendly), SendCutSend for A2/A4 plates |
 | D5 | Modeling | `cad/cnc_casing_cq.py` is the model of record until the owner's SolidWorks pass; gates listed in §9 |
 | D6 | Tube stock | **DECIDED: 2.5" × 3/16" 6061 (Ø63.5 × 4.76), line-bored Ø54** |
 | D7 | Stage 1 | **DECIDED: print everything first (PETG), pilots double as self-tap pilots; CNC-ready geometry throughout** |
 | D8 | Closure screw | **DECIDED: M3 for the printed test article** (owner); the metal production casing goes to M4 — `CLR4/TAP4` are the only constants to change |
 | D9 | Window | **DECIDED: antenna-size cutout, opaque insert** (RF needs the hole; the owner needs it opaque — both) |
-| D10 | Box orientation / height | any, as long as the latch works (owner) — current: A1 24 mm interior, 133 mm overall |
+| D10 | Box orientation / height | any, as long as the latch works (owner) — current: A1 24 mm interior, 151 mm overall (centred puck) |
 | open | Spool cartridge donor | envelope is a placeholder (Ø48 × 24) until a reel is in hand — pocket Ø/width are single constants |
 | open | Electronics placement in A1 | window zone x 20..65 (reader over battery), latch x 78, cart x 88..132, Nano/driver/TP4056/MT3608 in the +y strip — to be modeled as reference bodies next |
 | open | Top-joint shear | the closure M3 carries C2's opening moment in shear. Fine for the liner preload; if a pry test on the printed prototype worries you, the upgrade is an M4 closure screw or a Ø4 dowel beside it |
@@ -280,9 +287,9 @@ and the paired-bore alignment stack-up.
 
 `cad/cnc_casing_cq.py` builds all 12 parts (C1, C2, closure block, hinge block, hinge pin,
 A1 top box, A2 lid, A3 bottom box, A4 cover plate, A5 window insert, liner L/R) as single
-solids. `--gates`: 0 clashes, walls PASS, screw paths PASS, swing 0–90° 0.00 mm³ PASS,
-Ø46 frame entry PASS, retention PASS. STEP set in `cnc-design/step/`
+solids. `--gates`: 0 clashes, walls PASS, screw paths PASS, swing 0–60° 0.00 mm³ PASS
+(stop at 64°), Ø46 frame entry through the mouth PASS, retention PASS. STEP set in `cnc-design/step/`
 (+ `cnc_casing_assembly.step`); renders in `renders/cnc/` (`cnc_iso`, `cnc_exploded`,
 `cnc_end`, `cnc_section` = slab through the latch / closure block / hinge lug + pin,
-`cnc_open` = C2 at 90° with a Ø46 tube entering, `inspect_1..3` = 12-view inspection
+`cnc_open` = C2 at 60° with a Ø46 tube entering, `inspect_1..3` = 12-view inspection
 sheets). Placeholders: spool cartridge envelope, electronics reference bodies (see §8).
