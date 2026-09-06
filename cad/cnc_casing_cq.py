@@ -176,12 +176,12 @@ def build_c1():
     c1 = tube_half(True).union(rear_lip(True))
     c1 = c1.cut(crown_screw_cuts(+1, SCREW_X)).cut(skirt_screw_cuts(+1, SCREW_X))        # top rows -> A1
     c1 = c1.cut(crown_screw_cuts(-1, A3_SCREW_X, A3_CROWN_Y)).cut(skirt_screw_cuts(-1, A3_SCREW_X))  # bottom rows -> A3
-    return c1
+    return c1.cut(stud_cuts(True))
 
 def build_c2():
     c2 = tube_half(False).union(rear_lip(False))
     c2 = c2.cut(block_screw_cuts(BLK_SCREW_X, -7.0, +1)).cut(block_screw_cuts(HB_SCREW_X, HB_SCREW_Y, -1))
-    return c2
+    return c2.cut(stud_cuts(False))
 
 def saddle_body(x0, x1, y0, y1, z_lo, z_hi, skirt_sign, relief_r):
     """box block spanning z_lo..z_hi minus the tube saddle; +y skirt wraps the tube side."""
@@ -320,17 +320,68 @@ def build_window_insert():
     flange = cq.Workplane("XY", origin=(WIN_CX, (BY0 + BY1) / 2, ZTOP)).rect(WIN_L + 2 * INS_FLANGE, WIN_W + 2 * INS_FLANGE).extrude(INS_FL_T).edges("|Z").fillet(5.3)
     return body.union(flange)
 
+# ---------------- liner: v0.8 finned geometry + snap studs ----------------
+FIN_N, FIN_H, FIN_T, FIN_LEAN = 24, 12.0, 1.4, 30.0   # the v0.8 liner: 24 fins, 12 tall, leaning 30 deg
+LINER_BASE, LINER_CLR = 2.0, 0.15                     # base ring thickness / radial clearance to the bore
+STUD_D, STUD_H, STUD_HOLE_D, STUD_HOLE_H = 4.0, 1.8, 4.2, 2.0   # TPU snap studs into blind holes in the wall
+STUD_X = (35.0, 115.0)                                # clear of every screw row (25/40/75/100/125)
+STUD_PHI = (45.0, 135.0)                              # deg from +y toward +z, mirrored below; 28 deg from both screw rows
+
+def liner_profile(R_hi):
+    """v0.8 fin sketch: base ring + FIN_N fins rooted 0.3 into the ring, leaning FIN_LEAN off radial."""
+    sk = cq.Sketch().circle(R_hi).circle(R_hi - LINER_BASE, mode="s")
+    embed = LINER_BASE - 0.3
+    for i in range(FIN_N):
+        ang = math.radians(i * 360.0 / FIN_N + 180.0 / FIN_N)   # fins centred between the seam faces
+        lean = math.radians(180 - FIN_LEAN)
+        r0 = R_hi - 0.3
+        cx, cy = r0 * math.cos(ang), r0 * math.sin(ang)
+        ux, uy = math.cos(ang + lean), math.sin(ang + lean)
+        vx, vy = -math.sin(ang + lean), math.cos(ang + lean)
+        Lf = FIN_H + embed
+        quad = [(cx, cy), (cx + Lf * ux, cy + Lf * uy), (cx + Lf * ux + FIN_T * vx, cy + Lf * uy + FIN_T * vy), (cx + FIN_T * vx, cy + FIN_T * vy)]
+        sk = sk.polygon(quad, mode="a")
+    return sk
+
+def stud_sites(pos):
+    """(x, y, z, radial unit vector) of each stud on the half `pos` (True = y>=0)."""
+    out = []
+    for x in STUD_X:
+        for phi in STUD_PHI:
+            for sgn in (+1, -1):
+                a = math.radians(phi) * sgn
+                uy, uz = math.cos(a), math.sin(a)
+                if not pos:
+                    uy = -uy
+                out.append((x, uy, uz))
+    return out
+
+def stud_cuts(pos):
+    """blind radial holes in the tube's inner wall for the liner studs."""
+    cuts = None
+    for (x, uy, uz) in stud_sites(pos):
+        r0 = R_I - 0.5
+        c = (cq.Workplane(cq.Plane(origin=(x, uy * r0, uz * r0), xDir=(1, 0, 0), normal=(0, uy, uz)))
+             .circle(STUD_HOLE_D / 2).extrude(0.5 + STUD_HOLE_H))
+        cuts = c if cuts is None else cuts.union(c)
+    return cuts
+
 def build_liner(pos):
-    """unchanged v0.8 liner concept: base ring r24.85-26.85 + 24 fins, split at the seam."""
-    base = cyl_x(26.85, 1.0, L - LIP_X - 0.5).cut(cyl_x(24.85, 0, L))
-    fins = None
-    for i in range(24):
-        a = 2 * math.pi * i / 24 + math.pi / 24
-        f = (cq.Workplane("XY", origin=((L - LIP_X - 0.5 + 1.0) / 2, 0, 0))
-             .box(L - LIP_X - 1.5, 1.2, 4.0, centered=(True, True, False)).translate((0, 0, 21.0))
-             .rotate((0, 0, 0), (1, 0, 0), math.degrees(a)))
-        fins = f if fins is None else fins.union(f)
-    return base.union(fins).intersect(halfspace(pos))
+    """TPU liner half: v0.8 fins (24 x 12 tall x 1.4, 30 deg lean) on a 2 mm base ring, plus
+    4 snap studs on the outside that pop into blind holes in the tube wall - no glue, no
+    hardware in the bore, pull to replace. Rear lip locates it axially."""
+    R_hi = R_I - LINER_CLR
+    body = (cq.Workplane("YZ", origin=(1.0, 0, 0)).placeSketch(liner_profile(R_hi)).extrude(L - LIP_X - 1.5))
+    for (x, uy, uz) in stud_sites(pos):
+        r0 = R_hi - 0.3
+        stud = (cq.Workplane(cq.Plane(origin=(x, uy * r0, uz * r0), xDir=(1, 0, 0), normal=(0, uy, uz)))
+                .circle(STUD_D / 2).extrude(0.3 + STUD_H))
+        body = body.union(stud)
+    half = body.intersect(halfspace(pos))
+    # leaning fins next to the seam get sliced by the y=0 plane; keep the ring + rooted fins,
+    # drop the detached slivers (they belong to the other half's space)
+    best = max(half.solids().vals(), key=lambda x: x.Volume())
+    return cq.Workplane(obj=best)
 
 PARTS = {
     "C1_chassis_half": build_c1,
@@ -398,6 +449,16 @@ def gates():
         if v > 0.01:
             ok = False; print(f"  closure screw path blocked in {n}: {v:.2f}")
     print(f"[gates] screw paths (A1 crown, A3 crown, closure) {'PASS' if ok else 'FAIL'}")
+    # liner studs: each stud must land in its hole (liner x chassis is already in the clash matrix);
+    # here we check the hole is deep enough: stud tip 0.2 short of the hole floor
+    for pos, ln, ch in ((True, "liner_right", "C1_chassis_half"), (False, "liner_left", "C2_chassis_half" if False else "C2_clamp_half")):
+        for (x, uy, uz) in stud_sites(pos):
+            tip = R_I - LINER_CLR - 0.3 + 0.3 + STUD_H
+            probe = cq.Workplane(cq.Plane(origin=(x, uy * tip, uz * tip), xDir=(1, 0, 0), normal=(0, uy, uz))).circle(0.8).extrude(0.15)
+            v = sum(s.Volume() for s in cq.Workplane(obj=solids[ch]).intersect(probe).solids().vals())
+            if v > 0.01:
+                ok = False; print(f"  stud @x{x} on {ln}: hole too shallow ({v:.2f} mm^3 of wall at the tip)")
+    print(f"[gates] liner stud seats {'PASS' if ok else 'FAIL'}")
     # swing gate: C2 (+ closure block + hinge block) rotates about the pin, 0..OPEN_DEG,
     # against everything on C1. Fine steps near closed (rim swell), coarse to full open.
     movers = ("C2_clamp_half", "closure_block", "hinge_block")

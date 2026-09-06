@@ -35,7 +35,7 @@ of printing or the hinge.** The CNC casing deletes the *reasons*, not just the f
 | H | **Hinge block** | 40 × 14 × ~16, one Ø11 lug | 1 | on C2 under A3 (2× M3 from inside C2); its lug sits between A3's two lugs on the pin |
 | — | **Hinge pin** | Ø5 h6 dowel × 36 | — | steel; entered through lug 1, dead-ends in lug 2's blind bore, entry plugged |
 | — | Spool cartridge, pedestal cart, glands | printed | — | interior furniture stays plastic (hybrid) |
-| — | TPU finned liner + shim | printed TPU (unchanged) | — | slips into the smooth Ø54 bore; retained by the clamp sandwich + the rear lip |
+| — | TPU finned liner (2 halves) | printed TPU 95A | — | v0.8 fin geometry (24 fins × 12 tall × 1.4, 30° lean) on a 2 mm base ring; **4 snap studs per half** pop into Ø4.2 × 2 blind holes in the tube wall — see "Liner retention" |
 | — | Cable head | lathe (existing BOM drawing) | 1 | unchanged |
 
 Twelve pieces, but two are saw-cut tube, three are plates/inserts, two are small blocks and
@@ -125,6 +125,23 @@ and proves retention (a 2 mm pull on C2 overlaps the pin by 221 mm³; the block 
    Stage 1's PETG lid is RF-transparent anyway; the cutout exists so the machined Stage 2
    lid is a drop-in. The window sits at x 20..65; the latch bore at x 78 and the 44-long
    solenoid cart at x 88..132 follow it along the box.
+
+### Liner retention (workshop, 2026-09-06)
+The liner only has to stay put while the clamp is open (once clamped it is sandwiched
+between tube and frame). Options weighed:
+
+| Option | Retention | Bore stays clean? | Replaceable? | Machining | Verdict |
+|---|---|---|---|---|---|
+| **Screws through the liner** (inner M2.5/M3 into tapped wall holes) | strong | no — heads at r≈25 hit a Ø46 frame unless countersunk into a 2 mm TPU ring, which then creeps | yes | tapped holes in a 4.75 wall | **rejected**: hardware in the bore, TPU under screw heads relaxes, and NEVER route the structural box screws through the liner (compliant layer under a preload) |
+| **Adhesive** (CA + 770 primer, or contact cement) | strongest, full area | yes | no — scrape and re-prime | none | fine for a one-off; wrong for a wear part (fins fatigue, liners get swapped for frame sizes) |
+| **Dovetail keys** (v0.8) | strong, all directions | yes | slide out | dovetail cutter along the half-bore + click bump | works, but a 60° groove in a 4.75 wall leaves 2.75; more setups than it earns |
+| **Snap studs** (chosen) | modest, all directions | yes | pull out | 4 blind Ø4.2 × 2 drills per half from the inside — the same op as the counterbores | zero hardware, zero glue, one drill op, and it is how molded rubber liners are done |
+| Front + rear lips only | axial only | yes | snap in | one more turned lip | a half-ring slides out of a half-bore sideways; lips alone do not hold it |
+
+Studs: Ø4.0 × 1.8 on the liner's outside (print them 0.2 oversize — TPU compresses), holes
+Ø4.2 × 2.0 blind, at x 35 / 115 and 45° / 135° from the seam — 28° from either screw row,
+so nothing collides regardless of x. The gate checks every stud tip ends 0.2 short of its
+hole floor. The rear lip stays as the axial locator.
 
 ### Security consequence (a real upgrade)
 Every attachment fastener is under the clamped bike tube. DESIGN §7's honest weakness —
@@ -269,6 +286,7 @@ M3/M4 plates are SendCutSend-cheap.
 | D10 | Box orientation / height | any, as long as the latch works (owner) — current: A1 24 mm interior, 151 mm overall (centred puck) |
 | open | Spool cartridge donor | envelope is a placeholder (Ø48 × 24) until a reel is in hand — pocket Ø/width are single constants |
 | open | Electronics placement in A1 | window zone x 20..65 (reader over battery), latch x 78, cart x 88..132, Nano/driver/TP4056/MT3608 in the +y strip — to be modeled as reference bodies next |
+| D11 | Liner retention | **DECIDED (pending owner OK): snap studs into blind wall holes; fins back to the v0.8 geometry (24 × 12 × 1.4, 30° lean)** |
 | open | Top-joint shear | the closure M3 carries C2's opening moment in shear. Fine for the liner preload; if a pry test on the printed prototype worries you, the upgrade is an M4 closure screw or a Ø4 dowel beside it |
 
 ## 9. What verification looks like in this era
