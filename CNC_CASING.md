@@ -29,8 +29,8 @@ of printing or the hinge.** The CNC casing deletes the *reasons*, not just the f
 | A1 | **Top box** (latch + electronics) | small 6061 billet | 2 (pocket side, latch side) | Ø11 receiver bore + Ø6.6 plunger channel, electronics cavity 124 × 44 × 24, tapped holes for lid + chassis screws, closure-block pocket under its −y overhang |
 | A2 | **Lid plate** | 5 mm plate | 2 (through features; underside recess for the insert) | RF window through-cutout, button, LEDs, 4 corner screws |
 | A5 | **Window insert** | opaque printed / PC | — | fills the cutout flush; its flange sits in the lid's underside recess and the box wall clamps it (RTV bead) |
-| A3 | **Bottom box** (spool + hinge knuckles) | small billet | 3 (pocket side, bottom, knuckle side) | Ø63 vertical-axis pocket for the spool cartridge, **steel-bushed cable exit**, **two Ø11 hinge lugs** on its seam face with the blind pin bore |
-| A4 | **Bottom cover plate** | 3 mm plate | 1 | closes the spool pocket (cartridge + power spring load from below) — external screws, but see "Security" |
+| A3 | **Spool puck + cradle** (spool + hinge knuckles) | small billet | 3 (pocket side, bottom, knuckle side) | a saddle cradle along the tube (chassis screws, hinge lugs) with a round **Ø62 puck** hanging off it: Ø51 vertical-axis pocket for the spool cartridge, **steel-bushed cable exit**, **two Ø11 hinge lugs** with the blind pin bore |
+| A4 | **Puck cover** | Ø62 × 3 mm disc | 1 | closes the spool pocket (cartridge + power spring load from below), 4× M3 in the puck wall — external screws, but see "Security" |
 | B | **Closure block** | 20 × 12 × ~7.5 steel/6061 | 1 | on C2 under A1 (2× M3 from inside C2); tapped for the closure screw |
 | H | **Hinge block** | 40 × 14 × ~16, one Ø11 lug | 1 | on C2 under A3 (2× M3 from inside C2); its lug sits between A3's two lugs on the pin |
 | — | **Hinge pin** | Ø5 h6 dowel × 36 | — | steel; entered through lug 1, dead-ends in lug 2's blind bore, entry plugged |
@@ -103,12 +103,15 @@ C2 overlaps the pin by 221 mm³; the block seats on the roof).
    that is *not* a security hole: the cable's inner end carries a swaged ball stop bigger
    than the Ø7 bushed exit, so with the spool removed the locked loop still cannot be freed.
    The hinge pin is not reachable from the pocket either (its bore never enters it).
-6. **Spool size.** 5 ft of Ø5 coated cable on a Ø40 core (10× rope Ø) in a 25-wide
-   cartridge = 5 wraps/layer, 2 layers (1.57 m) → outer Ø60, pocket Ø63. The power spring
-   lives INSIDE the Ø40 hub as in every retractable reel, so the box is only 28 tall below
-   the saddle floor. The pocket starts 3 mm past the knuckle zone (y 5.5..68.5), so A3 is
-   lopsided toward +y: footprint x 30..110, y 0.5..71.5 plus the lugs. Overall lock height
-   134 mm (lid top to cover bottom).
+6. **Spool size and the puck shape (owner: "why is the lower box so bulky?").** 5 ft of
+   **3 mm 7×7 wire, PVC-coated to Ø4**, on a Ø32 core (10.7× wire Ø) in a 24-wide cartridge
+   = 6 wraps/layer, 2 layers (1.51 m) → outer Ø48, pocket Ø51. The power spring lives
+   INSIDE the hub as in every retractable reel. The pocket starts 3 mm past the knuckle zone
+   (y 7.5..58.5). A3 is no longer a block: a **cradle** along the tube (x 40..100, y 0.5..36,
+   down to z −44) carries the chassis screws, the hinge lugs and the cable exit, and a
+   **round Ø62 puck** (5.5 mm wall, cover screws in the wall) hangs off it around the pocket.
+   The skirt is a 12 mm rib (y 32..44), not the full box width. 85 cm³ instead of 202;
+   the puck reaches 32 mm past the tube side and 31 mm below it. Overall height 133 mm.
 7. **RF window.** A metal lid within a few mm of the reader's antenna loop detunes it, so
    the cutout stays antenna-size (45.2 × 43 = PN532 footprint + 1). What the owner wanted
    ("nothing showing") is satisfied by the insert being **opaque** — RF does not care.
@@ -249,15 +252,15 @@ M3/M4 plates are SendCutSend-cheap.
 |---|---|---|
 | D1 | Hinge | **DECIDED: real hinge** (owner): Ø5 pin at y −1 / z −38 along the tube, knuckles on A3 + a hinge block on C2, 90° swing gated. Rev 2's slide-and-lift is retired |
 | D2 | Material | 6061-T6 now; steel variant later from the same model |
-| D3 | Spool | **DECIDED: vertical-axis printed cartridge, Ø40 core, 25 wide, loads from below (A4)** |
+| D3 | Spool | **DECIDED: vertical-axis printed cartridge, Ø32 core × 24 wide for Ø4 (3 mm wire) coated cable, loads from below (A4); round Ø62 puck on a cradle** |
 | D4 | Who machines | TAMU shop for the boxes (manual-3-axis-friendly), SendCutSend for A2/A4 plates |
 | D5 | Modeling | `cad/cnc_casing_cq.py` is the model of record until the owner's SolidWorks pass; gates listed in §9 |
 | D6 | Tube stock | **DECIDED: 2.5" × 3/16" 6061 (Ø63.5 × 4.76), line-bored Ø54** |
 | D7 | Stage 1 | **DECIDED: print everything first (PETG), pilots double as self-tap pilots; CNC-ready geometry throughout** |
-| D8 | Closure screw | **DECIDED: M3** (owner) — threads the steel block, M3×8 low-head |
+| D8 | Closure screw | **DECIDED: M3 for the printed test article** (owner); the metal production casing goes to M4 — `CLR4/TAP4` are the only constants to change |
 | D9 | Window | **DECIDED: antenna-size cutout, opaque insert** (RF needs the hole; the owner needs it opaque — both) |
-| D10 | Box orientation / height | any, as long as the latch works (owner) — current: A1 24 mm interior, 134 mm overall |
-| open | Spool cartridge donor | envelope is a placeholder (Ø60 × 25) until a reel is in hand — pocket Ø/width are single constants |
+| D10 | Box orientation / height | any, as long as the latch works (owner) — current: A1 24 mm interior, 133 mm overall |
+| open | Spool cartridge donor | envelope is a placeholder (Ø48 × 24) until a reel is in hand — pocket Ø/width are single constants |
 | open | Electronics placement in A1 | window zone x 20..65 (reader over battery), latch x 78, cart x 88..132, Nano/driver/TP4056/MT3608 in the +y strip — to be modeled as reference bodies next |
 | open | Top-joint shear | the closure M3 carries C2's opening moment in shear. Fine for the liner preload; if a pry test on the printed prototype worries you, the upgrade is an M4 closure screw or a Ø4 dowel beside it |
 
@@ -281,5 +284,5 @@ solids. `--gates`: 0 clashes, walls PASS, screw paths PASS, swing 0–90° 0.00 
 Ø46 frame entry PASS, retention PASS. STEP set in `cnc-design/step/`
 (+ `cnc_casing_assembly.step`); renders in `renders/cnc/` (`cnc_iso`, `cnc_exploded`,
 `cnc_end`, `cnc_section` = slab through the latch / closure block / hinge lug + pin,
-`cnc_open` = C2 at 90° with a Ø46 tube entering). Placeholders: spool cartridge envelope,
-electronics reference bodies (see §8).
+`cnc_open` = C2 at 90° with a Ø46 tube entering, `inspect_1..3` = 12-view inspection
+sheets). Placeholders: spool cartridge envelope, electronics reference bodies (see §8).

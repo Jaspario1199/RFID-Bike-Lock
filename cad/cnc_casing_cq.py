@@ -82,21 +82,27 @@ HB_Z0 = HINGE_Z                  # body bottom = pin height: nothing of C2 sits 
 HB_SCREW_X, HB_SCREW_Y = (LATCH_X - 12.0, LATCH_X + 12.0), -11.9   # 2x M3 from inside C2, vertical
 
 # ---------------- bottom box A3 (spool cartridge, top-loaded) ----------------
-SX0, SX1 = 30.0, 110.0           # puck box footprint x (80)
+SX0, SX1 = 40.0, 100.0           # A3 cradle footprint x (60)
 A3_Y0 = 0.5                      # A3 body sits wholly on the C1 side; only its knuckle lugs + arms reach over
 ARM_Y0 = HINGE_Y                 # lug arm: from the pin centre to the body, top at -RELIEF3_R
 A3_CROWN_Y = 10.0                # A3's crown row sits at y=10 (clear of the pin zone y -8.5..2.5)
-SPOOL_CORE, CABLE_D, CABLE_L = 40.0, 5.0, 1500.0   # O40 core = 10x rope O (7x7 bend rule); 5 ft of O5 coated cable
-SPOOL_W = 25.0                   # cartridge width (5 wraps/layer): 2 layers = 1.57 m -> outer O60
-POCKET_D = SPOOL_CORE + 4 * CABLE_D + 3.0   # 63: 2 cable layers + clearance
-POCKET_CY = HINGE_Y + LUG_R + BWALL + POCKET_D / 2   # 37: pocket starts BWALL past the lug zone
-PY1 = POCKET_CY + POCKET_D / 2 + BWALL      # 71.5
+SPOOL_CORE, CABLE_D, CABLE_L = 32.0, 4.0, 1500.0   # 3 mm 7x7 wire PVC-coated to O4 on a O32 core (10.7x wire O)
+SPOOL_W = 24.0                   # cartridge width (6 wraps/layer): 2 layers = 1.51 m -> outer O48
+POCKET_D = SPOOL_CORE + 4 * CABLE_D + 3.0   # 51: 2 cable layers + clearance
+PUCK_WALL = 5.5                  # round puck wall (thick enough to carry the cover screws in it)
+PUCK_R = POCKET_D / 2 + PUCK_WALL            # 31 -> O62 puck
+CRADLE_Y1, CRADLE_Z0 = 36.0, -44.0           # saddle cradle along the tube: carries the chassis screws + hinge lugs
+SKIRT_Y1 = 44.0                  # A3 skirt is a 12 mm rib (y 32..44), not the full box width
+POCKET_CY = HINGE_Y + LUG_R + BWALL + POCKET_D / 2   # 33: pocket starts BWALL past the lug zone
+PX = (SX0 + SX1) / 2             # puck axis x
+PY1 = POCKET_CY + PUCK_R         # 64: outermost point of the puck
 COVER_T = 3.0                    # bottom cover plate (power spring lives INSIDE the O40 hub, as in every retractable reel)
 POCKET_TOP = -36.0               # pocket ceiling: below the saddle's lowest point (-32) minus a 4mm floor
 SZ_BOT = POCKET_TOP - SPOOL_W - 3.0   # -64: box bottom face
 EXIT_D = 7.0                     # bushed cable exit, tangential, out the -x end wall along -x
-A3_SCREW_X = (SX0 + 5.0, SX1 - 5.0)   # 35/115: outside the pocket circle and the K chamber; C1's bottom rows match
-COVER_SCREWS = [(SX0 + 5, A3_Y0 + 5), (SX0 + 5, PY1 - 5), (SX1 - 5, A3_Y0 + 5), (SX1 - 5, PY1 - 5)]
+A3_SCREW_X = (SX0 + 5.0, SX1 - 5.0)   # 45/95: in the cradle corners, 8 mm outside the pocket circle; C1's bottom rows match
+COVER_SCREWS = [(PX + (POCKET_D / 2 + 2.75) * math.cos(math.radians(a)), POCKET_CY + (POCKET_D / 2 + 2.75) * math.sin(math.radians(a)))
+                for a in (45, 135, 225, 315)]   # 4 in the puck wall
 
 pod_pocket_r = 6.0
 
@@ -239,13 +245,18 @@ def lug_cyl(x0, x1, r):
     return cq.Workplane("YZ", origin=(x0, HINGE_Y, HINGE_Z)).circle(r).extrude(x1 - x0)
 
 def build_bottom_box():
-    """Vertical-axis spool puck (owner Q2) on the C1 side, plus the hinge's two knuckle lugs.
-    Cartridge + power spring load from BELOW; a flat cover plate closes it. The cover's
-    external screws are NOT a security hole: the cable's inner end carries a swaged ball stop
-    larger than the O7 bushed exit, so even with the spool removed the locked loop cannot be
-    freed (see CNC_CASING 2A)."""
-    b = saddle_body(SX0, SX1, A3_Y0, PY1, SZ_BOT, -20.0, -1, RELIEF3_R)
-    # knuckle lugs: O11 round the pin + an arm back to the body (top at -RELIEF3_R, under C2)
+    """Spool puck (owner Q2: vertical axis) on the C1 side + the hinge's two knuckle lugs.
+    Shape = a saddle CRADLE along the tube (chassis screws, hinge lugs, cable exit) with a
+    round O62 PUCK hanging off it around the spool pocket - no dead corners. The cartridge +
+    power spring load from BELOW; a round cover plate closes it. The cover's external screws
+    are NOT a security hole: the cable's inner end carries a swaged ball stop larger than the
+    O7 bushed exit, so even with the spool removed the locked loop cannot be freed."""
+    cradle = xbox(SX0, SX1, A3_Y0, CRADLE_Y1, CRADLE_Z0, -20.0)
+    skirt = xbox(SX0, SX1, SKIRT_Y0, SKIRT_Y1, -20.0, -SKIRT_Z0)
+    puck = cq.Workplane("XY", origin=(PX, POCKET_CY, SZ_BOT)).circle(PUCK_R).extrude(-20.0 - SZ_BOT)
+    b = cradle.union(skirt).union(puck).cut(cyl_x(SADDLE_R, -1, L + 1))
+    b = b.cut(cyl_x(RELIEF3_R, -1, L + 1).intersect(yslab(-200, RELIEF_Y)))
+    # knuckle lugs: O11 round the pin + an arm back to the cradle (top at -RELIEF3_R, under C2)
     for (lx0, lx1) in A3_LUGS:
         b = b.union(lug_cyl(lx0, lx1, LUG_R))
         b = b.union(xbox(lx0, lx1, ARM_Y0, A3_Y0 + 1.0, HINGE_Z - LUG_R, -RELIEF3_R))
@@ -254,18 +265,17 @@ def build_bottom_box():
     # pin bore: through lug 1 from its outer face, BLIND 2 mm short of lug 2's outer face -
     # the pin cannot be punched out; a press-fit plug hides its entry (CNC_CASING 2A)
     b = b.cut(lug_cyl(A3_LUGS[0][0] - 1, A3_LUGS[1][1] - 2.0, (HPIN_D + HPIN_CLR) / 2))
-    cx = (SX0 + SX1) / 2
-    b = b.cut(cq.Workplane("XY", origin=(cx, POCKET_CY, SZ_BOT - 1)).circle(POCKET_D / 2).extrude(POCKET_TOP - SZ_BOT + 1))
-    # tangential cable exit along -x through the -x end wall, at the pocket's -y tangent line
+    b = b.cut(cq.Workplane("XY", origin=(PX, POCKET_CY, SZ_BOT - 1)).circle(POCKET_D / 2).extrude(POCKET_TOP - SZ_BOT + 1))
+    # tangential cable exit along -x through the puck wall at the pocket's -y tangent line
     b = b.cut(cq.Workplane("YZ", origin=(SX0 - 1, POCKET_CY - POCKET_D / 2 + EXIT_D / 2 + 0.5, (POCKET_TOP + SZ_BOT) / 2))
-              .circle(EXIT_D / 2).extrude(BWALL + 4))
-    # cover-plate tapped pilots in the 4 corners (outside the round pocket)
+              .circle(EXIT_D / 2).extrude(PX - SX0))
+    # cover-plate tapped pilots in the puck wall
     for (sx, sy) in COVER_SCREWS:
         b = b.cut(cq.Workplane("XY", origin=(sx, sy, SZ_BOT - 1)).circle(TAP3 / 2).extrude(7))
     # chassis screws: 2 crown (vertical, from inside C1's bottom, y=A3_CROWN_Y) + 2 skirt (horizontal)
     for x in A3_SCREW_X:
         b = b.cut(cq.Workplane("XY", origin=(x, A3_CROWN_Y, -25)).circle(TAP3 / 2).extrude(-(-20 - (-25) - 1.5) - 8))
-        b = b.cut(cq.Workplane("XZ", origin=(x, 30, -SKIRT_Z)).circle(TAP3 / 2).extrude(-(PY1 - 1.5 - 30)))
+        b = b.cut(cq.Workplane("XZ", origin=(x, 30, -SKIRT_Z)).circle(TAP3 / 2).extrude(-(SKIRT_Y1 - 1.5 - 30)))
     return b
 
 def build_hinge_block():
@@ -286,8 +296,7 @@ def build_hinge_pin():
     return lug_cyl(A3_LUGS[0][0] + 2.0, A3_LUGS[1][1] - 2.0, HPIN_D / 2)
 
 def build_cover_plate():
-    p = cq.Workplane("XY", origin=((SX0 + SX1) / 2, (A3_Y0 + PY1) / 2, SZ_BOT - COVER_T)).box(SX1 - SX0, PY1 - A3_Y0, COVER_T, centered=(True, True, False))
-    p = p.edges("|Z").fillet(CORNER_R)
+    p = cq.Workplane("XY", origin=(PX, POCKET_CY, SZ_BOT - COVER_T)).circle(PUCK_R).extrude(COVER_T)
     for (sx, sy) in COVER_SCREWS:
         p = p.cut(cq.Workplane("XY", origin=(sx, sy, SZ_BOT - COVER_T - 1)).circle(CLR3 / 2).extrude(COVER_T + 2))
         cs = (cq.Workplane("XY", origin=(sx, sy, SZ_BOT - COVER_T - 0.01)).circle(3.2)
