@@ -5,3 +5,6 @@ __pycache__/
 step/
 stl/
 cnc-design/stl/
+
+# the CNC lineage STEP set IS a deliverable (the printed lineage lives in newest-design/)
+!cnc-design/step/

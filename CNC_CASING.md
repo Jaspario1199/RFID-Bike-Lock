@@ -25,26 +25,52 @@ of printing or the hinge.** The CNC casing deletes the *reasons*, not just the f
 ### The parts
 | # | Part | Stock / process | Setups | What it carries |
 |---|---|---|---|---|
-| C1, C2 | **Tube halves** (left / right, **vertical parting plane**) | **2.5" OD × 3/16" wall 6061 tube (Ø63.5 × 4.76 → ID ≈54)**, saw-cut 150, split lengthwise, pair line-bored to Ø54.0 | 1–2 each: drill + inside-COUNTERBORE the attachment holes (vertical crown row y=+6 + horizontal skirt row z=±8), mill the bottom-seam hook tongue/groove + rear liner lip; C2 gets the 2 closure-block holes | The clamp. Nothing precise lives here |
-| A1 | **Top box** (latch + electronics) | small 6061 billet | 2 (pocket side, latch side) | Ø11 receiver bore + Ø6.5H7 plunger channel (reamed), solenoid + driver + Nano cavity, tapped holes for lid + chassis screws |
-| A2 | **Lid plate** | 5 mm plate | 1–2 | RF window cutout + bezel step for the insert, button, LEDs, O-ring groove |
-| A3 | **Bottom box** (spool) | small billet or plate box | 2 | pocket for the printed spool cartridge, **steel-bushed cable exit** (the one attacker-reachable hole) |
-| ~~A4~~ | ~~Bottom cover plate~~ | — | — | **deleted** — the spool box is top-loaded (see problem 5) |
-| — | RF window insert | polycarbonate / printed | — | seats in A2's bezel step (v0.7 lid already modeled this seat) |
+| C1, C2 | **Tube halves** (left / right, **vertical parting plane**) | **2.5" OD × 3/16" wall 6061 tube (Ø63.5 × 4.76 → ID ≈54)**, saw-cut 150, split lengthwise, pair line-bored to Ø54.0 | 1–2 each: drill + inside-COUNTERBORE the attachment holes (vertical crown row y=+6 + horizontal skirt row z=±8), mill the rear liner lip. C1 gets the A1 rows (x 25/75/125) + A3 rows (x 35/115); C2 gets 2+2 holes for its two blocks | The clamp. Nothing precise lives here — **no hook, no tongue, no hinge is cut into the tube** |
+| A1 | **Top box** (latch + electronics) | small 6061 billet | 2 (pocket side, latch side) | Ø11 receiver bore + Ø6.6 plunger channel, electronics cavity 124 × 47 × 24, tapped holes for lid + chassis screws, **the top hook pocket + lip** under its −y overhang |
+| A2 | **Lid plate** | 5 mm plate | 1 | RF window through-cutout (no bezel step), button, LEDs, 4 corner screws |
+| A5 | **Window insert** | opaque printed / PC | — | fills the cutout flush; flange sits UNDER the lid, fitted from inside with an RTV bead |
+| A3 | **Bottom box** (spool) | small billet | 2 | Ø63 vertical-axis pocket for the spool cartridge, **steel-bushed cable exit**, **the bottom hook lip + chamber** on its seam face |
+| A4 | **Bottom cover plate** | 3 mm plate | 1 | closes the spool pocket (cartridge + power spring load from below) — external screws, but see "Security" |
+| B | **Closure block** | 20 × 12 × ~7.5 steel/6061 | 1 | on C2 under A1 (2× M3 from inside C2); tapped for the closure screw; **it is the top hook** |
+| K | **K hook block** | 40 × 17 × 16.5, J-profile | 1 | on C2 under A3 (2× M3 from inside C2); its upturned toe is **the bottom hook** |
 | — | Spool cartridge, pedestal cart, glands | printed | — | interior furniture stays plastic (hybrid) |
-| — | TPU finned liner + shim | printed TPU (unchanged) | — | slips into the smooth Ø54 bore; retained by the clamp sandwich + an end lip (dovetail keys deleted) |
+| — | TPU finned liner + shim | printed TPU (unchanged) | — | slips into the smooth Ø54 bore; retained by the clamp sandwich + the rear lip |
 | — | Cable head | lathe (existing BOM drawing) | 1 | unchanged |
 
-Six machined pieces, but two are saw-cut tube and two are flat plates — **the real
-machining is two small boxes.**
+Eleven pieces, but two are saw-cut tube, three are flat plates/inserts and two are small
+blocks — **the real machining is two small boxes.**
 
-### The three problems this concept has to solve — and the answers
+### How C2 goes on (the decision the swing gate forced)
+The first model hinged C2 on a bottom-seam tongue and swung it shut. The `--gates` swing
+check killed that: C2's lower quadrant sweeps **down** as it rotates, straight into any
+spool box under the seam, and a real install would need ~100° of swing with the frame
+already in C1 (the C2 rim has to clear a Ø46 down tube). A prismatic tongue in a 0.15 mm
+groove can't rotate 10° anyway. So C2 does not rotate at all:
+
+1. **Slide.** C2 (closure block + K block already screwed on from inside, liner in) comes
+   at the seam **sideways (+y), sitting 2.5 mm LOW**. Its rims pass a Ø46 tube with 1 mm
+   to spare. The closure block slides under A1's lip; K's foot slides under A3's lip into a
+   chamber. The seam faces meet.
+2. **Lift.** The consumer drives the ONE closure screw down the latch bore into the block.
+   Its tension **lifts C2 2.5 mm**: the block rises behind A1's lip (2.0 mm engagement) and
+   K's upturned toe rises behind A3's lip (2.2 mm engagement) until the block seats on the
+   pocket roof.
+3. Done. Liner preload pushes C2 in −y — that load goes into the two lips **in shear**
+   (aluminum, 20 and 40 mm long), not into the screw. The screw only sees its own
+   preload. Pull C2 away by hand and both hooks stop it (gated: 68 / 150 mm³ of overlap on a
+   2 mm pull).
+
+The install gate replaces the swing gate: C2 + both blocks are stepped along the slide
+(40 → 0 mm, 2.5 low) and up the lift (2.5 → 0) against C1, A1, A2, A3, A4 — 0.00 mm³ at
+every station. A1's overhang underside is a cylinder near the seam (R32.25) and FLAT at
+z 29.75 outboard so the lowered C2 fits under it; A3's is relieved to R34.75 over the same
+reason. Hook clearances are 0.3 mm; the visible seam gap is that 0.3 mm.
+
+### The problems this concept has to solve — and the answers
 1. **Where does the self-guarding closure screw go?** Vertical parting plane, top box
-   straddling the seam. A1 bolts inside-out to C1; A1's latch bore sits over the seam;
-   the consumer screw (M4 now — it threads a steel block, not plastic) goes down the bore,
-   through A1's floor, into the **closure block bolted to C2 from inside** under the box.
-   Locked head covers it — unchanged security logic. Clamp preload from the bottom hook
-   (problem 4).
+   straddling the seam. A1 bolts inside-out to C1; A1's latch bore sits over the seam; the
+   consumer screw (**M3 low-head, owner's call — it threads the steel block**) goes down the
+   bore, through A1's 1.5 mm floor, into the closure block on C2. Locked head covers it.
 2. **Round chassis meets flat box.** NOT flat lands — a 50-wide flat on a Ø63.5 tube is
    12 mm deep (through the wall). Instead the box underside is a **concave saddle**
    (R31.75 + 0.25) and its +y wall continues as a **skirt** down the tube's side — one CAM
@@ -54,33 +80,52 @@ machining is two small boxes.**
    a **vertical crown row (y=+6)** and a **horizontal skirt row (z=±8)**, M3 low-head cap
    screws in **Ø6.2 counterbores cut from INSIDE the bore** (a counterbore seats square on a
    curved wall; a countersink would not). Wall left under the floors: 7.3 / 2.8 mm (gated).
-   The liner rides a bore with six small recesses — nothing protrudes.
-4. **Clamping without the hinge (and without tie bolts).** The **bottom seam is a
-   tongue-and-groove hook** (C1 tongue r28–30.5 × 3 mm crosses the seam into a C2 groove —
-   a straight axial mill pass on each half): hook the bottom, swing the top shut, ONE M4
-   closure screw down the latch bore into the **closure block** (a small steel block bolted
-   to C2 from inside, sitting in a pocket under the box's overhang). Exactly the original
-   single-consumer-screw intent; the 2× M5 idea is dropped.
-5. **Spool box is top-loaded, so it has no external cover.** The Ø62 cartridge pocket opens
-   toward the saddle; the cartridge drops in before the box is bolted under the tube, and
-   the clamped bike tube then seals it. Zero attacker-reachable screws anywhere except the
-   covered closure screw and the bushed cable exit.
+   The liner rides a bore with ten small recesses — nothing protrudes.
+4. **Clamping without a hinge and without tie bolts.** Tie bolts across the bottom seam
+   would have to be driven from outside (attacker-reachable) or from inside the bore before
+   the frame is in (impossible for the half that goes on last). So: **two hooks + one
+   guarded screw**, engaged by the slide-and-lift above. Both hooks are plain milled
+   rectangles: A1's pocket + lip is a slot cut from the box underside; A3's chamber is a
+   5.2-wide slot cut up from the bottom face (A4 covers it) plus a mouth under the lip.
+5. **Spool box loads from below, closed by A4.** The cartridge drops into the Ø63 pocket
+   from the bottom face and a 3 mm plate closes it. A4's four screws are external — and
+   that is *not* a security hole: the cable's inner end carries a swaged ball stop bigger
+   than the Ø7 bushed exit, so with the spool removed the locked loop still cannot be freed.
+   (Top-loading was dropped: the pocket would have had to open through the saddle, exactly
+   where the hook chamber and the chassis screws live.)
+6. **Spool size.** 5 ft of Ø5 coated cable on a Ø40 core (10× rope Ø) in a 25-wide
+   cartridge = 5 wraps/layer, 2 layers (1.57 m) → outer Ø60, pocket Ø63. The power spring
+   lives INSIDE the Ø40 hub as in every retractable reel, so the box is only 28 tall below
+   the saddle floor. The pocket sits at y 7..70 (it must clear the hook chamber at the
+   seam), so A3 is lopsided toward +y: footprint x 30..120, y −4..73. Overall lock height
+   134 mm (lid top to cover bottom).
+7. **RF window.** A metal lid within a few mm of the reader's antenna loop detunes it, so
+   the cutout stays antenna-size (45.2 × 43 = PN532 footprint + 1). What the owner wanted
+   ("nothing showing") is satisfied by the insert being **opaque** — RF does not care.
+   Stage 1's PETG lid is RF-transparent anyway; the cutout exists so the machined Stage 2
+   lid is a drop-in. The window sits at x 20..65; the latch bore at x 78 and the 44-long
+   solenoid cart at x 88..132 follow it along the box.
 
 ### Security consequence (a real upgrade)
 Every attachment fastener is under the clamped bike tube. DESIGN §7's honest weakness —
 "four service joints reachable on the locked bike" — is structurally gone. Only the
-closure screw (covered by the cable head) and the bushed cable exit face the attacker.
+closure screw (covered by the cable head), the bushed cable exit and the A4 cover (harmless
+because of the ball stop) face the attacker.
 
 ### Staged path (why this concept also wins on schedule)
 The tube halves are the parts that NEED metal (clamp strength, anti-cut); the boxes are
-what printers do best. **Stage 1: aluminum halves + PETG-printed boxes** using the same
-inside-out bolt pattern — a metal-where-it-matters prototype months early. **Stage 2:**
-machine A1/A3 as drop-in swaps; the chassis and hole patterns never change.
+what printers do best. **Stage 1: everything printed in PETG** — the model's Ø2.5 tapped
+pilots double as PETG self-tap pilots for M3, and every part has a flat print face (boxes
+on their lids/covers, halves on their seam faces, blocks on their tops). **Stage 1b:
+aluminum tube halves + printed boxes.** **Stage 2:** machine A1/A3 as drop-in swaps; the
+chassis and hole patterns never change.
 
 ### Assembly
-Bench: liner-free halves → bolt A1 + A3 to C1 from inside (M3 flat, flush) → load
-electronics into A1, spool cartridge into A3 → lid + cover plates. On the bike: slip the
-liner, hang C1 on the tube, C2 on, 2× M5 from inside, 1× closure screw down the latch bore.
+Bench: bolt A1 + A3 to C1 from inside (M3 low-head in the counterbores) → electronics
+into A1, window insert under the lid, lid on → spool cartridge into A3 from below, A4 on →
+closure block + K block onto C2 from inside. On the bike: liner halves in, hang C1 on
+the down tube, slide C2 in from the side 2.5 mm low, 1× closure screw down the latch bore.
+**One fastener action for the consumer install.**
 
 ## 2B. Rejected alternative — two integrated billets (kept for the record)
 ### Move 1 — Delete the hinge. Two-bolt clamshell instead.
@@ -175,38 +220,50 @@ M3/M4 plates are SendCutSend-cheap.
 
 ## 7. Assembly sequence (the whole point)
 
-1. Drop printed spool cartridge into the bay pocket; route cable through the bushed exit.
-2. Screw the loaded pedestal cart + electronics into the cavity (tapped holes, no inserts).
-3. Lid: O-ring cord in groove, RF insert in bezel, 4× M3.
-4. Bay cover plate: gasket, 4× M3.
-5. On the bike: liner in, clamp half on, 2× M5 from inside the bore, close, 1× closure
-   screw down the latch bore. Done — **3 fastener actions for the consumer install.**
+1. Bolt A1 and A3 to C1 from inside the bore (M3 low-head cap screws, Ø6.2 counterbores).
+2. Screw the loaded pedestal cart + electronics into A1 (tapped holes, no inserts); fit the
+   opaque window insert from inside; lid on (gasket, 4× M3).
+3. Spool cartridge + power spring into A3 from below; cable through the bushed exit,
+   swaged ball stop on the inner end; A4 on (gasket, 4× M3).
+4. Closure block + K hook block onto C2 from inside (2× M3 each).
+5. On the bike: liner halves in, C1 on the down tube, slide C2 in sideways 2.5 mm low,
+   1× closure screw down the latch bore — it lifts C2 into both hooks. **One consumer
+   fastener action.**
 
-## 8. Open decisions (pick before modeling)
+## 8. Decisions (owner answers applied 2026-09-06)
 
-| # | Decision | Recommendation |
+| # | Decision | Status |
 |---|---|---|
-| D1 | Hinge | **DECIDED: deleted.** Two M5 inside the bore + closure lug |
+| D1 | Hinge | **DECIDED: none.** Slide-and-lift install, two hooks + one guarded M3 |
 | D2 | Material | 6061-T6 now; steel variant later from the same model |
-| D3 | Spool | **DECIDED: printed cartridge inside the bolt-on bottom box (A3)** |
-| D4 | Who machines | TAMU shop for M1/M2 (design manual-3-axis-friendly), SendCutSend for plates |
-| D5 | Modeling | SolidWorks by owner against §2A; Claude checks hole patterns, wall/countersink stack-ups, and the closure-lug geometry |
-| D6 | Tube stock | **DECIDED: 2.5" × 3/16" 6061 (Ø63.5 × 4.76), line-bored Ø54** — Ø60×5 would have given a Ø50 bore (too small for the liner) |
-| D7 | Stage 1 boxes printed? | Yes — PETG boxes on aluminum halves first (same bolt pattern), machine later |
+| D3 | Spool | **DECIDED: vertical-axis printed cartridge, Ø40 core, 25 wide, loads from below (A4)** |
+| D4 | Who machines | TAMU shop for the boxes (manual-3-axis-friendly), SendCutSend for A2/A4 plates |
+| D5 | Modeling | `cad/cnc_casing_cq.py` is the model of record until the owner's SolidWorks pass; gates listed in §9 |
+| D6 | Tube stock | **DECIDED: 2.5" × 3/16" 6061 (Ø63.5 × 4.76), line-bored Ø54** |
+| D7 | Stage 1 | **DECIDED: print everything first (PETG), pilots double as self-tap pilots; CNC-ready geometry throughout** |
+| D8 | Closure screw | **DECIDED: M3** (owner) — threads the steel block, M3×8 low-head |
+| D9 | Window | **DECIDED: antenna-size cutout, opaque insert** (RF needs the hole; the owner needs it opaque — both) |
+| D10 | Box orientation / height | any, as long as the latch works (owner) — current: A1 24 mm interior, 134 mm overall |
+| open | Spool cartridge donor | envelope is a placeholder (Ø60 × 25) until a reel is in hand — pocket Ø/width are single constants |
+| open | Electronics placement in A1 | window zone x 20..65 (reader over battery), latch x 78, cart x 88..132, Nano/driver/TP4056/MT3608 in the +y strip — to be modeled as reference bodies next |
 
 ## 9. What verification looks like in this era
 
-The gate suite simplifies with the design: no sweep gate (nothing swings), no insert
-collar gate (no inserts). Keeps: interference/clearance matrix, screw-path checks, min
-internal corner radius audit (new — every internal corner ≥ R4), wall-thickness audit,
-and the paired-bore alignment stack-up. If modeled in SolidWorks: interference detection
-+ hole-wizard discipline substitute, per the workflow prompt.
+`python cad/cnc_casing_cq.py --gates` runs: interference matrix over all 11 parts;
+counterbore wall audit (crown 7.30 / skirt 2.83 mm ≥ 2.3); screw-path probes for the A1
+rows, the A3 rows and the closure screw (chassis hole = air, box pilot = air); the
+**install-path gate** (C2 + both blocks stepped along the 40 mm slide at −2.5 and up the
+2.5 mm lift against C1/A1/A2/A3/A4, max overlap must be 0); and the **capture gate** (a
+2 mm −y pull of each block MUST overlap its lip; a 0.2 mm lift of the closure block MUST
+overlap the A1 roof). No insert-collar gate (no inserts). Still to add: an R4 internal
+corner audit and the paired-bore alignment stack-up.
 
-## 10. Model status (2026-09-06)
+## 10. Model status (2026-09-06, rev 2)
 
-`cad/cnc_casing_cq.py` builds all 8 parts (C1, C2, closure block, A1 top box, A2 lid, A3
-bottom box, liner L/R) as single solids; `--gates` = interference matrix (0 clashes),
-counterbore wall audit, screw-path probes — all green. STEP set in `cnc-design/step/`
-(+ `cnc_casing_assembly.step`), renders in `renders/cnc/`. Placeholders awaiting owner
-input are listed in the chat handoff: reader footprint (Q1), spool cartridge envelope +
-axis (Q2), overall height (Q3), cable exit direction (Q4), closure screw size (Q5).
+`cad/cnc_casing_cq.py` builds all 11 parts (C1, C2, closure block, K hook block, A1 top
+box, A2 lid, A3 bottom box, A4 cover plate, A5 window insert, liner L/R) as single solids.
+`--gates`: 0 clashes, walls PASS, screw paths PASS, install path 0.00 mm³ PASS, hook
+capture PASS. STEP set in `cnc-design/step/` (+ `cnc_casing_assembly.step`); renders in
+`renders/cnc/` (`cnc_iso`, `cnc_exploded`, `cnc_end`, `cnc_section` = slab through the latch
+showing both hooks, `cnc_install` = the three install stations). Placeholders: spool
+cartridge envelope, electronics reference bodies (see §8).

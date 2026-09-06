@@ -1,14 +1,32 @@
-view = "iso";
-module all(explode=0) {
-  color("#7A8A99") import("../cnc-design/stl/C1_chassis_half.stl");
-  color("#5A6A79") translate([0,-explode,0]) import("../cnc-design/stl/C2_clamp_half.stl");
-  color("#3A3A3A") translate([0,-explode,0]) import("../cnc-design/stl/closure_block.stl");
-  color("#C0C6CC") translate([0,0,explode]) import("../cnc-design/stl/A1_top_box.stl");
-  color("#E8ECEF") translate([0,0,2*explode]) import("../cnc-design/stl/A2_lid.stl");
-  color("#B0B8BF") translate([0,0,-explode]) import("../cnc-design/stl/A3_bottom_box.stl");
-  color("#2E2E2E") translate([0,0.5*explode,0]) import("../cnc-design/stl/liner_right.stl");
-  color("#2E2E2E") translate([0,-1.5*explode,0]) import("../cnc-design/stl/liner_left.stl");
+// CNC casing renders (cad/cnc_casing_cq.py parts). Variables:
+//   view    = iso | exploded | end | install | section
+//   station = install only: 0 = C2 slid out 30 mm and RISE low, 1 = in, still low, 2 = home (screw tight)
+//   cut     = use the 16 mm slab-sectioned STLs through the latch / closure block / K hook (section view)
+view = "iso"; station = 2; cut = false;
+RISE = 2.5;
+// cut=true reads pre-sectioned STLs (cnc-design/stl/section/, a 16 mm slab x 70..86 cut in CadQuery) -
+// OpenSCAD preview paints intersection() results black, so the slab is cut upstream.
+module part(f, c, t = [0, 0, 0]) { color(c) translate(t) import(str("../cnc-design/stl/", cut ? "section/" : "", f, ".stl")); }
+module c1side(e = 0) {
+  part("C1_chassis_half", "#7A8A99");
+  part("A1_top_box", "#C0C6CC", [0, 0, e]);
+  part("A2_lid", "#E8ECEF", [0, 0, 2 * e]);
+  part("A5_window_insert", "#1E1E1E", [0, 0, 2.6 * e]);
+  part("A3_bottom_box", "#B0B8BF", [0, 0, -e]);
+  part("A4_cover_plate", "#D8DDE2", [0, 0, -2 * e]);
+  part("liner_right", "#2E2E2E", [0, 0.5 * e, 0]);
 }
-if (view=="iso") all(0);
-if (view=="exploded") all(22);
-if (view=="end") all(0);
+module c2side(dy = 0, dz = 0) {
+  part("C2_clamp_half", "#5A6A79", [0, dy, dz]);
+  part("closure_block", "#D95D39", [0, dy, dz]);
+  part("K_hook_block", "#D95D39", [0, dy, dz]);
+  part("liner_left", "#2E2E2E", [0, dy, dz]);
+}
+if (view == "iso" || view == "end" || view == "section") { c1side(0); c2side(); }
+if (view == "exploded") { c1side(22); c2side(-30, 0); }
+if (view == "install") {
+  c1side(0);
+  if (station == 0) c2side(-30, -RISE);
+  if (station == 1) c2side(0, -RISE);
+  if (station == 2) c2side(0, 0);
+}
