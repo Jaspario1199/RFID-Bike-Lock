@@ -35,7 +35,7 @@ OPEN_DEG = 60.0                  # swing the gates prove (mouth = 65 mm for a O4
 LIP_X, LIP_R = 2.0, 25.5         # rear liner lip: x L-2..L, inward to r25.5
 
 # ---------------- attachment fastening (M3 low-head cap, inside-out) ----------------
-SCREW_X   = (25.0, 75.0, 125.0)  # 3 per row
+SCREW_X   = (25.0, 70.0, 130.0)  # 3 per row (70 keeps the middle pilot clear of the latch boss at x 75.5..94.5)
 CROWN_Y   = 6.0                  # vertical crown row (radial ~11deg -> vertical is fine)
 SKIRT_Z   = 8.0                  # horizontal skirt row height |z|
 CLR3, CB_D, CB_H = 3.4, 6.2, 2.3 # M3 clearance, counterbore O and head depth
@@ -43,8 +43,9 @@ TAP3      = 2.5                  # M3 tap drill (modeled pilot)
 CLR4, TAP4 = 3.4, 2.5            # closure screw stays M3 (owner) - threads the steel block; O2.5 pilot doubles as the PETG self-tap pilot in Stage 1
 
 # ---------------- top box A1 ----------------
-BX0, BX1 = 10.0, 140.0           # x footprint
-BY0, BY1 = -14.0, 36.0           # y footprint (straddles the seam; 14 mm overhang over C2)
+BX0, BX1 = 10.0, 145.0           # x footprint (135 on the 150 tube: the electronics stack-up needs the length)
+BY0, BY1 = -14.0, 43.0           # y footprint (straddles the seam; 14 mm overhang over C2; 43 gives the
+                                 # +y strip room for the TP4056 beside an edge-standing Nano)
 SADDLE_R = R_O + 0.25            # box underside hugs the tube on the C1 side
 RELIEF1_R = R_O + 2.25           # A1 underside over C2 (y<0.3): C2's rim swells to r33.57 at 11 deg of
                                  # swing (pin is 6 mm under the tube, so the rim arcs outward), +0.4
@@ -56,20 +57,23 @@ ZF       = 38.0                  # interior floor top (6.25 above the tube crown
 INT_H    = 24.0                  # interior height: solenoid zone (cart 3 + 15 + 2) and reader zone (flat Nano 8 + reader 4 + gaps) sit SIDE BY SIDE, not stacked (owner Q5)
 ZTOP     = ZF + INT_H            # lid seat
 LID_T    = 5.0
-CORNER_R = 6.0                   # >= R4 rule (O12 tool)
-LATCH_X, LATCH_Y = 78.0, -4.0    # receiver over the C2 side of the seam (closure block below); x leaves
+CORNER_R = 4.0                   # R4 rule (O8 tool) - R6 stole the +x/+y pocket corner from the power stack
+LATCH_X, LATCH_Y = 85.0, -4.0    # receiver over the C2 side of the seam (closure block below); x leaves
                                  # the reader window (x 20..65) clear on -x and the solenoid cart (44) on +x
 BORE_D, BOSS_D   = 11.0, 19.0
 PIN_Z    = ZF + 14.0             # plunger axis
 PIN_D    = 6.6
-LID_SCREWS = [(BX0 + 5, BY0 + 5), (BX0 + 5, BY1 - 5), (BX1 - 5, BY0 + 5), (BX1 - 5, BY1 - 5)]   # 4 corners (the 43-wide window leaves no side band for more)
+LID_SCREWS = [(BX0 + 4.5, BY0 + 4.5), (BX0 + 4.5, BY1 - 4.5), (BX1 - 4.5, BY0 + 4.5), (100.0, BY1 - 4.5)]
+# 3 corners + one mid-wall: the +x/+y corner is where the TP4056's USB-C meets the end wall, so that
+# screw moves along the +y wall to x 100 (outside the window flange, clear of the power stack)
 # RF window (PN532 footprint by default - see open question Q1) + button + LEDs
 WIN_L, WIN_W = 45.2, 43.0        # through-cutout = PN532 antenna footprint + 1 (metal lid must clear the loop)
 WIN_X0 = BX0 + 10.0              # 20: past the -x corner lid screws
 WIN_CX = WIN_X0 + WIN_L / 2      # 42.6
 INS_FLANGE, INS_FL_T = 2.5, 1.5  # opaque insert: body fills the cutout flush; flange sits in a recess milled
                                  # in the lid's UNDERSIDE (nothing shows on top; the box wall clamps it)
-BTN_D, BTN_X, LED_D, LED_X = 12.4, 118.0, 3.3, 98.0
+BTN_D, BTN_X, BTN_Y = 12.4, 77.0, 33.0        # sealed 12 mm button: past the reader deck (x<=70), beside the boss (y<=5.5)
+LED_D, LED_X, LED_Y = 3.3, 73.0, (12.0, 22.0)  # LEDs in the same gap column
 
 # ---------------- closure block (on C2, under the box overhang) ----------------
 BLK_X0, BLK_X1 = LATCH_X - 10.0, LATCH_X + 10.0
@@ -215,6 +219,10 @@ def build_top_box():
     # closure-block pocket: OPEN through the -y face (the block swings in and out with C2 on
     # the hinge); x walls locate the block, the roof at BLK_TOP is what the screw clamps against
     b = b.cut(xbox(BLK_X0 - 0.2, BLK_X1 + 0.2, BY0 - 2, BLK_Y1 + 0.3, 0, BLK_TOP))
+    # USB-C charge port through the +x end wall at the TP4056 (TPU plug from outside, BOM 30d)
+    usb_y = TP_Y0 + TP_W / 2; usb_z = ZF + TP_T + 3.3 / 2
+    b = b.cut(cq.Workplane("YZ", origin=(IX1 - 0.5, usb_y, usb_z)).rect(USB_SLOT_W, USB_SLOT_H).extrude(BWALL + 1).edges("|X").fillet(1.6))
+    b = b.cut(cq.Workplane("YZ", origin=(BX1 - 1.2, usb_y, usb_z)).rect(USB_SLOT_W + 4, USB_SLOT_H + 4).extrude(2).edges("|X").fillet(2.5))
     # chassis screws thread into the floor (pilots) - crown row vertical, skirt row horizontal
     for x in SCREW_X:
         b = b.cut(cq.Workplane("XY", origin=(x, CROWN_Y, 25)).circle(TAP3 / 2).extrude(ZF - 25 - 1.0))
@@ -228,8 +236,8 @@ def build_lid():
     p = p.cut(cq.Workplane("XY", origin=(WIN_CX, (BY0 + BY1) / 2, ZTOP - 1)).rect(WIN_L, WIN_W).extrude(LID_T + 2).edges("|Z").fillet(4))
     p = p.cut(cq.Workplane("XY", origin=(WIN_CX, (BY0 + BY1) / 2, ZTOP - 1)).rect(WIN_L + 2 * INS_FLANGE + 0.2, WIN_W + 2 * INS_FLANGE + 0.2).extrude(INS_FL_T + 1).edges("|Z").fillet(5.4))
     p = p.cut(cq.Workplane("XY", origin=(LATCH_X, LATCH_Y, ZTOP - 1)).circle(BORE_D / 2 + 0.3).extrude(LID_T + 2))
-    p = p.cut(cq.Workplane("XY", origin=(BTN_X, 12.0, ZTOP - 1)).circle(BTN_D / 2).extrude(LID_T + 2))
-    for ly in (6.0, 18.0):
+    p = p.cut(cq.Workplane("XY", origin=(BTN_X, BTN_Y, ZTOP - 1)).circle(BTN_D / 2).extrude(LID_T + 2))
+    for ly in LED_Y:
         p = p.cut(cq.Workplane("XY", origin=(LED_X, ly, ZTOP - 1)).circle(LED_D / 2).extrude(LID_T + 2))
     for (sx, sy) in LID_SCREWS:
         p = p.cut(cq.Workplane("XY", origin=(sx, sy, ZTOP - 1)).circle(CLR3 / 2).extrude(LID_T + 2))
@@ -385,6 +393,88 @@ def build_liner(pos):
     best = max(half.solids().vals(), key=lambda x: x.Volume())
     return cq.Workplane(obj=best)
 
+
+# ---------------- electronics reference bodies (stack-up) ----------------
+# Real envelopes of the purchased parts, placed where they live in A1. They are exported as
+# ref_* so the SolidWorks pass has them, and the interference matrix + a clearance report
+# gate them against the box, the lid and each other.
+IX0, IX1 = BX0 + BWALL, BX1 - BWALL          # interior x 13..142
+IY0, IY1 = BY0 + BWALL, BY1 - BWALL          # interior y -11..40
+BAT_L, BAT_W, BAT_T = 50.0, 34.0, 10.5       # 103450 LiPo (protection PCB end included)
+RDR_L, RDR_W, RDR_T = 43.0, 40.5, 6.0        # PN532 V3 board + components, antenna face up
+TRAY_T = 1.0                                 # printed tray floor / deck / walls
+NANO_L, NANO_W, NANO_H = 45.0, 7.5, 18.0     # Nano on edge, pins trimmed (USB end = the 7.5)
+TP_L, TP_W, TP_T = 29.0, 17.3, 1.0           # TP4056 USB-C board; connector 9 x 7.5 x 3.3 on top, 1.5 proud of the end
+MT_L, MT_W, MT_H = 36.0, 17.0, 7.0           # MT3608 (inductor is the 7)
+CART_L, CART_W, CART_H = 40.0, 24.0, 6.5     # pedestal cart base (40: ends 1 mm short of the +x/-y lid-screw boss)
+SOL_L, SOL_W, SOL_H = 30.0, 13.0, 15.0       # JF-0530B body
+DRV_L, DRV_W, DRV_H = 38.0, 10.7, 13.6       # driver card incl. TO-220 lying + O8 cap lying
+BAT_X0 = IX0 + 6.5                           # 19.5: past the lid-screw column (x<=19)
+BAT_Y0 = -7.0
+RDR_CX, RDR_CY = WIN_CX, (BY0 + BY1) / 2 - 3.5   # under the window, pulled 3.5 toward -y (window is centred on the lid)
+DECK_Z = ZTOP - 2.0 - RDR_T - 2.0            # 52: reader top sits 2 under the lid (foam pad)
+CART_X0 = LATCH_X + BOSS_D / 2 + 1.0         # 95.5: 1 mm off the boss
+CART_Y0 = LATCH_Y - SOL_W / 2                # solenoid axis on the plunger channel
+NANO_Y0 = CART_Y0 + CART_W + 0.3
+TP_Y0 = NANO_Y0 + NANO_W + 0.3
+TP_X1 = IX1 - 1.5                            # board 1.5 off the end wall; the connector's 1.5 proud lands flush with the wall's inner face
+USB_SLOT_W, USB_SLOT_H = 9.6, 3.8
+
+def _box(x0, y0, z0, dx, dy, dz):
+    return xbox(x0, x0 + dx, y0, y0 + dy, z0, z0 + dz)
+
+def build_ref_tray():
+    """printed furniture: battery cradle floor + 2 walls + reader deck (2 mm, spans the pocket)."""
+    t = _box(BAT_X0 - 0.5, BAT_Y0 - 1.5, ZF, BAT_L + 1.0, BAT_W + 3.0, TRAY_T)
+    for y in (BAT_Y0 - 1.5, BAT_Y0 + BAT_W + 0.5):
+        t = t.union(_box(BAT_X0 - 0.5, y, ZF, BAT_L + 1.0, 1.0, DECK_Z - ZF))
+    deck = _box(RDR_CX - RDR_L / 2 - 1.0, RDR_CY - RDR_W / 2 - 0.5, DECK_Z, RDR_L + 2.0, RDR_W + 1.0, 2.0)
+    return t.union(deck)
+
+def build_ref_battery():
+    return _box(BAT_X0, BAT_Y0, ZF + TRAY_T, BAT_L, BAT_W, BAT_T)
+
+def build_ref_reader():
+    return _box(RDR_CX - RDR_L / 2, RDR_CY - RDR_W / 2, DECK_Z + 2.0, RDR_L, RDR_W, RDR_T)
+
+def build_ref_cart_module():
+    """cart base + solenoid + driver card as one serviceable module (v0.8.2 concept)."""
+    base = _box(CART_X0, CART_Y0, ZF, CART_L, CART_W, CART_H)
+    sol = _box(CART_X0 + 2.0, LATCH_Y - SOL_W / 2, PIN_Z - SOL_H / 2, SOL_L, SOL_W, SOL_H)
+    drv = _box(CART_X0 + 1.0, LATCH_Y + SOL_W / 2 + 0.5, ZF + CART_H, DRV_L, DRV_W, DRV_H)   # on the base's platform
+    return base.union(sol).union(drv)
+
+def build_ref_plunger():
+    """O6 plunger from 2.1 inside the bore, through the channel, to the solenoid face."""
+    x0 = LATCH_X + BORE_D / 2 - 2.1
+    return cq.Workplane("YZ", origin=(x0, LATCH_Y, PIN_Z)).circle(3.0).extrude(CART_X0 + 2.0 - x0)
+
+def build_ref_nano():
+    return _box(CART_X0 + 0.5, NANO_Y0, ZF, NANO_L, NANO_W, NANO_H)
+
+def build_ref_tp4056():
+    b = _box(TP_X1 - TP_L, TP_Y0, ZF, TP_L, TP_W, TP_T)
+    con = _box(TP_X1 - 7.5, TP_Y0 + (TP_W - 9.0) / 2, ZF + TP_T, 9.0, 9.0, 3.3)   # USB-C receptacle, 1.5 proud
+    return b.union(con)
+
+def build_ref_mt3608():
+    return _box(TP_X1 - MT_L, TP_Y0 + (TP_W - MT_W) / 2, ZF + TP_T + 3.3 + 0.7, MT_L, MT_W, MT_H)
+
+def build_ref_button():
+    """12 mm sealed momentary: O12 body 15 deep below the lid + nut"""
+    return cq.Workplane("XY", origin=(BTN_X, BTN_Y, ZTOP - 15.0)).circle(6.0).extrude(15.0)
+
+def build_ref_led(i):
+    """5 mm LED body below its lid hole"""
+    return cq.Workplane("XY", origin=(LED_X, LED_Y[i], ZTOP - 8.0)).circle(2.6).extrude(8.0)
+
+REF_PARTS = {
+    "ref_tray": build_ref_tray, "ref_battery": build_ref_battery, "ref_reader": build_ref_reader,
+    "ref_cart_module": build_ref_cart_module, "ref_plunger": build_ref_plunger, "ref_nano": build_ref_nano,
+    "ref_tp4056": build_ref_tp4056, "ref_mt3608": build_ref_mt3608, "ref_button": build_ref_button,
+    "ref_led_1": lambda: build_ref_led(0), "ref_led_2": lambda: build_ref_led(1),
+}
+
 PARTS = {
     "C1_chassis_half": build_c1,
     "C2_clamp_half": build_c2,
@@ -399,6 +489,7 @@ PARTS = {
     "liner_right": lambda: build_liner(True),
     "liner_left": lambda: build_liner(False),
 }
+PARTS.update(REF_PARTS)
 # pairs that legitimately touch
 CONTACT_OK = {("C1_chassis_half", "C2_clamp_half"), ("C2_clamp_half", "closure_block"),
               ("C2_clamp_half", "hinge_block"), ("closure_block", "A1_top_box"),
@@ -427,6 +518,24 @@ def gates():
             elif v > 0.05:
                 print(f"  CLASH {a} x {b}: {v:.2f} mm^3"); bad += 1
     print(f"[gates] {bad} clashes")
+    # stack-up clearance report: every reference body vs the box, the lid and each other
+    env = ["A1_top_box", "A2_lid", "A5_window_insert"] + list(REF_PARTS)
+    tight = []
+    for i in range(len(env)):
+        for j in range(i + 1, len(env)):
+            a, b_ = env[i], env[j]
+            if a.startswith("ref_") or b_.startswith("ref_"):
+                dmin = solids[a].distance(solids[b_])
+                if dmin < 1.0:
+                    tight.append((dmin, a, b_))
+    print("[stackup] reference bodies inside A1 (interior %.0f x %.0f x %.0f):" % (IX1 - IX0, IY1 - IY0, INT_H))
+    for n in REF_PARTS:
+        bb = solids[n].BoundingBox()
+        inside = IX0 - 1e-3 <= bb.xmin and bb.xmax <= IX1 + 1e-3 + (BWALL + 1 if n == "ref_tp4056" else 0) and IY0 - 1e-3 <= bb.ymin and bb.ymax <= IY1 + 1e-3 and ZF - 1e-3 <= bb.zmin and bb.zmax <= ZTOP + 1e-3
+        print(f"  {n:16s} x {bb.xmin:6.1f}..{bb.xmax:6.1f}  y {bb.ymin:6.1f}..{bb.ymax:6.1f}  z {bb.zmin:5.1f}..{bb.zmax:5.1f}  {'in' if inside else 'OUTSIDE'}")
+    for dmin, a, b_ in sorted(tight):
+        print(f"  gap {dmin:4.2f} mm: {a} - {b_}{'  (contact)' if dmin < 0.01 else ''}")
+    print("[stackup] gaps < 1 mm listed above; contacts are the tray floor / cart base on the floor, deck under the reader, plunger at the solenoid face")
     # wall audit: remaining chassis wall under every counterbore >= 2.3
     y_far = CROWN_Y + CB_D / 2
     left = (math.sqrt(R_O ** 2 - y_far ** 2)) - (math.sqrt(R_I ** 2 - y_far ** 2) - CB_H)
