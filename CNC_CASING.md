@@ -292,4 +292,7 @@ solids. `--gates`: 0 clashes, walls PASS, screw paths PASS, swing 0–60° 0.00 
 (+ `cnc_casing_assembly.step`); renders in `renders/cnc/` (`cnc_iso`, `cnc_exploded`,
 `cnc_end`, `cnc_section` = slab through the latch / closure block / hinge lug + pin,
 `cnc_open` = C2 at 60° with a Ø46 tube entering, `inspect_1..3` = 12-view inspection
-sheets). Placeholders: spool cartridge envelope, electronics reference bodies (see §8).
+sheets). **Shop drawings:** `python cad/cnc_drawings.py` → `cnc-design/drawings/cnc_casing_drawings.pdf`
+(one A3 sheet per part: hidden-line ortho views at true scale, overall dims, feature callouts,
+hole schedule, title block; PNG per sheet alongside). Placeholders: spool cartridge envelope,
+electronics reference bodies (see §8).
