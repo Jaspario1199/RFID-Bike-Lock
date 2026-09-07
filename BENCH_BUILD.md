@@ -5,7 +5,10 @@ arrived, so the cell can't be recharged yet — this guide works around that by 
 off the ELEGOO supply and the RoomCleaner 12 V rig, and saving the LiPo for the tests that
 actually need it.
 
-Wiring reference: [`WIRING.md`](WIRING.md) · diagram: `renders/electrical/wiring_diagram.png`
+**Bench wiring diagram: `renders/electrical/bench_wiring_esp32.png`** — exactly what to connect
+now, on this board.
+
+Full-system reference: [`WIRING.md`](WIRING.md) · diagram: `renders/electrical/wiring_diagram.png`
 Firmware: `firmware/rfid_bike_lock_rc522/`
 
 ---
@@ -84,8 +87,11 @@ This proves the sketch, the buttons, the LEDs and the buzzer before any reader c
 |---|---|---|
 | GREEN button | D3 | one leg → D3, other leg → GND |
 | RED button | D2 | same |
-| Red LED | D8 | anode → 470 Ω → D8, cathode → GND |
+| Red LED | D8 | anode → **220 Ω** → D8, cathode → GND |
 | Green LED | D9 | same on D9 |
+
+⚠️ **220 Ω, not 470.** The 470 Ω figure was sized for a 5 V board; on 3.3 V it passes about
+2.5 mA and the LEDs look dim.
 | Active buzzer | D6 | (+) → D6, (−) → GND |
 
 Flash `firmware/rfid_bike_lock_rc522/`. Install the **MFRC522** library first (Library Manager,

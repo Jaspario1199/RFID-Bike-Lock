@@ -1,0 +1,138 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1760" height="1080" viewBox="0 0 1760 1080">
+<rect width="1760" height="1080" fill="#FAFAF8"/>
+<text x="40" y="48" text-anchor="start" font-family="DejaVu Sans" font-size="27" font-weight="bold" font-style="normal" fill="#111">BENCH WIRING — Arduino Nano ESP32 build</text>
+<text x="40" y="74" text-anchor="start" font-family="DejaVu Sans" font-size="14" font-weight="normal" font-style="normal" fill="#666">3.3 V logic throughout: the RC522 connects DIRECT — no level shifters, no AMS1117, no 5 V anywhere.</text>
+<rect x="560" y="200" width="300" height="620" rx="7" fill="#E8EAF6" stroke="#37474F" stroke-width="2"/>
+<text x="710.0" y="226" text-anchor="middle" font-family="DejaVu Sans" font-size="17" font-weight="bold" font-style="normal" fill="#111">Arduino Nano ESP32</text>
+<text x="710.0" y="246" text-anchor="middle" font-family="DejaVu Sans" font-size="12" font-weight="normal" font-style="normal" fill="#666">ESP32-S3 · 3.3 V logic</text>
+<text x="710.0" y="263" text-anchor="middle" font-family="DejaVu Sans" font-size="12" font-weight="normal" font-style="normal" fill="#666">flash firmware/rfid_bike_lock_esp32/</text>
+<text x="576" y="295" text-anchor="start" font-family="DejaVu Sans" font-size="13.5" font-weight="bold" font-style="normal" fill="#222">VIN</text>
+<text x="626" y="295" text-anchor="start" font-family="DejaVu Sans" font-size="12" font-weight="normal" font-style="normal" fill="#C62828">6.2–6.5 V in</text>
+<text x="576" y="325" text-anchor="start" font-family="DejaVu Sans" font-size="13.5" font-weight="bold" font-style="normal" fill="#222">GND</text>
+<text x="626" y="325" text-anchor="start" font-family="DejaVu Sans" font-size="12" font-weight="normal" font-style="normal" fill="#212121">ground</text>
+<text x="576" y="355" text-anchor="start" font-family="DejaVu Sans" font-size="13.5" font-weight="bold" font-style="normal" fill="#222">3V3</text>
+<text x="626" y="355" text-anchor="start" font-family="DejaVu Sans" font-size="12" font-weight="normal" font-style="normal" fill="#C62828">3.3 V out → reader</text>
+<text x="576" y="397" text-anchor="start" font-family="DejaVu Sans" font-size="13.5" font-weight="bold" font-style="normal" fill="#222">D2</text>
+<text x="626" y="397" text-anchor="start" font-family="DejaVu Sans" font-size="12" font-weight="normal" font-style="normal" fill="#C62828">RED button</text>
+<text x="576" y="427" text-anchor="start" font-family="DejaVu Sans" font-size="13.5" font-weight="bold" font-style="normal" fill="#222">D3</text>
+<text x="626" y="427" text-anchor="start" font-family="DejaVu Sans" font-size="12" font-weight="normal" font-style="normal" fill="#2E7D32">GREEN button — wake</text>
+<text x="576" y="457" text-anchor="start" font-family="DejaVu Sans" font-size="13.5" font-weight="bold" font-style="normal" fill="#222">D4</text>
+<text x="626" y="457" text-anchor="start" font-family="DejaVu Sans" font-size="12" font-weight="normal" font-style="normal" fill="#1565C0">RC522 RST</text>
+<text x="576" y="487" text-anchor="start" font-family="DejaVu Sans" font-size="13.5" font-weight="bold" font-style="normal" fill="#222">D5</text>
+<text x="626" y="487" text-anchor="start" font-family="DejaVu Sans" font-size="12" font-weight="normal" font-style="normal" fill="#9E9E9E">solenoid gate (stage 5)</text>
+<text x="576" y="517" text-anchor="start" font-family="DejaVu Sans" font-size="13.5" font-weight="bold" font-style="normal" fill="#222">D6</text>
+<text x="626" y="517" text-anchor="start" font-family="DejaVu Sans" font-size="12" font-weight="normal" font-style="normal" fill="#1565C0">buzzer</text>
+<text x="576" y="547" text-anchor="start" font-family="DejaVu Sans" font-size="13.5" font-weight="bold" font-style="normal" fill="#222">D7</text>
+<text x="626" y="547" text-anchor="start" font-family="DejaVu Sans" font-size="12" font-weight="normal" font-style="normal" fill="#9E9E9E">reader gate — NOT USED</text>
+<text x="576" y="577" text-anchor="start" font-family="DejaVu Sans" font-size="13.5" font-weight="bold" font-style="normal" fill="#222">D8</text>
+<text x="626" y="577" text-anchor="start" font-family="DejaVu Sans" font-size="12" font-weight="normal" font-style="normal" fill="#C62828">red LED</text>
+<text x="576" y="607" text-anchor="start" font-family="DejaVu Sans" font-size="13.5" font-weight="bold" font-style="normal" fill="#222">D9</text>
+<text x="626" y="607" text-anchor="start" font-family="DejaVu Sans" font-size="12" font-weight="normal" font-style="normal" fill="#2E7D32">green LED</text>
+<text x="576" y="637" text-anchor="start" font-family="DejaVu Sans" font-size="13.5" font-weight="bold" font-style="normal" fill="#222">D10</text>
+<text x="626" y="637" text-anchor="start" font-family="DejaVu Sans" font-size="12" font-weight="normal" font-style="normal" fill="#1565C0">RC522 SS</text>
+<text x="576" y="667" text-anchor="start" font-family="DejaVu Sans" font-size="13.5" font-weight="bold" font-style="normal" fill="#222">D11</text>
+<text x="626" y="667" text-anchor="start" font-family="DejaVu Sans" font-size="12" font-weight="normal" font-style="normal" fill="#1565C0">MOSI</text>
+<text x="576" y="697" text-anchor="start" font-family="DejaVu Sans" font-size="13.5" font-weight="bold" font-style="normal" fill="#222">D12</text>
+<text x="626" y="697" text-anchor="start" font-family="DejaVu Sans" font-size="12" font-weight="normal" font-style="normal" fill="#1565C0">MISO</text>
+<text x="576" y="727" text-anchor="start" font-family="DejaVu Sans" font-size="13.5" font-weight="bold" font-style="normal" fill="#222">D13</text>
+<text x="626" y="727" text-anchor="start" font-family="DejaVu Sans" font-size="12" font-weight="normal" font-style="normal" fill="#1565C0">SCK</text>
+<text x="576" y="757" text-anchor="start" font-family="DejaVu Sans" font-size="13.5" font-weight="bold" font-style="normal" fill="#222">A0</text>
+<text x="626" y="757" text-anchor="start" font-family="DejaVu Sans" font-size="12" font-weight="normal" font-style="normal" fill="#1565C0">battery sense</text>
+<rect x="60" y="200" width="210" height="96" rx="7" fill="#F3E5F5" stroke="#37474F" stroke-width="2"/>
+<text x="165.0" y="226" text-anchor="middle" font-family="DejaVu Sans" font-size="17" font-weight="bold" font-style="normal" fill="#111">103450 LiPo</text>
+<text x="165.0" y="246" text-anchor="middle" font-family="DejaVu Sans" font-size="12" font-weight="normal" font-style="normal" fill="#666">3.7 V, part charged</text>
+<text x="165.0" y="263" text-anchor="middle" font-family="DejaVu Sans" font-size="12" font-weight="normal" font-style="normal" fill="#666">no charger yet — don't</text>
+<text x="165.0" y="280" text-anchor="middle" font-family="DejaVu Sans" font-size="12" font-weight="normal" font-style="normal" fill="#666">run below 3.4 V</text>
+<rect x="60" y="360" width="210" height="92" rx="7" fill="#FFF3E0" stroke="#37474F" stroke-width="2"/>
+<text x="165.0" y="386" text-anchor="middle" font-family="DejaVu Sans" font-size="17" font-weight="bold" font-style="normal" fill="#111">MT3608 boost</text>
+<text x="165.0" y="406" text-anchor="middle" font-family="DejaVu Sans" font-size="12" font-weight="normal" font-style="normal" fill="#666">SET TO 6.2–6.5 V</text>
+<text x="165.0" y="423" text-anchor="middle" font-family="DejaVu Sans" font-size="12" font-weight="normal" font-style="normal" fill="#666">BEFORE connecting</text>
+<text x="165.0" y="440" text-anchor="middle" font-family="DejaVu Sans" font-size="12" font-weight="normal" font-style="normal" fill="#666">anything to its output</text>
+<path d="M 165 296 L 165 360" fill="none" stroke="#8E24AA" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="175" y="332" text-anchor="start" font-family="DejaVu Sans" font-size="12" font-weight="normal" font-style="normal" fill="#8E24AA">IN+ / IN−</text>
+<path d="M 270 392 L 400 392 L 400 290 L 560 290" fill="none" stroke="#C62828" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="300" y="385" text-anchor="start" font-family="DejaVu Sans" font-size="12" font-weight="bold" font-style="normal" fill="#C62828">OUT+ → VIN</text>
+<path d="M 270 424 L 370 424 L 370 320 L 560 320" fill="none" stroke="#212121" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="300" y="444" text-anchor="start" font-family="DejaVu Sans" font-size="12" font-weight="normal" font-style="normal" fill="#555">OUT− → GND</text>
+<path d="M 370 470 L 370 479" fill="none" stroke="#212121" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+<line x1="359" y1="479" x2="381" y2="479" stroke="#212121" stroke-width="2.4"/>
+<line x1="363" y1="484" x2="377" y2="484" stroke="#212121" stroke-width="2.4"/>
+<line x1="366.5" y1="489" x2="373.5" y2="489" stroke="#212121" stroke-width="2.4"/>
+<rect x="1120" y="170" width="300" height="300" rx="7" fill="#E3F2FD" stroke="#37474F" stroke-width="2"/>
+<text x="1270.0" y="196" text-anchor="middle" font-family="DejaVu Sans" font-size="17" font-weight="bold" font-style="normal" fill="#111">RC522 reader</text>
+<text x="1270.0" y="216" text-anchor="middle" font-family="DejaVu Sans" font-size="12" font-weight="normal" font-style="normal" fill="#666">13.56 MHz · SPI · 3.3 V</text>
+<text x="1270.0" y="233" text-anchor="middle" font-family="DejaVu Sans" font-size="12" font-weight="normal" font-style="normal" fill="#666">keep these wires under 20 cm</text>
+<text x="1140" y="255" text-anchor="start" font-family="DejaVu Sans" font-size="13" font-weight="bold" font-style="normal" fill="#222">SDA (SS)</text>
+<text x="1290" y="255" text-anchor="start" font-family="DejaVu Sans" font-size="12.5" font-weight="normal" font-style="normal" fill="#1565C0">← D10</text>
+<text x="1140" y="285" text-anchor="start" font-family="DejaVu Sans" font-size="13" font-weight="bold" font-style="normal" fill="#222">SCK</text>
+<text x="1290" y="285" text-anchor="start" font-family="DejaVu Sans" font-size="12.5" font-weight="normal" font-style="normal" fill="#1565C0">← D13</text>
+<text x="1140" y="315" text-anchor="start" font-family="DejaVu Sans" font-size="13" font-weight="bold" font-style="normal" fill="#222">MOSI</text>
+<text x="1290" y="315" text-anchor="start" font-family="DejaVu Sans" font-size="12.5" font-weight="normal" font-style="normal" fill="#1565C0">← D11</text>
+<text x="1140" y="345" text-anchor="start" font-family="DejaVu Sans" font-size="13" font-weight="bold" font-style="normal" fill="#222">MISO</text>
+<text x="1290" y="345" text-anchor="start" font-family="DejaVu Sans" font-size="12.5" font-weight="normal" font-style="normal" fill="#1565C0">← D12</text>
+<text x="1140" y="375" text-anchor="start" font-family="DejaVu Sans" font-size="13" font-weight="bold" font-style="normal" fill="#222">RST</text>
+<text x="1290" y="375" text-anchor="start" font-family="DejaVu Sans" font-size="12.5" font-weight="normal" font-style="normal" fill="#1565C0">← D4</text>
+<text x="1140" y="405" text-anchor="start" font-family="DejaVu Sans" font-size="13" font-weight="bold" font-style="normal" fill="#222">3.3V</text>
+<text x="1290" y="405" text-anchor="start" font-family="DejaVu Sans" font-size="12.5" font-weight="normal" font-style="normal" fill="#C62828">← 3V3</text>
+<text x="1140" y="435" text-anchor="start" font-family="DejaVu Sans" font-size="13" font-weight="bold" font-style="normal" fill="#222">GND</text>
+<text x="1290" y="435" text-anchor="start" font-family="DejaVu Sans" font-size="12.5" font-weight="normal" font-style="normal" fill="#555">← GND</text>
+<path d="M 860 632 L 960 632 L 960 250 L 1120 250" fill="none" stroke="#1565C0" stroke-width="2.0" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M 860 722 L 968 722 L 968 280 L 1120 280" fill="none" stroke="#1565C0" stroke-width="2.0" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M 860 662 L 976 662 L 976 310 L 1120 310" fill="none" stroke="#1565C0" stroke-width="2.0" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M 860 692 L 984 692 L 984 340 L 1120 340" fill="none" stroke="#1565C0" stroke-width="2.0" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M 860 452 L 992 452 L 992 370 L 1120 370" fill="none" stroke="#1565C0" stroke-width="2.0" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M 860 350 L 1000 350 L 1000 400 L 1120 400" fill="none" stroke="#C62828" stroke-width="2.0" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M 860 320 L 1008 320 L 1008 430 L 1120 430" fill="none" stroke="#212121" stroke-width="2.0" stroke-linejoin="round" stroke-linecap="round"/>
+<rect x="1120" y="520" width="300" height="320" rx="7" fill="#F3E5F5" stroke="#37474F" stroke-width="2"/>
+<text x="1270.0" y="546" text-anchor="middle" font-family="DejaVu Sans" font-size="17" font-weight="bold" font-style="normal" fill="#111">PANEL PARTS</text>
+<text x="1270.0" y="566" text-anchor="middle" font-family="DejaVu Sans" font-size="12" font-weight="normal" font-style="normal" fill="#666">wire these next — the green button</text>
+<text x="1270.0" y="583" text-anchor="middle" font-family="DejaVu Sans" font-size="12" font-weight="normal" font-style="normal" fill="#666">is the ONLY thing that wakes the board</text>
+<circle cx="1142" cy="611" r="6" fill="#2E7D32"/>
+<text x="1158" y="615" text-anchor="start" font-family="DejaVu Sans" font-size="13" font-weight="bold" font-style="normal" fill="#222">GREEN button</text>
+<text x="1158" y="631" text-anchor="start" font-family="DejaVu Sans" font-size="11.5" font-weight="normal" font-style="normal" fill="#666">D3 → button → GND</text>
+<circle cx="1142" cy="664" r="6" fill="#C62828"/>
+<text x="1158" y="668" text-anchor="start" font-family="DejaVu Sans" font-size="13" font-weight="bold" font-style="normal" fill="#222">RED button</text>
+<text x="1158" y="684" text-anchor="start" font-family="DejaVu Sans" font-size="11.5" font-weight="normal" font-style="normal" fill="#666">D2 → button → GND</text>
+<circle cx="1142" cy="717" r="6" fill="#C62828"/>
+<text x="1158" y="721" text-anchor="start" font-family="DejaVu Sans" font-size="13" font-weight="bold" font-style="normal" fill="#222">Red LED</text>
+<text x="1158" y="737" text-anchor="start" font-family="DejaVu Sans" font-size="11.5" font-weight="normal" font-style="normal" fill="#666">D8 → 220 Ω → LED → GND</text>
+<circle cx="1142" cy="770" r="6" fill="#2E7D32"/>
+<text x="1158" y="774" text-anchor="start" font-family="DejaVu Sans" font-size="13" font-weight="bold" font-style="normal" fill="#222">Green LED</text>
+<text x="1158" y="790" text-anchor="start" font-family="DejaVu Sans" font-size="11.5" font-weight="normal" font-style="normal" fill="#666">D9 → 220 Ω → LED → GND</text>
+<circle cx="1142" cy="816" r="6" fill="#6A1B9A"/>
+<text x="1158" y="820" text-anchor="start" font-family="DejaVu Sans" font-size="13" font-weight="bold" font-style="normal" fill="#222">Active buzzer</text>
+<text x="1158" y="836" text-anchor="start" font-family="DejaVu Sans" font-size="11.5" font-weight="normal" font-style="normal" fill="#666">D6 → buzzer (+), (−) → GND</text>
+<path d="M 860 422 L 916 422 L 916 611 L 1120 611" fill="none" stroke="#1565C0" stroke-width="2.0" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M 860 392 L 912 392 L 912 664 L 1120 664" fill="none" stroke="#1565C0" stroke-width="2.0" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M 860 572 L 936 572 L 936 717 L 1120 717" fill="none" stroke="#1565C0" stroke-width="2.0" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M 860 602 L 940 602 L 940 770 L 1120 770" fill="none" stroke="#1565C0" stroke-width="2.0" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M 860 512 L 928 512 L 928 816 L 1120 816" fill="none" stroke="#1565C0" stroke-width="2.0" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M 1270 850 L 1270 859" fill="none" stroke="#212121" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+<line x1="1259" y1="859" x2="1281" y2="859" stroke="#212121" stroke-width="2.4"/>
+<line x1="1263" y1="864" x2="1277" y2="864" stroke="#212121" stroke-width="2.4"/>
+<line x1="1266.5" y1="869" x2="1273.5" y2="869" stroke="#212121" stroke-width="2.4"/>
+<rect x="60" y="640" width="430" height="200" rx="7" fill="#FFFDE7" stroke="#F57F17" stroke-width="2" stroke-dasharray="7 5"/>
+<text x="275.0" y="666" text-anchor="middle" font-family="DejaVu Sans" font-size="16" font-weight="bold" font-style="normal" fill="#111">STAGE 5 — add later</text>
+<text x="80" y="700" text-anchor="start" font-family="DejaVu Sans" font-size="13.5" font-weight="bold" font-style="normal" fill="#111">Driver card: IRLZ44N + 1N5819 + 1000 µF</text>
+<text x="80" y="722" text-anchor="start" font-family="DejaVu Sans" font-size="12.5" font-weight="normal" font-style="normal" fill="#555">D5 ─ 100 Ω ─ gate, 100 kΩ gate→GND</text>
+<text x="80" y="742" text-anchor="start" font-family="DejaVu Sans" font-size="12.5" font-weight="bold" font-style="normal" fill="#B71C1C">coil from the 6 V rail, diode BAND to +</text>
+<text x="80" y="768" text-anchor="start" font-family="DejaVu Sans" font-size="12.5" font-weight="normal" font-style="normal" fill="#555">Power the coil from a SEPARATE 6 V</text>
+<text x="80" y="786" text-anchor="start" font-family="DejaVu Sans" font-size="12.5" font-weight="normal" font-style="normal" fill="#555">source until the 1000 µF cap arrives —</text>
+<text x="80" y="804" text-anchor="start" font-family="DejaVu Sans" font-size="12.5" font-weight="normal" font-style="normal" fill="#555">a 1 A pulse can dip a shared rail enough</text>
+<text x="80" y="822" text-anchor="start" font-family="DejaVu Sans" font-size="12.5" font-weight="normal" font-style="normal" fill="#555">to reset the board.</text>
+<path d="M 560 482 L 500 482 L 500 700 L 490 700" fill="none" stroke="#9E9E9E" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round" stroke-dasharray="6 4"/>
+<rect x="60" y="880" width="1660" height="170" rx="7" fill="#E8F5E9" stroke="#2E7D32" stroke-width="2"/>
+<text x="890.0" y="906" text-anchor="middle" font-family="DejaVu Sans" font-size="16" font-weight="bold" font-style="normal" fill="#111">WHAT TO DO NOW</text>
+<text x="84" y="925" text-anchor="start" font-family="DejaVu Sans" font-size="14" font-weight="bold" font-style="normal" fill="#2E7D32">1.</text>
+<text x="110" y="925" text-anchor="start" font-family="DejaVu Sans" font-size="13.5" font-weight="bold" font-style="normal" fill="#111">Add the two buttons and the buzzer.</text>
+<text x="470" y="925" text-anchor="start" font-family="DejaVu Sans" font-size="12.5" font-weight="normal" font-style="normal" fill="#444">The green button on D3 is the only thing that wakes the board — without it nothing happens.</text>
+<text x="84" y="955" text-anchor="start" font-family="DejaVu Sans" font-size="14" font-weight="bold" font-style="normal" fill="#2E7D32">2.</text>
+<text x="110" y="955" text-anchor="start" font-family="DejaVu Sans" font-size="13.5" font-weight="bold" font-style="normal" fill="#111">Use 220 Ω LED resistors, not 470 Ω.</text>
+<text x="470" y="955" text-anchor="start" font-family="DejaVu Sans" font-size="12.5" font-weight="normal" font-style="normal" fill="#444">470 was sized for a 5 V board; on 3.3 V it gives ~2.5 mA and the LEDs look dim.</text>
+<text x="84" y="985" text-anchor="start" font-family="DejaVu Sans" font-size="14" font-weight="bold" font-style="normal" fill="#2E7D32">3.</text>
+<text x="110" y="985" text-anchor="start" font-family="DejaVu Sans" font-size="13.5" font-weight="bold" font-style="normal" fill="#111">Flash firmware/rfid_bike_lock_esp32/</text>
+<text x="470" y="985" text-anchor="start" font-family="DejaVu Sans" font-size="12.5" font-weight="normal" font-style="normal" fill="#444">Boards Manager → Arduino ESP32 Boards → Arduino Nano ESP32. Library Manager → MFRC522.</text>
+<text x="84" y="1015" text-anchor="start" font-family="DejaVu Sans" font-size="14" font-weight="bold" font-style="normal" fill="#2E7D32">4.</text>
+<text x="110" y="1015" text-anchor="start" font-family="DejaVu Sans" font-size="13.5" font-weight="bold" font-style="normal" fill="#111">Press green, tap a fob.</text>
+<text x="470" y="1015" text-anchor="start" font-family="DejaVu Sans" font-size="12.5" font-weight="normal" font-style="normal" fill="#444">First fob tapped becomes master. Second fob → 2 red blinks + long buzz. Hold red 5 s for admin.</text>
+</svg>
