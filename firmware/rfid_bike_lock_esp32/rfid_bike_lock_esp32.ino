@@ -48,6 +48,11 @@ const uint8_t PIN_READER_PWR = D7;   // P-FET gate, LOW = reader powered (option
 const uint8_t PIN_LED_RED    = D8;
 const uint8_t PIN_LED_GREEN  = D9;
 const uint8_t PIN_RC522_SS   = D10;
+// The ESP32 core does not always map the default SPI bus onto the Nano's D11/D12/D13
+// silkscreen pins, so SPI.begin() is called with them explicitly below.
+const uint8_t PIN_RC522_SCK  = D13;
+const uint8_t PIN_RC522_MISO = D12;
+const uint8_t PIN_RC522_MOSI = D11;
 const uint8_t PIN_VBAT_SENSE = A0;   // battery / 2 via 100k:100k
 
 // NOTE on PIN_READER_PWR: gating a 3.3 V rail with the IRF4905 is marginal (its
@@ -186,12 +191,20 @@ bool readerOn() {
   digitalWrite(PIN_READER_PWR, LOW);
   delay(30);
 #endif
-  SPI.begin();
+  SPI.begin(PIN_RC522_SCK, PIN_RC522_MISO, PIN_RC522_MOSI, PIN_RC522_SS);
   rfid.PCD_Init();
   delay(10);
   byte v = rfid.PCD_ReadRegister(MFRC522::VersionReg);
+#ifdef DEBUG
+  DBG(F("[reader] VersionReg = 0x"));
+  if (v < 0x10) DBG("0");
+  Serial.println(v, HEX);
+  DBGLN(F("        0x91/0x92 = genuine · 0x88/0x12 = clone, usually fine"));
+  DBGLN(F("        0x00/0xFF = NOT COMMUNICATING (check SS, SCK, MOSI, MISO, RST, 3V3)"));
+#endif
   if (v == 0x00 || v == 0xFF) return false;           // nothing answering on the bus
   rfid.PCD_AntennaOn();
+  rfid.PCD_SetAntennaGain(MFRC522::RxGain_max);       // max gain: best chance through a lid
   return true;
 }
 
@@ -208,6 +221,13 @@ void readerOff() {
 bool readTag(uint8_t *uid, uint8_t *len, uint16_t timeoutMs) {
   uint32_t t0 = millis();
   while (millis() - t0 < timeoutMs) {
+#ifdef DEBUG
+    static uint32_t lastPoll = 0;
+    if (rfid.PICC_IsNewCardPresent() && millis() - lastPoll > 500) {
+      lastPoll = millis();
+      DBGLN(F("[reader] card detected, reading serial..."));
+    }
+#endif
     if (rfid.PICC_IsNewCardPresent() && rfid.PICC_ReadCardSerial()) {
       *len = rfid.uid.size;
       for (uint8_t i = 0; i < *len && i < 7; i++) uid[i] = rfid.uid.uidByte[i];
@@ -305,7 +325,8 @@ void runAdminMode() {
 
 // ---------- First-boot master enrollment ----------
 void enrollMaster() {
-  DBGLN(F("[enroll] first boot — tap the tag that becomes MASTER"));
+  DBGLN(F("[enroll] FIRST BOOT — present a fob to make it the MASTER key"));
+  DBGLN(F("[enroll] (red/green alternating until one is read)"));
   uint8_t uid[7]; uint8_t len;
   while (true) {
     blinkAlternating(2);
