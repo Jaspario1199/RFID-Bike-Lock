@@ -22,6 +22,28 @@ The two files differ only in the reader driver block (`pn532On/pn532Off/readTag`
 | 3.3V | **3V3 via the AO3401 gate** (D7) — bench step 1: straight to the Nano's 3V3 pin | the RC522 is a 3.3 V part; never 5 V on its VCC |
 | GND | GND | |
 
+## Panel I/O (both sketches)
+
+| Part | Nano pin | Wiring |
+|---|---|---|
+| **GREEN button** (wake / open the scan window) | D3 (INT1) | one leg to D3, the other to GND; internal pullup. Only sleep wake source |
+| **RED button** (tap = cancel the window, hold 5 s = admin mode) | D2 (INT0) | same, to GND |
+| Red LED | D8 | through 470 Ω to GND |
+| Green LED | D9 | through 470 Ω to GND |
+| **Buzzer (ACTIVE)** | D6 | (+) to D6, (−) to GND. An active buzzer makes its own tone from DC |
+
+Sounds: chirp on wake · two chirps on unlock · long buzz on a denied tag or a dead reader ·
+three on admin mode · one long on low battery.
+
+**Passive buzzer instead?** It needs a driven square wave. Replace the body of `beep()` with
+`tone(PIN_BUZZER, 2700); delay(onMs); noTone(PIN_BUZZER);`. Note `tone()` uses Timer2 —
+harmless here, but it will fight any library that wants that timer. The active one is the
+simpler choice for the boxed unit; keep the passive one for the bench if you want pitch.
+
+⚠️ A buzzer is a coil: keep it off the reader's gated rail and add a 1N5819 across it if you
+ever drive it through a transistor rather than straight off the pin (an active buzzer draws
+~25 mA, inside the Nano's 40 mA per-pin limit).
+
 The Nano drives the RC522's SPI inputs at 5 V logic. Every RC522 kit tutorial does this and
 it works, but it is out of spec; for the boxed unit put 1 kΩ in series with SS/SCK/MOSI/RST
 (the MISO line is 3.3 V → Nano, fine).

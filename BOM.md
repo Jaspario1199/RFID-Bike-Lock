@@ -18,7 +18,8 @@ lot from AliExpress roughly halves the Amazon total but takes 2–4 weeks.
 | 9 | P-MOSFET (PN532 power gate) | AO3401 / IRLML6402 (SOT-23 on breakout) | 1 | $0.50 |
 | 10 | Flyback diode | 1N5819 Schottky | 1 | $0.20 |
 | 11 | Reservoir capacitor | 1000 µF / 10 V electrolytic | 1 | $0.50 |
-| 12 | Wake pushbutton | sealed momentary, panel-mount 12 mm | 1 | $1 |
+| 12 | Panel buttons | sealed momentary, panel-mount 12 mm — **2 off: green = wake/scan (D3), red = cancel/admin (D2)** | 2 | $2 |
+| 12b | **Buzzer** | **ACTIVE** 12 mm piezo (self-oscillating, drive straight from D6). A passive one works with `tone()` — see firmware/README.md. Owner has both | 1 | $1 |
 | 13 | LEDs + resistors | red + green 3 mm, 470 Ω ×2, 100 Ω, 100 kΩ ×3 | — | $1 |
 | 14 | MIFARE Classic fobs | 13.56 MHz keychain fobs | 3 | $2 |
 | 15 | NTAG213 stickers | for phone case "phone unlock" | 5 | $2 |

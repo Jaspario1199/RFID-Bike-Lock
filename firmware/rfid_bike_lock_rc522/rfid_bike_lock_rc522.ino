@@ -2,7 +2,7 @@
  * RFID Bike Lock — v1 firmware
  * Target: Arduino Nano (ATmega328P, 5V/16MHz)
  * Reader: MFRC522 (the "RC522" Arduino kit board) on hardware SPI - see firmware/README.md
- * This is the RC522 variant of rfid_bike_lock.ino: identical state machine, EEPROM layout,
+ * This is the RC522 variant of rfid_bike_lock.ino: identical state machine and EEPROM layout;
  * pins and behaviour; only the reader driver differs. Reads MIFARE Classic fobs and NTAG213
  * stickers (both ISO 14443A). It cannot talk to phones (that needs a PN532 + HCE) - same
  * key plan either way: fobs + a sticker on the phone case.
@@ -12,7 +12,10 @@
  *   plus first-boot master enrollment and button-hold admin (add/remove tags).
  *
  * Power design notes (matches DESIGN.md §4):
- *   - The RC522's 3.3 V supply is hard-switched by a P-MOSFET on PIN_PN532_PWR
+ *   - Two panel buttons: GREEN = wake/scan (D3, the only sleep wake source),
+ *     RED = cancel the scan window (tap) or enter admin mode (hold 5 s) on D2.
+ *   - ACTIVE buzzer on D6: chirp on wake, double on unlock, long buzz on denied.
+ *   - The RC522's 3.3 V supply is hard-switched by a P-MOSFET on PIN_READER_PWR
  *     (drive LOW to power the reader, HIGH/idle = off).
  *   - Between events the MCU sits in power-down sleep; the wake button on
  *     D3 (INT1) is the only wake source.
@@ -39,9 +42,11 @@
 #endif
 
 // ---------- Pins (DESIGN.md §4.2) ----------
-const uint8_t PIN_WAKE_BTN   = 3;   // INT1, momentary to GND, internal pullup
+const uint8_t PIN_WAKE_BTN   = 3;   // INT1: GREEN button to GND, internal pullup (wake + scan)
+const uint8_t PIN_ADMIN_BTN  = 2;   // INT0: RED button to GND, internal pullup (tap = cancel, hold = admin)
+const uint8_t PIN_BUZZER     = 6;   // ACTIVE buzzer (+) here, (-) to GND; HIGH = sound
 const uint8_t PIN_SOLENOID   = 5;   // IRLZ44N gate (HIGH = solenoid energized)
-const uint8_t PIN_PN532_PWR  = 7;   // P-MOSFET gate (LOW = reader powered) - name kept for the PN532 build
+const uint8_t PIN_READER_PWR  = 7;   // P-MOSFET gate (LOW = reader powered) - name kept for the PN532 build
 const uint8_t PIN_RC522_SS   = 10;  // SPI: SS=D10, SCK=D13, MOSI=D11, MISO=D12 (hardware SPI)
 const uint8_t PIN_RC522_RST  = 4;   // D9 is the green LED, so RST moves to D4
 const uint8_t PIN_LED_RED    = 8;
@@ -150,8 +155,8 @@ void removeTagAt(int slot) {
 }
 
 // ---------- RC522 power gating ----------
-bool pn532On() {                       // name kept so the state machine below is byte-identical
-  digitalWrite(PIN_PN532_PWR, LOW);    // P-MOSFET on -> 3.3 V to the RC522
+bool readerOn() {                       // name kept so the state machine below is byte-identical
+  digitalWrite(PIN_READER_PWR, LOW);    // P-MOSFET on -> 3.3 V to the RC522
   delay(50);                           // module power-up + oscillator
   SPI.begin();
   rfid.PCD_Init();
@@ -162,14 +167,14 @@ bool pn532On() {                       // name kept so the state machine below i
   return true;
 }
 
-void pn532Off() {
+void readerOff() {
   rfid.PCD_AntennaOff();
   SPI.end();
   // Park every line LOW so the 5 V Nano pins can't back-feed the dead 3.3 V rail
   for (uint8_t p : {PIN_RC522_SS, PIN_RC522_RST, (uint8_t)13, (uint8_t)11, (uint8_t)12}) {
     pinMode(p, OUTPUT); digitalWrite(p, LOW);
   }
-  digitalWrite(PIN_PN532_PWR, HIGH);   // P-MOSFET off
+  digitalWrite(PIN_READER_PWR, HIGH);   // P-MOSFET off
 }
 
 // Poll for a tag with a bounded wait. Returns true and fills uid/len (4 or 7 bytes).
@@ -187,6 +192,21 @@ bool readTag(uint8_t *uid, uint8_t *len, uint16_t timeoutMs) {
   return false;
 }
 
+// ---------- Buzzer (ACTIVE type: on/off only, no tone()) ----------
+void beep(uint16_t onMs, uint8_t n = 1, uint16_t gapMs = 80) {
+  for (uint8_t i = 0; i < n; i++) {
+    digitalWrite(PIN_BUZZER, HIGH); delay(onMs);
+    digitalWrite(PIN_BUZZER, LOW);
+    if (i + 1 < n) delay(gapMs);
+  }
+}
+// For a PASSIVE buzzer instead, swap these for tone()/noTone() - see firmware/README.md
+#define BEEP_WAKE()    beep(40)          // chirp: scan window open
+#define BEEP_OK()      beep(60, 2, 60)   // two chirps: authorized -> unlocked
+#define BEEP_DENIED()  beep(400)         // long buzz: unknown tag / reader fault
+#define BEEP_ADMIN()   beep(120, 3, 80)  // three: admin mode
+#define BEEP_LOWBAT()  beep(700)         // one long: battery low
+
 // ---------- Solenoid ----------
 void fireUnlock() {
   digitalWrite(PIN_SOLENOID, HIGH);
@@ -196,7 +216,8 @@ void fireUnlock() {
 
 // ---------- Sleep ----------
 void goToSleep() {
-  pn532Off();
+  readerOff();
+  digitalWrite(PIN_BUZZER, LOW);
   digitalWrite(PIN_LED_RED, LOW);
   digitalWrite(PIN_LED_GREEN, LOW);
   digitalWrite(PIN_SOLENOID, LOW);
@@ -229,10 +250,11 @@ void runAdminMode() {
   while (millis() - start < ADMIN_TIMEOUT_MS) {
     if (readTag(uid, &len, 400) && isMaster(uid, len)) { masterOk = true; break; }
   }
-  if (!masterOk) { blink(PIN_LED_RED, 2); return; }
+  if (!masterOk) { blink(PIN_LED_RED, 2); BEEP_DENIED(); return; }
 
   DBGLN(F("[admin] master ok — tap to add/remove"));
   blink(PIN_LED_GREEN, 1, 400, 0);
+  BEEP_ADMIN();
 
   uint32_t lastActivity = millis();
   while (millis() - lastActivity < ADMIN_TIMEOUT_MS) {
@@ -246,9 +268,11 @@ void runAdminMode() {
       removeTagAt(slot);
       DBGLN(F("[admin] tag removed"));
       blink(PIN_LED_RED, 3);
+      beep(300);          // tag removed
     } else if (addTag(uid, len)) {
       DBGLN(F("[admin] tag added"));
       blink(PIN_LED_GREEN, 3);
+      BEEP_OK();          // tag added
     } else {
       DBGLN(F("[admin] list full"));
       blink(PIN_LED_RED, 5, 60, 60);
@@ -278,11 +302,12 @@ void enrollMaster() {
 void runScanWindow() {
   float v = readBatteryVolts();
   DBG(F("[wake] vbat=")); DBGLN(v);
-  if (v < VBAT_LOW) blink(PIN_LED_RED, 3);
+  if (v < VBAT_LOW) { blink(PIN_LED_RED, 3); BEEP_LOWBAT(); }
 
-  if (!pn532On()) {
-    DBGLN(F("[err] PN532 not responding"));
+  if (!readerOn()) {
+    DBGLN(F("[err] RC522 not responding"));
     blink(PIN_LED_RED, 5, 60, 60);
+    BEEP_DENIED();
     return;
   }
 
@@ -295,17 +320,23 @@ void runScanWindow() {
   uint32_t btnDownAt = 0;
 
   digitalWrite(PIN_LED_GREEN, HIGH); delay(60); digitalWrite(PIN_LED_GREEN, LOW);
+  BEEP_WAKE();
 
   while (millis() - windowStart < SCAN_WINDOW_MS) {
 
-    // --- admin entry: hold the wake button for ADMIN_HOLD_MS ---
-    if (digitalRead(PIN_WAKE_BTN) == LOW) {
+    // --- RED button: tap = cancel the window, hold ADMIN_HOLD_MS = admin mode ---
+    if (digitalRead(PIN_ADMIN_BTN) == LOW) {
       if (btnDownAt == 0) btnDownAt = millis();
       else if (millis() - btnDownAt >= ADMIN_HOLD_MS) {
         runAdminMode();
         return; // sleep after admin
       }
     } else {
+      if (btnDownAt != 0) {                     // released before the hold -> cancel
+        DBGLN(F("[scan] cancelled (red)"));
+        blink(PIN_LED_RED, 1); beep(150);
+        return;
+      }
       btnDownAt = 0;
     }
 
@@ -327,11 +358,13 @@ void runScanWindow() {
     if (isAuthorized(uid, len)) {
       DBGLN(F("[auth] OK -> unlock"));
       fireUnlock();
+      BEEP_OK();
       digitalWrite(PIN_LED_GREEN, HIGH); delay(1000); digitalWrite(PIN_LED_GREEN, LOW);
       return; // job done, back to sleep
     } else {
       DBGLN(F("[auth] denied"));
       blink(PIN_LED_RED, 2);
+      BEEP_DENIED();
       // window stays open for another attempt
     }
   }
@@ -341,8 +374,10 @@ void runScanWindow() {
 // ----------------------------------------------------------------------
 void setup() {
   pinMode(PIN_WAKE_BTN, INPUT_PULLUP);
+  pinMode(PIN_ADMIN_BTN, INPUT_PULLUP);
+  pinMode(PIN_BUZZER, OUTPUT);     digitalWrite(PIN_BUZZER, LOW);
   pinMode(PIN_SOLENOID, OUTPUT);   digitalWrite(PIN_SOLENOID, LOW);
-  pinMode(PIN_PN532_PWR, OUTPUT);  digitalWrite(PIN_PN532_PWR, HIGH); // reader off
+  pinMode(PIN_READER_PWR, OUTPUT);  digitalWrite(PIN_READER_PWR, HIGH); // reader off
   pinMode(PIN_LED_RED, OUTPUT);    digitalWrite(PIN_LED_RED, LOW);
   pinMode(PIN_LED_GREEN, OUTPUT);  digitalWrite(PIN_LED_GREEN, LOW);
 

@@ -72,8 +72,10 @@ WIN_X0 = 34.8                    # window over the RC522's antenna end (board x 
 WIN_CX = WIN_X0 + WIN_L / 2      # 42.6
 INS_FLANGE, INS_FL_T = 2.5, 1.5  # opaque insert: body fills the cutout flush; flange sits in a recess milled
                                  # in the lid's UNDERSIDE (nothing shows on top; the box wall clamps it)
-BTN_D, BTN_X, BTN_Y = 12.4, 86.0, 33.0        # sealed 12 mm button: past the reader deck (x<=80), beside the boss (y<=5.5)
-LED_D, LED_X, LED_Y = 3.3, 85.0, (12.0, 22.0)  # LEDs in the same gap column
+BTN_D, BTN_X, BTN_Y = 12.4, 86.0, 33.0        # GREEN (wake/scan) sealed 12 mm button: past the reader deck (x<=80), beside the boss
+BTN2_Y = 12.0                                  # RED (admin/cancel) button, same column, other end
+BUZ_D, BUZ_H, BUZ_X, BUZ_Y = 12.0, 9.5, 125.0, 30.0   # active buzzer under the lid over the MT3608 (top z 50); sound hole O2.5
+LED_D, LED_XY = 3.3, ((83.0, 22.5), (89.0, 22.5))  # LEDs side by side between the two buttons
 
 # ---------------- closure block (on C2, under the box overhang) ----------------
 BLK_X0, BLK_X1 = LATCH_X - 10.0, LATCH_X + 10.0
@@ -236,9 +238,11 @@ def build_lid():
     p = p.cut(cq.Workplane("XY", origin=(WIN_CX, (BY0 + BY1) / 2, ZTOP - 1)).rect(WIN_L, WIN_W).extrude(LID_T + 2).edges("|Z").fillet(4))
     p = p.cut(cq.Workplane("XY", origin=(WIN_CX, (BY0 + BY1) / 2, ZTOP - 1)).rect(WIN_L + 2 * INS_FLANGE + 0.2, WIN_W + 2 * INS_FLANGE + 0.2).extrude(INS_FL_T + 1).edges("|Z").fillet(5.4))
     p = p.cut(cq.Workplane("XY", origin=(LATCH_X, LATCH_Y, ZTOP - 1)).circle(BORE_D / 2 + 0.3).extrude(LID_T + 2))
-    p = p.cut(cq.Workplane("XY", origin=(BTN_X, BTN_Y, ZTOP - 1)).circle(BTN_D / 2).extrude(LID_T + 2))
-    for ly in LED_Y:
-        p = p.cut(cq.Workplane("XY", origin=(LED_X, ly, ZTOP - 1)).circle(LED_D / 2).extrude(LID_T + 2))
+    for by in (BTN_Y, BTN2_Y):
+        p = p.cut(cq.Workplane("XY", origin=(BTN_X, by, ZTOP - 1)).circle(BTN_D / 2).extrude(LID_T + 2))
+    for (lx, ly) in LED_XY:
+        p = p.cut(cq.Workplane("XY", origin=(lx, ly, ZTOP - 1)).circle(LED_D / 2).extrude(LID_T + 2))
+    p = p.cut(cq.Workplane("XY", origin=(BUZ_X, BUZ_Y, ZTOP - 1)).circle(1.25).extrude(LID_T + 2))   # buzzer sound hole
     for (sx, sy) in LID_SCREWS:
         p = p.cut(cq.Workplane("XY", origin=(sx, sy, ZTOP - 1)).circle(CLR3 / 2).extrude(LID_T + 2))
         cs = (cq.Workplane("XY", origin=(sx, sy, ZTOP + LID_T + 0.01)).circle(3.2)
@@ -460,19 +464,25 @@ def build_ref_tp4056():
 def build_ref_mt3608():
     return _box(TP_X1 - MT_L, TP_Y0 + (TP_W - MT_W) / 2, ZF + TP_T + 3.3 + 0.7, MT_L, MT_W, MT_H)
 
-def build_ref_button():
+def build_ref_button(by):
     """12 mm sealed momentary: O12 body 15 deep below the lid + nut"""
-    return cq.Workplane("XY", origin=(BTN_X, BTN_Y, ZTOP - 15.0)).circle(6.0).extrude(15.0)
+    return cq.Workplane("XY", origin=(BTN_X, by, ZTOP - 15.0)).circle(6.0).extrude(15.0)
 
 def build_ref_led(i):
     """5 mm LED body below its lid hole"""
-    return cq.Workplane("XY", origin=(LED_X, LED_Y[i], ZTOP - 8.0)).circle(2.6).extrude(8.0)
+    lx, ly = LED_XY[i]
+    return cq.Workplane("XY", origin=(lx, ly, ZTOP - 8.0)).circle(2.6).extrude(8.0)
+
+def build_ref_buzzer():
+    """O12 x 9.5 active buzzer glued under the lid, over the MT3608"""
+    return cq.Workplane("XY", origin=(BUZ_X, BUZ_Y, ZTOP - BUZ_H)).circle(BUZ_D / 2).extrude(BUZ_H)
 
 REF_PARTS = {
     "ref_tray": build_ref_tray, "ref_battery": build_ref_battery, "ref_reader": build_ref_reader,
     "ref_cart_module": build_ref_cart_module, "ref_plunger": build_ref_plunger, "ref_nano": build_ref_nano,
-    "ref_tp4056": build_ref_tp4056, "ref_mt3608": build_ref_mt3608, "ref_button": build_ref_button,
-    "ref_led_1": lambda: build_ref_led(0), "ref_led_2": lambda: build_ref_led(1),
+    "ref_tp4056": build_ref_tp4056, "ref_mt3608": build_ref_mt3608,
+    "ref_button_green": lambda: build_ref_button(BTN_Y), "ref_button_red": lambda: build_ref_button(BTN2_Y),
+    "ref_led_1": lambda: build_ref_led(0), "ref_led_2": lambda: build_ref_led(1), "ref_buzzer": build_ref_buzzer,
 }
 
 PARTS = {
