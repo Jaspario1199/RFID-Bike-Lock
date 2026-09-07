@@ -109,6 +109,9 @@ This is the joint everything else hangs off, so it comes first and gets tested a
 
 Nothing goes in the box until it works on the bench. Build up one block at a time.
 
+**Full electrical detail — net list, the RC522 3.3 V trap, driver-card layout, expected
+voltages at every step — is in [`WIRING.md`](WIRING.md). Read it before soldering.**
+
 ### C.1 Checkpoint 1 — reader + logic (parts you already own)
 
 Breadboard the Nano and the RC522. **RC522 power is 3.3 V, never 5 V.**
