@@ -8,6 +8,7 @@ your board:
 | `rfid_bike_lock_esp32/` | **Arduino Nano ESP32** (3.3 V) — *the one in hand* | RC522 direct, **no level shifters** |
 | `rfid_bike_lock_rc522/` | classic Nano / Uno (5 V) | RC522 via 1 k / 2 k dividers |
 | `rfid_bike_lock/` | classic Nano / Uno (5 V) | PN532 over I2C |
+| `rc522_test/` | **diagnostic** — Nano ESP32 | 40 lines: prints VersionReg + any card UID |
 
 ## Nano ESP32 build
 

@@ -105,7 +105,12 @@ Tap red during the window → one red blink, a 150 ms beep, back to sleep.
 
 ---
 
-## Stage 4 — RC522 (15 min)
+## Stage 4 — RC522 (15 min)   ✅ **PASSED 2026-09-07** — master fob enrolled
+
+*If the reader misbehaves, flash `firmware/rc522_test/` first: 40 lines that print VersionReg
+and any card UID, so you find the fault in one upload instead of guessing inside 440 lines of
+lock firmware.*
+
 
 Both parts are 3.3 V, so this is now seven wires and nothing else. **No dividers, no AMS1117,
 no ELEGOO rail.**
