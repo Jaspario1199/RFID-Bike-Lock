@@ -166,7 +166,7 @@ coil supply and not somewhere useless.
 ### C.3 Checkpoint 3 — power chain
 
 1. Set the **MT3608 output before connecting anything to it.** Feed it from the cell, put a
-   meter on the output, turn the pot until it reads **6.00 V**, then power down.
+   meter on the output, turn the pot until it reads **6.2-6.5 V**, then power down.
 2. Nano runs off **VIN** from that 6 V rail. The RC522 and LEDs run off the **Nano's 3.3 V
    and 5 V pins** through the AO3401 gate on D7.
 3. TP4056: cell to B+/B−, load to OUT+/OUT−. **Charge with the lock asleep** — this board has

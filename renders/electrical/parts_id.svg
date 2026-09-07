@@ -45,7 +45,7 @@
 <circle cx="1137" cy="243" r="14" fill="#E0E0E0" stroke="#9E9E9E"/>
 <line x1="1137" y1="231" x2="1137" y2="255" stroke="#616161" stroke-width="3"/>
 <text x="1137" y="341.6" text-anchor="middle" font-family="DejaVu Sans" font-size="12" font-weight="bold" font-style="normal" fill="#222">TRIM POT</text>
-<text x="1137" y="359.6" text-anchor="middle" font-family="DejaVu Sans" font-size="11.5" font-weight="bold" font-style="normal" fill="#B71C1C">turn this to 6.00 V first</text>
+<text x="1137" y="359.6" text-anchor="middle" font-family="DejaVu Sans" font-size="11.5" font-weight="bold" font-style="normal" fill="#B71C1C">turn this to 6.2-6.5 V</text>
 <rect x="940" y="216" width="26" height="14" rx="2" fill="#D4AF37"/>
 <text x="932" y="228" text-anchor="end" font-family="DejaVu Sans" font-size="12.5" font-weight="bold" font-style="normal" fill="#222">IN+</text>
 <rect x="940" y="266" width="26" height="14" rx="2" fill="#D4AF37"/>

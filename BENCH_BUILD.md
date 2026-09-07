@@ -30,16 +30,22 @@ it — they ship at 20 V and will kill the Nano. And the 1N5819's painted band g
 
 ---
 
-## Stage 1 — set the MT3608 to 6.00 V (10 min)
+## Stage 1 — set the MT3608 to 6.2–6.5 V (10 min)
 
 Nothing else connected. Feed it 5 V from the ELEGOO module (or 12 V from the RoomCleaner PSU
 through an MP1584 — the MT3608 takes 2–24 V in).
 
 1. IN+ / IN− to the supply. Multimeter on OUT+ / OUT−.
 2. Turn the trim pot. Many turns do nothing at first; keep going, then it climbs fast.
-3. Land on **6.00 V ± 0.05**. Power down.
+3. Land on **6.2–6.5 V** (not 6.0: the Nano's regulator needs ~1.1 V of dropout). Power down.
 
-Mark the module with tape so you don't confuse it with the other four in the pack.
+Mark the module with tape so you don't confuse it with the other four in the pack, and put a
+dot of nail polish or hot glue on the pot so vibration can't drift it.
+
+> **Why not exactly 6.0?** The Nano's onboard AMS1117-5.0 drops about 1.1 V, so a 6.0 V rail
+> leaves its 5 V output sagging near 4.9. 6.2–6.5 gives a solid 5 V for the reader and LEDs,
+> and only pushes the 6 V solenoid ~7% over rating — irrelevant for a 300 ms pulse.
+
 
 ---
 

@@ -81,7 +81,7 @@ Every wire in the lock. If it is not on this list, it should not exist.
 | TP4056 **OUT−** | MT3608 **IN−** | 22 AWG | this is system ground, star point |
 | TP4056 **OUT+** | 100 kΩ → A0 | 26 AWG | battery sense, top of the divider |
 | A0 | 100 kΩ → GND | 26 AWG | bottom of the divider |
-| MT3608 **OUT+** | Nano **VIN** | 22 AWG | 6.00 V |
+| MT3608 **OUT+** | Nano **VIN** | 22 AWG | 6.2–6.5 V |
 | MT3608 **OUT+** | driver card **V+** | 22 AWG | solenoid supply |
 | MT3608 **OUT−** | Nano **GND** | 22 AWG | |
 | MT3608 **OUT−** | driver card **GND** | 22 AWG | separate wire, not daisy-chained through the Nano |
@@ -231,7 +231,7 @@ Wire only: cell → TP4056 → MT3608. Nothing on the output.
 |---|---|
 | TP4056 OUT+ to OUT− | cell voltage, 3.4–4.2 V |
 | MT3608 OUT+ to OUT−, adjusting the pot | sweeps well past 6 V |
-| Set it and re-measure | **6.00 V ± 0.05** |
+| Set it and re-measure | **6.2–6.5 V** (not 6.0: the Nano's regulator needs ~1.1 V of dropout) |
 
 **Then power down before connecting anything.** An MT3608 shipped at 20 V+ will destroy the
 Nano in the time it takes to notice.

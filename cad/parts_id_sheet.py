@@ -71,7 +71,7 @@ A(f'<rect x="{bx+150}" y="{by+22}" width="42" height="42" rx="3" fill="#1976D2" 
 A(f'<circle cx="{bx+171}" cy="{by+43}" r="14" fill="#E0E0E0" stroke="#9E9E9E"/>')
 A(f'<line x1="{bx+171}" y1="{by+31}" x2="{bx+171}" y2="{by+55}" stroke="#616161" stroke-width="3"/>')
 txt(bx + 171, by + h + 26, "TRIM POT", 12, "#222", "middle", "bold")
-txt(bx + 171, by + h + 44, "turn this to 6.00 V first", 11.5, "#B71C1C", "middle", "bold")
+txt(bx + 171, by + h + 44, "turn this to 6.2-6.5 V", 11.5, "#B71C1C", "middle", "bold")
 for nm, yy in [("IN+", 16), ("IN−", 66)]:
     A(f'<rect x="{bx-26}" y="{by+yy}" width="26" height="14" rx="2" fill="#D4AF37"/>')
     txt(bx - 34, by + yy + 12, nm, 12.5, "#222", "end", "bold")

@@ -49,7 +49,7 @@ for i, (c, t) in enumerate([(CELL, "cell, 3.0–4.2 V"), (RAIL, "6.0 V rail"), (
 box(40, 120, 118, 84, "USB-C", "charge in\n(TPU plug)", "#F1F8E9", tdy=30)
 box(200, 120, 178, 84, "TP4056", "charger + protection\nB+  B−  OUT+  OUT−", "#F1F8E9", tdy=30)
 box(420, 120, 172, 84, "103450 LiPo", "2000 mAh\nwith protection PCB", "#F1F8E9", tdy=30)
-box(636, 120, 178, 84, "MT3608 boost", "SET TO 6.00 V FIRST\n(they ship at 20 V+)", "#FFF3E0", tdy=30)
+box(636, 120, 178, 84, "MT3608 boost", "SET TO 6.2-6.5 V FIRST\n(they ship at 20 V+)", "#FFF3E0", tdy=30)
 wire([(158, 162), (200, 162)], BLK, 3)
 wire([(378, 148), (420, 148)], CELL, 3); label(384, 141, "B+", 11.5, CELL)
 wire([(378, 180), (420, 180)], BLK, 3); label(384, 197, "B−", 11.5, "#555")
@@ -147,7 +147,7 @@ gnd(158, 930)
 box(1420, 120, 420, 232, "⚠  THE THREE THAT COST HARDWARE", "", "#FFF5F5", "#B71C1C", 15.5, tdy=26)
 warn = [("1.  1N5819 band goes to V+.", "Backwards = a dead short across the cell."),
         ("2.  Verify the IRLZ44N pinout.", "D and S swapped = permanent conduction."),
-        ("3.  Set the MT3608 to 6.00 V", "before anything is connected to it.")]
+        ("3.  Set the MT3608 to 6.2-6.5 V", "before anything is connected to it.")]
 for i, (a_, b_) in enumerate(warn):
     label(1440, 178 + i * 58, a_, 14, "#B71C1C", weight="bold")
     label(1440, 198 + i * 58, b_, 12.5, "#555")

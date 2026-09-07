@@ -26,7 +26,7 @@
 <text x="506.0" y="188" text-anchor="middle" font-family="DejaVu Sans" font-size="12.5" fill="#555">with protection PCB</text>
 <rect x="636" y="120" width="178" height="84" rx="6" fill="#FFF3E0" stroke="#37474F" stroke-width="2"/>
 <text x="725.0" y="150" text-anchor="middle" font-family="DejaVu Sans" font-size="17" font-weight="bold" fill="#111">MT3608 boost</text>
-<text x="725.0" y="171" text-anchor="middle" font-family="DejaVu Sans" font-size="12.5" fill="#555">SET TO 6.00 V FIRST</text>
+<text x="725.0" y="171" text-anchor="middle" font-family="DejaVu Sans" font-size="12.5" fill="#555">SET TO 6.2-6.5 V FIRST</text>
 <text x="725.0" y="188" text-anchor="middle" font-family="DejaVu Sans" font-size="12.5" fill="#555">(they ship at 20 V+)</text>
 <path d="M 158 162 L 200 162" fill="none" stroke="#212121" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
 <path d="M 378 148 L 420 148" fill="none" stroke="#8E24AA" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
@@ -190,7 +190,7 @@
 <text x="1440" y="198" text-anchor="start" font-family="DejaVu Sans" font-size="12.5" font-weight="normal" font-style="normal" fill="#555">Backwards = a dead short across the cell.</text>
 <text x="1440" y="236" text-anchor="start" font-family="DejaVu Sans" font-size="14" font-weight="bold" font-style="normal" fill="#B71C1C">2.  Verify the IRLZ44N pinout.</text>
 <text x="1440" y="256" text-anchor="start" font-family="DejaVu Sans" font-size="12.5" font-weight="normal" font-style="normal" fill="#555">D and S swapped = permanent conduction.</text>
-<text x="1440" y="294" text-anchor="start" font-family="DejaVu Sans" font-size="14" font-weight="bold" font-style="normal" fill="#B71C1C">3.  Set the MT3608 to 6.00 V</text>
+<text x="1440" y="294" text-anchor="start" font-family="DejaVu Sans" font-size="14" font-weight="bold" font-style="normal" fill="#B71C1C">3.  Set the MT3608 to 6.2-6.5 V</text>
 <text x="1440" y="314" text-anchor="start" font-family="DejaVu Sans" font-size="12.5" font-weight="normal" font-style="normal" fill="#555">before anything is connected to it.</text>
 <rect x="1420" y="376" width="420" height="180" rx="6" fill="#F1F8E9" stroke="#33691E" stroke-width="2"/>
 <text x="1630.0" y="402" text-anchor="middle" font-family="DejaVu Sans" font-size="15.5" font-weight="bold" fill="#111">RC522 IS A 3.3 V PART</text>
