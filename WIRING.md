@@ -1,5 +1,10 @@
 # WIRING.md — the electrical build, in detail
 
+![wiring diagram](renders/electrical/wiring_diagram.png)
+
+*Full-size: [`renders/electrical/wiring_diagram.png`](renders/electrical/wiring_diagram.png) · vector:
+[`.svg`](renders/electrical/wiring_diagram.svg) · regenerate with `python cad/wiring_diagram.py`*
+
 Everything electrical for the rev 3c lock: what connects to what, why it is arranged that
 way, the order to solder it in, and what to measure at each step. Mechanical assembly is in
 [`ASSEMBLY_CNC.md`](ASSEMBLY_CNC.md); this file is the companion for the wiring.
