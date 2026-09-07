@@ -1,0 +1,365 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1520" height="900" viewBox="0 0 1520 900">
+<rect width="1520" height="900" fill="#FAFAF8"/>
+<text x="40" y="46" text-anchor="start" font-family="DejaVu Sans" font-size="26" font-weight="bold" font-style="normal" fill="#111">BREADBOARD LAYOUT — solenoid driver</text>
+<text x="40" y="72" text-anchor="start" font-family="DejaVu Sans" font-size="14" font-weight="normal" font-style="normal" fill="#666">Each row of 5 holes is ONE node. Each MOSFET leg gets its own row — never two legs in the same row.</text>
+<rect x="230" y="84" width="470" height="636" rx="10" fill="#F5F5F0" stroke="#BDBDBD" stroke-width="2"/>
+<line x1="248" y1="110" x2="248" y2="690" stroke="#C62828" stroke-width="2"/>
+<text x="248" y="102" text-anchor="middle" font-family="DejaVu Sans" font-size="15" font-weight="bold" font-style="normal" fill="#C62828">+</text>
+<line x1="270" y1="110" x2="270" y2="690" stroke="#212121" stroke-width="2"/>
+<text x="270" y="102" text-anchor="middle" font-family="DejaVu Sans" font-size="15" font-weight="bold" font-style="normal" fill="#212121">−</text>
+<line x1="652" y1="110" x2="652" y2="690" stroke="#C62828" stroke-width="2"/>
+<line x1="674" y1="110" x2="674" y2="690" stroke="#212121" stroke-width="2"/>
+<text x="216" y="135" text-anchor="end" font-family="DejaVu Sans" font-size="11.5" font-weight="normal" font-style="normal" fill="#999">1</text>
+<circle cx="300" cy="130" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="330" cy="130" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="360" cy="130" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="390" cy="130" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="420" cy="130" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="480" cy="130" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="510" cy="130" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="540" cy="130" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="570" cy="130" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="600" cy="130" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="248" cy="130" r="4.2" fill="#FFFFFF" stroke="#C62828" stroke-width="1.2"/>
+<circle cx="270" cy="130" r="4.2" fill="#FFFFFF" stroke="#212121" stroke-width="1.2"/>
+<circle cx="652" cy="130" r="4.2" fill="#FFFFFF" stroke="#C62828" stroke-width="1.2"/>
+<circle cx="674" cy="130" r="4.2" fill="#FFFFFF" stroke="#212121" stroke-width="1.2"/>
+<text x="216" y="165" text-anchor="end" font-family="DejaVu Sans" font-size="11.5" font-weight="normal" font-style="normal" fill="#999">2</text>
+<circle cx="300" cy="160" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="330" cy="160" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="360" cy="160" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="390" cy="160" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="420" cy="160" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="480" cy="160" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="510" cy="160" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="540" cy="160" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="570" cy="160" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="600" cy="160" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="248" cy="160" r="4.2" fill="#FFFFFF" stroke="#C62828" stroke-width="1.2"/>
+<circle cx="270" cy="160" r="4.2" fill="#FFFFFF" stroke="#212121" stroke-width="1.2"/>
+<circle cx="652" cy="160" r="4.2" fill="#FFFFFF" stroke="#C62828" stroke-width="1.2"/>
+<circle cx="674" cy="160" r="4.2" fill="#FFFFFF" stroke="#212121" stroke-width="1.2"/>
+<text x="216" y="195" text-anchor="end" font-family="DejaVu Sans" font-size="11.5" font-weight="normal" font-style="normal" fill="#999">3</text>
+<circle cx="300" cy="190" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="330" cy="190" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="360" cy="190" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="390" cy="190" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="420" cy="190" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="480" cy="190" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="510" cy="190" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="540" cy="190" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="570" cy="190" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="600" cy="190" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="248" cy="190" r="4.2" fill="#FFFFFF" stroke="#C62828" stroke-width="1.2"/>
+<circle cx="270" cy="190" r="4.2" fill="#FFFFFF" stroke="#212121" stroke-width="1.2"/>
+<circle cx="652" cy="190" r="4.2" fill="#FFFFFF" stroke="#C62828" stroke-width="1.2"/>
+<circle cx="674" cy="190" r="4.2" fill="#FFFFFF" stroke="#212121" stroke-width="1.2"/>
+<text x="216" y="225" text-anchor="end" font-family="DejaVu Sans" font-size="11.5" font-weight="normal" font-style="normal" fill="#999">4</text>
+<circle cx="300" cy="220" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="330" cy="220" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="360" cy="220" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="390" cy="220" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="420" cy="220" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="480" cy="220" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="510" cy="220" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="540" cy="220" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="570" cy="220" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="600" cy="220" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="248" cy="220" r="4.2" fill="#FFFFFF" stroke="#C62828" stroke-width="1.2"/>
+<circle cx="270" cy="220" r="4.2" fill="#FFFFFF" stroke="#212121" stroke-width="1.2"/>
+<circle cx="652" cy="220" r="4.2" fill="#FFFFFF" stroke="#C62828" stroke-width="1.2"/>
+<circle cx="674" cy="220" r="4.2" fill="#FFFFFF" stroke="#212121" stroke-width="1.2"/>
+<text x="216" y="255" text-anchor="end" font-family="DejaVu Sans" font-size="11.5" font-weight="normal" font-style="normal" fill="#999">5</text>
+<circle cx="300" cy="250" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="330" cy="250" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="360" cy="250" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="390" cy="250" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="420" cy="250" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="480" cy="250" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="510" cy="250" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="540" cy="250" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="570" cy="250" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="600" cy="250" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="248" cy="250" r="4.2" fill="#FFFFFF" stroke="#C62828" stroke-width="1.2"/>
+<circle cx="270" cy="250" r="4.2" fill="#FFFFFF" stroke="#212121" stroke-width="1.2"/>
+<circle cx="652" cy="250" r="4.2" fill="#FFFFFF" stroke="#C62828" stroke-width="1.2"/>
+<circle cx="674" cy="250" r="4.2" fill="#FFFFFF" stroke="#212121" stroke-width="1.2"/>
+<text x="216" y="285" text-anchor="end" font-family="DejaVu Sans" font-size="11.5" font-weight="normal" font-style="normal" fill="#999">6</text>
+<circle cx="300" cy="280" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="330" cy="280" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="360" cy="280" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="390" cy="280" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="420" cy="280" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="480" cy="280" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="510" cy="280" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="540" cy="280" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="570" cy="280" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="600" cy="280" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="248" cy="280" r="4.2" fill="#FFFFFF" stroke="#C62828" stroke-width="1.2"/>
+<circle cx="270" cy="280" r="4.2" fill="#FFFFFF" stroke="#212121" stroke-width="1.2"/>
+<circle cx="652" cy="280" r="4.2" fill="#FFFFFF" stroke="#C62828" stroke-width="1.2"/>
+<circle cx="674" cy="280" r="4.2" fill="#FFFFFF" stroke="#212121" stroke-width="1.2"/>
+<text x="216" y="315" text-anchor="end" font-family="DejaVu Sans" font-size="11.5" font-weight="normal" font-style="normal" fill="#999">7</text>
+<circle cx="300" cy="310" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="330" cy="310" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="360" cy="310" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="390" cy="310" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="420" cy="310" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="480" cy="310" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="510" cy="310" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="540" cy="310" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="570" cy="310" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="600" cy="310" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="248" cy="310" r="4.2" fill="#FFFFFF" stroke="#C62828" stroke-width="1.2"/>
+<circle cx="270" cy="310" r="4.2" fill="#FFFFFF" stroke="#212121" stroke-width="1.2"/>
+<circle cx="652" cy="310" r="4.2" fill="#FFFFFF" stroke="#C62828" stroke-width="1.2"/>
+<circle cx="674" cy="310" r="4.2" fill="#FFFFFF" stroke="#212121" stroke-width="1.2"/>
+<text x="216" y="345" text-anchor="end" font-family="DejaVu Sans" font-size="11.5" font-weight="normal" font-style="normal" fill="#999">8</text>
+<circle cx="300" cy="340" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="330" cy="340" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="360" cy="340" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="390" cy="340" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="420" cy="340" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="480" cy="340" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="510" cy="340" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="540" cy="340" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="570" cy="340" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="600" cy="340" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="248" cy="340" r="4.2" fill="#FFFFFF" stroke="#C62828" stroke-width="1.2"/>
+<circle cx="270" cy="340" r="4.2" fill="#FFFFFF" stroke="#212121" stroke-width="1.2"/>
+<circle cx="652" cy="340" r="4.2" fill="#FFFFFF" stroke="#C62828" stroke-width="1.2"/>
+<circle cx="674" cy="340" r="4.2" fill="#FFFFFF" stroke="#212121" stroke-width="1.2"/>
+<text x="216" y="375" text-anchor="end" font-family="DejaVu Sans" font-size="11.5" font-weight="normal" font-style="normal" fill="#999">9</text>
+<circle cx="300" cy="370" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="330" cy="370" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="360" cy="370" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="390" cy="370" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="420" cy="370" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="480" cy="370" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="510" cy="370" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="540" cy="370" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="570" cy="370" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="600" cy="370" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="248" cy="370" r="4.2" fill="#FFFFFF" stroke="#C62828" stroke-width="1.2"/>
+<circle cx="270" cy="370" r="4.2" fill="#FFFFFF" stroke="#212121" stroke-width="1.2"/>
+<circle cx="652" cy="370" r="4.2" fill="#FFFFFF" stroke="#C62828" stroke-width="1.2"/>
+<circle cx="674" cy="370" r="4.2" fill="#FFFFFF" stroke="#212121" stroke-width="1.2"/>
+<text x="216" y="405" text-anchor="end" font-family="DejaVu Sans" font-size="11.5" font-weight="normal" font-style="normal" fill="#999">10</text>
+<circle cx="300" cy="400" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="330" cy="400" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="360" cy="400" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="390" cy="400" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="420" cy="400" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="480" cy="400" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="510" cy="400" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="540" cy="400" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="570" cy="400" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="600" cy="400" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="248" cy="400" r="4.2" fill="#FFFFFF" stroke="#C62828" stroke-width="1.2"/>
+<circle cx="270" cy="400" r="4.2" fill="#FFFFFF" stroke="#212121" stroke-width="1.2"/>
+<circle cx="652" cy="400" r="4.2" fill="#FFFFFF" stroke="#C62828" stroke-width="1.2"/>
+<circle cx="674" cy="400" r="4.2" fill="#FFFFFF" stroke="#212121" stroke-width="1.2"/>
+<text x="216" y="435" text-anchor="end" font-family="DejaVu Sans" font-size="11.5" font-weight="normal" font-style="normal" fill="#999">11</text>
+<circle cx="300" cy="430" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="330" cy="430" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="360" cy="430" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="390" cy="430" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="420" cy="430" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="480" cy="430" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="510" cy="430" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="540" cy="430" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="570" cy="430" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="600" cy="430" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="248" cy="430" r="4.2" fill="#FFFFFF" stroke="#C62828" stroke-width="1.2"/>
+<circle cx="270" cy="430" r="4.2" fill="#FFFFFF" stroke="#212121" stroke-width="1.2"/>
+<circle cx="652" cy="430" r="4.2" fill="#FFFFFF" stroke="#C62828" stroke-width="1.2"/>
+<circle cx="674" cy="430" r="4.2" fill="#FFFFFF" stroke="#212121" stroke-width="1.2"/>
+<text x="216" y="465" text-anchor="end" font-family="DejaVu Sans" font-size="11.5" font-weight="normal" font-style="normal" fill="#999">12</text>
+<circle cx="300" cy="460" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="330" cy="460" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="360" cy="460" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="390" cy="460" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="420" cy="460" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="480" cy="460" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="510" cy="460" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="540" cy="460" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="570" cy="460" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="600" cy="460" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="248" cy="460" r="4.2" fill="#FFFFFF" stroke="#C62828" stroke-width="1.2"/>
+<circle cx="270" cy="460" r="4.2" fill="#FFFFFF" stroke="#212121" stroke-width="1.2"/>
+<circle cx="652" cy="460" r="4.2" fill="#FFFFFF" stroke="#C62828" stroke-width="1.2"/>
+<circle cx="674" cy="460" r="4.2" fill="#FFFFFF" stroke="#212121" stroke-width="1.2"/>
+<text x="216" y="495" text-anchor="end" font-family="DejaVu Sans" font-size="11.5" font-weight="normal" font-style="normal" fill="#999">13</text>
+<circle cx="300" cy="490" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="330" cy="490" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="360" cy="490" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="390" cy="490" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="420" cy="490" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="480" cy="490" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="510" cy="490" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="540" cy="490" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="570" cy="490" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="600" cy="490" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="248" cy="490" r="4.2" fill="#FFFFFF" stroke="#C62828" stroke-width="1.2"/>
+<circle cx="270" cy="490" r="4.2" fill="#FFFFFF" stroke="#212121" stroke-width="1.2"/>
+<circle cx="652" cy="490" r="4.2" fill="#FFFFFF" stroke="#C62828" stroke-width="1.2"/>
+<circle cx="674" cy="490" r="4.2" fill="#FFFFFF" stroke="#212121" stroke-width="1.2"/>
+<text x="216" y="525" text-anchor="end" font-family="DejaVu Sans" font-size="11.5" font-weight="normal" font-style="normal" fill="#999">14</text>
+<circle cx="300" cy="520" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="330" cy="520" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="360" cy="520" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="390" cy="520" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="420" cy="520" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="480" cy="520" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="510" cy="520" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="540" cy="520" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="570" cy="520" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="600" cy="520" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="248" cy="520" r="4.2" fill="#FFFFFF" stroke="#C62828" stroke-width="1.2"/>
+<circle cx="270" cy="520" r="4.2" fill="#FFFFFF" stroke="#212121" stroke-width="1.2"/>
+<circle cx="652" cy="520" r="4.2" fill="#FFFFFF" stroke="#C62828" stroke-width="1.2"/>
+<circle cx="674" cy="520" r="4.2" fill="#FFFFFF" stroke="#212121" stroke-width="1.2"/>
+<text x="216" y="555" text-anchor="end" font-family="DejaVu Sans" font-size="11.5" font-weight="normal" font-style="normal" fill="#999">15</text>
+<circle cx="300" cy="550" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="330" cy="550" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="360" cy="550" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="390" cy="550" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="420" cy="550" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="480" cy="550" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="510" cy="550" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="540" cy="550" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="570" cy="550" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="600" cy="550" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="248" cy="550" r="4.2" fill="#FFFFFF" stroke="#C62828" stroke-width="1.2"/>
+<circle cx="270" cy="550" r="4.2" fill="#FFFFFF" stroke="#212121" stroke-width="1.2"/>
+<circle cx="652" cy="550" r="4.2" fill="#FFFFFF" stroke="#C62828" stroke-width="1.2"/>
+<circle cx="674" cy="550" r="4.2" fill="#FFFFFF" stroke="#212121" stroke-width="1.2"/>
+<text x="216" y="585" text-anchor="end" font-family="DejaVu Sans" font-size="11.5" font-weight="normal" font-style="normal" fill="#999">16</text>
+<circle cx="300" cy="580" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="330" cy="580" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="360" cy="580" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="390" cy="580" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="420" cy="580" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="480" cy="580" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="510" cy="580" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="540" cy="580" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="570" cy="580" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="600" cy="580" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="248" cy="580" r="4.2" fill="#FFFFFF" stroke="#C62828" stroke-width="1.2"/>
+<circle cx="270" cy="580" r="4.2" fill="#FFFFFF" stroke="#212121" stroke-width="1.2"/>
+<circle cx="652" cy="580" r="4.2" fill="#FFFFFF" stroke="#C62828" stroke-width="1.2"/>
+<circle cx="674" cy="580" r="4.2" fill="#FFFFFF" stroke="#212121" stroke-width="1.2"/>
+<text x="216" y="615" text-anchor="end" font-family="DejaVu Sans" font-size="11.5" font-weight="normal" font-style="normal" fill="#999">17</text>
+<circle cx="300" cy="610" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="330" cy="610" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="360" cy="610" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="390" cy="610" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="420" cy="610" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="480" cy="610" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="510" cy="610" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="540" cy="610" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="570" cy="610" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="600" cy="610" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="248" cy="610" r="4.2" fill="#FFFFFF" stroke="#C62828" stroke-width="1.2"/>
+<circle cx="270" cy="610" r="4.2" fill="#FFFFFF" stroke="#212121" stroke-width="1.2"/>
+<circle cx="652" cy="610" r="4.2" fill="#FFFFFF" stroke="#C62828" stroke-width="1.2"/>
+<circle cx="674" cy="610" r="4.2" fill="#FFFFFF" stroke="#212121" stroke-width="1.2"/>
+<text x="216" y="645" text-anchor="end" font-family="DejaVu Sans" font-size="11.5" font-weight="normal" font-style="normal" fill="#999">18</text>
+<circle cx="300" cy="640" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="330" cy="640" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="360" cy="640" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="390" cy="640" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="420" cy="640" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="480" cy="640" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="510" cy="640" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="540" cy="640" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="570" cy="640" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="600" cy="640" r="4.6" fill="#FFFFFF" stroke="#B0BEC5" stroke-width="1.4"/>
+<circle cx="248" cy="640" r="4.2" fill="#FFFFFF" stroke="#C62828" stroke-width="1.2"/>
+<circle cx="270" cy="640" r="4.2" fill="#FFFFFF" stroke="#212121" stroke-width="1.2"/>
+<circle cx="652" cy="640" r="4.2" fill="#FFFFFF" stroke="#C62828" stroke-width="1.2"/>
+<circle cx="674" cy="640" r="4.2" fill="#FFFFFF" stroke="#212121" stroke-width="1.2"/>
+<text x="300" y="102" text-anchor="middle" font-family="DejaVu Sans" font-size="13" font-weight="bold" font-style="normal" fill="#777">a</text>
+<text x="330" y="102" text-anchor="middle" font-family="DejaVu Sans" font-size="13" font-weight="bold" font-style="normal" fill="#777">b</text>
+<text x="360" y="102" text-anchor="middle" font-family="DejaVu Sans" font-size="13" font-weight="bold" font-style="normal" fill="#777">c</text>
+<text x="390" y="102" text-anchor="middle" font-family="DejaVu Sans" font-size="13" font-weight="bold" font-style="normal" fill="#777">d</text>
+<text x="420" y="102" text-anchor="middle" font-family="DejaVu Sans" font-size="13" font-weight="bold" font-style="normal" fill="#777">e</text>
+<text x="480" y="102" text-anchor="middle" font-family="DejaVu Sans" font-size="13" font-weight="bold" font-style="normal" fill="#777">f</text>
+<text x="510" y="102" text-anchor="middle" font-family="DejaVu Sans" font-size="13" font-weight="bold" font-style="normal" fill="#777">g</text>
+<text x="540" y="102" text-anchor="middle" font-family="DejaVu Sans" font-size="13" font-weight="bold" font-style="normal" fill="#777">h</text>
+<text x="570" y="102" text-anchor="middle" font-family="DejaVu Sans" font-size="13" font-weight="bold" font-style="normal" fill="#777">i</text>
+<text x="600" y="102" text-anchor="middle" font-family="DejaVu Sans" font-size="13" font-weight="bold" font-style="normal" fill="#777">j</text>
+<rect x="446.0" y="114" width="14" height="572" fill="#E0E0DC"/>
+<rect x="282" y="267" width="156" height="26" rx="6" fill="#FFE2E2" stroke="#C62828" stroke-width="1.2"/>
+<circle cx="300" cy="280" r="4.6" fill="#FFFFFF" stroke="#C62828" stroke-width="1.4"/>
+<circle cx="330" cy="280" r="4.6" fill="#FFFFFF" stroke="#C62828" stroke-width="1.4"/>
+<circle cx="360" cy="280" r="4.6" fill="#FFFFFF" stroke="#C62828" stroke-width="1.4"/>
+<circle cx="390" cy="280" r="4.6" fill="#FFFFFF" stroke="#C62828" stroke-width="1.4"/>
+<circle cx="420" cy="280" r="4.6" fill="#FFFFFF" stroke="#C62828" stroke-width="1.4"/>
+<text x="454" y="285" text-anchor="start" font-family="DejaVu Sans" font-size="14" font-weight="bold" font-style="normal" fill="#C62828">+6 V</text>
+<rect x="282" y="387" width="156" height="26" rx="6" fill="#DCEAFB" stroke="#1565C0" stroke-width="1.2"/>
+<circle cx="300" cy="400" r="4.6" fill="#FFFFFF" stroke="#1565C0" stroke-width="1.4"/>
+<circle cx="330" cy="400" r="4.6" fill="#FFFFFF" stroke="#1565C0" stroke-width="1.4"/>
+<circle cx="360" cy="400" r="4.6" fill="#FFFFFF" stroke="#1565C0" stroke-width="1.4"/>
+<circle cx="390" cy="400" r="4.6" fill="#FFFFFF" stroke="#1565C0" stroke-width="1.4"/>
+<circle cx="420" cy="400" r="4.6" fill="#FFFFFF" stroke="#1565C0" stroke-width="1.4"/>
+<text x="454" y="405" text-anchor="start" font-family="DejaVu Sans" font-size="14" font-weight="bold" font-style="normal" fill="#1565C0">GATE</text>
+<rect x="282" y="417" width="156" height="26" rx="6" fill="#FFE2E2" stroke="#C62828" stroke-width="1.2"/>
+<circle cx="300" cy="430" r="4.6" fill="#FFFFFF" stroke="#C62828" stroke-width="1.4"/>
+<circle cx="330" cy="430" r="4.6" fill="#FFFFFF" stroke="#C62828" stroke-width="1.4"/>
+<circle cx="360" cy="430" r="4.6" fill="#FFFFFF" stroke="#C62828" stroke-width="1.4"/>
+<circle cx="390" cy="430" r="4.6" fill="#FFFFFF" stroke="#C62828" stroke-width="1.4"/>
+<circle cx="420" cy="430" r="4.6" fill="#FFFFFF" stroke="#C62828" stroke-width="1.4"/>
+<text x="454" y="435" text-anchor="start" font-family="DejaVu Sans" font-size="14" font-weight="bold" font-style="normal" fill="#C62828">DRAIN</text>
+<rect x="282" y="447" width="156" height="26" rx="6" fill="#E4E6E8" stroke="#212121" stroke-width="1.2"/>
+<circle cx="300" cy="460" r="4.6" fill="#FFFFFF" stroke="#212121" stroke-width="1.4"/>
+<circle cx="330" cy="460" r="4.6" fill="#FFFFFF" stroke="#212121" stroke-width="1.4"/>
+<circle cx="360" cy="460" r="4.6" fill="#FFFFFF" stroke="#212121" stroke-width="1.4"/>
+<circle cx="390" cy="460" r="4.6" fill="#FFFFFF" stroke="#212121" stroke-width="1.4"/>
+<circle cx="420" cy="460" r="4.6" fill="#FFFFFF" stroke="#212121" stroke-width="1.4"/>
+<text x="454" y="465" text-anchor="start" font-family="DejaVu Sans" font-size="14" font-weight="bold" font-style="normal" fill="#212121">SOURCE</text>
+<circle cx="420" cy="400" r="5.4" fill="#1565C0"/>
+<circle cx="420" cy="430" r="5.4" fill="#C62828"/>
+<circle cx="420" cy="460" r="5.4" fill="#212121"/>
+<rect x="95" y="382.0" width="60" height="52" rx="4" fill="#212121"/>
+<rect x="100" y="369.0" width="50" height="15" rx="2" fill="#9E9E9E"/>
+<text x="125" y="414.0" text-anchor="middle" font-family="DejaVu Sans" font-size="10" font-weight="bold" font-style="normal" fill="#FFF">IRLZ44N</text>
+<rect x="104" y="434.0" width="6" height="26" fill="#BDBDBD"/>
+<text x="107" y="476.0" text-anchor="middle" font-family="DejaVu Sans" font-size="12.5" font-weight="bold" font-style="normal" fill="#1565C0">G</text>
+<path d="M 107 462.0 L 107 486.0 L 270 400" fill="none" stroke="#1565C0" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="122" y="434.0" width="6" height="26" fill="#BDBDBD"/>
+<text x="125" y="476.0" text-anchor="middle" font-family="DejaVu Sans" font-size="12.5" font-weight="bold" font-style="normal" fill="#C62828">D</text>
+<path d="M 125 462.0 L 125 486.0 L 270 430" fill="none" stroke="#C62828" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="140" y="434.0" width="6" height="26" fill="#BDBDBD"/>
+<text x="143" y="476.0" text-anchor="middle" font-family="DejaVu Sans" font-size="12.5" font-weight="bold" font-style="normal" fill="#212121">S</text>
+<path d="M 143 462.0 L 143 486.0 L 270 460" fill="none" stroke="#212121" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="125" y="356.0" text-anchor="middle" font-family="DejaVu Sans" font-size="12" font-weight="normal" font-style="normal" fill="#555">plugs in here,</text>
+<text x="125" y="372.0" text-anchor="middle" font-family="DejaVu Sans" font-size="12" font-weight="bold" font-style="normal" fill="#555">legs into rows 10/11/12</text>
+<rect x="880" y="130" width="600" height="470" rx="9" fill="#FFFFFF" stroke="#CFD8DC" stroke-width="2"/>
+<text x="906" y="166" text-anchor="start" font-family="DejaVu Sans" font-size="19" font-weight="bold" font-style="normal" fill="#111">WHAT GOES IN EACH ROW</text>
+<text x="906" y="200" text-anchor="start" font-family="DejaVu Sans" font-size="14.5" font-weight="bold" font-style="normal" fill="#C62828">Row 6 — the +6 V node</text>
+<text x="926" y="222" text-anchor="start" font-family="DejaVu Sans" font-size="12.5" font-weight="normal" font-style="normal" fill="#444">· separate 6 V supply +</text>
+<text x="926" y="241" text-anchor="start" font-family="DejaVu Sans" font-size="12.5" font-weight="normal" font-style="normal" fill="#444">· one solenoid wire</text>
+<text x="926" y="260" text-anchor="start" font-family="DejaVu Sans" font-size="12.5" font-weight="normal" font-style="normal" fill="#444">· diode BAND end</text>
+<text x="926" y="279" text-anchor="start" font-family="DejaVu Sans" font-size="12.5" font-weight="normal" font-style="normal" fill="#444">· capacitor + leg (later)</text>
+<text x="906" y="308" text-anchor="start" font-family="DejaVu Sans" font-size="14.5" font-weight="bold" font-style="normal" fill="#1565C0">Row 10 — GATE</text>
+<text x="926" y="330" text-anchor="start" font-family="DejaVu Sans" font-size="12.5" font-weight="normal" font-style="normal" fill="#444">· MOSFET G leg</text>
+<text x="926" y="349" text-anchor="start" font-family="DejaVu Sans" font-size="12.5" font-weight="normal" font-style="normal" fill="#444">· 100 Ω → jumper to Nano D5</text>
+<text x="926" y="368" text-anchor="start" font-family="DejaVu Sans" font-size="12.5" font-weight="normal" font-style="normal" fill="#444">· 100 kΩ → jumper to − rail</text>
+<text x="906" y="397" text-anchor="start" font-family="DejaVu Sans" font-size="14.5" font-weight="bold" font-style="normal" fill="#C62828">Row 11 — DRAIN</text>
+<text x="926" y="419" text-anchor="start" font-family="DejaVu Sans" font-size="12.5" font-weight="normal" font-style="normal" fill="#444">· MOSFET D leg</text>
+<text x="926" y="438" text-anchor="start" font-family="DejaVu Sans" font-size="12.5" font-weight="normal" font-style="normal" fill="#444">· the other solenoid wire</text>
+<text x="926" y="457" text-anchor="start" font-family="DejaVu Sans" font-size="12.5" font-weight="normal" font-style="normal" fill="#444">· diode's non-band end</text>
+<text x="906" y="486" text-anchor="start" font-family="DejaVu Sans" font-size="14.5" font-weight="bold" font-style="normal" fill="#212121">Row 12 — SOURCE</text>
+<text x="926" y="508" text-anchor="start" font-family="DejaVu Sans" font-size="12.5" font-weight="normal" font-style="normal" fill="#444">· MOSFET S leg</text>
+<text x="926" y="527" text-anchor="start" font-family="DejaVu Sans" font-size="12.5" font-weight="normal" font-style="normal" fill="#444">· jumper to the − rail</text>
+<text x="906" y="560" text-anchor="start" font-family="DejaVu Sans" font-size="12.5" font-weight="bold" font-style="normal" fill="#B71C1C">− rail also takes: the 6 V supply's −, and a jumper</text>
+<text x="906" y="578" text-anchor="start" font-family="DejaVu Sans" font-size="12.5" font-weight="normal" font-style="normal" fill="#B71C1C">to the Nano's GND. Without that shared ground</text>
+<text x="906" y="596" text-anchor="start" font-family="DejaVu Sans" font-size="12.5" font-weight="normal" font-style="normal" fill="#B71C1C">nothing switches.</text>
+<rect x="40" y="700" width="1440" height="160" rx="9" fill="#E8F5E9" stroke="#2E7D32" stroke-width="2"/>
+<text x="64" y="736" text-anchor="start" font-family="DejaVu Sans" font-size="16" font-weight="bold" font-style="normal" fill="#111">THREE THINGS THAT TRIP PEOPLE UP HERE</text>
+<text x="64" y="766" text-anchor="start" font-family="DejaVu Sans" font-size="13" font-weight="normal" font-style="normal" fill="#444">The rows are horizontal. Row 11 columns a–e are all the same wire — so the MOSFET's D leg, the coil wire and the diode leg just</text>
+<text x="64" y="788" text-anchor="start" font-family="DejaVu Sans" font-size="13" font-weight="normal" font-style="normal" fill="#444">need to be anywhere in that row, not touching each other.</text>
+<text x="64" y="810" text-anchor="start" font-family="DejaVu Sans" font-size="13" font-weight="normal" font-style="normal" fill="#444">The MOSFET straddles three adjacent rows. If two legs land in one row you have shorted them, and the usual symptom is a hot part.</text>
+<text x="64" y="832" text-anchor="start" font-family="DejaVu Sans" font-size="13" font-weight="normal" font-style="normal" fill="#444">The centre channel separates a–e from f–j. Keep the whole driver on one side; the channel is not a connection.</text>
+</svg>

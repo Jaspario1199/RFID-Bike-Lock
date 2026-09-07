@@ -140,6 +140,10 @@ module, then that the dividers aren't swapped.
 
 *Circuit and physical parts side by side: `renders/electrical/driver_card.png`*
 
+![breadboard layout](renders/electrical/breadboard_driver.png)
+
+*Row-by-row breadboard layout: `renders/electrical/breadboard_driver.png`*
+
 
 Build the driver on a scrap of perfboard for now; cut the final 42 × 10.7 card later.
 
