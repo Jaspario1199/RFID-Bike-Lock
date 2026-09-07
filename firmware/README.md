@@ -1,7 +1,30 @@
 # Firmware
 
-Arduino sketch for the v1 lock: `rfid_bike_lock/rfid_bike_lock.ino`.
-Implements the state machine from `../DESIGN.md` §5 on the pin map from §4.2.
+Two sketches, one state machine (`../DESIGN.md` §5, pin map §4.2):
+
+| Sketch | Reader | Use |
+|---|---|---|
+| `rfid_bike_lock_rc522/` | **RC522** (the Arduino kit board, SPI) | **build this first** — it is the reader the owner has, and the rev 3c housing is sized for it |
+| `rfid_bike_lock/` | PN532 (I2C) | drop-in alternative if the RC522's range through the lid disappoints |
+
+The two files differ only in the reader driver block (`pn532On/pn532Off/readTag`).
+
+## RC522 wiring (hardware SPI)
+
+| RC522 pin | Nano pin | Note |
+|---|---|---|
+| SDA (SS) | D10 | |
+| SCK | D13 | |
+| MOSI | D11 | |
+| MISO | D12 | |
+| RST | D4 | (D9 is the green LED) |
+| IRQ | — | unused |
+| 3.3V | **3V3 via the AO3401 gate** (D7) — bench step 1: straight to the Nano's 3V3 pin | the RC522 is a 3.3 V part; never 5 V on its VCC |
+| GND | GND | |
+
+The Nano drives the RC522's SPI inputs at 5 V logic. Every RC522 kit tutorial does this and
+it works, but it is out of spec; for the boxed unit put 1 kΩ in series with SS/SCK/MOSI/RST
+(the MISO line is 3.3 V → Nano, fine).
 
 ## Setup
 

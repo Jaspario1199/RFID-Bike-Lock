@@ -26,7 +26,7 @@ of printing or the hinge.** The CNC casing deletes the *reasons*, not just the f
 | # | Part | Stock / process | Setups | What it carries |
 |---|---|---|---|---|
 | C1, C2 | **Tube halves** (left / right, **vertical parting plane**) | **2.5" OD × 3/16" wall 6061 tube (Ø63.5 × 4.76 → ID ≈54)**, saw-cut 150, split lengthwise, pair line-bored to Ø54.0 | 1–2 each: drill + inside-COUNTERBORE the attachment holes (vertical crown rows + horizontal skirt rows), mill the rear liner lip. C1 gets the A1 rows (x 25/75/125, y +6 / z ±8) and the A3 rows (x 35/105, y +10 / z −8); C2 gets 2+2 holes for its two blocks | The clamp. Nothing precise lives here — **no hook, no tongue, no hinge is cut into the tube** |
-| A1 | **Top box** (latch + electronics) | small 6061 billet | 2 (pocket side, latch side) | Ø11 receiver bore + Ø6.6 plunger channel, electronics cavity 129 × 51 × 24 (R4 corners), USB-C slot in the +x end wall, tapped holes for lid + chassis screws, closure-block pocket under its −y overhang |
+| A1 | **Top box** (latch + electronics) | small 6061 billet | 2 (pocket side, latch side) | Ø11 receiver bore + Ø6.6 plunger channel, electronics cavity 134 × 51 × 24 (R4 corners), USB-C slot in the +x end wall, tapped holes for lid + chassis screws, closure-block pocket under its −y overhang |
 | A2 | **Lid plate** | 5 mm plate | 2 (through features; underside recess for the insert) | RF window through-cutout, button, LEDs, 4 corner screws |
 | A5 | **Window insert** | opaque printed / PC | — | fills the cutout flush; its flange sits in the lid's underside recess and the box wall clamps it (RTV bead) |
 | A3 | **Spool puck + cradle** (spool + hinge knuckles) | small billet | 3 (pocket side, bottom, knuckle side) | a saddle cradle along the tube (chassis screws, hinge lugs) with a round **Ø62 puck** hanging off it: Ø51 vertical-axis pocket for the spool cartridge, **steel-bushed cable exit**, **two Ø11 hinge lugs** with the blind pin bore |
@@ -123,8 +123,8 @@ and proves retention (a 2 mm pull on C2 overlaps the pin by 221 mm³; the block 
    the cutout stays antenna-size (45.2 × 43 = PN532 footprint + 1). What the owner wanted
    ("nothing showing") is satisfied by the insert being **opaque** — RF does not care.
    Stage 1's PETG lid is RF-transparent anyway; the cutout exists so the machined Stage 2
-   lid is a drop-in. The window sits at x 20..65; the latch bore at x 78 and the 44-long
-   solenoid cart at x 88..132 follow it along the box.
+   lid is a drop-in. The window sits at x 35..80 over the RC522's antenna end; the latch bore
+   at x 90 and the 40-long solenoid cart at x 100..140 follow it along the box.
 
 ### Liner retention (workshop, 2026-09-06)
 The liner only has to stay put while the clamp is open (once clamped it is sandwiched
@@ -149,28 +149,27 @@ hole floor and that the liner/chassis interference equals the designed press-fit
 ### Interior stack-up (owner: "make sure everything fits") — rev 3c
 Every purchased part is now a **reference body in the model** (`ref_*`, exported with the STEP
 set) at its real envelope, and the gates check them: interference matrix (0 clashes) plus a
-clearance report that lists every gap under 1 mm. Interior is 129 × 51 × 24 (x 13..142,
+clearance report that lists every gap under 1 mm. The housing is sized for the **RC522** the
+owner already has (a PN532 drops onto the same deck). Interior is 134 × 51 × 24 (x 13..147,
 y −11..40, z 38..62). Layout, −x to +x:
 
 | Zone (x) | What | Envelope | How it sits |
 |---|---|---|---|
 | 19.5..69.5 | **103450 LiPo** | 50 × 34 × 10.5 | flat on the printed tray floor, y −7..27 |
-| 21..64 | **PN532** (antenna face up, under the window) | 43 × 40.5 × 6 | on the tray's 2 mm deck at z 52..54; 2 mm foam pad to the lid |
-| 65..83 | **wake button** (sealed 12 mm) at (77, 33), **LEDs** at (73, 12/22) | Ø12 × 15 below the lid | the only free column between the reader deck and the boss |
-| 75.5..94.5 | **latch boss** Ø19 + Ø11 bore + Ø6.6 plunger channel | — | LATCH_X moved 78 → 85 so the battery clears the boss |
-| 95.5..135.5 | **cart module**: base 40 × 24 × 6.5 + JF-0530B 30 × 13 × 15 on the plunger axis + driver card 38 × 10.7 × 13.6 beside it | y −10.5..13.7 | one serviceable module (v0.8.2 concept); plunger Ø6 reaches 2.1 into the bore |
-| 96..141 | **Nano on edge**, pins trimmed | 45 × 7.5 × 18 | y 14..21.5 beside the cart |
-| 111.5..140.5 | **TP4056 USB-C** | 29 × 17.3 × 1 + connector 9 × 9 × 3.3 | y 21.8..39.1 on the floor; connector flush with the wall's inner face; **USB-C slot cut through A1's +x end wall** with a 2 mm plug recess (TPU plug, BOM 30d) |
-| 104.5..140.5 | **MT3608** | 36 × 17 × 7 | on 4 mm standoffs over the TP4056 (z 43..50) |
+| 19..79 | **RC522** (antenna = its +x 35 mm, under the window x 35..80) | 60 × 39 × 4.5 | on the tray's 2 mm deck at z 53.5..55.5, 2 mm foam pad to the lid, 1.5 mm short of the latch boss |
+| 80..92 | **wake button** (sealed 12 mm) at (86, 33), **LEDs** at (85, 12/22) | Ø12 × 15 below the lid | the free column between the reader deck and the boss |
+| 80.5..99.5 | **latch boss** Ø19 + Ø11 bore + Ø6.6 plunger channel | — | LATCH_X 78 → 90 so the RC522 clears the boss |
+| 100.5..140.5 | **cart module**: base 40 × 24 × 6.5 + JF-0530B 30 × 13 × 15 on the plunger axis + driver card 38 × 10.7 × 13.6 beside it | y −10.5..13.7 | one serviceable module (v0.8.2 concept); plunger Ø6 reaches 2.1 into the bore |
+| 101..146 | **Nano on edge**, pins trimmed | 45 × 7.5 × 18 | y 13.8..21.3 beside the cart |
+| 116.5..145.5 | **TP4056 USB-C** | 29 × 17.3 × 1 + connector 9 × 9 × 3.3 | y 21.6..38.9 on the floor; connector flush with the wall's inner face; **USB-C slot cut through A1's +x end wall** with a 2 mm plug recess (TPU plug, BOM 30d) |
+| 109.5..145.5 | **MT3608** | 36 × 17 × 7 | on 4 mm standoffs over the TP4056 (z 43..50) |
 
-What the stack-up forced (all in the model): the box grew to **135 × 57** (x 10..145, y −14..43),
-the pocket corner radius is **R4** (R6 stole the corner the power stack needs), the lid screws are
-**3 corners + one mid-wall at x 100** (the +x/+y corner is where the USB-C meets the wall), and
-the A1 chassis screw row is x 25/70/130 (70 keeps the middle pilot clear of the boss). Tightest
-gaps (mock-to-mock, set by the printed furniture in practice): cart–Nano 0.1, MT3608 to the R4 pocket
-corner 0.28, plunger in its channel 0.3, Nano–TP4056 0.3; everything else ≥ 0.9 mm.
-The RC522 (60 × 39) does NOT fit under the window with the boss where it is — it is the bench
-reader only; the housing is sized for the PN532.
+What the stack-up forced (all in the model): the box is now **140 × 57 — the full tube length**
+(x 10..150, y −14..43), the pocket corner radius is **R4** (R6 stole the corner the power stack
+needs), the lid screws are **3 corners + one mid-wall at x 100** (the +x/+y corner is where the
+USB-C meets the wall), and the A1 chassis screw row is x 25/75/135. Tightest gaps: cart–Nano 0.1
+(set by the printed tray in practice), MT3608 to the R4 pocket corner 0.28, plunger in its
+channel 0.3, Nano–TP4056 0.3, everything else ≥ 0.9 mm.
 
 ### Security consequence (a real upgrade)
 Every attachment fastener is under the clamped bike tube. DESIGN §7's honest weakness —
@@ -314,7 +313,7 @@ M3/M4 plates are SendCutSend-cheap.
 | D9 | Window | **DECIDED: antenna-size cutout, opaque insert** (RF needs the hole; the owner needs it opaque — both) |
 | D10 | Box orientation / height | any, as long as the latch works (owner) — current: A1 24 mm interior, 151 mm overall (centred puck) |
 | open | Spool cartridge donor | envelope is a placeholder (Ø48 × 24) until a reel is in hand — pocket Ø/width are single constants |
-| D12 | Electronics placement in A1 | **DECIDED: modeled as reference bodies and gated** — see "Interior stack-up". Window zone reader-over-battery tray, latch x 85, cart x 95.5..135.5, Nano on edge, TP4056 + MT3608 stack at the +x wall with the USB-C through it |
+| D12 | Electronics placement in A1 | **DECIDED: modeled as reference bodies and gated** — see "Interior stack-up". Housing sized for the RC522 (PN532 also fits): reader-over-battery tray, latch x 90, cart x 100.5..140.5, Nano on edge, TP4056 + MT3608 stack at the +x wall with the USB-C through it |
 | D11 | Liner retention | **DECIDED: 6 press-fit TPU studs per half (Ø4.5 into Ø4.2 blind holes) — owner's call, more holes for a firmer snap; fins back to the v0.8 geometry (24 × 12 × 1.4, 30° lean)** |
 | open | Top-joint shear | the closure M3 carries C2's opening moment in shear. Fine for the liner preload; if a pry test on the printed prototype worries you, the upgrade is an M4 closure screw or a Ø4 dowel beside it |
 
