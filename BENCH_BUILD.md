@@ -168,6 +168,10 @@ Grounds still tie together.
 | Across the coil during the 300 ms pulse | 5.5–6 V |
 | Gate at D5 during the pulse | ~5 V |
 
+**Easier than using the lock firmware for this:** flash `firmware/hw_selftest/`, a serial menu
+that fires the solenoid on demand and tests every other subsystem separately. Run `a` first
+(everything passive), then `3` for buttons, then `5` to fire.
+
 **Expect:** an authorized fob → clunk. File the plunger's 45° nose before testing the latch
 itself; for now you're only proving the electrical path.
 
