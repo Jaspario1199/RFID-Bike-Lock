@@ -1,0 +1,130 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1780" height="1010" viewBox="0 0 1780 1010">
+<rect width="1780" height="1010" fill="#FAFAF8"/>
+<text x="40" y="48" text-anchor="start" font-family="DejaVu Sans" font-size="28" font-weight="bold" font-style="normal" fill="#111">PARTS IDENTIFICATION — the small modules</text>
+<text x="40" y="74" text-anchor="start" font-family="DejaVu Sans" font-size="14" font-weight="normal" font-style="normal" fill="#666">Boards drawn at 2× actual size, to the same scale as each other. Sort your parts against this as they arrive.</text>
+<rect x="40" y="104" width="840" height="400" rx="8" fill="#FFFFFF" stroke="#CFD8DC" stroke-width="2"/>
+<text x="62" y="136" text-anchor="start" font-family="DejaVu Sans" font-size="19" font-weight="bold" font-style="normal" fill="#111">TP4056 — the battery charger</text>
+<text x="62" y="157" text-anchor="start" font-family="DejaVu Sans" font-size="12.5" font-weight="normal" font-style="normal" fill="#777">real size 29 × 17 mm · USB-C in · cell on B+/B− · load on OUT+/OUT−</text>
+<rect x="96" y="190" width="197.2" height="115.6" rx="4" fill="#1B5E20" stroke="#263238" stroke-width="1.5"/>
+<rect x="74" y="227.8" width="24" height="40" rx="4" fill="#B0BEC5" stroke="#78909C" stroke-width="1.5"/>
+<text x="86" y="331.6" text-anchor="middle" font-family="DejaVu Sans" font-size="12" font-weight="bold" font-style="normal" fill="#555">USB-C</text>
+<rect x="120" y="210" width="54" height="34" rx="2" fill="#212121"/>
+<text x="147.0" y="230.96" text-anchor="middle" font-family="DejaVu Sans" font-size="11" font-weight="bold" font-style="normal" fill="#EEE">TP4056</text>
+<rect x="192" y="206" width="34" height="22" rx="2" fill="#37474F"/>
+<text x="209.0" y="220.24" text-anchor="middle" font-family="DejaVu Sans" font-size="9" font-weight="bold" font-style="normal" fill="#EEE">DW01</text>
+<rect x="192" y="238" width="34" height="20" rx="2" fill="#37474F"/>
+<text x="209.0" y="251.24" text-anchor="middle" font-family="DejaVu Sans" font-size="9" font-weight="bold" font-style="normal" fill="#EEE">8205</text>
+<rect x="106" y="208" width="12" height="8" rx="1" fill="#E53935"/>
+<rect x="106" y="228" width="12" height="8" rx="1" fill="#2196F3"/>
+<text x="126" y="180" text-anchor="start" font-family="DejaVu Sans" font-size="11.5" font-weight="normal" font-style="normal" fill="#555">red LED = charging · blue = done</text>
+<rect x="285.2" y="198" width="26" height="14" rx="2" fill="#D4AF37"/>
+<text x="319.2" y="210" text-anchor="start" font-family="DejaVu Sans" font-size="12.5" font-weight="bold" font-style="normal" fill="#222">B+</text>
+<rect x="285.2" y="224" width="26" height="14" rx="2" fill="#D4AF37"/>
+<text x="319.2" y="236" text-anchor="start" font-family="DejaVu Sans" font-size="12.5" font-weight="bold" font-style="normal" fill="#222">B−</text>
+<rect x="285.2" y="250" width="26" height="14" rx="2" fill="#D4AF37"/>
+<text x="319.2" y="262" text-anchor="start" font-family="DejaVu Sans" font-size="12.5" font-weight="bold" font-style="normal" fill="#222">OUT+</text>
+<rect x="285.2" y="276" width="26" height="14" rx="2" fill="#D4AF37"/>
+<text x="319.2" y="288" text-anchor="start" font-family="DejaVu Sans" font-size="12.5" font-weight="bold" font-style="normal" fill="#222">OUT−</text>
+<text x="96" y="357.6" text-anchor="start" font-family="DejaVu Sans" font-size="11.5" font-weight="normal" font-style="italic" fill="#999">the four pads that matter →</text>
+<text x="470" y="200" text-anchor="start" font-family="DejaVu Sans" font-size="13" font-weight="bold" font-style="normal" fill="#2E7D32">✔  THE ONE YOU WANT — protected</text>
+<text x="470" y="220" text-anchor="start" font-family="DejaVu Sans" font-size="12.5" font-weight="normal" font-style="normal" fill="#555">Two extra chips beside the main one:</text>
+<text x="470" y="238" text-anchor="start" font-family="DejaVu Sans" font-size="12.5" font-weight="normal" font-style="normal" fill="#555">DW01 (6-pin) and FS8205 (marked 8205).</text>
+<text x="470" y="256" text-anchor="start" font-family="DejaVu Sans" font-size="12.5" font-weight="normal" font-style="normal" fill="#555">They add over-discharge, over-current</text>
+<text x="470" y="274" text-anchor="start" font-family="DejaVu Sans" font-size="12.5" font-weight="normal" font-style="normal" fill="#555">and short protection.</text>
+<text x="470" y="292" text-anchor="start" font-family="DejaVu Sans" font-size="12.5" font-weight="normal" font-style="normal" fill="#555">Usually the USB-C version.</text>
+<text x="470" y="350" text-anchor="start" font-family="DejaVu Sans" font-size="13" font-weight="bold" font-style="normal" fill="#B71C1C">✘  The one to avoid — unprotected</text>
+<text x="470" y="370" text-anchor="start" font-family="DejaVu Sans" font-size="12.5" font-weight="normal" font-style="normal" fill="#555">Only the TP4056 chip, no DW01, no 8205.</text>
+<text x="470" y="388" text-anchor="start" font-family="DejaVu Sans" font-size="12.5" font-weight="normal" font-style="normal" fill="#555">It charges correctly but protects nothing.</text>
+<rect x="910" y="104" width="830" height="400" rx="8" fill="#FFFFFF" stroke="#CFD8DC" stroke-width="2"/>
+<text x="932" y="136" text-anchor="start" font-family="DejaVu Sans" font-size="19" font-weight="bold" font-style="normal" fill="#111">MT3608 — the boost converter</text>
+<text x="932" y="157" text-anchor="start" font-family="DejaVu Sans" font-size="12.5" font-weight="normal" font-style="normal" fill="#777">real size 36 × 17 mm · steps 3.7 V up to 6.0 V · the tall drum gives it away</text>
+<rect x="966" y="200" width="244.79999999999998" height="115.6" rx="4" fill="#1565C0" stroke="#263238" stroke-width="1.5"/>
+<circle cx="1048" cy="257.8" r="26" fill="#9E9E9E" stroke="#616161" stroke-width="2"/>
+<text x="1048" y="262.8" text-anchor="middle" font-family="DejaVu Sans" font-size="14" font-weight="bold" font-style="normal" fill="#FFF">L</text>
+<rect x="1116" y="222" width="42" height="42" rx="3" fill="#1976D2" stroke="#0D47A1"/>
+<circle cx="1137" cy="243" r="14" fill="#E0E0E0" stroke="#9E9E9E"/>
+<line x1="1137" y1="231" x2="1137" y2="255" stroke="#616161" stroke-width="3"/>
+<text x="1137" y="341.6" text-anchor="middle" font-family="DejaVu Sans" font-size="12" font-weight="bold" font-style="normal" fill="#222">TRIM POT</text>
+<text x="1137" y="359.6" text-anchor="middle" font-family="DejaVu Sans" font-size="11.5" font-weight="bold" font-style="normal" fill="#B71C1C">turn this to 6.00 V first</text>
+<rect x="940" y="216" width="26" height="14" rx="2" fill="#D4AF37"/>
+<text x="932" y="228" text-anchor="end" font-family="DejaVu Sans" font-size="12.5" font-weight="bold" font-style="normal" fill="#222">IN+</text>
+<rect x="940" y="266" width="26" height="14" rx="2" fill="#D4AF37"/>
+<text x="932" y="278" text-anchor="end" font-family="DejaVu Sans" font-size="12.5" font-weight="bold" font-style="normal" fill="#222">IN−</text>
+<rect x="1210.8" y="216" width="26" height="14" rx="2" fill="#D4AF37"/>
+<text x="1244.8" y="228" text-anchor="start" font-family="DejaVu Sans" font-size="12.5" font-weight="bold" font-style="normal" fill="#222">OUT+</text>
+<rect x="1210.8" y="266" width="26" height="14" rx="2" fill="#D4AF37"/>
+<text x="1244.8" y="278" text-anchor="start" font-family="DejaVu Sans" font-size="12.5" font-weight="bold" font-style="normal" fill="#222">OUT−</text>
+<text x="1048" y="188" text-anchor="middle" font-family="DejaVu Sans" font-size="11.5" font-weight="normal" font-style="normal" fill="#555">6 × 6 mm inductor, stands ~5 mm proud</text>
+<text x="1330" y="220" text-anchor="start" font-family="DejaVu Sans" font-size="13" font-weight="bold" font-style="normal" fill="#2E7D32">How to spot it</text>
+<text x="1330" y="240" text-anchor="start" font-family="DejaVu Sans" font-size="12.5" font-weight="normal" font-style="normal" fill="#555">The silver drum is taller than anything</text>
+<text x="1330" y="258" text-anchor="start" font-family="DejaVu Sans" font-size="12.5" font-weight="normal" font-style="normal" fill="#555">else here. Blue board, blue trim pot.</text>
+<text x="1330" y="330" text-anchor="start" font-family="DejaVu Sans" font-size="13" font-weight="bold" font-style="normal" fill="#B71C1C">✘  Not the same as your MP1584s</text>
+<text x="1330" y="350" text-anchor="start" font-family="DejaVu Sans" font-size="12.5" font-weight="normal" font-style="normal" fill="#555">The ones left over from RoomCleaner are</text>
+<text x="1330" y="368" text-anchor="start" font-family="DejaVu Sans" font-size="12.5" font-weight="normal" font-style="normal" fill="#555">MP1584 BUCKs. A buck steps voltage DOWN —</text>
+<text x="1330" y="386" text-anchor="start" font-family="DejaVu Sans" font-size="12.5" font-weight="normal" font-style="normal" fill="#555">it cannot make 6 V from a 3.7 V cell.</text>
+<rect x="40" y="524" width="840" height="380" rx="8" fill="#FFFFFF" stroke="#CFD8DC" stroke-width="2"/>
+<text x="62" y="556" text-anchor="start" font-family="DejaVu Sans" font-size="19" font-weight="bold" font-style="normal" fill="#111">AMS1117-3.3 and AO3401 — the reader supply pair</text>
+<text x="62" y="577" text-anchor="start" font-family="DejaVu Sans" font-size="12.5" font-weight="normal" font-style="normal" fill="#777">the two small parts that keep the RC522 alive, and switchable</text>
+<text x="96" y="604" text-anchor="start" font-family="DejaVu Sans" font-size="14" font-weight="bold" font-style="normal" fill="#111">AMS1117-3.3 module</text>
+<rect x="96" y="620" width="149.6" height="88.39999999999999" rx="4" fill="#4E342E" stroke="#263238" stroke-width="1.5"/>
+<rect x="130" y="636" width="62" height="34" rx="2" fill="#212121"/>
+<text x="161.0" y="656.6" text-anchor="middle" font-family="DejaVu Sans" font-size="10" font-weight="bold" font-style="normal" fill="#EEE">AMS1117</text>
+<rect x="104" y="702.4" width="34" height="12" rx="2" fill="#D4AF37"/>
+<text x="121" y="732.4" text-anchor="middle" font-family="DejaVu Sans" font-size="12" font-weight="bold" font-style="normal" fill="#222">IN</text>
+<rect x="152" y="702.4" width="34" height="12" rx="2" fill="#D4AF37"/>
+<text x="169" y="732.4" text-anchor="middle" font-family="DejaVu Sans" font-size="12" font-weight="bold" font-style="normal" fill="#222">GND</text>
+<rect x="200" y="702.4" width="34" height="12" rx="2" fill="#D4AF37"/>
+<text x="217" y="732.4" text-anchor="middle" font-family="DejaVu Sans" font-size="12" font-weight="bold" font-style="normal" fill="#222">OUT</text>
+<text x="96" y="758.4" text-anchor="start" font-family="DejaVu Sans" font-size="12" font-weight="normal" font-style="normal" fill="#555">22 × 13 mm · makes a clean 3.3 V</text>
+<text x="390" y="604" text-anchor="start" font-family="DejaVu Sans" font-size="14" font-weight="bold" font-style="normal" fill="#111">AO3401 breakout (SOT-23)</text>
+<rect x="390" y="620" width="102.0" height="81.6" rx="4" fill="#37474F" stroke="#263238" stroke-width="1.5"/>
+<rect x="416" y="638" width="50" height="30" rx="2" fill="#212121"/>
+<text x="441.0" y="656.42" text-anchor="middle" font-family="DejaVu Sans" font-size="9.5" font-weight="bold" font-style="normal" fill="#EEE">AO3401</text>
+<rect x="396" y="695.6" width="24" height="12" rx="2" fill="#D4AF37"/>
+<text x="408" y="725.6" text-anchor="middle" font-family="DejaVu Sans" font-size="12" font-weight="bold" font-style="normal" fill="#222">G</text>
+<rect x="432" y="695.6" width="24" height="12" rx="2" fill="#D4AF37"/>
+<text x="444" y="725.6" text-anchor="middle" font-family="DejaVu Sans" font-size="12" font-weight="bold" font-style="normal" fill="#222">D</text>
+<rect x="468" y="695.6" width="24" height="12" rx="2" fill="#D4AF37"/>
+<text x="480" y="725.6" text-anchor="middle" font-family="DejaVu Sans" font-size="12" font-weight="bold" font-style="normal" fill="#222">S</text>
+<text x="390" y="751.6" text-anchor="start" font-family="DejaVu Sans" font-size="12" font-weight="normal" font-style="normal" fill="#555">grain-of-rice sized · P-channel MOSFET</text>
+<text x="620" y="610" text-anchor="start" font-family="DejaVu Sans" font-size="13" font-weight="bold" font-style="normal" fill="#2E7D32">What the pair does</text>
+<text x="620" y="630" text-anchor="start" font-family="DejaVu Sans" font-size="12.5" font-weight="normal" font-style="normal" fill="#555">AO3401 switches the 5 V on and off from D7.</text>
+<text x="620" y="648" text-anchor="start" font-family="DejaVu Sans" font-size="12.5" font-weight="normal" font-style="normal" fill="#555">AMS1117 turns that into 3.3 V for the reader.</text>
+<text x="620" y="666" text-anchor="start" font-family="DejaVu Sans" font-size="12.5" font-weight="normal" font-style="normal" fill="#555"></text>
+<text x="620" y="684" text-anchor="start" font-family="DejaVu Sans" font-size="12.5" font-weight="normal" font-style="normal" fill="#555">Gating upstream of the regulator means the</text>
+<text x="620" y="702" text-anchor="start" font-family="DejaVu Sans" font-size="12.5" font-weight="normal" font-style="normal" fill="#555">regulator's own idle draw disappears too.</text>
+<rect x="910" y="524" width="830" height="380" rx="8" fill="#FFFFFF" stroke="#CFD8DC" stroke-width="2"/>
+<text x="932" y="556" text-anchor="start" font-family="DejaVu Sans" font-size="19" font-weight="bold" font-style="normal" fill="#111">IRLZ44N and 1N5819 — the solenoid driver parts</text>
+<text x="932" y="577" text-anchor="start" font-family="DejaVu Sans" font-size="12.5" font-weight="normal" font-style="normal" fill="#777">the two you can destroy by installing them backwards</text>
+<text x="968" y="620" text-anchor="start" font-family="DejaVu Sans" font-size="14" font-weight="bold" font-style="normal" fill="#111">IRLZ44N (TO-220)</text>
+<rect x="980" y="640" width="68.0" height="102.0" rx="4" fill="#212121"/>
+<rect x="985" y="624" width="58.0" height="20" rx="3" fill="#9E9E9E"/>
+<circle cx="1014.0" cy="634" r="6" fill="#FAFAF8"/>
+<text x="1014.0" y="680" text-anchor="middle" font-family="DejaVu Sans" font-size="11" font-weight="bold" font-style="normal" fill="#FFF">IRLZ44N</text>
+<rect x="992" y="742.0" width="8" height="34" fill="#BDBDBD"/>
+<text x="996" y="794.0" text-anchor="middle" font-family="DejaVu Sans" font-size="13" font-weight="bold" font-style="normal" fill="#222">G</text>
+<rect x="1014" y="742.0" width="8" height="34" fill="#BDBDBD"/>
+<text x="1018" y="794.0" text-anchor="middle" font-family="DejaVu Sans" font-size="13" font-weight="bold" font-style="normal" fill="#222">D</text>
+<rect x="1036" y="742.0" width="8" height="34" fill="#BDBDBD"/>
+<text x="1040" y="794.0" text-anchor="middle" font-family="DejaVu Sans" font-size="13" font-weight="bold" font-style="normal" fill="#222">S</text>
+<text x="968" y="818.0" text-anchor="start" font-family="DejaVu Sans" font-size="11.5" font-weight="normal" font-style="normal" fill="#555">printed side toward you, legs down</text>
+<text x="1180" y="620" text-anchor="start" font-family="DejaVu Sans" font-size="14" font-weight="bold" font-style="normal" fill="#111">1N5819 (Schottky diode)</text>
+<rect x="1190" y="670" width="86" height="34" rx="5" fill="#37474F"/>
+<rect x="1262" y="670" width="12" height="34" fill="#EEEEEE"/>
+<line x1="1162" y1="687" x2="1190" y2="687" stroke="#BDBDBD" stroke-width="4"/>
+<line x1="1276" y1="687" x2="1308" y2="687" stroke="#BDBDBD" stroke-width="4"/>
+<text x="1268" y="660" text-anchor="middle" font-family="DejaVu Sans" font-size="12" font-weight="bold" font-style="normal" fill="#B71C1C">BAND</text>
+<path d="M 1268 712 L 1268 728" stroke="#B71C1C" stroke-width="2.5"/>
+<text x="1268" y="746" text-anchor="middle" font-family="DejaVu Sans" font-size="12" font-weight="bold" font-style="normal" fill="#B71C1C">this end goes to V+</text>
+<text x="1360" y="610" text-anchor="start" font-family="DejaVu Sans" font-size="13" font-weight="bold" font-style="normal" fill="#B71C1C">Both have a fatal orientation</text>
+<text x="1360" y="630" text-anchor="start" font-family="DejaVu Sans" font-size="12.5" font-weight="normal" font-style="normal" fill="#555">IRLZ44N: G–D–S left to right with the</text>
+<text x="1360" y="648" text-anchor="start" font-family="DejaVu Sans" font-size="12.5" font-weight="normal" font-style="normal" fill="#555">printed side toward you. Confirm it with</text>
+<text x="1360" y="666" text-anchor="start" font-family="DejaVu Sans" font-size="12.5" font-weight="normal" font-style="normal" fill="#555">your meter's diode range before soldering.</text>
+<text x="1360" y="684" text-anchor="start" font-family="DejaVu Sans" font-size="12.5" font-weight="normal" font-style="normal" fill="#555"></text>
+<text x="1360" y="702" text-anchor="start" font-family="DejaVu Sans" font-size="12.5" font-weight="normal" font-style="normal" fill="#555">1N5819: the painted band is the cathode.</text>
+<text x="1360" y="720" text-anchor="start" font-family="DejaVu Sans" font-size="12.5" font-weight="normal" font-style="normal" fill="#555">Backwards = a dead short across the cell.</text>
+<rect x="40" y="924" width="1700" height="66" rx="8" fill="#FFF8E1" stroke="#F57F17" stroke-width="2"/>
+<text x="62" y="950" text-anchor="start" font-family="DejaVu Sans" font-size="14" font-weight="bold" font-style="normal" fill="#E65100">SORTING TIP:</text>
+<text x="178" y="950" text-anchor="start" font-family="DejaVu Sans" font-size="12.5" font-weight="normal" font-style="normal" fill="#444">TP4056 is the only one with a USB socket  ·  MT3608 the only one with a tall drum and a pot  ·  AMS1117 has three pads and no LEDs  ·  RC522 is far bigger than all of them (60 × 39 mm)</text>
+<text x="62" y="974" text-anchor="start" font-family="DejaVu Sans" font-size="11.5" font-weight="normal" font-style="normal" fill="#999">Full electrical detail in WIRING.md  ·  regenerate this sheet: python cad/parts_id_sheet.py</text>
+</svg>

@@ -12,7 +12,7 @@ lot from AliExpress roughly halves the Amazon total but takes 2–4 weeks.
 | 3 | Linear pull solenoid | JF-0530B **6 V** variant, ~20 Ω/300 mA, 5 N/10 mm; body 30×13×15 mm, plunger Ø6×58 mm | 1 | $4 |
 | 4 | **103450 LiPo pouch, with protection PCB** | 2000 mAh, 34 × 50 × 10 mm (v0.4: the 18650 no longer packages in the bottom bay; stands on edge in v0.6 bay — 50×34 mm face vertical, clears the TP4056 block) | 1 | $6 |
 | 5 | ~~18650 holder~~ | not needed in v0.4 — the LiPo sits in a printed frame in the bay | — | — |
-| 6 | TP4056 charge board **with protection** (USB-C version) | has DW01 + FS8205 on board; 29 × 17.3 × 4.3 mm | 1 | $1.50 |
+| 6 | TP4056 charge board **with protection** (USB-C version) | has DW01 + FS8205 on board; 29 × 17.3 × 4.3 mm. ⚠️ **NOT a "2S/3S 8.4 V/12.6 V boost charger"** — those charge multi-cell packs and would drive our single 4.2 V cell to 8.4 V | 1 | $1.50 |
 | 7 | MT3608 boost converter | set to 5.0 V; 36 × 17 mm | 1 | $1.50 |
 | 8 | N-MOSFET (solenoid) | IRLZ44N (TO-220, logic-level) | 1 | $1 |
 | 9 | P-MOSFET (PN532 power gate) | AO3401 / IRLML6402 (SOT-23 on breakout) | 1 | $0.50 |

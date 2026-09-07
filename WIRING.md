@@ -13,6 +13,25 @@ Firmware referenced throughout: `firmware/rfid_bike_lock_rc522/` (RC522 build).
 
 ---
 
+## 0. Know your parts before you wire them
+
+![parts identification](renders/electrical/parts_id.png)
+
+⚠️ **A 2S/3S charger is not a TP4056.** Boards sold as "2S 2A boost converter 8.4 V / 12.6 V /
+16.8 V charging protection" charge **multi-cell packs**: 8.4 V is two cells in series, 12.6 V
+is three, 16.8 V is four. This lock runs **one** 103450 cell that must never see more than
+**4.2 V**. Putting a single cell on an 8.4 V charger drives it far past its limit — that is
+the failure mode that vents and burns. If you have one of these, set it aside for a 2S
+project and order a TP4056.
+
+| | TP4056 (what you need) | 2S/3S boost charger (not this) |
+|---|---|---|
+| Charges | one cell to 4.2 V | packs of 2–4 cells to 8.4 / 12.6 / 16.8 V |
+| Silkscreen | "TP4056" on the main chip | "2S", "3S", "8.4V", "12.6V" |
+| Board | 29 × 17 mm, flat, two LEDs | larger, usually with an inductor |
+
+---
+
 ## 1. Architecture — three power domains
 
 ```
