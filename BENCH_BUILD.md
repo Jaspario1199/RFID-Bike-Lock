@@ -19,10 +19,21 @@ Firmware: `firmware/rfid_bike_lock_rc522/`
 | IRLZ44N, 1N5819 | ✅ delivered | — |
 | IRF4905 (P-FET reader gate) | ✅ delivered | use instead of the AO3401 — same circuit, TO-220 package |
 | 103450 LiPo | ✅ delivered | ships part-charged (~3.7–3.8 V). **You cannot recharge it yet**, so use it only for stages 5–6 |
-| Nano, RC522, buttons, LEDs, buzzer, resistors | ✅ owned | — |
+| **Arduino Nano ESP32**, RC522, buttons, LEDs, buzzer, resistors | ✅ owned | 3.3 V board — see the note below |
 | **TP4056** | ❌ not ordered | none — the cell simply can't be recharged. Don't run it below 3.0 V |
 | **AMS1117-3.3** | ❌ not ordered | the ELEGOO supply module's **3.3 V rail** powers the RC522 on the bench |
 | **1000 µF cap** | ❌ not ordered | drive the coil from a *separate* supply in stage 5 so rail dips can't reset the Nano |
+
+### The board is a Nano ESP32, which changes two stages
+
+It is a **3.3 V** board, so the RC522 connects **directly — no level shifters, no AMS1117**.
+That deletes eight resistors and one missing part from this build. Its VIN range is 6–21 V, so
+the 6.2–6.5 V rail is valid (near the bottom, which is fine). Flash
+`firmware/rfid_bike_lock_esp32/` — the AVR sketches will not compile on it. Board support:
+Boards Manager → "Arduino ESP32 Boards" → *Arduino Nano ESP32*.
+
+The board's **5 V pin is disabled behind a solder jumper and fed from USB only**. Leave it
+alone; nothing in this design needs 5 V any more.
 
 **Two rules for the whole session.** Set the MT3608's output *before* connecting anything to
 it — they ship at 20 V and will kill the Nano. And the 1N5819's painted band goes to the
@@ -58,10 +69,10 @@ dot of nail polish or hot glue on the pot so vibration can't drift it.
 
 | Measure | Expect |
 |---|---|
-| Nano 5V pin → GND | 4.9–5.1 V (its onboard regulator working) |
-| VIN → GND | 6.0 V |
+| Nano **3V3** pin → GND | 3.25–3.35 V (its onboard regulator working) |
+| VIN → GND | 6.2–6.5 V |
 
-If the 5V pin reads 6 V, you're on the wrong pin — that would put 6 V into everything.
+If the 3V3 pin reads 6 V you're on the wrong pin, and that would destroy the reader.
 
 ---
 
@@ -88,28 +99,20 @@ Tap red during the window → one red blink, a 150 ms beep, back to sleep.
 
 ---
 
-## Stage 4 — RC522 (30 min)
+## Stage 4 — RC522 (15 min)
 
-**The RC522 is a 3.3 V part.** On the bench, power it from the **ELEGOO module's 3.3 V rail**,
-not the Nano's 3V3 pin. Tie the ELEGOO ground to the Nano ground.
+Both parts are 3.3 V, so this is now seven wires and nothing else. **No dividers, no AMS1117,
+no ELEGOO rail.**
 
-Level-shift the four Nano→reader signals. Eight resistors, all in your kit:
-
-```
-Nano pin ──[1 kΩ]──┬── RC522 pin
-                   │
-                 [2 kΩ]
-                   │
-                  GND
-```
-
-| Nano | through divider → | RC522 |
-|---|---|---|
-| D10 | ✔ | SDA (SS) |
-| D13 | ✔ | SCK |
-| D11 | ✔ | MOSI |
-| D4 | ✔ | RST |
-| D12 | **direct, no divider** | MISO |
+| RC522 | Nano ESP32 |
+|---|---|
+| SDA (SS) | D10 |
+| SCK | D13 |
+| MOSI | D11 |
+| MISO | D12 |
+| RST | D4 |
+| 3.3V | **3V3 pin** |
+| GND | GND |
 
 **Expect:** green button → chirp → tap a fob → `[scan] uid=…`. The first fob ever tapped
 becomes master and is written to EEPROM. A second fob gives two red blinks and a long buzz.
@@ -153,7 +156,15 @@ tens of milliseconds — and check you're at 6 V, not 5.
 
 ---
 
-## Stage 6 — reader power gate with the IRF4905 (20 min)
+## Stage 6 — reader power gate (20 min) — OPTIONAL on this board
+
+⚠️ **Skip this stage for now.** `READER_POWER_GATED` is 0 in the ESP32 sketch, so the reader
+stays powered. The IRF4905 is a poor fit here: its gate threshold is −2 to −4 V and 3.3 V logic
+can only reach −3.3 V, so it may never turn fully on or off. Do stage 7 first — if the sleep
+current is acceptable without gating, you may not need this at all. When you do want it, use
+the logic-level **AO3401** from the SOT-23 kit and set `READER_POWER_GATED` to 1.
+
+<details><summary>Original IRF4905 wiring, for reference</summary>
 
 The IRF4905 is a P-channel in TO-220. Facing the printed side with the legs down: **G – D – S**.
 The metal tab is connected to the drain, so it sits at the load's voltage — keep it off
@@ -175,6 +186,7 @@ LED on, D7 high → LED off. That proves the gate logic without risking the modu
 | Drain to GND, D7 HIGH | ≈ 0 V (FET off) |
 
 If it's backwards — on when it should be off — source and drain are swapped.
+</details>
 
 ---
 
@@ -185,13 +197,18 @@ input to the **LiPo**, since a bench supply's own draw would swamp the reading.
 
 Meter in series with the cell's positive lead, sketch running, let the scan window expire.
 
+⚠️ **The Nano ESP32 is not a low-power board.** Its USB bridge, RGB LED and regulator all draw
+current in deep sleep, and published figures are milliamps rather than the microamps a bare
+ESP32-S3 reaches. This measurement is therefore a genuine unknown, not a pass/fail against a
+number I can promise you.
+
 | Reading | Meaning |
 |---|---|
-| **1.5–3 mA** | correct → 3–4 weeks per charge |
-| 15–25 mA | the Nano never slept — a button holding D3 low, or `#define DEBUG` still on |
-| 40 mA + | the reader is still powered — D7 logic or the FET orientation |
+| under 1 mA | excellent — months per charge |
+| 1–5 mA | workable — days to weeks; matches the original design budget |
+| 10 mA + | the board's own overhead dominates. Not a firmware bug. The fix is a bare ESP32-S3 module or a 3.3 V Pro Mini, both drop-in for this circuit |
 
-Comment out `#define DEBUG` for this test; serial keeps the USB chip awake.
+Comment out `#define DEBUG` for this test; USB serial keeps the bridge awake.
 
 **Watch the cell voltage.** You can't recharge until the TP4056 arrives, so stop at 3.4 V and
 leave the rest for later.
@@ -202,7 +219,8 @@ leave the rest for later.
 
 1. **TP4056** — cell to B+/B−, then OUT+/OUT− becomes the input to the MT3608. The cell is
    never tapped by anything else. Charge with the lock asleep; this board has no load sharing.
-2. **AMS1117-3.3** — insert between the IRF4905's drain and the RC522, and drop the ELEGOO
-   rail. Gating upstream of the regulator kills its idle draw too.
+2. **AMS1117-3.3** — not needed any more on a 3.3 V board. If you later gate the reader's
+   supply, use the **AO3401** from the SOT-23 kit: the IRF4905's −2 to −4 V threshold is
+   marginal when 3.3 V logic can only pull its gate to −3.3 V.
 3. **1000 µF (Ø8 × 12.5, or Ø10 up to 20 mm — both fit the driver card)** — across the coil
    supply, right at the card. Then move the coil onto the shared 6 V rail and re-run stage 5.

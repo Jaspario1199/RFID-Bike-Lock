@@ -1,5 +1,55 @@
 # Firmware
 
+Three builds of the same lock, same behaviour and same key set — pick the one that matches
+your board:
+
+| Sketch | Board | Reader wiring |
+|---|---|---|
+| `rfid_bike_lock_esp32/` | **Arduino Nano ESP32** (3.3 V) — *the one in hand* | RC522 direct, **no level shifters** |
+| `rfid_bike_lock_rc522/` | classic Nano / Uno (5 V) | RC522 via 1 k / 2 k dividers |
+| `rfid_bike_lock/` | classic Nano / Uno (5 V) | PN532 over I2C |
+
+## Nano ESP32 build
+
+1. **Boards Manager** → install **"Arduino ESP32 Boards"**, then select *Arduino Nano ESP32*.
+2. **Library Manager** → install **MFRC522** (by GithubCommunity).
+3. Wire the RC522 straight to the board — both are 3.3 V parts:
+
+| RC522 | Nano ESP32 |
+|---|---|
+| SDA (SS) | D10 |
+| SCK | D13 |
+| MOSI | D11 |
+| MISO | D12 |
+| RST | D4 |
+| 3.3V | **3V3** |
+| GND | GND |
+
+4. Panel I/O is the same as the other builds: green button D3, red button D2, red LED D8,
+   green LED D9, buzzer D6, solenoid gate D5, battery sense A0.
+
+**Differences from the AVR builds, all platform plumbing:**
+
+- **Deep sleep resets the chip**, so the whole scan window lives in `setup()` and the sketch
+  deep-sleeps at the end of it. `loop()` never runs. Wake is ext0 on the green button.
+- **Tags live in Preferences (NVS)**, not EEPROM. Same 8-byte record layout.
+- **The ADC is 12-bit against 3.3 V**, so the battery maths differ. The 100 k : 100 k divider
+  is unchanged.
+- **Factory reset:** hold **both buttons** while powering up or pressing reset, for 1.5 s.
+  Alternating LEDs and three beeps confirm it; the next wake re-enrolls a master.
+- **Reader power gating is off by default** (`READER_POWER_GATED 0`). The IRF4905 you have is
+  marginal at 3.3 V gate drive — its threshold is −2 to −4 V and 3.3 V logic can only reach
+  −3.3 V. Fit the logic-level AO3401 from the SOT-23 kit before enabling it.
+
+⚠️ **Honest caveat on battery life.** The Nano ESP32 is not a low-power board: the onboard
+USB bridge, RGB LED and regulator all draw current in deep sleep, and reported figures are
+milliamps rather than the microamps the bare ESP32-S3 can reach. Measure it (BENCH_BUILD stage
+7) before trusting any battery-life estimate. If it comes in high, the fix is a bare
+ESP32-S3 module or the 3.3 V Pro Mini path, not a firmware change.
+
+---
+
+
 Two sketches, one state machine (`../DESIGN.md` §5, pin map §4.2):
 
 | Sketch | Reader | Use |
