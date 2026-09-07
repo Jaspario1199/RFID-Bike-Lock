@@ -158,11 +158,11 @@ part("A2_lid", "A2 - lid plate", "6061 plate 5 mm (PETG stage 1)", 1, ["TOP", "F
       "Lid screws countersunk 90deg from the top for M3 flat head"],
      [("A", f"window {fmt(m.WIN_L)} x {fmt(m.WIN_W)} THRU", f"centre ({fmt(m.WIN_CX)}, {fmt((m.BY0 + m.BY1) / 2)})"),
       ("B", f"Ø{fmt(m.BORE_D + 0.6)} THRU (latch bore pass-through)", f"({fmt(m.LATCH_X)}, {fmt(m.LATCH_Y)})"),
-      ("C", f"Ø{fmt(m.BTN_D)} THRU (sealed button)", f"({fmt(m.BTN_X)}, {fmt(m.BTN_Y)})"),
-      ("D", f"2x Ø{fmt(m.LED_D)} THRU (LEDs)", f"({fmt(m.LED_X)}, {fmt(m.LED_Y[0])}) ({fmt(m.LED_X)}, {fmt(m.LED_Y[1])})"),
+      ("C", f"2x Ø{fmt(m.BTN_D)} THRU (sealed buttons: green = wake, red = cancel/admin)", f"({fmt(m.BTN_X)}, {fmt(m.BTN_Y)}) ({fmt(m.BTN_X)}, {fmt(m.BTN2_Y)})"),
+      ("D", f"2x Ø{fmt(m.LED_D)} THRU (LEDs) + Ø2.5 buzzer sound hole @ ({fmt(m.BUZ_X)}, {fmt(m.BUZ_Y)})", ", ".join(f"({fmt(x)}, {fmt(y)})" for x, y in m.LED_XY)),
       ("E", "4x Ø3.4 THRU, 90deg C'SINK Ø6.4 from the top", ", ".join(f"({fmt(x)}, {fmt(y)})" for x, y in m.LID_SCREWS))],
      {"TOP": [((m.WIN_CX, 11, 67), "A", 0, 12), ((m.LATCH_X, m.LATCH_Y, 67), "B", 8, -8), ((m.BTN_X, m.BTN_Y, 67), "C", 8, 8),
-              ((m.LED_X, m.LED_Y[1], 67), "D", -4, 10), ((m.LID_SCREWS[2][0], m.LID_SCREWS[2][1], 67), "E", 6, -6)]})
+              ((m.LED_XY[1][0], m.LED_XY[1][1], 67), "D", 10, -8), ((m.LID_SCREWS[2][0], m.LID_SCREWS[2][1], 67), "E", 6, -6)]})
 part("A3_bottom_box", "A3 - spool puck + cradle (hinge knuckles)", "6061-T6 billet (PETG stage 1)", 1,
      ["TOP", "FRONT", "RIGHT", "BOTTOM"],
      [f"Cradle x {fmt(m.SX0)}..{fmt(m.SX1)}, y {fmt(m.A3_Y0)}..{fmt(m.CRADLE_Y1)}, saddle R32.0 on top; skirt rib y 32..44 up to z=-3",
