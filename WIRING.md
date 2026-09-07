@@ -181,6 +181,8 @@ credited with.
 A 42 × 10.7 mm rectangle cut from your perfboard, which is about **16 × 4 holes** at 0.1"
 pitch. It rides on the solenoid cart so the switching sits under 30 mm from the coil.
 
+![driver card](renders/electrical/driver_card.png)
+
 ### 5.1 What goes on it
 
 | Part | Placement |

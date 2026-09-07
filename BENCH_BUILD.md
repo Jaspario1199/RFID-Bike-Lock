@@ -136,6 +136,11 @@ module, then that the dividers aren't swapped.
 
 ## Stage 5 — solenoid driver (45 min)
 
+![driver card](renders/electrical/driver_card.png)
+
+*Circuit and physical parts side by side: `renders/electrical/driver_card.png`*
+
+
 Build the driver on a scrap of perfboard for now; cut the final 42 × 10.7 card later.
 
 ```

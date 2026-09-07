@@ -1,0 +1,120 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1660" height="1010" viewBox="0 0 1660 1010">
+<rect width="1660" height="1010" fill="#FAFAF8"/>
+<text x="40" y="48" text-anchor="start" font-family="DejaVu Sans" font-size="27" font-weight="bold" font-style="normal" fill="#111">SOLENOID DRIVER — stage 5</text>
+<text x="40" y="74" text-anchor="start" font-family="DejaVu Sans" font-size="14" font-weight="normal" font-style="normal" fill="#666">The MOSFET is just a switch the Nano can flip. Gate = the handle · Drain and Source = the two contacts.</text>
+<rect x="40" y="100" width="760" height="700" rx="9" fill="#FFFFFF" stroke="#CFD8DC" stroke-width="2"/>
+<text x="64" y="134" text-anchor="start" font-family="DejaVu Sans" font-size="20" font-weight="bold" font-style="normal" fill="#111">THE CIRCUIT</text>
+<text x="64" y="156" text-anchor="start" font-family="DejaVu Sans" font-size="12.5" font-weight="normal" font-style="normal" fill="#777">what connects to what</text>
+<path d="M 110 210 L 720 210" fill="none" stroke="#C62828" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="112" y="196" text-anchor="start" font-family="DejaVu Sans" font-size="14" font-weight="bold" font-style="normal" fill="#C62828">+6 V  (coil supply)</text>
+<path d="M 110 690 L 720 690" fill="none" stroke="#212121" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="112" y="716" text-anchor="start" font-family="DejaVu Sans" font-size="14" font-weight="bold" font-style="normal" fill="#333">GND  — must be shared with the Nano's GND</text>
+<path d="M 330 210 L 330 300" fill="none" stroke="#212121" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="292" y="300" width="76" height="86" rx="6" fill="#FFEBEE" stroke="#C62828" stroke-width="2.5"/>
+<path d="M 300 316 q 30 -14 60 0" fill="none" stroke="#C62828" stroke-width="2.4"/>
+<path d="M 300 334 q 30 -14 60 0" fill="none" stroke="#C62828" stroke-width="2.4"/>
+<path d="M 300 352 q 30 -14 60 0" fill="none" stroke="#C62828" stroke-width="2.4"/>
+<path d="M 300 370 q 30 -14 60 0" fill="none" stroke="#C62828" stroke-width="2.4"/>
+<text x="330" y="404" text-anchor="middle" font-family="DejaVu Sans" font-size="13" font-weight="bold" font-style="normal" fill="#C62828">SOLENOID</text>
+<text x="330" y="421" text-anchor="middle" font-family="DejaVu Sans" font-size="11.5" font-weight="normal" font-style="normal" fill="#888">~6 Ω coil</text>
+<path d="M 330 386 L 330 470" fill="none" stroke="#212121" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M 480 210 L 480 300" fill="none" stroke="#212121" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M 464 348 L 496 348 L 480 318 Z" fill="#37474F"/>
+<line x1="462" y1="318" x2="498" y2="318" stroke="#C62828" stroke-width="5"/>
+<path d="M 480 348 L 480 470" fill="none" stroke="#212121" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="510" y="316" text-anchor="start" font-family="DejaVu Sans" font-size="12.5" font-weight="bold" font-style="normal" fill="#C62828">BAND (cathode)</text>
+<text x="510" y="333" text-anchor="start" font-family="DejaVu Sans" font-size="12" font-weight="normal" font-style="normal" fill="#C62828">→ goes to +6 V</text>
+<text x="510" y="356" text-anchor="start" font-family="DejaVu Sans" font-size="13" font-weight="bold" font-style="normal" fill="#111">1N5819</text>
+<text x="510" y="373" text-anchor="start" font-family="DejaVu Sans" font-size="11.5" font-weight="normal" font-style="normal" fill="#777">catches the coil's kick</text>
+<path d="M 330 470 L 480 470" fill="none" stroke="#212121" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="330" cy="470" r="5.5" fill="#212121"/>
+<circle cx="480" cy="470" r="5.5" fill="#212121"/>
+<path d="M 330 210 L 480 210" fill="none" stroke="#C62828" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="330" cy="210" r="5.5" fill="#C62828"/>
+<circle cx="480" cy="210" r="5.5" fill="#C62828"/>
+<rect x="235" y="500" width="190" height="104" rx="7" fill="#ECEFF1" stroke="#37474F" stroke-width="2.5"/>
+<text x="330" y="534" text-anchor="middle" font-family="DejaVu Sans" font-size="17" font-weight="bold" font-style="normal" fill="#111">IRLZ44N</text>
+<text x="330" y="554" text-anchor="middle" font-family="DejaVu Sans" font-size="11.5" font-weight="normal" font-style="normal" fill="#666">N-channel MOSFET</text>
+<text x="330" y="572" text-anchor="middle" font-family="DejaVu Sans" font-size="11.5" font-weight="normal" font-style="normal" fill="#666">= a switch the Nano flips</text>
+<text x="338" y="492" text-anchor="middle" font-family="DejaVu Sans" font-size="13" font-weight="bold" font-style="normal" fill="#111">D</text>
+<text x="360" y="492" text-anchor="start" font-family="DejaVu Sans" font-size="11" font-weight="normal" font-style="normal" fill="#777">(drain, + the metal tab)</text>
+<text x="338" y="620" text-anchor="middle" font-family="DejaVu Sans" font-size="13" font-weight="bold" font-style="normal" fill="#111">S</text>
+<text x="360" y="620" text-anchor="start" font-family="DejaVu Sans" font-size="11" font-weight="normal" font-style="normal" fill="#777">(source)</text>
+<text x="226" y="546" text-anchor="end" font-family="DejaVu Sans" font-size="13" font-weight="bold" font-style="normal" fill="#111">G</text>
+<path d="M 330 470 L 330 500" fill="none" stroke="#212121" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M 330 604 L 330 690" fill="none" stroke="#212121" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="330" cy="690" r="5.5" fill="#212121"/>
+<path d="M 235 552 L 180 552" fill="none" stroke="#1565C0" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="80" y="540" width="60" height="24" rx="3" fill="#FFF" stroke="#37474F" stroke-width="2"/>
+<text x="110" y="557" text-anchor="middle" font-family="DejaVu Sans" font-size="11.5" font-weight="bold" font-style="normal" fill="#111">100 Ω</text>
+<path d="M 80 552 L 30 552" fill="none" stroke="#1565C0" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="24" y="557" text-anchor="end" font-family="DejaVu Sans" font-size="14" font-weight="bold" font-style="normal" fill="#1565C0">D5</text>
+<path d="M 140 552 L 180 552" fill="none" stroke="#1565C0" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="180" cy="552" r="5.5" fill="#1565C0"/>
+<path d="M 180 552 L 180 690" fill="none" stroke="#1565C0" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="150" y="610" width="60" height="24" rx="3" fill="#FFF" stroke="#37474F" stroke-width="2"/>
+<text x="180" y="627" text-anchor="middle" font-family="DejaVu Sans" font-size="11" font-weight="bold" font-style="normal" fill="#111">100 kΩ</text>
+<circle cx="180" cy="690" r="5.5" fill="#212121"/>
+<text x="30" y="686" text-anchor="start" font-family="DejaVu Sans" font-size="11.5" font-weight="normal" font-style="normal" fill="#777">100 Ω limits the switching spike</text>
+<text x="30" y="704" text-anchor="start" font-family="DejaVu Sans" font-size="11.5" font-weight="normal" font-style="normal" fill="#777">100 kΩ keeps the coil OFF while</text>
+<text x="30" y="722" text-anchor="start" font-family="DejaVu Sans" font-size="11.5" font-weight="normal" font-style="normal" fill="#777">the board boots</text>
+<path d="M 640 210 L 640 400" fill="none" stroke="#C62828" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<line x1="610" y1="400" x2="670" y2="400" stroke="#212121" stroke-width="5"/>
+<path d="M 610 424 q 30 18 60 0" fill="none" stroke="#212121" stroke-width="5"/>
+<path d="M 640 424 L 640 690" fill="none" stroke="#212121" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="640" cy="690" r="5.5" fill="#212121"/>
+<circle cx="640" cy="210" r="5.5" fill="#C62828"/>
+<text x="662" y="392" text-anchor="start" font-family="DejaVu Sans" font-size="15" font-weight="bold" font-style="normal" fill="#C62828">+</text>
+<text x="666" y="404" text-anchor="start" font-family="DejaVu Sans" font-size="13" font-weight="bold" font-style="normal" fill="#111">1000 µF</text>
+<text x="666" y="421" text-anchor="start" font-family="DejaVu Sans" font-size="11.5" font-weight="normal" font-style="normal" fill="#777">stripe = the − side,</text>
+<text x="666" y="437" text-anchor="start" font-family="DejaVu Sans" font-size="11.5" font-weight="normal" font-style="normal" fill="#777">goes to GND</text>
+<text x="666" y="458" text-anchor="start" font-family="DejaVu Sans" font-size="11" font-weight="normal" font-style="italic" fill="#999">(add when it arrives)</text>
+<rect x="840" y="100" width="780" height="700" rx="9" fill="#FFFFFF" stroke="#CFD8DC" stroke-width="2"/>
+<text x="864" y="134" text-anchor="start" font-family="DejaVu Sans" font-size="20" font-weight="bold" font-style="normal" fill="#111">THE PARTS, PHYSICALLY</text>
+<text x="864" y="156" text-anchor="start" font-family="DejaVu Sans" font-size="12.5" font-weight="normal" font-style="normal" fill="#777">every mistake here is an orientation mistake</text>
+<rect x="900" y="190" width="86" height="112" rx="5" fill="#212121"/>
+<rect x="905" y="170" width="76" height="24" rx="3" fill="#9E9E9E"/>
+<circle cx="943" cy="182" r="7" fill="#FAFAF8"/>
+<text x="943" y="252" text-anchor="middle" font-family="DejaVu Sans" font-size="12" font-weight="bold" font-style="normal" fill="#FFF">IRLZ44N</text>
+<rect x="916" y="302" width="9" height="40" fill="#BDBDBD"/>
+<text x="920" y="362" text-anchor="middle" font-family="DejaVu Sans" font-size="15" font-weight="bold" font-style="normal" fill="#1565C0">G</text>
+<rect x="942" y="302" width="9" height="40" fill="#BDBDBD"/>
+<text x="946" y="362" text-anchor="middle" font-family="DejaVu Sans" font-size="15" font-weight="bold" font-style="normal" fill="#C62828">D</text>
+<rect x="968" y="302" width="9" height="40" fill="#BDBDBD"/>
+<text x="972" y="362" text-anchor="middle" font-family="DejaVu Sans" font-size="15" font-weight="bold" font-style="normal" fill="#212121">S</text>
+<text x="900" y="390" text-anchor="start" font-family="DejaVu Sans" font-size="12" font-weight="normal" font-style="normal" fill="#555">printed side toward you, legs down</text>
+<text x="900" y="410" text-anchor="start" font-family="DejaVu Sans" font-size="12.5" font-weight="bold" font-style="normal" fill="#1565C0">G → 100 Ω → D5</text>
+<text x="900" y="430" text-anchor="start" font-family="DejaVu Sans" font-size="12.5" font-weight="bold" font-style="normal" fill="#C62828">D → the solenoid's other wire</text>
+<text x="900" y="450" text-anchor="start" font-family="DejaVu Sans" font-size="12.5" font-weight="bold" font-style="normal" fill="#111">S → GND</text>
+<text x="900" y="476" text-anchor="start" font-family="DejaVu Sans" font-size="12" font-weight="bold" font-style="normal" fill="#B71C1C">⚠ the metal tab IS the drain —</text>
+<text x="900" y="493" text-anchor="start" font-family="DejaVu Sans" font-size="12" font-weight="normal" font-style="normal" fill="#B71C1C">keep it off anything conductive</text>
+<rect x="1270" y="215" width="96" height="34" rx="5" fill="#37474F"/>
+<rect x="1350" y="215" width="14" height="34" fill="#EEEEEE"/>
+<line x1="1236" y1="232" x2="1270" y2="232" stroke="#BDBDBD" stroke-width="4"/>
+<line x1="1366" y1="232" x2="1400" y2="232" stroke="#BDBDBD" stroke-width="4"/>
+<text x="1357" y="203" text-anchor="middle" font-family="DejaVu Sans" font-size="12.5" font-weight="bold" font-style="normal" fill="#C62828">BAND</text>
+<path d="M 1357 259 L 1357 279" stroke="#C62828" stroke-width="2.5"/>
+<text x="1357" y="297" text-anchor="middle" font-family="DejaVu Sans" font-size="12.5" font-weight="bold" font-style="normal" fill="#C62828">this end to +6 V</text>
+<text x="1236" y="335" text-anchor="start" font-family="DejaVu Sans" font-size="12.5" font-weight="bold" font-style="normal" fill="#111">1N5819 — sits ACROSS the coil,</text>
+<text x="1236" y="353" text-anchor="start" font-family="DejaVu Sans" font-size="12.5" font-weight="normal" font-style="normal" fill="#555">in parallel, not in series.</text>
+<text x="1236" y="377" text-anchor="start" font-family="DejaVu Sans" font-size="12.5" font-weight="bold" font-style="normal" fill="#B71C1C">Backwards = a dead short</text>
+<text x="1236" y="395" text-anchor="start" font-family="DejaVu Sans" font-size="12.5" font-weight="normal" font-style="normal" fill="#B71C1C">the moment you apply power.</text>
+<rect x="880" y="560" width="700" height="210" rx="8" fill="#E8F5E9" stroke="#2E7D32" stroke-width="2"/>
+<text x="904" y="596" text-anchor="start" font-family="DejaVu Sans" font-size="16" font-weight="bold" font-style="normal" fill="#111">BEFORE YOU APPLY POWER</text>
+<text x="908" y="626" text-anchor="start" font-family="DejaVu Sans" font-size="14" font-weight="bold" font-style="normal" fill="#2E7D32">☐</text>
+<text x="934" y="626" text-anchor="start" font-family="DejaVu Sans" font-size="13" font-weight="normal" font-style="normal" fill="#333">Measure the coil: ~6 Ω confirms the 6 V 1 A winding.</text>
+<text x="908" y="653" text-anchor="start" font-family="DejaVu Sans" font-size="14" font-weight="bold" font-style="normal" fill="#2E7D32">☐</text>
+<text x="934" y="653" text-anchor="start" font-family="DejaVu Sans" font-size="13" font-weight="normal" font-style="normal" fill="#333">Diode-test the IRLZ44N to confirm G–D–S, don't trust the picture.</text>
+<text x="908" y="680" text-anchor="start" font-family="DejaVu Sans" font-size="14" font-weight="bold" font-style="normal" fill="#2E7D32">☐</text>
+<text x="934" y="680" text-anchor="start" font-family="DejaVu Sans" font-size="13" font-weight="normal" font-style="normal" fill="#333">Diode band toward +6 V. Check it twice; there is no warning if it's wrong.</text>
+<text x="908" y="707" text-anchor="start" font-family="DejaVu Sans" font-size="14" font-weight="bold" font-style="normal" fill="#2E7D32">☐</text>
+<text x="934" y="707" text-anchor="start" font-family="DejaVu Sans" font-size="13" font-weight="normal" font-style="normal" fill="#333">Coil on a SEPARATE 6 V supply for the first test (no reservoir cap yet).</text>
+<text x="908" y="734" text-anchor="start" font-family="DejaVu Sans" font-size="14" font-weight="bold" font-style="normal" fill="#2E7D32">☐</text>
+<text x="934" y="734" text-anchor="start" font-family="DejaVu Sans" font-size="13" font-weight="normal" font-style="normal" fill="#333">Tie that supply's GND to the Nano's GND, or nothing switches.</text>
+<rect x="40" y="828" width="1580" height="150" rx="9" fill="#FFF8E1" stroke="#F57F17" stroke-width="2"/>
+<text x="64" y="862" text-anchor="start" font-family="DejaVu Sans" font-size="16" font-weight="bold" font-style="normal" fill="#111">WHY THE DIODE IS THERE</text>
+<text x="64" y="890" text-anchor="start" font-family="DejaVu Sans" font-size="13" font-weight="normal" font-style="normal" fill="#444">A solenoid is a coil of wire, and a coil hates having its current stopped. The instant the MOSFET switches off, the collapsing</text>
+<text x="64" y="912" text-anchor="start" font-family="DejaVu Sans" font-size="13" font-weight="normal" font-style="normal" fill="#444">magnetic field drives the voltage at the drain to hundreds of volts trying to keep the current going — enough to destroy the MOSFET.</text>
+<text x="64" y="934" text-anchor="start" font-family="DejaVu Sans" font-size="13" font-weight="normal" font-style="normal" fill="#444">The 1N5819 gives that current a harmless loop back to +6 V instead. It does nothing at all while the solenoid is firing; it only</text>
+<text x="64" y="956" text-anchor="start" font-family="DejaVu Sans" font-size="13" font-weight="normal" font-style="normal" fill="#444">matters in the microseconds after switch-off. That is also why it must sit right at the coil, not at the far end of long wires.</text>
+</svg>
