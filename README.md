@@ -16,7 +16,8 @@ releases the cable, which then reels itself back in.
 | [`DESIGN.md`](DESIGN.md) | The full engineering design document: user workflow, electronics, wiring, power budget, mechanical dimensions, water/power hardening (§4.5), security analysis |
 | [`BOM.md`](BOM.md) | Bill of materials — every part, quantity, estimated price (v0.8 all-M3 heat-set fastener standard + v0.8.3 weatherproofing items) |
 | [`BUILD.md`](BUILD.md) | The authoritative bench build sequence + print-orientation table (`--dfm`) |
-| [`ASSEMBLY.md`](ASSEMBLY.md) | Assembly/DFM audit + v0.8.3 weatherproofing steps |
+| [`ASSEMBLY.md`](ASSEMBLY.md) | Assembly/DFM audit + v0.8.3 weatherproofing steps (printed v0.8 lineage) |
+| [`ASSEMBLY_CNC.md`](ASSEMBLY_CNC.md) | **The step-by-step build manual for the current CNC casing (rev 3c)** — print settings, every screw, bench checkpoints, stage-by-stage assembly, troubleshooting |
 | [`INTERNALS.md`](INTERNALS.md) | **How every electronic mates inside** — per-part contact faces, screws, wiring paths, keyed to `renders/internals/` |
 | [`CNC_CASING.md`](CNC_CASING.md) | **The machined-casing redesign** — CNC-first architecture (tube-half chassis + inside-out bolted boxes, bottom hinge pin + one guarded closure screw, centred spool puck, 60° swing gated, electronics stack-up gated, no inserts), DFM rulebook, decisions; model `cad/cnc_casing_cq.py`, STEP `cnc-design/step/`, drawings `cnc-design/drawings/`, renders `renders/cnc/` |
 | [`firmware/`](firmware/) | Arduino sketch (v1, ready to flash) + bench bring-up guide |

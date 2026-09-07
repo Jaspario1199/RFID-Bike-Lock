@@ -188,6 +188,7 @@ boxes.** **Stage 2:** machine A1/A3 as drop-in swaps; the chassis and hole patte
 change.
 
 ### Assembly
+**Full step-by-step build manual: [`ASSEMBLY_CNC.md`](ASSEMBLY_CNC.md).** Summary:
 Bench: bolt A1 + A3 to C1 from inside (M3 low-head in the counterbores) → electronics
 into A1, window insert under the lid, lid on → spool cartridge into A3 from below, A4 on →
 closure block + hinge block onto C2 from inside → hang C2's lug between A3's lugs, drive
