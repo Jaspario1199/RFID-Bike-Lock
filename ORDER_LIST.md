@@ -21,46 +21,63 @@ https://www.amazon.com/s?k=PN532+NFC+module+V3
 
 ---
 
-## 🛒 STILL NEEDED — the checkpoint-1 order (verified against the chat log, 2026-09-07)
+## ✅ DELIVERED (orders confirmed 3–4 Sep 2026)
 
-The transcript shows listings **vetted** but no confirmation you ordered any of them. Links are
-Amazon searches pre-filled with the exact brand + title of the listing you showed me, since
-ASINs were never in the pasted text. **Amazon blocks automated price/stock checks — confirm
-the variant at checkout.**
+| Item | ASIN | Notes |
+|---|---|---|
+| Ferwooh MT3608 boost, 5-pack | B0D17PHDSD | as specced |
+| **Heschen HS-0730B solenoid, DC 6 V 1 A, 5 N, 10 mm stroke** | B07MCBF7Z2 | ⚠️ **0730 frame, not the 0530 the CAD assumes** — see below |
+| ALLECIN IRLZ44N, 10-pack | B0CBKH4XGL | as specced |
+| **JLJLUP 103450 LiPo 2000 mAh, PH 2.0** | B0FH7H4Z7W | ⚠️ **52 mm long**, CAD tray is cut for 50 — see below |
+| ALLECIN IRF4905 P-MOSFET, 10-pack | B0CBKH44K5 | the TO-220 alternative to the AO3401 reader gate — works, just bulkier |
+| EEEEE 1N5819 Schottky, 150-pack | B0FC2CWKPL | as specced |
 
-| # | Item | Exact listing you vetted | Link | ~$ |
+### ⚠️ Two fit checks the delivery created
+
+**1. The solenoid is an HS-0730B, not an HS-0530B.** Good news on current: **1 A**, not the
+3.4 A variant, so it runs off the 6 V rail (6 Ω coil; the MT3608's 2 A is enough, and the cell
+sees ~1.9 A for 300 ms, right at its 1C rating — acceptable for a pulse, and a reason to try a
+150 ms pulse before settling on 300). The problem is size: the CAD's cart is cut for a
+**30 × 13 × 15 mm** body and an 0730 frame is typically **~34 × 20 mm**. At 20 mm wide, centred
+on the plunger axis at y = −4, the body would span y −14 to +6 — and the box interior starts at
+y = −11, so it would poke through the wall by 3 mm.
+
+**Measure these five things on arrival and report them, then the cart gets refitted:**
+body length · body width · body height · mounting-hole spacing · plunger diameter.
+
+**2. The cell is 52 mm long**, not the 50 mm in the model (YTKavq's was 50). The battery tray
+just shifts 2 mm toward −x; the reader deck above it is unaffected. Already logged.
+
+---
+
+## 🛒 STILL NEEDED
+
+| # | Item | Why | Link | ~$ |
 |---|---|---|---|---|
-| 1 | **TP4056 charger, protected USB-C** | HiLetgo 3pcs TP4056 Type-C, "dual protection functions" | https://www.amazon.com/s?k=HiLetgo+TP4056+Type-c+USB+charging+module+dual+protection | 6 |
-| 2 | **103450 LiPo 2000 mAh, protected** | YTKavq 2-pack, 10 × 34 × 50 mm, PCM, JST 1.25 mm — **the 50 mm one matches the CAD exactly**. (JLJLUP's is 52 mm and needs the tray shifted 2 mm) | https://www.amazon.com/s?k=YTKavq+103450+3.7V+2000mAh+LiPo+PCM+protection | 15 |
-| 3 | **MT3608 boost** | Ferwooh MT3608 2A adjustable, pack of 5 | https://www.amazon.com/s?k=Ferwooh+MT3608+boost+converter+2A+module | 6 |
-| 4 | **IRLZ44N** | ALLECIN IRLZ44N logic-level, 10 pcs TO-220 | https://www.amazon.com/s?k=ALLECIN+IRLZ44N+logic+level+mosfet+TO-220 | 10 |
-| 5 | **AO3401 P-MOSFET** | VANXY 8-value SOT-23 kit, 160 pcs (AO3401 is one of the values) | https://www.amazon.com/s?k=VANXY+AO3400+AO3401+SOT23+mosfet+kit | 10 |
-| 6 | **1N5819 Schottky** | EEEEE 1N5819, 150 pcs | https://www.amazon.com/s?k=EEEEE+1N5819+schottky+diode | 8 |
-| 7 | **Solenoid, 6 V** | ⚠️ **NOT** the Heschen HS-0530B 3.4 A you pasted — see the note below | https://www.amazon.com/s?k=6V+pull+solenoid+10mm+stroke+small | 12 |
-| 8 | **AMS1117-3.3 module** | not yet vetted — any breakout with IN/GND/OUT pads | https://www.amazon.com/s?k=AMS1117-3.3+voltage+regulator+module | 7 |
-| 9 | **1000 µF 10 V+ electrolytic** | **Ø8 × 12.5 mm case** — taller ones don't fit the box | https://www.amazon.com/s?k=1000uf+16v+electrolytic+capacitor+8x12mm | 6 |
-| 10 | **22 AWG silicone wire** | red/black | https://www.amazon.com/s?k=22awg+silicone+wire+red+black | 9 |
-| 11 | **JST-XH kit + crimper** | for the detachable lid loop | https://www.amazon.com/s?k=JST+XH+connector+kit+crimp+tool | 12 |
+| 1 | **TP4056 charger, protected USB-C** | **the one real gap** — nothing else can charge the cell safely | https://www.amazon.com/s?k=HiLetgo+TP4056+Type-c+USB+charging+module+dual+protection | 6 |
+| 2 | **1000 µF 10 V+, Ø8 × 12.5 case** | reservoir across the coil supply; taller cases don't fit the box | https://www.amazon.com/s?k=1000uf+16v+electrolytic+capacitor+8x12mm | 6 |
+| 3 | **AMS1117-3.3 module** | clean 3.3 V for the RC522 — do not use the Nano's 3V3 pin | https://www.amazon.com/s?k=AMS1117-3.3+voltage+regulator+module | 7 |
+| 4 | **22 AWG silicone wire**, red/black | the power runs | https://www.amazon.com/s?k=22awg+silicone+wire+red+black | 9 |
+| 5 | **JST-XH kit + crimper** | the lid loop has to detach for reflashing | https://www.amazon.com/s?k=JST+XH+connector+kit+crimp+tool | 12 |
 
-**≈ $100 for everything that gets you through all three bench checkpoints.**
+**≈ $40.** Later, for the build itself: PETG + TPU filament, M3 countersunk screws (your
+button-head kit covers the ten inside-the-bore screws), Ø4 coated cable + swage sleeves, a
+donor retractable reel, and a Ø5 × 36 steel dowel for the hinge pin.
 
-### ⚠️ The solenoid you pasted is the wrong variant
-The **Heschen HS-0530B, 6 V 3.4 A** draws 3.4 A. Neither the MT3608 (2 A) nor the protected
-cell (~1.5–2 A cutoff) can supply that — the cell's protection would trip on every unlock.
-**Buy one whose listing states ~250–350 mA, or a coil resistance of 15–25 Ω.** If a listing
-gives neither figure, buy two cheap ones and measure with a multimeter on arrival (`WIRING.md`
-§4). This is the one part where the wrong choice stops the build.
+### ▶ You can start building today
+**Checkpoint 1 needs nothing you don't already have** — Nano, RC522, buttons, LEDs, buzzer,
+breadboard. **Checkpoint 2** (solenoid driver) only wants the 1000 µF cap, and you can bench it
+off the ELEGOO supply meanwhile. See `WIRING.md` §6.
 
 ### ✔ Already owned — do NOT re-buy
 Arduino Nano · RC522 reader + fobs · active **and** passive buzzer · red + green LEDs ·
-ELEGOO kit (breadboard, jumpers, resistors, tactile buttons, its power-supply module) ·
-perfboard · heat-set inserts · soldering iron · **M3 button-head screw kit** — button heads are
-5.7 mm across and 1.65 mm tall, so they *do* fit the Ø6.2 × 2.3 counterbores. That covers all
-ten inside-the-bore screws; you only need countersunk M3 for the lid and puck cover (P2).
+ELEGOO kit (breadboard, jumpers, resistors, tactile buttons, power module) · perfboard ·
+heat-set inserts · soldering iron · **M3 button-head kit** — 5.7 mm across and 1.65 mm tall, so
+they fit the Ø6.2 × 2.3 counterbores; only the lid and puck cover need countersunk.
 
 ### ✘ Not for this project
-The **ACEIRMC 2S 8.4/12.6/16.8 V board** you already own belongs to RoomCleaner's charging
-dock. It charges multi-cell packs and would drive this lock's single 4.2 V cell to 8.4 V.
+The **ACEIRMC 2S 8.4/12.6/16.8 V board** belongs to RoomCleaner's charging dock. It charges
+multi-cell packs and would drive this lock's single 4.2 V cell to 8.4 V.
 
 ---
 

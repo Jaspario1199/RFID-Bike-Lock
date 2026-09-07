@@ -152,9 +152,17 @@ runs are short. Do not carry that shortcut into the sealed box.
 **Measure the coil resistance with a multimeter before wiring anything.** Two leads, ohms
 range, across the solenoid's terminals. What you read decides the circuit:
 
+**What actually arrived: a Heschen HS-0730B, 6 V / 1 A / 5 N** (≈ 6 Ω). That sits between the
+two rows below. It runs off the **6 V rail**: the MT3608's 2 A covers a 1 A output, and the cell
+supplies ~1.9 A for the pulse — right at the 2000 mAh pack's 1C rating, fine for 300 ms but
+worth trying a **150 ms** pulse (`SOLENOID_PULSE_MS`) once you see how hard it pulls. Running it
+straight off the 3.7 V cell instead gives only 0.62 A, and force goes as current squared, so
+about 40 % of rated pull — not enough.
+
 | Reading | What it is | How to wire it |
 |---|---|---|
-| **15–25 Ω** | the 6 V / ~300 mA winding this design assumes | **Solenoid on the 6 V rail.** The MT3608 (2 A) supplies it comfortably, full rated force |
+| **15–25 Ω** | the 6 V / ~300 mA winding the design originally assumed | **Solenoid on the 6 V rail**, full rated force, boost barely loaded |
+| **5–8 Ω** | the HS-0730B class, ~1 A at 6 V — **this is what you have** | 6 V rail, and expect ~1.9 A from the cell during the pulse |
 | **2–5 Ω** | a high-current variant (1.5–3.4 A) | The boost **cannot** do this. Run the coil straight off the cell, accept ~60 % force, and expect the cell's protection to trip if it is a 3.4 A unit. Better: return it and get the 6 V one |
 | **under 1 Ω** | you are measuring your leads, or the coil is shorted | re-check with the leads touching first, subtract that |
 
