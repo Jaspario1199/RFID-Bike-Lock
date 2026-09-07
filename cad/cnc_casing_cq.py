@@ -35,7 +35,7 @@ OPEN_DEG = 60.0                  # swing the gates prove (mouth = 65 mm for a O4
 LIP_X, LIP_R = 2.0, 25.5         # rear liner lip: x L-2..L, inward to r25.5
 
 # ---------------- attachment fastening (M3 low-head cap, inside-out) ----------------
-SCREW_X   = (25.0, 70.0, 130.0)  # 3 per row (70 keeps the middle pilot clear of the latch boss at x 75.5..94.5)
+SCREW_X   = (25.0, 75.0, 135.0)  # 3 per row (75 keeps the middle pilot clear of the latch boss at x 80.5..99.5)
 CROWN_Y   = 6.0                  # vertical crown row (radial ~11deg -> vertical is fine)
 SKIRT_Z   = 8.0                  # horizontal skirt row height |z|
 CLR3, CB_D, CB_H = 3.4, 6.2, 2.3 # M3 clearance, counterbore O and head depth
@@ -43,7 +43,7 @@ TAP3      = 2.5                  # M3 tap drill (modeled pilot)
 CLR4, TAP4 = 3.4, 2.5            # closure screw stays M3 (owner) - threads the steel block; O2.5 pilot doubles as the PETG self-tap pilot in Stage 1
 
 # ---------------- top box A1 ----------------
-BX0, BX1 = 10.0, 145.0           # x footprint (135 on the 150 tube: the electronics stack-up needs the length)
+BX0, BX1 = 10.0, 150.0           # x footprint: the full tube length - the RC522 (60 long) needs the reader zone
 BY0, BY1 = -14.0, 43.0           # y footprint (straddles the seam; 14 mm overhang over C2; 43 gives the
                                  # +y strip room for the TP4056 beside an edge-standing Nano)
 SADDLE_R = R_O + 0.25            # box underside hugs the tube on the C1 side
@@ -58,7 +58,7 @@ INT_H    = 24.0                  # interior height: solenoid zone (cart 3 + 15 +
 ZTOP     = ZF + INT_H            # lid seat
 LID_T    = 5.0
 CORNER_R = 4.0                   # R4 rule (O8 tool) - R6 stole the +x/+y pocket corner from the power stack
-LATCH_X, LATCH_Y = 85.0, -4.0    # receiver over the C2 side of the seam (closure block below); x leaves
+LATCH_X, LATCH_Y = 90.0, -4.0    # receiver over the C2 side of the seam (closure block below); x leaves
                                  # the reader window (x 20..65) clear on -x and the solenoid cart (44) on +x
 BORE_D, BOSS_D   = 11.0, 19.0
 PIN_Z    = ZF + 14.0             # plunger axis
@@ -68,12 +68,12 @@ LID_SCREWS = [(BX0 + 4.5, BY0 + 4.5), (BX0 + 4.5, BY1 - 4.5), (BX1 - 4.5, BY0 + 
 # screw moves along the +y wall to x 100 (outside the window flange, clear of the power stack)
 # RF window (PN532 footprint by default - see open question Q1) + button + LEDs
 WIN_L, WIN_W = 45.2, 43.0        # through-cutout = PN532 antenna footprint + 1 (metal lid must clear the loop)
-WIN_X0 = BX0 + 10.0              # 20: past the -x corner lid screws
+WIN_X0 = 34.8                    # window over the RC522's antenna end (board x 19..79, antenna = its +x 35 mm)
 WIN_CX = WIN_X0 + WIN_L / 2      # 42.6
 INS_FLANGE, INS_FL_T = 2.5, 1.5  # opaque insert: body fills the cutout flush; flange sits in a recess milled
                                  # in the lid's UNDERSIDE (nothing shows on top; the box wall clamps it)
-BTN_D, BTN_X, BTN_Y = 12.4, 77.0, 33.0        # sealed 12 mm button: past the reader deck (x<=70), beside the boss (y<=5.5)
-LED_D, LED_X, LED_Y = 3.3, 73.0, (12.0, 22.0)  # LEDs in the same gap column
+BTN_D, BTN_X, BTN_Y = 12.4, 86.0, 33.0        # sealed 12 mm button: past the reader deck (x<=80), beside the boss (y<=5.5)
+LED_D, LED_X, LED_Y = 3.3, 85.0, (12.0, 22.0)  # LEDs in the same gap column
 
 # ---------------- closure block (on C2, under the box overhang) ----------------
 BLK_X0, BLK_X1 = LATCH_X - 10.0, LATCH_X + 10.0
@@ -401,7 +401,7 @@ def build_liner(pos):
 IX0, IX1 = BX0 + BWALL, BX1 - BWALL          # interior x 13..142
 IY0, IY1 = BY0 + BWALL, BY1 - BWALL          # interior y -11..40
 BAT_L, BAT_W, BAT_T = 50.0, 34.0, 10.5       # 103450 LiPo (protection PCB end included)
-RDR_L, RDR_W, RDR_T = 43.0, 40.5, 6.0        # PN532 V3 board + components, antenna face up
+RDR_L, RDR_W, RDR_T = 60.0, 39.0, 4.5        # RC522 board + components (pins removed), antenna in its +x 35 mm; a PN532 (43 x 40.5) fits the same deck
 TRAY_T = 1.0                                 # printed tray floor / deck / walls
 NANO_L, NANO_W, NANO_H = 45.0, 7.5, 18.0     # Nano on edge, pins trimmed (USB end = the 7.5)
 TP_L, TP_W, TP_T = 29.0, 17.3, 1.0           # TP4056 USB-C board; connector 9 x 7.5 x 3.3 on top, 1.5 proud of the end
@@ -411,7 +411,7 @@ SOL_L, SOL_W, SOL_H = 30.0, 13.0, 15.0       # JF-0530B body
 DRV_L, DRV_W, DRV_H = 38.0, 10.7, 13.6       # driver card incl. TO-220 lying + O8 cap lying
 BAT_X0 = IX0 + 6.5                           # 19.5: past the lid-screw column (x<=19)
 BAT_Y0 = -7.0
-RDR_CX, RDR_CY = WIN_CX, (BY0 + BY1) / 2 - 3.5   # under the window, pulled 3.5 toward -y (window is centred on the lid)
+RDR_CX, RDR_CY = IX0 + 6.0 + RDR_L / 2, 14.5     # board x 19..79: 1.5 short of the boss; y -5..34 clears both corner columns
 DECK_Z = ZTOP - 2.0 - RDR_T - 2.0            # 52: reader top sits 2 under the lid (foam pad)
 CART_X0 = LATCH_X + BOSS_D / 2 + 1.0         # 95.5: 1 mm off the boss
 CART_Y0 = LATCH_Y - SOL_W / 2                # solenoid axis on the plunger channel
