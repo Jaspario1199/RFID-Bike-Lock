@@ -21,6 +21,49 @@ https://www.amazon.com/s?k=PN532+NFC+module+V3
 
 ---
 
+## 🛒 STILL NEEDED — the checkpoint-1 order (verified against the chat log, 2026-09-07)
+
+The transcript shows listings **vetted** but no confirmation you ordered any of them. Links are
+Amazon searches pre-filled with the exact brand + title of the listing you showed me, since
+ASINs were never in the pasted text. **Amazon blocks automated price/stock checks — confirm
+the variant at checkout.**
+
+| # | Item | Exact listing you vetted | Link | ~$ |
+|---|---|---|---|---|
+| 1 | **TP4056 charger, protected USB-C** | HiLetgo 3pcs TP4056 Type-C, "dual protection functions" | https://www.amazon.com/s?k=HiLetgo+TP4056+Type-c+USB+charging+module+dual+protection | 6 |
+| 2 | **103450 LiPo 2000 mAh, protected** | YTKavq 2-pack, 10 × 34 × 50 mm, PCM, JST 1.25 mm — **the 50 mm one matches the CAD exactly**. (JLJLUP's is 52 mm and needs the tray shifted 2 mm) | https://www.amazon.com/s?k=YTKavq+103450+3.7V+2000mAh+LiPo+PCM+protection | 15 |
+| 3 | **MT3608 boost** | Ferwooh MT3608 2A adjustable, pack of 5 | https://www.amazon.com/s?k=Ferwooh+MT3608+boost+converter+2A+module | 6 |
+| 4 | **IRLZ44N** | ALLECIN IRLZ44N logic-level, 10 pcs TO-220 | https://www.amazon.com/s?k=ALLECIN+IRLZ44N+logic+level+mosfet+TO-220 | 10 |
+| 5 | **AO3401 P-MOSFET** | VANXY 8-value SOT-23 kit, 160 pcs (AO3401 is one of the values) | https://www.amazon.com/s?k=VANXY+AO3400+AO3401+SOT23+mosfet+kit | 10 |
+| 6 | **1N5819 Schottky** | EEEEE 1N5819, 150 pcs | https://www.amazon.com/s?k=EEEEE+1N5819+schottky+diode | 8 |
+| 7 | **Solenoid, 6 V** | ⚠️ **NOT** the Heschen HS-0530B 3.4 A you pasted — see the note below | https://www.amazon.com/s?k=6V+pull+solenoid+10mm+stroke+small | 12 |
+| 8 | **AMS1117-3.3 module** | not yet vetted — any breakout with IN/GND/OUT pads | https://www.amazon.com/s?k=AMS1117-3.3+voltage+regulator+module | 7 |
+| 9 | **1000 µF 10 V+ electrolytic** | **Ø8 × 12.5 mm case** — taller ones don't fit the box | https://www.amazon.com/s?k=1000uf+16v+electrolytic+capacitor+8x12mm | 6 |
+| 10 | **22 AWG silicone wire** | red/black | https://www.amazon.com/s?k=22awg+silicone+wire+red+black | 9 |
+| 11 | **JST-XH kit + crimper** | for the detachable lid loop | https://www.amazon.com/s?k=JST+XH+connector+kit+crimp+tool | 12 |
+
+**≈ $100 for everything that gets you through all three bench checkpoints.**
+
+### ⚠️ The solenoid you pasted is the wrong variant
+The **Heschen HS-0530B, 6 V 3.4 A** draws 3.4 A. Neither the MT3608 (2 A) nor the protected
+cell (~1.5–2 A cutoff) can supply that — the cell's protection would trip on every unlock.
+**Buy one whose listing states ~250–350 mA, or a coil resistance of 15–25 Ω.** If a listing
+gives neither figure, buy two cheap ones and measure with a multimeter on arrival (`WIRING.md`
+§4). This is the one part where the wrong choice stops the build.
+
+### ✔ Already owned — do NOT re-buy
+Arduino Nano · RC522 reader + fobs · active **and** passive buzzer · red + green LEDs ·
+ELEGOO kit (breadboard, jumpers, resistors, tactile buttons, its power-supply module) ·
+perfboard · heat-set inserts · soldering iron · **M3 button-head screw kit** — button heads are
+5.7 mm across and 1.65 mm tall, so they *do* fit the Ø6.2 × 2.3 counterbores. That covers all
+ten inside-the-bore screws; you only need countersunk M3 for the lid and puck cover (P2).
+
+### ✘ Not for this project
+The **ACEIRMC 2S 8.4/12.6/16.8 V board** you already own belongs to RoomCleaner's charging
+dock. It charges multi-cell packs and would drive this lock's single 4.2 V cell to 8.4 V.
+
+---
+
 ## P1 — Bench bring-up (order first; Checkpoint 1 needs only these + owned kit)
 
 | # | Item | Spec / search term | Link | Qty | ~$ |
