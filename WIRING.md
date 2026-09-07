@@ -290,25 +290,34 @@ the whole reason the reader is gated.
 
 ## 7. Harness, physically
 
-Approximate run lengths inside the box, from the stack-up:
+**On the bench, cut nothing.** Use kit jumpers at whatever length they come. The one rule:
+keep the five **SPI wires under ~20 cm** — the RC522 goes flaky on long unshielded runs, and a
+"reader not found" caused by wire length is miserable to debug.
 
-| Run | Length | Gauge |
+**In the box**, computed from where each part actually sits in the model (straight-line distance
+× 1.4 for routing, + 25 mm for slack and stripping, rounded up):
+
+| Run | Cut to | Gauge |
 |---|---|---|
-| Battery leads to TP4056 | 60 mm | 22 AWG |
-| TP4056 to MT3608 | 25 mm | 22 AWG |
-| MT3608 to Nano VIN/GND | 40 mm | 22 AWG |
-| MT3608 to driver card | 45 mm | 22 AWG |
-| Driver card to coil | **25 mm — keep it short** | 22 AWG |
-| Reader to Nano, 6 wires | 45 mm | 26 AWG ribbon |
-| Lid loop: 2 buttons, 2 LEDs, buzzer | 90 mm with slack | 26 AWG |
+| Battery → TP4056 | 150 mm | 22 AWG |
+| TP4056 → MT3608 | 60 mm | 22 AWG |
+| MT3608 → Nano VIN/GND | 40 mm | 22 AWG |
+| MT3608 → driver card V+/GND | 50 mm | 22 AWG |
+| **Driver card → coil** | **50 mm — keep it short** | 22 AWG |
+| Nano D5 → driver gate | 50 mm | 26 AWG |
+| Reader → Nano, 7 wires | 130 mm | 26 AWG ribbon |
+| Nano → buttons (lid loop) | 150 mm | 26 AWG |
+| Nano → LEDs (lid loop) | 160 mm | 26 AWG |
+| Nano → buzzer (lid loop) | 120 mm | 26 AWG |
 
-**Connectorize the lid loop with a JST-XH.** The lid has to come off for reflashing, and a
-soldered lid loop means desoldering five wires every time. Everything else can be soldered
-direct.
+The three lid-loop runs carry **+70 mm beyond the computed length** so the lid can be lifted off
+and set beside the box with everything still connected. That is also why they land on a
+**JST-XH** rather than being soldered direct — the lid has to come off to reflash.
 
-Leave a service loop on the battery leads. The cell is the part most likely to be replaced.
+Only two runs are length-sensitive: **driver card to coil**, because it is the flyback loop and
+length degrades the clamp, and the **SPI bundle**. Everything else is forgiving.
 
----
+Leave a service loop on the battery leads; the cell is the part most likely to be replaced.
 
 ## 8. Failure table
 
