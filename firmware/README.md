@@ -35,6 +35,14 @@ your board:
 - **Tags live in Preferences (NVS)**, not EEPROM. Same 8-byte record layout.
 - **The ADC is 12-bit against 3.3 V**, so the battery maths differ. The 100 k : 100 k divider
   is unchanged.
+- **`DEV_NO_SLEEP` is 1 by default.** Deep sleep kills the USB peripheral, so the IDE cannot
+  reset the board into its bootloader and uploads fail with *"No DFU capable USB device
+  available"* until you double-tap RESET by hand. With this switch on, the board idles awake
+  between scan windows, USB stays alive and uploads just work. **Set it to 0 for the battery
+  build** — idling awake costs roughly ten times the current of deep sleep, and the stage 7
+  sleep measurement is meaningless with it on.
+- **Upload failing anyway?** Double-tap the RESET button; the RGB LED pulses green in
+  bootloader mode. Re-select the port (it changes in DFU mode) and upload.
 - **Factory reset:** hold **both buttons** while powering up or pressing reset, for 1.5 s.
   Alternating LEDs and three beeps confirm it; the next wake re-enrolls a master.
 - **Reader power gating is off by default** (`READER_POWER_GATED 0`). The IRF4905 you have is

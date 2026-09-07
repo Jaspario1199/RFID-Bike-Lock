@@ -56,6 +56,14 @@ const uint8_t PIN_VBAT_SENSE = A0;   // battery / 2 via 100k:100k
 // permanently powered until the sleep-current measurement says it matters.
 #define READER_POWER_GATED 0         // set to 1 once a logic-level P-FET is fitted
 
+// ---------- Development switch ----------
+// Deep sleep kills the USB peripheral, so the IDE can't reset the board into its
+// bootloader and every upload fails with "No DFU capable USB device available"
+// until you double-tap RESET by hand. With DEV_NO_SLEEP the board idles awake
+// between scan windows instead, USB stays alive, and uploads just work.
+// SET THIS TO 0 FOR THE BATTERY BUILD — idling awake costs ~10x the current.
+#define DEV_NO_SLEEP 1
+
 // ---------- Timing ----------
 const uint32_t SCAN_WINDOW_MS      = 10000;
 const uint32_t SOLENOID_PULSE_MS   = 300;   // try 150 once you see how hard it pulls
@@ -219,21 +227,35 @@ void fireUnlock() {
 }
 
 // ---------- Sleep ----------
-void goToSleep() {
+// Shared teardown: everything off, reader parked, NVS closed.
+void powerDown() {
   readerOff();
   digitalWrite(PIN_LED_RED, LOW);
   digitalWrite(PIN_LED_GREEN, LOW);
   digitalWrite(PIN_SOLENOID, LOW);
   digitalWrite(PIN_BUZZER, LOW);
   store.end();
-  DBGLN(F("[sleep]"));
 #ifdef DEBUG
   Serial.flush();
 #endif
-  // ext0: wake when the GREEN button pulls its pin LOW. The internal pullup must
-  // stay enabled through sleep, hence the rtc_gpio hold below.
+}
+
+void goToSleep() {
+  powerDown();
+  DBGLN(F("[sleep] deep sleep — press GREEN to wake"));
+  // ext0: wake when the GREEN button pulls its pin LOW.
   esp_sleep_enable_ext0_wakeup((gpio_num_t)digitalPinToGPIONumber(PIN_WAKE_BTN), 0);
   esp_deep_sleep_start();                              // ---- never returns ----
+}
+
+// Development idle: same teardown, but stay awake so USB survives and uploads work.
+void idleUntilWake() {
+  powerDown();
+  DBGLN(F("[idle] awake for uploads (DEV_NO_SLEEP) — press GREEN for another window"));
+  while (digitalRead(PIN_WAKE_BTN) == HIGH) delay(20);
+  while (digitalRead(PIN_WAKE_BTN) == LOW)  delay(20);   // wait for release
+  delay(30);                                            // debounce
+  store.begin("biketags", false);
 }
 
 // ---------- Admin mode ----------
@@ -407,8 +429,15 @@ void setup() {
     }
   }
 
+#if DEV_NO_SLEEP
+  while (true) {                           // USB stays alive; uploads work normally
+    runScanWindow();
+    idleUntilWake();
+  }
+#else
   runScanWindow();
-  goToSleep();
+  goToSleep();                             // ---- never returns ----
+#endif
 }
 
-void loop() { }                            // unreachable: goToSleep() never returns
+void loop() { }                            // unreachable in both paths
