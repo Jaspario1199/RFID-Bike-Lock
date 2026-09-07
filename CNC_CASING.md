@@ -153,17 +153,18 @@ clearance report that lists every gap under 1 mm. The housing is sized for the *
 owner already has (a PN532 drops onto the same deck). Interior is 134 × 51 × 24 (x 13..147,
 y −11..40, z 38..62). Layout, −x to +x:
 
-| Zone (x) | What | Envelope | How it sits |
+| Zone | What | Envelope | How it sits |
 |---|---|---|---|
-| 19.5..69.5 | **103450 LiPo** | 50 × 34 × 10.5 | flat on the printed tray floor, y −7..27 |
-| 19..79 | **RC522** (antenna = its +x 35 mm, under the window x 35..80) | 60 × 39 × 4.5 | on the tray's 2 mm deck at z 53.5..55.5, 2 mm foam pad to the lid, 1.5 mm short of the latch boss |
-| 80..92 | **2 sealed 12 mm buttons** — green (wake) at (86, 33), red (cancel / admin) at (86, 12); **LEDs** side by side at (83, 22.5) and (89, 22.5) | Ø12 × 15 below the lid | the free column between the reader deck and the latch boss |
-| 80.5..99.5 | **latch boss** Ø19 + Ø11 bore + Ø6.6 plunger channel | — | LATCH_X 78 → 90 so the RC522 clears the boss |
-| 100.5..140.5 | **cart module**: base 40 × 24 × 6.5 + JF-0530B 30 × 13 × 15 on the plunger axis + driver card 38 × 10.7 × 13.6 beside it | y −10.5..13.7 | one serviceable module (v0.8.2 concept); plunger Ø6 reaches 2.1 into the bore |
-| 101..146 | **Nano on edge**, pins trimmed | 45 × 7.5 × 18 | y 13.8..21.3 beside the cart |
-| 116.5..145.5 | **TP4056 USB-C** | 29 × 17.3 × 1 + connector 9 × 9 × 3.3 | y 21.6..38.9 on the floor; connector flush with the wall's inner face; **USB-C slot cut through A1's +x end wall** with a 2 mm plug recess (TPU plug, BOM 30d) |
-| 109.5..145.5 | **MT3608** | 36 × 17 × 7 | on 4 mm standoffs over the TP4056 (z 43..50) |
-| 119..131 | **active buzzer** at (125, 30) | Ø12 × 9.5 | glued under the lid over the MT3608 (2.5 mm of air below it); Ø2.5 sound hole through the lid |
+| x 19..79, z 55.5..60 | **RC522 reader** (antenna end under the window) | 60 × 39 × 4.5 | on the tray's 2 mm deck, 2 mm foam pad to the lid |
+| x 19.5..71.5, z 39..49.5 | **103450 LiPo** (the delivered JLJLUP is 52 long) | 52 × 34 × 10.5 | flat on the tray floor under the reader |
+| x 80..92 | **2 sealed buttons** — green (wake) at (86, 33), red (cancel/admin) at (86, 12); **LEDs** at (83, 22.5) and (89, 22.5) | Ø12 × 15 | the free column between the reader deck and the latch boss |
+| x 80.5..99.5 | **latch boss** Ø19 + Ø11 bore + Ø6.6 plunger channel | — | LATCH_X = 90 |
+| x 100.5..129.1, z 45.65..58.35 | **Heschen HS-0730B solenoid**, MEASURED 28.6 × 17.5 × 12.7 | y −12.75..4.75 | on two pillars so the space beneath stays usable; **17.5 wide overhangs the −y wall by 1.75, so A1 has a local pocket there** (a wider box breaks the C2 swing — gated) |
+| x 115..145.5, z 38..42.3 | **TP4056** | 29 × 17.3 + connector | on the floor **under the coil**, USB-C through the +x wall |
+| x 100.5..145.5, z 38..45.5 | **Nano, lying flat** | 45 × 18 × 7.5 | on edge no longer fits once the solenoid grew |
+| x 100..142, z 46.15..59.75 | **driver card** | 42 × 10.7 × 13.6 | y 5..15.7, so 9 mm from the coil — a short flyback loop. **2.25 mm of headroom to the lid, so a Ø10 capacitor can also lie down here** |
+| x 108..144, z 46.1..53.1 | **MT3608** | 36 × 17 × 7 | on standoffs above the Nano |
+| x 114..126, z 55.3..64.8 | **active buzzer** at (120, 30) | Ø12 × 9.5 | **recessed 3 mm into the lid underside** so it clears the boost; Ø2.5 sound hole through the rest |
 
 What the stack-up forced (all in the model): the box is now **140 × 57 — the full tube length**
 (x 10..150, y −14..43), the pocket corner radius is **R4** (R6 stole the corner the power stack

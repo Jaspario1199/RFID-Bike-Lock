@@ -74,7 +74,10 @@ INS_FLANGE, INS_FL_T = 2.5, 1.5  # opaque insert: body fills the cutout flush; f
                                  # in the lid's UNDERSIDE (nothing shows on top; the box wall clamps it)
 BTN_D, BTN_X, BTN_Y = 12.4, 86.0, 33.0        # GREEN (wake/scan) sealed 12 mm button: past the reader deck (x<=80), beside the boss
 BTN2_Y = 12.0                                  # RED (admin/cancel) button, same column, other end
-BUZ_D, BUZ_H, BUZ_X, BUZ_Y = 12.0, 9.5, 125.0, 30.0   # active buzzer under the lid over the MT3608 (top z 50); sound hole O2.5
+BUZ_D, BUZ_H, BUZ_X, BUZ_Y = 12.0, 9.5, 120.0, 30.0
+BUZ_REC = 3.0                                          # buzzer RECESSED this far into the lid underside,
+                                                       # so its body clears the boost below   # active buzzer under the lid, in the gap between the
+                                                       # green button and the boost; sound hole O2.5
 LED_D, LED_XY = 3.3, ((83.0, 22.5), (89.0, 22.5))  # LEDs side by side between the two buttons
 
 # ---------------- closure block (on C2, under the box overhang) ----------------
@@ -221,6 +224,9 @@ def build_top_box():
     # closure-block pocket: OPEN through the -y face (the block swings in and out with C2 on
     # the hinge); x walls locate the block, the roof at BLK_TOP is what the screw clamps against
     b = b.cut(xbox(BLK_X0 - 0.2, BLK_X1 + 0.2, BY0 - 2, BLK_Y1 + 0.3, 0, BLK_TOP))
+    # local pocket in the -y wall: the measured HS-0730B is 1.75 wider than the interior allows.
+    # Cheaper than a wider box, which would foul the C2 swing (gated).
+    b = b.cut(xbox(SOL_X0 - 2, SOL_X0 + SOL_L + 2, BY0 + POCKET_WALL, IY0 + 0.01, SOL_Z0 - 2, SOL_Z1 + 2))
     # USB-C charge port through the +x end wall at the TP4056 (TPU plug from outside, BOM 30d)
     usb_y = TP_Y0 + TP_W / 2; usb_z = ZF + TP_T + 3.3 / 2
     b = b.cut(cq.Workplane("YZ", origin=(IX1 - 0.5, usb_y, usb_z)).rect(USB_SLOT_W, USB_SLOT_H).extrude(BWALL + 1).edges("|X").fillet(1.6))
@@ -243,6 +249,7 @@ def build_lid():
     for (lx, ly) in LED_XY:
         p = p.cut(cq.Workplane("XY", origin=(lx, ly, ZTOP - 1)).circle(LED_D / 2).extrude(LID_T + 2))
     p = p.cut(cq.Workplane("XY", origin=(BUZ_X, BUZ_Y, ZTOP - 1)).circle(1.25).extrude(LID_T + 2))   # buzzer sound hole
+    p = p.cut(cq.Workplane("XY", origin=(BUZ_X, BUZ_Y, ZTOP - 0.01)).circle(BUZ_D / 2 + 0.25).extrude(BUZ_REC))  # buzzer recess
     for (sx, sy) in LID_SCREWS:
         p = p.cut(cq.Workplane("XY", origin=(sx, sy, ZTOP - 1)).circle(CLR3 / 2).extrude(LID_T + 2))
         cs = (cq.Workplane("XY", origin=(sx, sy, ZTOP + LID_T + 0.01)).circle(3.2)
@@ -407,21 +414,30 @@ IY0, IY1 = BY0 + BWALL, BY1 - BWALL          # interior y -11..40
 BAT_L, BAT_W, BAT_T = 50.0, 34.0, 10.5       # 103450 LiPo (protection PCB end included)
 RDR_L, RDR_W, RDR_T = 60.0, 39.0, 4.5        # RC522 board + components (pins removed), antenna in its +x 35 mm; a PN532 (43 x 40.5) fits the same deck
 TRAY_T = 1.0                                 # printed tray floor / deck / walls
-NANO_L, NANO_W, NANO_H = 45.0, 7.5, 18.0     # Nano on edge, pins trimmed (USB end = the 7.5)
+NANO_L, NANO_W, NANO_H = 45.0, 18.0, 7.5     # Nano LYING FLAT under the boost (it no longer fits on edge)
 TP_L, TP_W, TP_T = 29.0, 17.3, 1.0           # TP4056 USB-C board; connector 9 x 7.5 x 3.3 on top, 1.5 proud of the end
 MT_L, MT_W, MT_H = 36.0, 17.0, 7.0           # MT3608 (inductor is the 7)
-CART_L, CART_W, CART_H = 40.0, 24.0, 6.5     # pedestal cart base (40: ends 1 mm short of the +x/-y lid-screw boss)
-SOL_L, SOL_W, SOL_H = 30.0, 13.0, 15.0       # JF-0530B body
-DRV_L, DRV_W, DRV_H = 38.0, 10.7, 13.6       # driver card incl. TO-220 lying + O8 cap lying
+SOL_L, SOL_W, SOL_H = 28.6, 17.5, 12.7       # Heschen HS-0730B, MEASURED (1 1/8" x 5.5/8" x 1/2")
+SOL_X0 = 100.5                               # front face, 1 mm clear of the latch boss
+SOL_TAIL = 11.0                              # plunger tail out the back (trim to this at assembly)
+DRV_L, DRV_W, DRV_H = 42.0, 10.7, 13.6       # driver card incl. TO-220 lying + O8 cap lying
 BAT_X0 = IX0 + 6.5                           # 19.5: past the lid-screw column (x<=19)
 BAT_Y0 = -7.0
 RDR_CX, RDR_CY = IX0 + 6.0 + RDR_L / 2, 14.5     # board x 19..79: 1.5 short of the boss; y -5..34 clears both corner columns
 DECK_Z = ZTOP - 2.0 - RDR_T - 2.0            # 52: reader top sits 2 under the lid (foam pad)
-CART_X0 = LATCH_X + BOSS_D / 2 + 1.0         # 95.5: 1 mm off the boss
-CART_Y0 = LATCH_Y - SOL_W / 2                # solenoid axis on the plunger channel
-NANO_Y0 = CART_Y0 + CART_W + 0.3
-TP_Y0 = NANO_Y0 + NANO_W + 0.3
-TP_X1 = IX1 - 1.5                            # board 1.5 off the end wall; the connector's 1.5 proud lands flush with the wall's inner face
+# The measured HS-0730B is 17.5 wide, so centred on the plunger axis it overhangs the -y
+# interior wall by 1.75. A1 gets a LOCAL POCKET in that wall; widening the whole box was tried
+# and breaks the C2 swing and the frame-entry mouth (both gated).
+SOL_Y0, SOL_Y1 = LATCH_Y - SOL_W / 2, LATCH_Y + SOL_W / 2     # -12.75 .. 4.75
+SOL_Z0, SOL_Z1 = PIN_Z - SOL_H / 2, PIN_Z + SOL_H / 2         # 45.65 .. 58.35
+POCKET_WALL = 1.0                            # wall left after the local pocket
+# layer A (floor -> solenoid underside): TP4056 under the coil, Nano lying flat beside it
+TP_Y0 = -6.0                                 # clear of the R4 corner at (147, -11)
+NANO_Y0 = 12.0
+# layer B (beside the solenoid): driver card nearest the coil, then the boost
+DRV_Y0 = 5.0                                 # 9 mm from the coil - a short flyback loop
+MT_Y0 = 17.0
+TP_X1 = IX1 - 3.0                            # board 1.5 off the end wall; the connector's 1.5 proud lands flush with the wall's inner face
 USB_SLOT_W, USB_SLOT_H = 9.6, 3.8
 
 def _box(x0, y0, z0, dx, dy, dz):
@@ -441,20 +457,24 @@ def build_ref_battery():
 def build_ref_reader():
     return _box(RDR_CX - RDR_L / 2, RDR_CY - RDR_W / 2, DECK_Z + 2.0, RDR_L, RDR_W, RDR_T)
 
-def build_ref_cart_module():
-    """cart base + solenoid + driver card as one serviceable module (v0.8.2 concept)."""
-    base = _box(CART_X0, CART_Y0, ZF, CART_L, CART_W, CART_H)
-    sol = _box(CART_X0 + 2.0, LATCH_Y - SOL_W / 2, PIN_Z - SOL_H / 2, SOL_L, SOL_W, SOL_H)
-    drv = _box(CART_X0 + 1.0, LATCH_Y + SOL_W / 2 + 0.5, ZF + CART_H, DRV_L, DRV_W, DRV_H)   # on the base's platform
-    return base.union(sol).union(drv)
+def build_ref_solenoid():
+    """HS-0730B body on two pillars, so the space under it stays usable for the TP4056."""
+    body = xbox(SOL_X0, SOL_X0 + SOL_L, SOL_Y0, SOL_Y1, SOL_Z0, SOL_Z1)
+    for px in (SOL_X0 + 1, SOL_X0 + 7.5):        # both pillars sit -x of the TP4056 (x>=118),
+        body = body.union(xbox(px, px + 5, IY0 + 0.5, SOL_Y1 - 1, ZF, SOL_Z0))   # so the coil cantilevers over it
+    return body
+
+def build_ref_driver_card():
+    return _box(SOL_X0 - 0.5, DRV_Y0, SOL_Z0 + 0.5, DRV_L, DRV_W, DRV_H)
 
 def build_ref_plunger():
-    """O6 plunger from 2.1 inside the bore, through the channel, to the solenoid face."""
+    """O6 plunger from 2.1 inside the bore, through the channel, to the solenoid face,
+    plus the trimmed tail out the back."""
     x0 = LATCH_X + BORE_D / 2 - 2.1
-    return cq.Workplane("YZ", origin=(x0, LATCH_Y, PIN_Z)).circle(3.0).extrude(CART_X0 + 2.0 - x0)
+    return cq.Workplane("YZ", origin=(x0, LATCH_Y, PIN_Z)).circle(3.0).extrude(SOL_X0 + SOL_L + SOL_TAIL - x0)
 
 def build_ref_nano():
-    return _box(CART_X0 + 0.5, NANO_Y0, ZF, NANO_L, NANO_W, NANO_H)
+    return _box(SOL_X0, NANO_Y0, ZF, NANO_L, NANO_W, NANO_H)
 
 def build_ref_tp4056():
     b = _box(TP_X1 - TP_L, TP_Y0, ZF, TP_L, TP_W, TP_T)
@@ -462,7 +482,7 @@ def build_ref_tp4056():
     return b.union(con)
 
 def build_ref_mt3608():
-    return _box(TP_X1 - MT_L, TP_Y0 + (TP_W - MT_W) / 2, ZF + TP_T + 3.3 + 0.7, MT_L, MT_W, MT_H)
+    return _box(TP_X1 - MT_L, MT_Y0, SOL_Z0 + 0.5, MT_L, MT_W, MT_H)
 
 def build_ref_button(by):
     """12 mm sealed momentary: O12 body 15 deep below the lid + nut"""
@@ -474,12 +494,13 @@ def build_ref_led(i):
     return cq.Workplane("XY", origin=(lx, ly, ZTOP - 8.0)).circle(2.6).extrude(8.0)
 
 def build_ref_buzzer():
-    """O12 x 9.5 active buzzer glued under the lid, over the MT3608"""
-    return cq.Workplane("XY", origin=(BUZ_X, BUZ_Y, ZTOP - BUZ_H)).circle(BUZ_D / 2).extrude(BUZ_H)
+    """O12 x 9.5 active buzzer, seated up in the lid recess so only 6.5 mm reaches into the cavity"""
+    return cq.Workplane("XY", origin=(BUZ_X, BUZ_Y, ZTOP + BUZ_REC - 0.2 - BUZ_H)).circle(BUZ_D / 2).extrude(BUZ_H)
 
 REF_PARTS = {
     "ref_tray": build_ref_tray, "ref_battery": build_ref_battery, "ref_reader": build_ref_reader,
-    "ref_cart_module": build_ref_cart_module, "ref_plunger": build_ref_plunger, "ref_nano": build_ref_nano,
+    "ref_solenoid": build_ref_solenoid, "ref_driver_card": build_ref_driver_card,
+    "ref_plunger": build_ref_plunger, "ref_nano": build_ref_nano,
     "ref_tp4056": build_ref_tp4056, "ref_mt3608": build_ref_mt3608,
     "ref_button_green": lambda: build_ref_button(BTN_Y), "ref_button_red": lambda: build_ref_button(BTN2_Y),
     "ref_led_1": lambda: build_ref_led(0), "ref_led_2": lambda: build_ref_led(1), "ref_buzzer": build_ref_buzzer,
@@ -501,6 +522,7 @@ PARTS = {
 }
 PARTS.update(REF_PARTS)
 # pairs that legitimately touch
+ALLOWED_OVERLAP = {("ref_solenoid", "ref_plunger")}   # the plunger runs through the coil
 CONTACT_OK = {("C1_chassis_half", "C2_clamp_half"), ("C2_clamp_half", "closure_block"),
               ("C2_clamp_half", "hinge_block"), ("closure_block", "A1_top_box"),
               ("A1_top_box", "A2_lid"), ("A3_bottom_box", "A4_cover_plate"), ("A2_lid", "A5_window_insert"),
@@ -520,6 +542,8 @@ def gates():
             a, b = names[i], names[j]
             inter = cq.Workplane(obj=solids[a]).intersect(cq.Workplane(obj=solids[b]))
             v = sum(s.Volume() for s in inter.solids().vals())
+            if (a, b) in ALLOWED_OVERLAP or (b, a) in ALLOWED_OVERLAP:
+                continue
             want = PRESS_FIT.get((a, b))
             if want is not None:
                 okfit = abs(v - want) <= 0.2 * want
@@ -541,7 +565,12 @@ def gates():
     print("[stackup] reference bodies inside A1 (interior %.0f x %.0f x %.0f):" % (IX1 - IX0, IY1 - IY0, INT_H))
     for n in REF_PARTS:
         bb = solids[n].BoundingBox()
-        inside = IX0 - 1e-3 <= bb.xmin and bb.xmax <= IX1 + 1e-3 + (BWALL + 1 if n == "ref_tp4056" else 0) and IY0 - 1e-3 <= bb.ymin and bb.ymax <= IY1 + 1e-3 and ZF - 1e-3 <= bb.zmin and bb.zmax <= ZTOP + 1e-3
+        # two parts deliberately sit in machined recesses rather than the plain cavity
+        y_lo = BY0 + POCKET_WALL if n == "ref_solenoid" else IY0
+        z_hi = ZTOP + BUZ_REC if n == "ref_buzzer" else ZTOP
+        x_hi = IX1 + BWALL + 1 if n == "ref_tp4056" else IX1
+        inside = (IX0 - 1e-3 <= bb.xmin and bb.xmax <= x_hi + 1e-3 and y_lo - 1e-3 <= bb.ymin
+                  and bb.ymax <= IY1 + 1e-3 and ZF - 1e-3 <= bb.zmin and bb.zmax <= z_hi + 1e-3)
         print(f"  {n:16s} x {bb.xmin:6.1f}..{bb.xmax:6.1f}  y {bb.ymin:6.1f}..{bb.ymax:6.1f}  z {bb.zmin:5.1f}..{bb.zmax:5.1f}  {'in' if inside else 'OUTSIDE'}")
     for dmin, a, b_ in sorted(tight):
         print(f"  gap {dmin:4.2f} mm: {a} - {b_}{'  (contact)' if dmin < 0.01 else ''}")

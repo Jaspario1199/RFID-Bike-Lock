@@ -187,7 +187,7 @@ pitch. It rides on the solenoid cart so the switching sits under 30 mm from the 
 |---|---|
 | IRLZ44N | **laid flat**, tab toward the −x end, legs bent 90° into the board |
 | 1N5819 | across the coil terminals, **band toward V+** |
-| 1000 µF Ø8 × 12.5 | **lying down** along the card, leads bent 90° |
+| 1000 µF, Ø8 × 12.5 **or Ø10 × up to 20** | **lying down** along the card — there is 2.25 mm of headroom to the lid, so a Ø10 can also fits |
 | 100 Ω | gate series, D5 to gate |
 | 100 kΩ | gate to source (pulldown) |
 
