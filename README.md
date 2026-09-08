@@ -17,6 +17,7 @@ releases the cable, which then reels itself back in.
 | [`BOM.md`](BOM.md) | Bill of materials — every part, quantity, estimated price (v0.8 all-M3 heat-set fastener standard + v0.8.3 weatherproofing items) |
 | [`BUILD.md`](BUILD.md) | The authoritative bench build sequence + print-orientation table (`--dfm`) |
 | [`ASSEMBLY.md`](ASSEMBLY.md) | Assembly/DFM audit + v0.8.3 weatherproofing steps (printed v0.8 lineage) |
+| [`CAD_METHOD.md`](CAD_METHOD.md) | **Portable method doc** — how to model and verify mechanical parts with an agent: the gate catalogue, the iteration loop, honesty rules, and an opening prompt for a new project |
 | [`BENCH_BUILD.md`](BENCH_BUILD.md) | **Start here for the electronics** — seven bench stages using only the delivered parts, with workarounds for the TP4056/AMS1117/cap that haven't arrived |
 | [`WIRING.md`](WIRING.md) | **The electrical build in detail** — starts with the [wiring diagram](renders/electrical/wiring_diagram.png) — power domains, full net list, the RC522 3.3 V trap, driver-card layout, build order with expected measurements, failure table |
 | [`ASSEMBLY_CNC.md`](ASSEMBLY_CNC.md) | **The step-by-step build manual for the current CNC casing (rev 3c)** — print settings, every screw, bench checkpoints, stage-by-stage assembly, troubleshooting |
