@@ -1,0 +1,144 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1780" height="1180" viewBox="0 0 1780 1180">
+<rect width="1780" height="1180" fill="#FAFAF8"/>
+<text x="40" y="52" text-anchor="start" font-family="DejaVu Sans" font-size="28" font-weight="bold" font-style="normal" fill="#111">SOLENOID DRIVER — full schematic</text>
+<text x="40" y="78" text-anchor="start" font-family="DejaVu Sans" font-size="14.5" font-weight="normal" font-style="normal" fill="#666">Low-side switch: the MOSFET connects the coil's return wire to ground. The coil is ALWAYS tied to +6 V.</text>
+<rect x="40" y="100" width="1100" height="560" rx="12" fill="#FFFFFF" stroke="#CFD8DC" stroke-width="2"/>
+<text x="64" y="138" text-anchor="start" font-family="DejaVu Sans" font-size="20" font-weight="bold" font-style="normal" fill="#111">1 · THE CIRCUIT</text>
+<path d="M 130 210 L 900 210" fill="none" stroke="#C62828" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="130" y="196" text-anchor="start" font-family="DejaVu Sans" font-size="14" font-weight="bold" font-style="normal" fill="#C62828">+6 V   ( MT3608 OUT+ )</text>
+<path d="M 130 570 L 900 570" fill="none" stroke="#212121" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="130" y="596" text-anchor="start" font-family="DejaVu Sans" font-size="14" font-weight="bold" font-style="normal" fill="#111">GND   ( MT3608 OUT−  AND  Nano GND — same rail )</text>
+<path d="M 330 210 L 330 250" fill="none" stroke="#C62828" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M 330 250 q 22 8.5 0 17" fill="none" stroke="#C62828" stroke-width="3.4"/>
+<path d="M 330 267 q 22 8.5 0 17" fill="none" stroke="#C62828" stroke-width="3.4"/>
+<path d="M 330 284 q 22 8.5 0 17" fill="none" stroke="#C62828" stroke-width="3.4"/>
+<path d="M 330 301 q 22 8.5 0 17" fill="none" stroke="#C62828" stroke-width="3.4"/>
+<path d="M 330 318 L 330 340" fill="none" stroke="#E65100" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="330" cy="210" r="6" fill="#C62828"/>
+<circle cx="330" cy="340" r="6" fill="#E65100"/>
+<text x="296" y="276" text-anchor="end" font-family="DejaVu Sans" font-size="14" font-weight="bold" font-style="normal" fill="#C62828">SOLENOID</text>
+<text x="296" y="294" text-anchor="end" font-family="DejaVu Sans" font-size="12" font-weight="normal" font-style="normal" fill="#777">6 V  1 A</text>
+<text x="296" y="312" text-anchor="end" font-family="DejaVu Sans" font-size="11.5" font-weight="normal" font-style="normal" fill="#999">coil — no polarity</text>
+<path d="M 520 210 L 520 262" fill="none" stroke="#C62828" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/>
+<line x1="501" y1="262" x2="539" y2="262" stroke="#37474F" stroke-width="5"/>
+<path d="M 501 300 L 539 300 L 520 264 Z" fill="#37474F"/>
+<path d="M 520 300 L 520 340" fill="none" stroke="#E65100" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="520" cy="210" r="6" fill="#C62828"/>
+<circle cx="520" cy="340" r="6" fill="#E65100"/>
+<text x="550" y="258" text-anchor="start" font-family="DejaVu Sans" font-size="13" font-weight="bold" font-style="normal" fill="#111">1N5819  flyback</text>
+<text x="550" y="276" text-anchor="start" font-family="DejaVu Sans" font-size="12" font-weight="bold" font-style="normal" fill="#C62828">BAND (silver stripe) on</text>
+<text x="550" y="292" text-anchor="start" font-family="DejaVu Sans" font-size="12" font-weight="normal" font-style="normal" fill="#C62828">the +6 V end — as drawn</text>
+<text x="550" y="312" text-anchor="start" font-family="DejaVu Sans" font-size="11.5" font-weight="normal" font-style="normal" fill="#999">backwards = dead short</text>
+<path d="M 330 340 L 700 340" fill="none" stroke="#E65100" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="604" y="326" text-anchor="middle" font-family="DejaVu Sans" font-size="13" font-weight="bold" font-style="normal" fill="#E65100">DRAIN NODE</text>
+<rect x="630" y="390" width="140" height="100" rx="8" fill="#212121"/>
+<text x="700" y="434" text-anchor="middle" font-family="DejaVu Sans" font-size="15" font-weight="bold" font-style="normal" fill="#FFF">IRLZ44N</text>
+<text x="700" y="456" text-anchor="middle" font-family="DejaVu Sans" font-size="11.5" font-weight="normal" font-style="normal" fill="#BDBDBD">logic level</text>
+<path d="M 700 340 L 700 390" fill="none" stroke="#E65100" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M 700 490 L 700 570" fill="none" stroke="#212121" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="700" cy="570" r="6" fill="#212121"/>
+<text x="714" y="376" text-anchor="start" font-family="DejaVu Sans" font-size="13" font-weight="bold" font-style="normal" fill="#E65100">D  middle leg</text>
+<text x="714" y="512" text-anchor="start" font-family="DejaVu Sans" font-size="13" font-weight="bold" font-style="normal" fill="#111">S  right leg</text>
+<path d="M 630 440 L 330 440" fill="none" stroke="#1565C0" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="618" y="428" text-anchor="end" font-family="DejaVu Sans" font-size="13" font-weight="bold" font-style="normal" fill="#1565C0">G  left leg</text>
+<rect x="446" y="429" width="48" height="22" rx="4" fill="#FFF8E1" stroke="#8D6E63" stroke-width="2"/>
+<text x="470" y="420" text-anchor="middle" font-family="DejaVu Sans" font-size="13" font-weight="bold" font-style="normal" fill="#111">100 Ω</text>
+<path d="M 330 440 L 150 440" fill="none" stroke="#1565C0" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="330" cy="440" r="6" fill="#1565C0"/>
+<text x="146" y="445" text-anchor="end" font-family="DejaVu Sans" font-size="14" font-weight="bold" font-style="normal" fill="#1565C0">Nano  D5</text>
+<text x="146" y="463" text-anchor="end" font-family="DejaVu Sans" font-size="11.5" font-weight="normal" font-style="normal" fill="#999">3.3 V logic</text>
+<path d="M 330 440 L 330 570" fill="none" stroke="#1565C0" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="330" cy="570" r="6" fill="#212121"/>
+<rect x="319" y="486" width="22" height="48" rx="4" fill="#FFF8E1" stroke="#8D6E63" stroke-width="2"/>
+<text x="352" y="508" text-anchor="start" font-family="DejaVu Sans" font-size="13" font-weight="bold" font-style="normal" fill="#111">100 kΩ</text>
+<text x="352" y="526" text-anchor="start" font-family="DejaVu Sans" font-size="11.5" font-weight="normal" font-style="normal" fill="#999">pull-down</text>
+<text x="714" y="540" text-anchor="start" font-family="DejaVu Sans" font-size="12" font-weight="normal" font-style="normal" fill="#555">legs, printed face toward you, left → right:  G  D  S</text>
+<text x="940" y="246" text-anchor="start" font-family="DejaVu Sans" font-size="14" font-weight="bold" font-style="normal" fill="#2E7D32">WHEN D5 GOES HIGH</text>
+<text x="940" y="272" text-anchor="start" font-family="DejaVu Sans" font-size="12.5" font-weight="normal" font-style="normal" fill="#444">· gate sees 3.3 V</text>
+<text x="940" y="293" text-anchor="start" font-family="DejaVu Sans" font-size="12.5" font-weight="normal" font-style="normal" fill="#444">· channel turns on</text>
+<text x="940" y="314" text-anchor="start" font-family="DejaVu Sans" font-size="12.5" font-weight="normal" font-style="normal" fill="#444">· drain is pulled to 0 V</text>
+<text x="940" y="335" text-anchor="start" font-family="DejaVu Sans" font-size="12.5" font-weight="normal" font-style="normal" fill="#444">· the full 6 V now sits</text>
+<text x="940" y="356" text-anchor="start" font-family="DejaVu Sans" font-size="12.5" font-weight="normal" font-style="normal" fill="#444">· across the coil → CLUNK</text>
+<text x="940" y="410" text-anchor="start" font-family="DejaVu Sans" font-size="14" font-weight="bold" font-style="normal" fill="#B71C1C">WHEN D5 IS LOW</text>
+<text x="940" y="436" text-anchor="start" font-family="DejaVu Sans" font-size="12.5" font-weight="normal" font-style="normal" fill="#444">· gate at 0 V (pull-down)</text>
+<text x="940" y="457" text-anchor="start" font-family="DejaVu Sans" font-size="12.5" font-weight="normal" font-style="normal" fill="#444">· channel off</text>
+<text x="940" y="478" text-anchor="start" font-family="DejaVu Sans" font-size="12.5" font-weight="normal" font-style="normal" fill="#444">· drain floats up to 6.2 V</text>
+<text x="940" y="499" text-anchor="start" font-family="DejaVu Sans" font-size="12.5" font-weight="normal" font-style="normal" fill="#444">· 0 V across the coil</text>
+<rect x="40" y="684" width="1100" height="456" rx="12" fill="#FFFFFF" stroke="#CFD8DC" stroke-width="2"/>
+<text x="64" y="722" text-anchor="start" font-family="DejaVu Sans" font-size="20" font-weight="bold" font-style="normal" fill="#111">2 · WHERE EACH LEAD GOES ON THE BREADBOARD</text>
+<text x="64" y="746" text-anchor="start" font-family="DejaVu Sans" font-size="13" font-weight="normal" font-style="normal" fill="#666">A “row” = one group of 5 holes on one side of the centre channel. These four rows must be four DIFFERENT rows.</text>
+<rect x="290" y="764" width="800" height="52" rx="10" fill="#FFEBEE" stroke="#C62828" stroke-width="2.5"/>
+<text x="276" y="796" text-anchor="end" font-family="DejaVu Sans" font-size="16" font-weight="bold" font-style="normal" fill="#C62828">+6 V row</text>
+<rect x="312" y="773" width="106" height="34" rx="7" fill="#FFFFFF" stroke="#C62828" stroke-width="1.6"/>
+<text x="365.0" y="795" text-anchor="middle" font-family="DejaVu Sans" font-size="13" font-weight="normal" font-style="normal" fill="#111">MT3608 OUT+</text>
+<rect x="436" y="773" width="135" height="34" rx="7" fill="#FFFFFF" stroke="#C62828" stroke-width="1.6"/>
+<text x="503.5" y="795" text-anchor="middle" font-family="DejaVu Sans" font-size="13" font-weight="normal" font-style="normal" fill="#111">solenoid wire A</text>
+<rect x="589" y="773" width="128" height="34" rx="7" fill="#FFFFFF" stroke="#C62828" stroke-width="1.6"/>
+<text x="653.0" y="795" text-anchor="middle" font-family="DejaVu Sans" font-size="13" font-weight="normal" font-style="normal" fill="#111">diode BAND end</text>
+<rect x="290" y="846" width="800" height="52" rx="10" fill="#E3F2FD" stroke="#1565C0" stroke-width="2.5"/>
+<text x="276" y="878" text-anchor="end" font-family="DejaVu Sans" font-size="16" font-weight="bold" font-style="normal" fill="#1565C0">GATE row</text>
+<rect x="312" y="855" width="164" height="34" rx="7" fill="#FFFFFF" stroke="#1565C0" stroke-width="1.6"/>
+<text x="394.0" y="877" text-anchor="middle" font-family="DejaVu Sans" font-size="13" font-weight="normal" font-style="normal" fill="#111">MOSFET left leg (G)</text>
+<rect x="494" y="855" width="135" height="34" rx="7" fill="#FFFFFF" stroke="#1565C0" stroke-width="1.6"/>
+<text x="561.5" y="877" text-anchor="middle" font-family="DejaVu Sans" font-size="13" font-weight="normal" font-style="normal" fill="#111">100 Ω → Nano D5</text>
+<rect x="647" y="855" width="150" height="34" rx="7" fill="#FFFFFF" stroke="#1565C0" stroke-width="1.6"/>
+<text x="722.0" y="877" text-anchor="middle" font-family="DejaVu Sans" font-size="13" font-weight="normal" font-style="normal" fill="#111">100 kΩ → GND rail</text>
+<rect x="290" y="928" width="800" height="52" rx="10" fill="#FFF3E0" stroke="#E65100" stroke-width="2.5"/>
+<text x="276" y="960" text-anchor="end" font-family="DejaVu Sans" font-size="16" font-weight="bold" font-style="normal" fill="#E65100">DRAIN row</text>
+<rect x="312" y="937" width="179" height="34" rx="7" fill="#FFFFFF" stroke="#E65100" stroke-width="1.6"/>
+<text x="401.5" y="959" text-anchor="middle" font-family="DejaVu Sans" font-size="13" font-weight="normal" font-style="normal" fill="#111">MOSFET middle leg (D)</text>
+<rect x="509" y="937" width="135" height="34" rx="7" fill="#FFFFFF" stroke="#E65100" stroke-width="1.6"/>
+<text x="576.5" y="959" text-anchor="middle" font-family="DejaVu Sans" font-size="13" font-weight="normal" font-style="normal" fill="#111">solenoid wire B</text>
+<rect x="662" y="937" width="135" height="34" rx="7" fill="#FFFFFF" stroke="#E65100" stroke-width="1.6"/>
+<text x="729.5" y="959" text-anchor="middle" font-family="DejaVu Sans" font-size="13" font-weight="normal" font-style="normal" fill="#111">diode plain end</text>
+<rect x="290" y="1010" width="800" height="52" rx="10" fill="#ECEFF1" stroke="#212121" stroke-width="2.5"/>
+<text x="276" y="1042" text-anchor="end" font-family="DejaVu Sans" font-size="16" font-weight="bold" font-style="normal" fill="#212121">SOURCE row</text>
+<rect x="312" y="1019" width="172" height="34" rx="7" fill="#FFFFFF" stroke="#212121" stroke-width="1.6"/>
+<text x="398.0" y="1041" text-anchor="middle" font-family="DejaVu Sans" font-size="13" font-weight="normal" font-style="normal" fill="#111">MOSFET right leg (S)</text>
+<rect x="502" y="1019" width="150" height="34" rx="7" fill="#FFFFFF" stroke="#212121" stroke-width="1.6"/>
+<text x="577.0" y="1041" text-anchor="middle" font-family="DejaVu Sans" font-size="13" font-weight="normal" font-style="normal" fill="#111">jumper → GND rail</text>
+<text x="64" y="1104" text-anchor="start" font-family="DejaVu Sans" font-size="13" font-weight="bold" font-style="normal" fill="#B71C1C">Nothing else belongs in those rows. A stray lead sharing the GATE or DRAIN row is the usual reason it will not fire.</text>
+<rect x="1180" y="100" width="560" height="300" rx="12" fill="#E8F5E9" stroke="#2E7D32" stroke-width="2"/>
+<text x="1206" y="138" text-anchor="start" font-family="DejaVu Sans" font-size="20" font-weight="bold" font-style="normal" fill="#111">3 · MEASURE IT</text>
+<text x="1206" y="162" text-anchor="start" font-family="DejaVu Sans" font-size="12.5" font-weight="normal" font-style="normal" fill="#444">Black probe on the GND rail the whole time.</text>
+<text x="1216" y="194" text-anchor="start" font-family="DejaVu Sans" font-size="13" font-weight="bold" font-style="normal" fill="#777">point</text>
+<text x="1430" y="194" text-anchor="start" font-family="DejaVu Sans" font-size="13" font-weight="bold" font-style="normal" fill="#777">idle</text>
+<text x="1580" y="194" text-anchor="start" font-family="DejaVu Sans" font-size="13" font-weight="bold" font-style="normal" fill="#777">firing</text>
+<text x="1216" y="226" text-anchor="start" font-family="DejaVu Sans" font-size="14" font-weight="bold" font-style="normal" fill="#111">Nano D5</text>
+<text x="1430" y="226" text-anchor="start" font-family="DejaVu Sans" font-size="14" font-weight="normal" font-style="normal" fill="#444">0 V</text>
+<text x="1580" y="226" text-anchor="start" font-family="DejaVu Sans" font-size="14" font-weight="bold" font-style="normal" fill="#2E7D32">3.3 V</text>
+<text x="1216" y="256" text-anchor="start" font-family="DejaVu Sans" font-size="14" font-weight="bold" font-style="normal" fill="#111">gate (left leg)</text>
+<text x="1430" y="256" text-anchor="start" font-family="DejaVu Sans" font-size="14" font-weight="normal" font-style="normal" fill="#444">0 V</text>
+<text x="1580" y="256" text-anchor="start" font-family="DejaVu Sans" font-size="14" font-weight="bold" font-style="normal" fill="#2E7D32">3.3 V</text>
+<text x="1216" y="286" text-anchor="start" font-family="DejaVu Sans" font-size="14" font-weight="bold" font-style="normal" fill="#111">drain (middle)</text>
+<text x="1430" y="286" text-anchor="start" font-family="DejaVu Sans" font-size="14" font-weight="normal" font-style="normal" fill="#444">6.2 V</text>
+<text x="1580" y="286" text-anchor="start" font-family="DejaVu Sans" font-size="14" font-weight="bold" font-style="normal" fill="#2E7D32">under 0.5 V</text>
+<text x="1216" y="316" text-anchor="start" font-family="DejaVu Sans" font-size="14" font-weight="bold" font-style="normal" fill="#111">across the coil</text>
+<text x="1430" y="316" text-anchor="start" font-family="DejaVu Sans" font-size="14" font-weight="normal" font-style="normal" fill="#444">0 V</text>
+<text x="1580" y="316" text-anchor="start" font-family="DejaVu Sans" font-size="14" font-weight="bold" font-style="normal" fill="#2E7D32">6 V</text>
+<text x="1206" y="356" text-anchor="start" font-family="DejaVu Sans" font-size="13" font-weight="bold" font-style="normal" fill="#111">The drain falling 6.2 V → 0 V IS the switch closing.</text>
+<text x="1206" y="376" text-anchor="start" font-family="DejaVu Sans" font-size="12.5" font-weight="normal" font-style="normal" fill="#555">If it never moves, the gate never got there.</text>
+<rect x="1180" y="424" width="560" height="716" rx="12" fill="#FFFFFF" stroke="#CFD8DC" stroke-width="2"/>
+<text x="1206" y="462" text-anchor="start" font-family="DejaVu Sans" font-size="20" font-weight="bold" font-style="normal" fill="#111">4 · IF IT STILL WON'T FIRE</text>
+<text x="1206" y="486" text-anchor="start" font-family="DejaVu Sans" font-size="12.5" font-weight="normal" font-style="normal" fill="#666">Work down the list. Stop at the first failure.</text>
+<text x="1206" y="522" text-anchor="start" font-family="DejaVu Sans" font-size="14.5" font-weight="bold" font-style="normal" fill="#111">1.  Gate never reaches 3.3 V</text>
+<text x="1226" y="546" text-anchor="start" font-family="DejaVu Sans" font-size="12.5" font-weight="normal" font-style="normal" fill="#555">· D5 wire in the wrong row</text>
+<text x="1226" y="566" text-anchor="start" font-family="DejaVu Sans" font-size="12.5" font-weight="normal" font-style="normal" fill="#555">· 100 Ω not bridging D5 row → gate row</text>
+<text x="1226" y="586" text-anchor="start" font-family="DejaVu Sans" font-size="12.5" font-weight="normal" font-style="normal" fill="#555">· firmware not actually pulsing D5</text>
+<text x="1206" y="622" text-anchor="start" font-family="DejaVu Sans" font-size="14.5" font-weight="bold" font-style="normal" fill="#111">2.  Gate is 3.3 V but drain stays 6.2 V</text>
+<text x="1226" y="646" text-anchor="start" font-family="DejaVu Sans" font-size="12.5" font-weight="normal" font-style="normal" fill="#555">· legs misread — G D S left→right only with</text>
+<text x="1226" y="666" text-anchor="start" font-family="DejaVu Sans" font-size="12.5" font-weight="normal" font-style="normal" fill="#555">  the printed face toward you</text>
+<text x="1226" y="686" text-anchor="start" font-family="DejaVu Sans" font-size="12.5" font-weight="normal" font-style="normal" fill="#555">· MOSFET straddling one row (all 3 legs shorted)</text>
+<text x="1226" y="706" text-anchor="start" font-family="DejaVu Sans" font-size="12.5" font-weight="normal" font-style="normal" fill="#555">· source not reaching the GND rail</text>
+<text x="1206" y="742" text-anchor="start" font-family="DejaVu Sans" font-size="14.5" font-weight="bold" font-style="normal" fill="#111">3.  Drain drops but coil does not move</text>
+<text x="1226" y="766" text-anchor="start" font-family="DejaVu Sans" font-size="12.5" font-weight="normal" font-style="normal" fill="#555">· one coil wire not in the +6 V row</text>
+<text x="1226" y="786" text-anchor="start" font-family="DejaVu Sans" font-size="12.5" font-weight="normal" font-style="normal" fill="#555">· MT3608 sagging under 1 A load</text>
+<text x="1226" y="806" text-anchor="start" font-family="DejaVu Sans" font-size="12.5" font-weight="normal" font-style="normal" fill="#555">· add the 1000 µF across +6 V / GND</text>
+<text x="1206" y="842" text-anchor="start" font-family="DejaVu Sans" font-size="14.5" font-weight="bold" font-style="normal" fill="#111">4.  Nothing at all, nowhere</text>
+<text x="1226" y="866" text-anchor="start" font-family="DejaVu Sans" font-size="12.5" font-weight="normal" font-style="normal" fill="#555">· MT3608 OUT− and Nano GND not on the SAME rail</text>
+<text x="1226" y="886" text-anchor="start" font-family="DejaVu Sans" font-size="12.5" font-weight="normal" font-style="normal" fill="#555">  — this is the single most common miss</text>
+<rect x="1206" y="922" width="508" height="86" rx="8" fill="#FFF8E1" stroke="#F9A825" stroke-width="2"/>
+<text x="1226" y="950" text-anchor="start" font-family="DejaVu Sans" font-size="13.5" font-weight="bold" font-style="normal" fill="#111">Quick proof the driver works:</text>
+<text x="1226" y="972" text-anchor="start" font-family="DejaVu Sans" font-size="12.5" font-weight="normal" font-style="normal" fill="#444">pull the D5 wire and touch the gate row</text>
+<text x="1226" y="990" text-anchor="start" font-family="DejaVu Sans" font-size="12.5" font-weight="normal" font-style="normal" fill="#444">straight to +6 V. It must clunk.</text>
+</svg>
