@@ -1,7 +1,7 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1760" height="1080" viewBox="0 0 1760 1080">
-<rect width="1760" height="1080" fill="#FAFAF8"/>
-<text x="40" y="48" text-anchor="start" font-family="DejaVu Sans" font-size="27" font-weight="bold" font-style="normal" fill="#111">BENCH WIRING — Arduino Nano ESP32 build</text>
-<text x="40" y="74" text-anchor="start" font-family="DejaVu Sans" font-size="14" font-weight="normal" font-style="normal" fill="#666">3.3 V logic throughout: the RC522 connects DIRECT — no level shifters, no AMS1117, no 5 V anywhere.</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="1760" height="1170" viewBox="0 0 1760 1170">
+<rect width="1760" height="1170" fill="#FAFAF8"/>
+<text x="40" y="48" text-anchor="start" font-family="DejaVu Sans" font-size="27" font-weight="bold" font-style="normal" fill="#111">COMPLETE CIRCUIT — Arduino Nano ESP32 build</text>
+<text x="40" y="74" text-anchor="start" font-family="DejaVu Sans" font-size="14" font-weight="normal" font-style="normal" fill="#666">Every connection on the bench right now. 3.3 V logic throughout; the only 6 V nets are the coil and the Nano's VIN.</text>
 <rect x="560" y="200" width="300" height="620" rx="7" fill="#E8EAF6" stroke="#37474F" stroke-width="2"/>
 <text x="710.0" y="226" text-anchor="middle" font-family="DejaVu Sans" font-size="17" font-weight="bold" font-style="normal" fill="#111">Arduino Nano ESP32</text>
 <text x="710.0" y="246" text-anchor="middle" font-family="DejaVu Sans" font-size="12" font-weight="normal" font-style="normal" fill="#666">ESP32-S3 · 3.3 V logic</text>
@@ -19,7 +19,7 @@
 <text x="576" y="457" text-anchor="start" font-family="DejaVu Sans" font-size="13.5" font-weight="bold" font-style="normal" fill="#222">D4</text>
 <text x="626" y="457" text-anchor="start" font-family="DejaVu Sans" font-size="12" font-weight="normal" font-style="normal" fill="#1565C0">RC522 RST</text>
 <text x="576" y="487" text-anchor="start" font-family="DejaVu Sans" font-size="13.5" font-weight="bold" font-style="normal" fill="#222">D5</text>
-<text x="626" y="487" text-anchor="start" font-family="DejaVu Sans" font-size="12" font-weight="normal" font-style="normal" fill="#9E9E9E">solenoid gate (stage 5)</text>
+<text x="626" y="487" text-anchor="start" font-family="DejaVu Sans" font-size="12" font-weight="normal" font-style="normal" fill="#E65100">solenoid gate → driver</text>
 <text x="576" y="517" text-anchor="start" font-family="DejaVu Sans" font-size="13.5" font-weight="bold" font-style="normal" fill="#222">D6</text>
 <text x="626" y="517" text-anchor="start" font-family="DejaVu Sans" font-size="12" font-weight="normal" font-style="normal" fill="#1565C0">buzzer</text>
 <text x="576" y="547" text-anchor="start" font-family="DejaVu Sans" font-size="13.5" font-weight="bold" font-style="normal" fill="#222">D7</text>
@@ -111,28 +111,81 @@
 <line x1="1259" y1="859" x2="1281" y2="859" stroke="#212121" stroke-width="2.4"/>
 <line x1="1263" y1="864" x2="1277" y2="864" stroke="#212121" stroke-width="2.4"/>
 <line x1="1266.5" y1="869" x2="1273.5" y2="869" stroke="#212121" stroke-width="2.4"/>
-<rect x="60" y="640" width="430" height="200" rx="7" fill="#FFFDE7" stroke="#F57F17" stroke-width="2" stroke-dasharray="7 5"/>
-<text x="275.0" y="666" text-anchor="middle" font-family="DejaVu Sans" font-size="16" font-weight="bold" font-style="normal" fill="#111">STAGE 5 — add later</text>
-<text x="80" y="700" text-anchor="start" font-family="DejaVu Sans" font-size="13.5" font-weight="bold" font-style="normal" fill="#111">Driver card: IRLZ44N + 1N5819 + 1000 µF</text>
-<text x="80" y="722" text-anchor="start" font-family="DejaVu Sans" font-size="12.5" font-weight="normal" font-style="normal" fill="#555">D5 ─ 100 Ω ─ gate, 100 kΩ gate→GND</text>
-<text x="80" y="742" text-anchor="start" font-family="DejaVu Sans" font-size="12.5" font-weight="bold" font-style="normal" fill="#B71C1C">coil from the 6 V rail, diode BAND to +</text>
-<text x="80" y="768" text-anchor="start" font-family="DejaVu Sans" font-size="12.5" font-weight="normal" font-style="normal" fill="#555">Power the coil from a SEPARATE 6 V</text>
-<text x="80" y="786" text-anchor="start" font-family="DejaVu Sans" font-size="12.5" font-weight="normal" font-style="normal" fill="#555">source until the 1000 µF cap arrives —</text>
-<text x="80" y="804" text-anchor="start" font-family="DejaVu Sans" font-size="12.5" font-weight="normal" font-style="normal" fill="#555">a 1 A pulse can dip a shared rail enough</text>
-<text x="80" y="822" text-anchor="start" font-family="DejaVu Sans" font-size="12.5" font-weight="normal" font-style="normal" fill="#555">to reset the board.</text>
-<path d="M 560 482 L 500 482 L 500 700 L 490 700" fill="none" stroke="#9E9E9E" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round" stroke-dasharray="6 4"/>
-<rect x="60" y="880" width="1660" height="170" rx="7" fill="#E8F5E9" stroke="#2E7D32" stroke-width="2"/>
-<text x="890.0" y="906" text-anchor="middle" font-family="DejaVu Sans" font-size="16" font-weight="bold" font-style="normal" fill="#111">WHAT TO DO NOW</text>
-<text x="84" y="925" text-anchor="start" font-family="DejaVu Sans" font-size="14" font-weight="bold" font-style="normal" fill="#2E7D32">1.</text>
-<text x="110" y="925" text-anchor="start" font-family="DejaVu Sans" font-size="13.5" font-weight="bold" font-style="normal" fill="#111">Add the two buttons and the buzzer.</text>
-<text x="470" y="925" text-anchor="start" font-family="DejaVu Sans" font-size="12.5" font-weight="normal" font-style="normal" fill="#444">The green button on D3 is the only thing that wakes the board — without it nothing happens.</text>
-<text x="84" y="955" text-anchor="start" font-family="DejaVu Sans" font-size="14" font-weight="bold" font-style="normal" fill="#2E7D32">2.</text>
-<text x="110" y="955" text-anchor="start" font-family="DejaVu Sans" font-size="13.5" font-weight="bold" font-style="normal" fill="#111">Use 220 Ω LED resistors, not 470 Ω.</text>
-<text x="470" y="955" text-anchor="start" font-family="DejaVu Sans" font-size="12.5" font-weight="normal" font-style="normal" fill="#444">470 was sized for a 5 V board; on 3.3 V it gives ~2.5 mA and the LEDs look dim.</text>
-<text x="84" y="985" text-anchor="start" font-family="DejaVu Sans" font-size="14" font-weight="bold" font-style="normal" fill="#2E7D32">3.</text>
-<text x="110" y="985" text-anchor="start" font-family="DejaVu Sans" font-size="13.5" font-weight="bold" font-style="normal" fill="#111">Flash firmware/rfid_bike_lock_esp32/</text>
-<text x="470" y="985" text-anchor="start" font-family="DejaVu Sans" font-size="12.5" font-weight="normal" font-style="normal" fill="#444">Boards Manager → Arduino ESP32 Boards → Arduino Nano ESP32. Library Manager → MFRC522.</text>
-<text x="84" y="1015" text-anchor="start" font-family="DejaVu Sans" font-size="14" font-weight="bold" font-style="normal" fill="#2E7D32">4.</text>
-<text x="110" y="1015" text-anchor="start" font-family="DejaVu Sans" font-size="13.5" font-weight="bold" font-style="normal" fill="#111">Press green, tap a fob.</text>
-<text x="470" y="1015" text-anchor="start" font-family="DejaVu Sans" font-size="12.5" font-weight="normal" font-style="normal" fill="#444">First fob tapped becomes master. Second fob → 2 red blinks + long buzz. Hold red 5 s for admin.</text>
+<rect x="60" y="560" width="430" height="250" rx="7" fill="#FFF3E0" stroke="#E65100" stroke-width="2"/>
+<text x="275.0" y="586" text-anchor="middle" font-family="DejaVu Sans" font-size="16" font-weight="bold" font-style="normal" fill="#111">SOLENOID DRIVER</text>
+<text x="275.0" y="606" text-anchor="middle" font-family="DejaVu Sans" font-size="12" font-weight="normal" font-style="normal" fill="#666">low-side IRLZ44N · coil on the 6 V rail</text>
+<path d="M 400 392 L 400 470 L 130 470 L 130 620" fill="none" stroke="#C62828" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="140" y="464" text-anchor="start" font-family="DejaVu Sans" font-size="11.5" font-weight="bold" font-style="normal" fill="#C62828">+6 V bus (same OUT+)</text>
+<path d="M 130 620 L 430 620" fill="none" stroke="#C62828" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M 200 620 L 200 640" fill="none" stroke="#C62828" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M 200 640 q 16 6 0 12" fill="none" stroke="#C62828" stroke-width="2.6"/>
+<path d="M 200 652 q 16 6 0 12" fill="none" stroke="#C62828" stroke-width="2.6"/>
+<path d="M 200 664 q 16 6 0 12" fill="none" stroke="#C62828" stroke-width="2.6"/>
+<path d="M 200 676 q 16 6 0 12" fill="none" stroke="#C62828" stroke-width="2.6"/>
+<path d="M 200 688 L 200 710" fill="none" stroke="#E65100" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="190" y="660" text-anchor="end" font-family="DejaVu Sans" font-size="11.5" font-weight="bold" font-style="normal" fill="#C62828">coil</text>
+<text x="190" y="675" text-anchor="end" font-family="DejaVu Sans" font-size="10.5" font-weight="normal" font-style="normal" fill="#888">6 V 1 A</text>
+<path d="M 300 620 L 300 650" fill="none" stroke="#C62828" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round"/>
+<line x1="288" y1="650" x2="312" y2="650" stroke="#37474F" stroke-width="4"/>
+<path d="M 288 678 L 312 678 L 300 651 Z" fill="#37474F"/>
+<path d="M 300 678 L 300 710" fill="none" stroke="#E65100" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="314" y="660" text-anchor="start" font-family="DejaVu Sans" font-size="11" font-weight="bold" font-style="normal" fill="#111">1N5819</text>
+<text x="314" y="674" text-anchor="start" font-family="DejaVu Sans" font-size="10.5" font-weight="normal" font-style="normal" fill="#C62828">band up (+6 V)</text>
+<path d="M 200 710 L 380 710" fill="none" stroke="#E65100" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="200" cy="710" r="4" fill="#E65100"/>
+<circle cx="300" cy="710" r="4" fill="#E65100"/>
+<text x="290" y="704" text-anchor="middle" font-family="DejaVu Sans" font-size="10.5" font-weight="normal" font-style="normal" fill="#E65100">drain node</text>
+<rect x="338" y="725" width="84" height="40" rx="5" fill="#212121"/>
+<text x="380" y="750" text-anchor="middle" font-family="DejaVu Sans" font-size="11.5" font-weight="bold" font-style="normal" fill="#FFF">IRLZ44N</text>
+<path d="M 380 710 L 380 725" fill="none" stroke="#E65100" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="390" y="722" text-anchor="start" font-family="DejaVu Sans" font-size="11" font-weight="bold" font-style="normal" fill="#E65100">D</text>
+<path d="M 380 765 L 380 785" fill="none" stroke="#212121" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="390" y="782" text-anchor="start" font-family="DejaVu Sans" font-size="11" font-weight="bold" font-style="normal" fill="#111">S</text>
+<path d="M 380 785 L 380 794" fill="none" stroke="#212121" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+<line x1="369" y1="794" x2="391" y2="794" stroke="#212121" stroke-width="2.4"/>
+<line x1="373" y1="799" x2="387" y2="799" stroke="#212121" stroke-width="2.4"/>
+<line x1="376.5" y1="804" x2="383.5" y2="804" stroke="#212121" stroke-width="2.4"/>
+<path d="M 560 482 L 520 482 L 520 745 L 338 745" fill="none" stroke="#E65100" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+<rect x="440" y="736" width="34" height="18" rx="3" fill="#FFF8E1" stroke="#8D6E63" stroke-width="1.6"/>
+<text x="457" y="731" text-anchor="middle" font-family="DejaVu Sans" font-size="10.5" font-weight="bold" font-style="normal" fill="#111">100 Ω</text>
+<text x="330" y="749" text-anchor="end" font-family="DejaVu Sans" font-size="11" font-weight="bold" font-style="normal" fill="#E65100">G</text>
+<path d="M 432 745 L 432 780 L 380 780" fill="none" stroke="#E65100" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+<rect x="424" y="756" width="16" height="20" rx="3" fill="#FFF8E1" stroke="#8D6E63" stroke-width="1.6"/>
+<text x="446" y="771" text-anchor="start" font-family="DejaVu Sans" font-size="10" font-weight="normal" font-style="normal" fill="#111">100 k</text>
+<text x="80" y="802" text-anchor="start" font-family="DejaVu Sans" font-size="10.5" font-weight="normal" font-style="normal" fill="#777">add 1000 µF across +6 V / GND (long leg = +)</text>
+<rect x="60" y="830" width="430" height="120" rx="7" fill="#E8EAF6" stroke="#3949AB" stroke-width="2"/>
+<text x="275.0" y="856" text-anchor="middle" font-family="DejaVu Sans" font-size="15" font-weight="bold" font-style="normal" fill="#111">BATTERY SENSE</text>
+<text x="275.0" y="876" text-anchor="middle" font-family="DejaVu Sans" font-size="12" font-weight="normal" font-style="normal" fill="#666">A0 reads the cell, not the 6 V rail</text>
+<path d="M 60 290 L 44 290 L 44 902 L 120 902" fill="none" stroke="#8E24AA" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>
+<text x="52" y="284" text-anchor="end" font-family="DejaVu Sans" font-size="10.5" font-weight="normal" font-style="normal" fill="#8E24AA">cell +</text>
+<text x="120" y="922" text-anchor="middle" font-family="DejaVu Sans" font-size="10.5" font-weight="bold" font-style="normal" fill="#8E24AA">cell +</text>
+<circle cx="120" cy="902" r="4" fill="#8E24AA"/>
+<path d="M 120 902 L 145 902" fill="none" stroke="#8E24AA" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>
+<rect x="145" y="893" width="40" height="18" rx="3" fill="#FFF8E1" stroke="#8D6E63" stroke-width="1.6"/>
+<text x="165" y="888" text-anchor="middle" font-family="DejaVu Sans" font-size="10.5" font-weight="bold" font-style="normal" fill="#111">100 k</text>
+<path d="M 185 902 L 540 902 L 540 752 L 560 752" fill="none" stroke="#1565C0" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="230" cy="902" r="4" fill="#1565C0"/>
+<text x="300" y="896" text-anchor="start" font-family="DejaVu Sans" font-size="11" font-weight="bold" font-style="normal" fill="#1565C0">→ A0</text>
+<path d="M 230 902 L 230 912" fill="none" stroke="#1565C0" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>
+<rect x="221" y="912" width="18" height="22" rx="3" fill="#FFF8E1" stroke="#8D6E63" stroke-width="1.6"/>
+<text x="244" y="927" text-anchor="start" font-family="DejaVu Sans" font-size="10.5" font-weight="normal" font-style="normal" fill="#111">100 k</text>
+<path d="M 230 934 L 230 938" fill="none" stroke="#212121" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>
+<path d="M 230 930 L 230 939" fill="none" stroke="#212121" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+<line x1="219" y1="939" x2="241" y2="939" stroke="#212121" stroke-width="2.4"/>
+<line x1="223" y1="944" x2="237" y2="944" stroke="#212121" stroke-width="2.4"/>
+<line x1="226.5" y1="949" x2="233.5" y2="949" stroke="#212121" stroke-width="2.4"/>
+<rect x="60" y="980" width="1660" height="170" rx="7" fill="#E8F5E9" stroke="#2E7D32" stroke-width="2"/>
+<text x="890.0" y="1006" text-anchor="middle" font-family="DejaVu Sans" font-size="16" font-weight="bold" font-style="normal" fill="#111">ONE GROUND</text>
+<text x="84" y="1025" text-anchor="start" font-family="DejaVu Sans" font-size="14" font-weight="bold" font-style="normal" fill="#2E7D32">1.</text>
+<text x="110" y="1025" text-anchor="start" font-family="DejaVu Sans" font-size="13.5" font-weight="bold" font-style="normal" fill="#111">Every GND is the same rail.</text>
+<text x="420" y="1025" text-anchor="start" font-family="DejaVu Sans" font-size="12.5" font-weight="normal" font-style="normal" fill="#444">MT3608 OUT−, Nano GND, RC522 GND, both buttons, both LEDs, buzzer (−), MOSFET source, 100 kΩ, divider bottom.</text>
+<text x="84" y="1055" text-anchor="start" font-family="DejaVu Sans" font-size="14" font-weight="bold" font-style="normal" fill="#2E7D32">2.</text>
+<text x="110" y="1055" text-anchor="start" font-family="DejaVu Sans" font-size="13.5" font-weight="bold" font-style="normal" fill="#111">Only two things touch 6 V.</text>
+<text x="420" y="1055" text-anchor="start" font-family="DejaVu Sans" font-size="12.5" font-weight="normal" font-style="normal" fill="#444">Nano VIN and the coil / diode-band end. Nothing else — the RC522, LEDs and gate all live at 3.3 V.</text>
+<text x="84" y="1085" text-anchor="start" font-family="DejaVu Sans" font-size="14" font-weight="bold" font-style="normal" fill="#2E7D32">3.</text>
+<text x="110" y="1085" text-anchor="start" font-family="DejaVu Sans" font-size="13.5" font-weight="bold" font-style="normal" fill="#111">Reader on 3V3, never VIN.</text>
+<text x="420" y="1085" text-anchor="start" font-family="DejaVu Sans" font-size="12.5" font-weight="normal" font-style="normal" fill="#444">SS D10 · SCK D13 · MOSI D11 · MISO D12 · RST D4 · 3.3V ← 3V3 · GND. IRQ left empty.</text>
+<text x="84" y="1115" text-anchor="start" font-family="DejaVu Sans" font-size="14" font-weight="bold" font-style="normal" fill="#2E7D32">4.</text>
+<text x="110" y="1115" text-anchor="start" font-family="DejaVu Sans" font-size="13.5" font-weight="bold" font-style="normal" fill="#111">Firmware: rfid_bike_lock_esp32</text>
+<text x="420" y="1115" text-anchor="start" font-family="DejaVu Sans" font-size="12.5" font-weight="normal" font-style="normal" fill="#444">Green = wake + scan. Red tap = cancel, red hold 5 s = admin. Both held at reset = factory wipe.</text>
 </svg>
