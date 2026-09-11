@@ -71,7 +71,7 @@ install). Rev 3 is a real hinge, placed by geometry rather than habit:
 - **What the swing buys:** with C2 at 60° a Ø46 down tube passes through the 65 mm mouth
   into C1's half-bore along the bisector with 0.00 mm³ of contact (gated).
 - **Closure:** swing shut, the closure block enters A1's pocket through its open −y side,
-  one M3 low-head down the latch bore clamps the block to the pocket roof. Liner preload
+  one M3 countersunk down the latch bore clamps the block to the pocket roof. Liner preload
   pushing C2 away is a moment about the pin, resisted by that screw in shear (~2 kN for
   an M3 8.8) — the same joint the printed v0.8 had. Everything else is geometry.
 - **Pin security:** the bore is drilled through lug 1 from its outer face and stops 2 mm
@@ -88,7 +88,7 @@ and proves retention (a 2 mm pull on C2 overlaps the pin by 221 mm³; the block 
 ### The problems this concept has to solve — and the answers
 1. **Where does the self-guarding closure screw go?** Vertical parting plane, top box
    straddling the seam. A1 bolts inside-out to C1; A1's latch bore sits over the seam; the
-   consumer screw (**M3 low-head, owner's call — it threads the steel block**) goes down the
+   consumer screw (**M3 × 6 countersunk on a washer, owner's call — it threads the steel block; a longer one hits C2's wall, audited**) goes down the
    bore, through A1's 1.5 mm floor, into the closure block on C2. Locked head covers it.
 2. **Round chassis meets flat box.** NOT flat lands — a 50-wide flat on a Ø63.5 tube is
    12 mm deep (through the wall). Instead the box underside is a **concave saddle**
@@ -96,10 +96,15 @@ and proves retention (a 2 mm pull on C2 overlaps the pin by 221 mm³; the block 
    surface op on the box, nothing milled off the tube. Saddle + skirt also grips ~90° of
    the tube: much stiffer than a footprint on a flat.
 3. **Screw heads under the liner.** Two axis-aligned rows per box, both pure 3-axis:
-   a **vertical crown row** and a **horizontal skirt row (z=±8)**, M3 low-head cap
-   screws in **Ø6.2 counterbores cut from INSIDE the bore** (a counterbore seats square on a
-   curved wall; a countersink would not). Wall left under the floors: 7.3 / 2.8 mm (gated).
-   The liner rides a bore with ten small recesses — nothing protrudes.
+   a **vertical crown row** and a **horizontal skirt row (z=±8)**, **M3 countersunk flat-head
+   (ISO 10642) screws in 90° countersinks cut from INSIDE the bore**, head top 0.4 mm below
+   the bore surface. *Rev 3d correction:* the earlier "Ø6.2 counterbore, 7.3 mm wall" was a
+   modelling error — the counterbore cylinder sat in the bore air and cut nothing, so cap
+   heads would have stood 2 mm proud into the liner ring; and a counterbore deep enough for a
+   cap head leaves only 1.8 mm of wall at its far edge on this curvature. A countersink is
+   deep only on its axis, so **≥ 3.4 mm of wall stays under every screw** and the seated
+   head's rim lands 0.1 mm inside the bore surface (both gated). The liner rides a bore with
+   ten small conical recesses — nothing protrudes.
 4. **Clamping without tie bolts.** Tie bolts across the bottom seam would have to be driven
    from outside (attacker-reachable) or from inside the bore before the frame is in
    (impossible for the half that goes on last). So: **hinge pin at the bottom, one guarded
@@ -157,21 +162,27 @@ y −11..40, z 38..62). Layout, −x to +x:
 |---|---|---|---|
 | x 19..79, z 55.5..60 | **RC522 reader** (antenna end under the window) | 60 × 39 × 4.5 | on the tray's 2 mm deck, 2 mm foam pad to the lid |
 | x 19.5..71.5, z 39..49.5 | **103450 LiPo** (the delivered JLJLUP is 52 long) | 52 × 34 × 10.5 | flat on the tray floor under the reader |
-| x 80..92 | **2 sealed buttons** — green (wake) at (86, 33), red (cancel/admin) at (86, 12); **LEDs** at (83, 22.5) and (89, 22.5) | Ø12 × 15 | the free column between the reader deck and the latch boss |
+| x 87..99 | **2 sealed buttons** — green (wake) at (93, 32.5), red (cancel/admin) at (93, 13) | Ø12 × 15 body, **Ø15 × 3 nut** (modelled) | the bay between the reader deck and the Nano; nut clears the window flange, the latch boss and the lid-screw boss |
+| x 20.4..31.6, y 34.7..39.9 | **LEDs** at (23, 37.2) and (29, 37.2) | Ø5.2 × 8 + 10 mm of legs | the empty strip along the +y wall beside the reader deck — two Ø15 nuts and two LEDs cannot share the 34 mm bay (audited) |
 | x 80.5..99.5 | **latch boss** Ø19 + Ø11 bore + Ø6.6 plunger channel | — | LATCH_X = 90 |
-| x 100.5..129.1, z 45.65..58.35 | **Heschen HS-0730B solenoid**, MEASURED 28.6 × 17.5 × 12.7 | y −12.75..4.75 | on two pillars so the space beneath stays usable; **17.5 wide overhangs the −y wall by 1.75, so A1 has a local pocket there** (a wider box breaks the C2 swing — gated) |
-| x 115..145.5, z 38..42.3 | **TP4056** | 29 × 17.3 + connector | on the floor **under the coil**, USB-C through the +x wall |
-| x 100.5..145.5, z 38..45.5 | **Nano, lying flat** | 45 × 18 × 7.5 | on edge no longer fits once the solenoid grew |
-| x 100..142, z 46.15..59.75 | **driver card** | 42 × 10.7 × 13.6 | y 5..15.7, so 9 mm from the coil — a short flyback loop. **2.25 mm of headroom to the lid, so a Ø10 capacitor can also lie down here** |
-| x 108..144, z 46.1..53.1 | **MT3608** | 36 × 17 × 7 | on standoffs above the Nano |
-| x 114..126, z 55.3..64.8 | **active buzzer** at (120, 30) | Ø12 × 9.5 | **recessed 3 mm into the lid underside** so it clears the boost; Ø2.5 sound hole through the rest |
+| x 100.5..129.1, z 45.65..58.35 | **Heschen HS-0730B solenoid**, MEASURED 28.6 × 17.5 × 12.7 | y −12.75..4.75 | on two pillars so the space beneath stays usable; **17.5 wide overhangs the −y wall by 1.75, so A1 has a local pocket there** (a wider box breaks the C2 swing — gated); coil leads out the +x end |
+| x 117..147.5, z 38..42.3 | **TP4056** | 29 × 17.3 + connector | on the floor **under the coil**, y −5.5..11.8; the receptacle reaches 0.5 mm INTO the wall slot so a plug shell gets 6 mm of insertion (gated); B±/OUT± pads at the −x end with 6.6 mm of headroom |
+| x 100.5..145.5, z 38..45.5 | **Nano, lying flat** | 45 × 18 × 7.5 | y 16..34, **USB-C toward −x** — reflash with the lid off, nothing else removed (plug envelope gated); wire zones 3.5 mm tall along both long edges |
+| x 102.5..142.5, z 45.15..58.75 | **driver card** | 40 × 10.7 × 13.6 | y 5..15.7, so 9 mm from the coil — a short flyback loop; 3 mm wire zones at both x ends (the −x one just clears the red button) |
+| x 110..146, z 49.5..56.5 | **MT3608** | 36 × 17 × 7 | on **11.5 mm standoffs**, 4 mm above the Nano's wire zone (it used to sit 0.65 mm over the Nano — unwireable) |
+| x 97.5..109.5, z 55.3..64.8 | **active buzzer** at (103.5, 22.85) | Ø12 × 9.5 + 5 mm pins | **recessed 3 mm into the lid underside**, over the Nano where its pins have 10 mm of air (over the boost they landed on the inductor) |
+| x 77.5..117, y 6..11.5, z 38..41 | **harness channel** cell → TP4056 | — | along the floor between the latch boss and the Nano, under the red button's lugs (all envelopes gated) |
 
-What the stack-up forced (all in the model): the box is now **140 × 57 — the full tube length**
+What the stack-up forced (all in the model): the box is **140 × 57 — the full tube length**
 (x 10..150, y −14..43), the pocket corner radius is **R4** (R6 stole the corner the power stack
-needs), the lid screws are **3 corners + one mid-wall at x 100** (the +x/+y corner is where the
-USB-C meets the wall), and the A1 chassis screw row is x 25/75/135. Tightest gaps: cart–Nano 0.1
-(set by the printed tray in practice), MT3608 to the R4 pocket corner 0.28, plunger in its
-channel 0.3, Nano–TP4056 0.3, everything else ≥ 0.9 mm.
+needs), the lid screws are **3 corners + one mid-wall at x 105** (the +x/+y corner is where the
+USB-C meets the wall; 105 keeps the green button's nut off the boss), and the A1 chassis screw
+row is x 25/75/135. **Rev 3d (build audit):** every module now also carries *service envelopes*
+— the 3.5 mm a solder joint and wire need over a pad edge, button nuts, LED legs, buzzer pins,
+the reflash plug, the charge plug's shell and overmold, the cell → charger harness — and
+`--audit` gates them against every part they do not own. That audit moved the buzzer, the LEDs,
+the MT3608 and the driver card, shifted the TP4056 into the wall slot, flipped the Nano, and
+is the reason the layout above differs from rev 3c. Full report: [`CAD_AUDIT.md`](CAD_AUDIT.md).
 
 ### Security consequence (a real upgrade)
 Every attachment fastener is under the clamped bike tube. DESIGN §7's honest weakness —
@@ -190,7 +201,7 @@ change.
 
 ### Assembly
 **Full step-by-step build manual: [`ASSEMBLY_CNC.md`](ASSEMBLY_CNC.md).** Summary:
-Bench: bolt A1 + A3 to C1 from inside (M3 low-head in the counterbores) → electronics
+Bench: bolt A1 + A3 to C1 from inside (M3 countersunk in the countersinks) → electronics
 into A1, window insert under the lid, lid on → spool cartridge into A3 from below, A4 on →
 closure block + hinge block onto C2 from inside → hang C2's lug between A3's lugs, drive
 the pin home, press the plug. The lock is now one hinged clamshell. On the bike: liner
@@ -290,7 +301,7 @@ M3/M4 plates are SendCutSend-cheap.
 
 ## 7. Assembly sequence (the whole point)
 
-1. Bolt A1 and A3 to C1 from inside the bore (M3 low-head cap screws, Ø6.2 counterbores).
+1. Bolt A1 and A3 to C1 from inside the bore (M3 countersunk flat-head screws, 90° countersinks).
 2. Screw the loaded pedestal cart + electronics into A1 (tapped holes, no inserts); fit the
    opaque window insert into the lid's underside recess; lid on (gasket, 4× M3).
 3. Spool cartridge + power spring into A3 from below; cable through the bushed exit,
@@ -323,21 +334,32 @@ M3/M4 plates are SendCutSend-cheap.
 ## 9. What verification looks like in this era
 
 `python cad/cnc_casing_cq.py --gates` runs: interference matrix over all 12 parts;
-counterbore wall audit (crown 7.30 / skirt 2.83 mm ≥ 2.3); screw-path probes for the A1
+countersink wall audit (≥ 2.3 mm under the deepest point of every row; seated head rim inside
+the bore surface, clear of the liner ring); screw-path probes for the A1
 rows, the A3 rows and the closure screw (chassis hole = air, box pilot = air); the
 **swing gate** (C2 + both blocks rotated about the pin at 19 angles from 1° to 90° against
 C1/A1/A2/A3/A4/pin, max overlap must be 0); the **frame-entry gate** (a Ø46 cylinder slid
 from 70 mm out into C1's bore with C2 at 90°, 0 overlap); and the **retention gate** (a
 2 mm −y pull of C2 must overlap the pin; a 0.2 mm lift of the closure block must overlap
-the A1 roof). No insert-collar gate (no inserts). Still to add: an R4 internal corner audit
-and the paired-bore alignment stack-up.
+the A1 roof). No insert-collar gate (no inserts).
 
-## 10. Model status (2026-09-06, rev 3c — hinged, centred puck, electronics stack-up)
+`python cad/cnc_casing_cq.py --audit` runs all of the above and then the **build audit** (rev
+3d): service envelopes (wires, nuts, legs, pins, plugs, harness) vs everything they do not own
+and vs the cavity; USB-C plug insertion depth ≥ 5.5 mm; **fastener engagement** — every screw
+axis is walked through the model, free run and tapped length measured, the stock length that
+gives ≥ 1.5 D without bottoming out and with its tip in air is recommended; **hinge pin
+insertion path** (a Ø5 probe from x 20 to lug 1 must be air); and a table of machining /
+printing numerics (thin walls, hole depth : diameter, fin line-widths, print clearances).
+Still to add: an R4 internal corner audit and the paired-bore alignment stack-up.
+
+## 10. Model status (2026-09-11, rev 3d — build audit: service envelopes, fasteners, countersinks)
 
 `cad/cnc_casing_cq.py` builds all 12 parts (C1, C2, closure block, hinge block, hinge pin,
 A1 top box, A2 lid, A3 bottom box, A4 cover plate, A5 window insert, liner L/R) plus 11
-electronics reference bodies (`ref_*`) as single solids. `--gates`: 0 clashes, walls PASS, screw paths PASS, swing 0–60° 0.00 mm³ PASS
-(stop at 64°), Ø46 frame entry through the mouth PASS, retention PASS. STEP set in `cnc-design/step/`
+electronics reference bodies (`ref_*`) as single solids, plus the audit-only service envelopes.
+`--audit`: 0 clashes, walls PASS, screw paths PASS, swing 0–60° 0.00 mm³ PASS (stop at 64°),
+Ø46 frame entry through the mouth PASS, retention PASS, service envelopes 0 problems, fasteners
+PASS, pin path PASS, manufacturability PASS. STEP set in `cnc-design/step/`
 (+ `cnc_casing_assembly.step`); renders in `renders/cnc/` (`cnc_iso`, `cnc_exploded`,
 `cnc_end`, `cnc_section` = slab through the latch / closure block / hinge lug + pin,
 `cnc_open` = C2 at 60° with a Ø46 tube entering, `inspect_1..3` = 12-view inspection

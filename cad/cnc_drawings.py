@@ -22,7 +22,7 @@ from matplotlib.backends.backend_pdf import PdfPages
 from matplotlib.patches import Rectangle
 
 OUT = "cnc-design/drawings"
-REV = "rev 3b"
+REV = "rev 3d"
 TODAY = datetime.date.today().isoformat()
 
 # ---------------- views: name -> (normal N = direction the viewer looks FROM, X direction) ----------------
@@ -103,26 +103,26 @@ TAP = "M3 tapped (Ø2.5 pilot modeled; tap M3x0.5 in metal, self-tap in PETG)"
 part("C1_chassis_half", "C1 - chassis half (carries the boxes)", "6061-T6 tube 2.5\" OD x 3/16\" wall, or PETG (stage 1)", 1,
      ["TOP", "BACK", "RIGHT"],
      ["Pair of halves from one saw-cut tube, split on the y=0 plane, line-bored together to Ø54.0",
-      "All screw counterbores are cut from the BORE side (heads sit under the liner)",
+      "All screw countersinks (90 deg, O6.3 at the surface) are cut from the BORE side; heads sit 0.4 sub-flush under the liner",
       "Rear liner lip: x 148..150, inward to R25.5",
       "Top rows feed A1 (x 25/70/130); bottom rows feed A3 (x 40/100). Do not mix them up"],
-     [("A", "3x Ø3.4 THRU vertical at y=+6 (top crown row), Ø6.2 C'BORE 2.3 deep from the bore", "x " + ", ".join(fmt(x) for x in m.SCREW_X)),
-      ("B", "3x Ø3.4 THRU horizontal (+y) at z=+8 (top skirt row), Ø6.2 C'BORE from the bore", "x " + ", ".join(fmt(x) for x in m.SCREW_X)),
-      ("C", "2x Ø3.4 THRU vertical at y=+10 (bottom crown row), Ø6.2 C'BORE from the bore", "x 40, 100"),
-      ("D", "2x Ø3.4 THRU horizontal (+y) at z=-8 (bottom skirt row), Ø6.2 C'BORE from the bore", "x 40, 100")],
+     [("A", "3x Ø3.4 THRU vertical at y=+6 (top crown row), 90° CSK Ø6.3 from the bore", "x " + ", ".join(fmt(x) for x in m.SCREW_X)),
+      ("B", "3x Ø3.4 THRU horizontal (+y) at z=+8 (top skirt row), 90° CSK Ø6.3 from the bore", "x " + ", ".join(fmt(x) for x in m.SCREW_X)),
+      ("C", "2x Ø3.4 THRU vertical at y=+10 (bottom crown row), 90° CSK Ø6.3 from the bore", "x 40, 100"),
+      ("D", "2x Ø3.4 THRU horizontal (+y) at z=-8 (bottom skirt row), 90° CSK Ø6.3 from the bore", "x 40, 100")],
      {"TOP": [((25, 6, 31.75), "A", 8, 10)], "BACK": [((70, 31.75, 8), "B", 8, 10), ((100, 31.75, -8), "D", 8, -10)],
       "RIGHT": [((150, 10, -31), "C", 10, -8)]})
 part("C2_clamp_half", "C2 - clamp half (hinged)", "6061-T6 tube 2.5\" OD x 3/16\" wall, or PETG (stage 1)", 1,
      ["TOP", "FRONT", "RIGHT"],
      ["Mate of C1 (same tube, same line-bore)", "Counterbores from the BORE side", "Rear liner lip: x 148..150, inward to R25.5"],
-     [("A", "2x Ø3.4 THRU vertical at y=-7 (closure block), Ø6.2 C'BORE from the bore", f"x {fmt(m.BLK_SCREW_X[0])}, {fmt(m.BLK_SCREW_X[1])}"),
-      ("B", f"2x Ø3.4 THRU vertical at y={fmt(m.HB_SCREW_Y)} through the BOTTOM wall (hinge block), Ø6.2 C'BORE from the bore", f"x {fmt(m.HB_SCREW_X[0])}, {fmt(m.HB_SCREW_X[1])}"),
+     [("A", "2x Ø3.4 THRU vertical at y=-7 (closure block), 90° CSK Ø6.3 from the bore", f"x {fmt(m.BLK_SCREW_X[0])}, {fmt(m.BLK_SCREW_X[1])}"),
+      ("B", f"2x Ø3.4 THRU vertical at y={fmt(m.HB_SCREW_Y)} through the BOTTOM wall (hinge block), 90° CSK Ø6.3 from the bore", f"x {fmt(m.HB_SCREW_X[0])}, {fmt(m.HB_SCREW_X[1])}"),
       ("S", f"6x Ø{fmt(m.STUD_HOLE_D)} +0.1/-0 x {fmt(m.STUD_HOLE_H)} BLIND radial, from the bore (liner press-fit studs)", f"x {fmt(m.STUD_X[0])}, {fmt(m.STUD_X[1])} at -45/0/+45 deg from the mid-arc (6 per half)")],
      {"TOP": [((m.BLK_SCREW_X[0], -7, 31), "A", -8, 10)], "FRONT": [((m.HB_SCREW_X[1], -31, -25), "B", 8, -10)]})
 part("closure_block", "B - closure block (on C2, under A1)", "steel or 6061 (PETG stage 1)", 1,
      ["TOP", "FRONT", "RIGHT"],
      ["Underside is a saddle R31.8 - sits on C2's OD", "Top face is flat and CONTACTS the A1 pocket roof under the closure screw",
-      "The closure screw comes down the latch bore: M3x8 low-head"],
+      "The closure screw comes down the latch bore: M3x6 countersunk + washer"],
      [("A", "M3 closure-screw thread THRU, " + TAP, f"({fmt(m.LATCH_X)}, {fmt(m.LATCH_Y)})"),
       ("B", "2x " + TAP + ", from the saddle side, 6 deep", f"x {fmt(m.BLK_SCREW_X[0])}, {fmt(m.BLK_SCREW_X[1])} at y=-7")],
      {"TOP": [((m.LATCH_X, m.LATCH_Y, 36.5), "A", 6, 6), ((m.BLK_SCREW_X[1], -7, 36.5), "B", 6, -6)]})

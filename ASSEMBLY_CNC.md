@@ -1,6 +1,6 @@
-# ASSEMBLY_CNC.md — building the rev 3c lock, step by step
+# ASSEMBLY_CNC.md — building the rev 3d lock, step by step
 
-The complete build order for the CNC-lineage casing (`cad/cnc_casing_cq.py`, rev 3c),
+The complete build order for the CNC-lineage casing (`cad/cnc_casing_cq.py`, rev 3d),
 Stage 1: **everything printed in PETG + TPU**, aluminium later with no geometry change.
 
 Read §0 once. After that the stages are meant to be followed in order — each one ends at a
@@ -43,21 +43,30 @@ electronics per `BOM.md`.
 
 | Joint | Screw | Qty | Where it goes |
 |---|---|---|---|
-| A1 → C1, crown row | **M3 × 8 low-head cap** | 3 | vertical, from inside the bore at y = +6, x 25 / 75 / 135 |
-| A1 → C1, skirt row | **M3 × 8 low-head cap** | 3 | horizontal (+y), from inside the bore at z = +8, same x |
-| A3 → C1, crown row | **M3 × 8 low-head cap** | 2 | vertical, from inside the bore at y = +10, x 40 / 100 |
-| A3 → C1, skirt row | **M3 × 8 low-head cap** | 2 | horizontal (+y), at z = −8, x 40 / 100 |
-| Closure block → C2 | **M3 × 8 low-head cap** | 2 | vertical, from inside the bore at y = −7, x 83.5 / 96.5 |
-| Hinge block → C2 | **M3 × 8 low-head cap** | 2 | vertical down, from inside the bore at y = −11.9, x 78 / 102 |
-| A2 lid → A1 | **M3 × 10 countersunk 90°** | 4 | (14.5, −9.5) (14.5, 38.5) (145.5, −9.5) (100, 38.5) |
-| A4 cover → A3 | **M3 × 8 countersunk 90°** | 4 | (50, ±20) (90, ±20) — a Ø56.5 bolt circle in the puck wall |
-| Closure screw (the consumer one) | **M3 × 8 low-head cap** | 1 | down the latch bore into the closure block |
+| Joint | Screw | Qty | Where it goes | Thread engagement (audited) |
+|---|---|---|---|---|
+| A1 → C1, crown row | **M3 × 10 countersunk 90°** | 3 | vertical, from inside the bore at y = +6, x 25 / 75 / 135 | 5.5 mm in a 6.0 pilot |
+| A1 → C1, skirt row | **M3 × 10 countersunk 90°** | 3 | horizontal (+y), from inside the bore at z = +8, same x | 5.5 mm in 11 |
+| A3 → C1, crown row | **M3 × 10 countersunk 90°** | 2 | vertical, from inside the bore at y = +10, x 40 / 100 | 5.5 mm in 6.8 |
+| A3 → C1, skirt row | **M3 × 10 countersunk 90°** | 2 | horizontal (+y), at z = −8, x 40 / 100 | 5.5 mm in 12 |
+| Closure block → C2 | **M3 × 10 countersunk 90°** | 2 | vertical, from inside the bore at y = −7, x 83.5 / 96.5 | 5.8 mm, tapped through the steel block, tip stays inside it |
+| Hinge block → C2 | **M3 × 10 countersunk 90°** | 2 | vertical down, from inside the bore at y = −11.9, **x 64 / 92** | 5.8 mm in 7.8 |
+| A2 lid → A1 | **M3 × 8 countersunk 90°** | 4 | (14.5, −9.5) (14.5, 38.5) (145.5, −9.5) **(105, 38.5)** | 4.8 mm in 8 |
+| A4 cover → A3 | **M3 × 6 countersunk 90°** | 4 | (50, ±20) (90, ±20) — a Ø56.5 bolt circle in the puck wall | 4.8 mm in 8 |
+| Closure screw (the consumer one) | **M3 × 6 countersunk 90° + M3 washer** | 1 | down the latch bore into the closure block | 4.0 mm in the steel block; **an 8 pokes through the block into C2's wall** |
 
-**Do not substitute M3 × 10 for the M3 × 8s.** Those pilots are 4–5.6 mm deep and a 10 will
-bottom out and jack the joint apart.
+So the whole lock is **14 × M3 × 10, 4 × M3 × 8, 5 × M3 × 6 — all ISO 10642 countersunk flat
+head** (hex or Torx, stainless). Every row is what `python cad/cnc_casing_cq.py --audit`
+reports for that joint: it walks each screw axis through the model, measures the free run to
+the first thread and the tapped length available, checks the tip lands in air, and grades the
+manual's length. **Why countersunk, not low-head cap:** the twelve inside-the-bore screws seat
+in 90° countersinks in the tube wall, head top 0.4 mm below the bore surface, so the liner
+ring passes over them. A cap head needs a 2.3 mm counterbore, and on this wall curvature that
+leaves only 1.8 mm of aluminum at the counterbore's far edge; a countersink is deep only on
+its axis and leaves > 3.4 mm everywhere (both are gated).
 
-⚠️ **Low-head** matters on the ten inside-the-bore screws. A normal socket cap head is 3 mm
-tall and will not sink into the 2.3 mm counterbore, so it protrudes into the liner.
+⚠️ **Countersunk** matters on the twelve inside-the-bore screws. Any head with a flat underside
+(cap, button, pan) sits on the bore surface, stands 2–3 mm proud and the liner ring lands on it.
 
 ### 0.4 Tools
 
@@ -90,13 +99,15 @@ multimeter · wire strippers · crimpers for the swage sleeves (or a vise) · th
 This is the joint everything else hangs off, so it comes first and gets tested alone.
 
 1. **Hinge block onto C2.** Sit it on C2's outer surface with its lug pointing +y, spanning
-   x 66.3–89.7. From **inside the bore**, drive 2 × M3 × 8 down through C2's bottom wall at
-   y = −11.9, x 78 and x 102, into the block. Snug, not gorilla-tight — PETG.
+   x 66.3–89.7. From **inside the bore**, drive 2 × M3 × 10 countersunk down through C2's
+   bottom wall at y = −11.9, x 64 and x 92, into the block. Snug, not gorilla-tight — PETG.
 2. **Dry-hang C2 on A3.** Hold A3 (the spool puck) beside C2 so the hinge block's lug drops
    between A3's two lugs (x 58–66 and 90–98). The three bores should line up on one axis.
    If the lug is too wide, file its faces, not the bore — you have 0.3 mm of end float.
 3. **Drive the pin.** Push the Ø5 × 36 dowel in from the **x = 58 face** (the −x end). It
-   passes lug 1, the hinge block's lug, and stops in lug 2's blind bore at x 96.
+   passes lug 1, the hinge block's lug, and stops in lug 2's blind bore at x 96. The pin
+   travels along the shallow Ø6 scallop in the cradle's front edge (x 33–58) on its way in —
+   that groove is the entry path, not a defect.
    *If it binds, back it out and ream the two A3 lugs with a Ø5.1 drill; never force it.*
 4. **Swing test.** C2 should fall open under its own weight to about 60° and stop when the
    hinge block lands on the puck's flat top. That stop is designed; it is not a collision.
@@ -182,27 +193,49 @@ the usual cause is a button held low or `#define DEBUG` still keeping serial ali
 
 Work with A1 on the bench, lid off, **before it goes on the chassis.**
 
+Positions below are the audited ones (`--audit` checks every module *plus the room its wires,
+nuts, legs and plugs need*). Solder the wires onto each board **before** it goes in — the
+wire zones are 3.5 mm tall and there is nothing taller available above any board edge.
+
 1. **Print or fold a tray.** The reference model has a battery cradle and a 2 mm reader deck
    (`ref_tray`). Simplest version: a strip of 2 mm PETG or foam board under the reader at
-   z = 53.5, with the battery below it.
-2. **Battery** flat on the floor at x 19.5–69.5, y −7–27. Lead exits toward +x.
-3. **Reader** on the deck, board x 19–79, **antenna end toward −x** so it sits under the
-   window. Component side up. A 2 mm foam pad between it and the lid.
-4. **Cart + solenoid + driver card** as one module at x 100.5–140.5. The solenoid's plunger
-   must be on the channel axis: y = −4, z = 52. File the plunger's 45° nose before fitting.
-   Trim the plunger tail so it ends by x 140.
-5. **Nano on edge** at y 13.8, USB toward +x. Trim the pins flush after soldering.
-6. **TP4056** on the floor at the +x wall, its USB-C poking into the 9.6 × 3.8 slot.
-   **MT3608** on 4 mm standoffs above it.
-7. **Buzzer** glued under the lid at (125, 30), over its Ø2.5 sound hole.
-8. **Buttons and LEDs** into the lid: green at (86, 33), red at (86, 12), LEDs at (83, 22.5)
-   and (89, 22.5). Pot the LED domes with clear RTV.
+   z = 53.5, with the battery below it. Cut a **slot in the deck at x 16.5–21.5, y 4–25** for
+   the reader's wires, and a **notch in the cradle's +x end** for the cell pigtail.
+2. **Battery** flat on the floor at x 19.5–69.5, y −7–27. Pigtail exits toward +x, then runs
+   along the floor at y 6–11.5 (the strip between the latch boss and the Nano) to the TP4056.
+3. **Reader** on the deck, board x 19–79, **antenna end toward +x** so it sits under the
+   window, header end at x 19. **Solder its 7 wires on the UNDERSIDE** of the header pads and
+   drop them through the deck slot — there is only 2 mm of foam above the board, not enough
+   for solder joints on top. Component side up.
+4. **Solenoid** on its two pillars at x 100.5–129.1, y −12.75–4.75; plunger on the channel
+   axis y = −4, z = 52. File the plunger's 45° nose before fitting; trim the tail to x 140.
+   Its coil leads leave the +x end of the body.
+5. **Driver card** standing beside the coil at x 102.5–142.5, y 5–15.7, base at z 45.15. Its
+   wires leave both x ends (3 mm each) — the −x end sits just clear of the red button's body.
+6. **Nano lying flat** at x 100.5–145.5, y 16–34, on the floor. **USB-C toward −x** (the open
+   bay): with the lid off you can plug in a cable to reflash without removing anything. Trim
+   the pins flush; solder wires onto the stubs along both long edges from the top.
+7. **TP4056** on the floor at x 117–146, y −5.5–11.8; its USB-C receptacle projects 0.5 mm
+   into the 10 × 4.2 wall slot so a plug shell actually reaches it (6 mm insertion). B±/OUT±
+   pads are at its −x end, under the coil, with 6.6 mm of headroom.
+8. **MT3608** on **11.5 mm standoffs** (board base at z 49.5) above the Nano, x 110–146,
+   y 17–34 — 4 mm above the Nano's wire zone. Pads at both x ends, wires on top.
+9. **Buzzer** seated 3 mm up into the lid recess at **(103.5, 22.85)** — over the Nano, where
+   its 5 mm pins have 10 mm of air. **Not over the boost** (that is where it used to be; the
+   pins would land on the inductor).
+10. **Buttons** into the lid at x 93: green at (93, 32.5), red at (93, 13). Their Ø15 nuts
+    clear the window flange, the latch boss and the lid-screw boss by design — if you use a
+    button with a bigger nut, re-run the audit with `BTN_NUT_D` changed.
+11. **LEDs** at **(23, 37.2) and (29, 37.2)** — the free strip along the +y wall at the −x end,
+    beside the reader deck. Their legs and resistors hang into empty space there; two Ø15 nuts
+    and two LEDs cannot share the 34 mm bay between the reader and the latch boss (the model
+    proves it). Pot the domes with clear RTV.
 9. **Window insert** from *underneath* the lid — its flange sits in the lid's underside
    recess. RTV bead around the flange.
 10. Leave the lid loose. **Repeat checkpoint 1 with everything in the box** before you screw
     it down: the metal-free PETG box should not change anything, but this is the last easy
     look inside.
-11. Lid on, 4 × M3 × 10 countersunk, with the EPDM foam strip on the rim.
+11. Lid on, 4 × M3 × 8 countersunk, with the EPDM foam strip on the rim.
 
 ---
 
@@ -211,11 +244,12 @@ Work with A1 on the bench, lid off, **before it goes on the chassis.**
 Both boxes bolt to C1 **from inside the bore**, which is why the liner is not in yet.
 
 1. **A1 first.** Sit it on C1's top so the saddle mates. Reach into the bore and start all
-   six M3 × 8: three vertical at y = +6 (x 25/75/135), three horizontal at z = +8 (same x).
+   six **M3 × 10 countersunk**: three vertical at y = +6 (x 25/75/135), three horizontal at
+   z = +8 (same x).
    Start every screw before tightening any, then work them down in a crisscross.
 2. **A3 second**, on the bottom: two vertical at y = +10 and two horizontal at z = −8, both
-   at x 40 and 100.
-3. **Closure block onto C2** if you have not already: 2 × M3 × 8 from inside the bore at
+   at x 40 and 100 — all four **M3 × 10 countersunk**.
+3. **Closure block onto C2** if you have not already: 2 × M3 × 10 countersunk from inside the bore at
    y = −7, x 83.5 and 96.5. Its flat top must end up at z = 36.5.
 4. **Close the clamshell and test the latch alignment.** Swing C2 shut and look down the
    latch bore from the top: you should see the closure block's tapped hole centred in it. If
@@ -238,7 +272,7 @@ This is the only step the model does not fully define, because it depends on you
    in that hole if you have one; the cable saws plastic over time.
 5. **Anchor the spring's outer end** to the pocket wall. Improvise: a slot filed in the wall,
    or a screw through the spring's eye. Preload it two or three turns before the cover traps it.
-6. **Cover on**, 4 × M3 × 8 countersunk, gasket under it.
+6. **Cover on**, 4 × M3 × 6 countersunk, gasket under it.
 7. **Swage the cable head** on the working end. Until the lathe part exists, a steel flat-bar
    mule with a cross-hole does the job for testing the latch.
 
@@ -263,7 +297,7 @@ past the plunger and stays.
 1. Open C2 to its 60° stop.
 2. Set C1 on the down tube. The fins compress; that is the whole fit mechanism.
 3. Swing C2 shut. It should close with hand pressure alone.
-4. **One M3 × 8 down the latch bore** into the closure block. Snug it; the liner preload is
+4. **One M3 × 6 countersunk on a washer down the latch bore** into the closure block. Snug it; the liner preload is
    what holds the clamp, the screw just stops it opening.
 5. Drop the ejector spring into the bore on top of the screw.
 6. **Drive the Ø5 × 2 plug** into the pin bore's entry at x 58, flush. From here the pin

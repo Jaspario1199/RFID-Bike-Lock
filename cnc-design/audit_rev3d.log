@@ -1,0 +1,99 @@
+[gates] interference matrix
+  press fit C1_chassis_half x liner_right: 20.83 mm^3 (designed 20.29) OK
+  press fit C2_clamp_half x liner_left: 20.83 mm^3 (designed 20.29) OK
+[gates] 0 clashes
+[stackup] reference bodies inside A1 (interior 134 x 51 x 24):
+  ref_tray         x   18.0..  80.0  y   -8.5..  34.0  z  38.0.. 55.5  in
+  ref_battery      x   19.5..  69.5  y   -7.0..  27.0  z  39.0.. 49.5  in
+  ref_reader       x   19.0..  79.0  y   -5.0..  34.0  z  55.5.. 60.0  in
+  ref_solenoid     x  100.5.. 129.1  y  -12.8..   4.8  z  38.0.. 58.4  in
+  ref_driver_card  x  102.5.. 142.5  y    5.0..  15.7  z  45.2.. 58.8  in
+  ref_plunger      x   93.4.. 140.1  y   -7.0..  -1.0  z  49.0.. 55.0  in
+  ref_nano         x  100.5.. 145.5  y   16.0..  34.0  z  38.0.. 45.5  in
+  ref_tp4056       x  117.0.. 147.5  y   -5.5..  11.8  z  38.0.. 42.3  in
+  ref_mt3608       x  110.0.. 146.0  y   17.0..  34.0  z  49.5.. 56.5  in
+  ref_button_green x   87.0..  99.0  y   26.5..  38.5  z  47.0.. 62.0  in
+  ref_button_red   x   87.0..  99.0  y    7.0..  19.0  z  47.0.. 62.0  in
+  ref_led_1        x   20.4..  25.6  y   34.6..  39.8  z  54.0.. 62.0  in
+  ref_led_2        x   26.4..  31.6  y   34.6..  39.8  z  54.0.. 62.0  in
+  ref_buzzer       x   97.5.. 109.5  y   16.9..  28.9  z  55.3.. 64.8  in
+  gap 0.00 mm: A1_top_box - ref_nano  (contact)
+  gap 0.00 mm: A1_top_box - ref_solenoid  (contact)
+  gap 0.00 mm: A1_top_box - ref_tp4056  (contact)
+  gap 0.00 mm: A1_top_box - ref_tray  (contact)
+  gap 0.00 mm: A2_lid - ref_led_1  (contact)
+  gap 0.00 mm: A2_lid - ref_led_2  (contact)
+  gap 0.00 mm: ref_solenoid - ref_plunger  (contact)
+  gap 0.00 mm: ref_tray - ref_battery  (contact)
+  gap 0.00 mm: ref_tray - ref_reader  (contact)
+  gap 0.19 mm: A2_lid - ref_buzzer
+  gap 0.20 mm: A1_top_box - ref_led_1
+  gap 0.20 mm: A1_top_box - ref_led_2
+  gap 0.20 mm: A2_lid - ref_button_green
+  gap 0.20 mm: A2_lid - ref_button_red
+  gap 0.25 mm: ref_solenoid - ref_driver_card
+  gap 0.30 mm: A1_top_box - ref_plunger
+  gap 0.30 mm: ref_driver_card - ref_nano
+  gap 0.50 mm: ref_mt3608 - ref_buzzer
+  gap 0.60 mm: ref_reader - ref_led_1
+  gap 0.60 mm: ref_reader - ref_led_2
+  gap 0.60 mm: ref_tray - ref_led_1
+  gap 0.60 mm: ref_tray - ref_led_2
+  gap 0.80 mm: ref_led_1 - ref_led_2
+[stackup] gaps < 1 mm listed above; contacts are the tray floor / cart base on the floor, deck under the reader, plunger at the solenoid face
+[gates] chassis wall under the deepest countersink point (all rows): 3.40 mm (need >= 2.3) PASS
+[gates] seated head rim at r26.74 vs liner ring outer face r26.85: 0.11 mm clear PASS
+[gates] screw paths (A1 crown, A3 crown, closure) PASS
+[gates] liner stud seats PASS
+[gates] C2 swing 0-60deg about the pin: max overlap 0.00 mm^3 PASS
+[gates] hinge stop: C2_clamp_half lands on A3 at 64 deg (info)
+  mouth at 60 deg: 65.0 mm between rims (O46 needs > 46); entry direction (-0.93, 0.37)
+[gates] O46 frame enters C1 through the mouth with C2 open 60deg: max overlap 0.00 mm^3 PASS
+  retention: hinge block pulled 2mm in -y overlaps the pin by 220.8 mm^3 (held)
+  retention: block lifted 0.2mm overlaps A1 roof by 44.2 mm^3 (seated)
+[gates] retention PASS
+[audit] service envelopes (wires, nuts, legs, plugs) vs everything they do not own
+  USB-C plug insertion into the receptacle: 6.0 mm (need >= 5.5) PASS
+[audit] service envelopes: 0 problems PASS
+[audit] fastener engagement (M3 countersunk, inside-out: >= 1.5 D = 4.5 mm in 6061, >= 1.0 D in the steel closure block; no bottoming, tip in air)
+  A1 crown     @x  25.0: free run  4.5  tapped avail  6.0  M3x10 engages  5.5  OK
+  A1 skirt     @x  25.0: free run  4.5  tapped avail 11.0  M3x10 engages  5.5  OK
+  A1 crown     @x  75.0: free run  4.5  tapped avail  6.0  M3x10 engages  5.5  OK
+  A1 skirt     @x  75.0: free run  4.5  tapped avail 11.0  M3x10 engages  5.5  OK
+  A1 crown     @x 135.0: free run  4.5  tapped avail  6.0  M3x10 engages  5.5  OK
+  A1 skirt     @x 135.0: free run  4.5  tapped avail 11.0  M3x10 engages  5.5  OK
+  A3 crown     @x  40.0: free run  4.5  tapped avail  6.8  M3x10 engages  5.5  OK
+  A3 skirt     @x  40.0: free run  4.5  tapped avail 12.0  M3x10 engages  5.5  OK
+  A3 crown     @x 100.0: free run  4.5  tapped avail  6.8  M3x10 engages  5.5  OK
+  A3 skirt     @x 100.0: free run  4.5  tapped avail 12.0  M3x10 engages  5.5  OK
+  lid          @x  14.5: free run  3.2  tapped avail  8.0  M3x8 engages  4.8  OK
+  lid          @x  14.5: free run  3.2  tapped avail  8.0  M3x8 engages  4.8  OK
+  lid          @x 145.5: free run  3.2  tapped avail  8.0  M3x8 engages  4.8  OK
+  lid          @x 105.0: free run  3.2  tapped avail  8.0  M3x8 engages  4.8  OK
+  cover        @x  90.0: free run  1.2  tapped avail  8.0  M3x6 engages  4.8  OK
+  cover        @x  50.0: free run  1.2  tapped avail  8.0  M3x6 engages  4.8  OK
+  cover        @x  50.0: free run  1.2  tapped avail  8.0  M3x6 engages  4.8  OK
+  cover        @x  90.0: free run  1.2  tapped avail  8.0  M3x6 engages  4.8  OK
+  closure blk  @x  83.5: free run  4.2  tapped avail  6.0 (thru)  M3x10 engages  5.8  OK
+  closure blk  @x  96.5: free run  4.2  tapped avail  6.0 (thru)  M3x10 engages  5.8  OK
+  hinge blk    @x  64.0: free run  4.2  tapped avail  7.8  M3x10 engages  5.8  OK
+  hinge blk    @x  92.0: free run  4.2  tapped avail  7.8  M3x10 engages  5.8  OK
+  closure M3   @x  90.0: free run  2.0  tapped avail  5.2 (thru)  M3x6 engages  4.0  OK
+[audit] fasteners PASS
+[audit] hinge pin insertion path (from -x) PASS
+[audit] machining / printing numerics
+  A1 -y wall left by the solenoid pocket             1.00 mm (thin web 32 x 17 - light finishing pass)
+  puck wall outside the cover-screw pilot            2.50 mm
+  puck wall between cover-screw pilot and pocket     1.50 mm
+  lug wall around the pin bore                       2.95 mm
+  lid-screw boss wall around the pilot               2.75 mm
+  A1 pocket depth : corner tool O8                   3.00 x D (<= 4 OK)
+  hinge pin blind bore depth : O5.1                  7.65 x D (<= 10 OK)
+  cable exit bore depth : O7                         5.29 x D
+  liner fin thickness : 0.4 nozzle                   3.50 line widths
+  liner stud overhang (printed axis-up)              1.80 mm sideways stub (<= 2 prints clean in TPU)
+  window insert clearance per side                   0.25 mm (PETG)
+  tray wall                                          1.00 mm (2 perimeters PETG)
+[audit] manufacturability PASS
+[audit] SUMMARY gates PASS | service PASS | fasteners PASS | pin path PASS | manufacturability PASS
+exit 0

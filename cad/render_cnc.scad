@@ -8,10 +8,12 @@ dir = view == "section" ? "section/" : "";
 module part(f, c, t = [0, 0, 0], d = dir) { color(c) translate(t) import(str("../cnc-design/stl/", d, f, ".stl")); }
 module refs(e = 0) {
   part("ref_tray", "#B9A46B", [0, 0, e]);          part("ref_battery", "#3B6FB6", [0, 0, e]);
-  part("ref_reader", "#2E8B57", [0, 0, e]);        part("ref_cart_module", "#E8842A", [0, 0, e]);
-  part("ref_plunger", "#C8CDD2", [0, 0, e]);       part("ref_nano", "#2F6F8F", [0, 0, e]);
-  part("ref_tp4056", "#8B3A62", [0, 0, e]);        part("ref_mt3608", "#4F7942", [0, 0, e]);
-  part("ref_button", "#333333", [0, 0, e]);        part("ref_led_1", "#D33", [0, 0, e]); part("ref_led_2", "#3C3", [0, 0, e]);
+  part("ref_reader", "#2E8B57", [0, 0, e]);        part("ref_solenoid", "#E8842A", [0, 0, e]);
+  part("ref_driver_card", "#B5651D", [0, 0, e]);   part("ref_plunger", "#C8CDD2", [0, 0, e]);
+  part("ref_nano", "#2F6F8F", [0, 0, e]);          part("ref_tp4056", "#8B3A62", [0, 0, e]);
+  part("ref_mt3608", "#4F7942", [0, 0, e]);        part("ref_buzzer", "#5E3A87", [0, 0, 2 * e]);
+  part("ref_button_green", "#2E7D32", [0, 0, 2 * e]); part("ref_button_red", "#C62828", [0, 0, 2 * e]);
+  part("ref_led_1", "#D33", [0, 0, 2 * e]);        part("ref_led_2", "#3C3", [0, 0, 2 * e]);
 }
 module c1side(e = 0, lid = true) {
   part("C1_chassis_half", "#7A8A99");
