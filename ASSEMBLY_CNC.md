@@ -27,6 +27,20 @@ seam plane (+y = C1, the half that carries the boxes), **z** is up, tube axis at
 | Closure block | `closure_block.step` | flat top down | PETG | none |
 | Hinge block | `hinge_block.step` | flat top down | PETG | none |
 | Liner right / left | `liner_right.step`, `liner_left.step` | **on end (vertical)**, 5 mm brim | TPU 95A | none |
+| Electronics tray | `ref_tray.stl` | **deck down** (the big flat face), walls up | PETG | none — it has no floor, so nothing bridges |
+| Latch prototypes | `proto/proto_cable_head.stl`, `proto_cap.stl`, `proto_bushing.stl` | head **nose down** + brim · cap **flange down** · bushing on end | PETG, 0.12 mm layers | none |
+
+STLs for all of these are in `cnc-design/stl/` (the STEP files are for the machine shop; the
+slicer wants the STLs). **A1 prints with its Ø8.1 / Ø10.1 latch tunnel horizontal** — expect
+slight ovality; run an 8 mm drill through the Ø8.1 section by hand before fitting the cap.
+The Ø2.5 screw pilots self-tap M3 in PETG; drive each screw once into an empty hole first.
+
+**Suggested print order** — test the mechanism before you print the tube:
+1. A1, A2, A5, the tray, the three latch prototypes → dry-fit the electronics, then the
+   latch (Stage D′ with the printed cap and bushing, Stage F′'s printed head on a cord).
+2. Closure block, hinge block, A3, A4 → the hinge and the spool.
+3. C1, C2 → the clamshell.
+4. Liners last, in TPU, once the tube halves exist to test the stud fit.
 
 **PETG:** 0.2 mm layers, 4 perimeters, 40 % gyroid, 240/80 °C, 40 mm/s on external walls.
 **TPU 95A:** 0.2 mm, 3 perimeters, 20 % gyroid, 225/50 °C, **20–25 mm/s**, retraction ≤ 1 mm,
@@ -209,11 +223,11 @@ Positions below are the audited ones (`--audit` checks every module *plus the ro
 nuts, legs and plugs need*). Solder the wires onto each board **before** it goes in — the
 wire zones are 3.5 mm tall and there is nothing taller available above any board edge.
 
-1. **Print or fold a tray.** The reference model has a battery cradle and a 2 mm reader deck
-   (`ref_tray`). Simplest version: a strip of 2 mm PETG or foam board under the reader at
-   z = 53.5, with the battery below it. Cut a **slot in the deck at x 16.5–21.5, y 4–25** for
-   the reader's wires, and a **notch in the cradle's +x end** for the cell pigtail.
-2. **Battery** flat on the floor at x 19.5–69.5, y −7–27. Pigtail exits toward +x, then runs
+1. **Print the tray** (`ref_tray.stl`, deck down). It is a table: two 1 mm walls either side
+   of the cell carrying the 2 mm reader deck at z 53.5, with the reader-wire slot already in
+   the deck at x 16.5–21.5. No floor — the cell sits on A1's own floor. The pigtail leaves
+   at +x, where there is no wall.
+2. **Battery** flat on A1's floor at x 19.5–69.5, y −7–27. Pigtail exits toward +x, then runs
    along the floor at y 6–11.5 (the strip between the latch boss and the Nano) to the TP4056.
 3. **Reader** on the deck, board x 19–79, **antenna end toward +x** so it sits under the
    window, header end at x 19. **Solder its 7 wires on the UNDERSIDE** of the header pads and

@@ -498,15 +498,20 @@ def _box(x0, y0, z0, dx, dy, dz):
     return xbox(x0, x0 + dx, y0, y0 + dy, z0, z0 + dz)
 
 def build_ref_tray():
-    """printed furniture: battery cradle floor + 2 walls + reader deck (2 mm, spans the pocket)."""
-    t = _box(BAT_X0 - 0.5, BAT_Y0 - 1.5, ZF, BAT_L + 1.0, BAT_W + 3.0, TRAY_T)
+    """printed furniture: a 'table' - two 1 mm walls either side of the cell carrying the 2 mm reader
+    deck. No floor (the cell sits on A1's floor), so it prints DECK DOWN with no bridging. The deck
+    has the reader-wire slot at the header end (x 16.5..21.5); the cell pigtail leaves at +x where
+    there is no wall."""
+    t = None
     for y in (BAT_Y0 - 1.5, BAT_Y0 + BAT_W + 0.5):
-        t = t.union(_box(BAT_X0 - 0.5, y, ZF, BAT_L + 1.0, 1.0, DECK_Z - ZF))
-    deck = _box(RDR_CX - RDR_L / 2 - 1.0, RDR_CY - RDR_W / 2 - 0.5, DECK_Z, RDR_L + 2.0, RDR_W + 0.5, 2.0)   # no +y overhang: the LED strip starts at y34
+        w = _box(BAT_X0 - 0.5, y, ZF, BAT_L + 1.0, 1.0, DECK_Z - ZF)
+        t = w if t is None else t.union(w)
+    deck = _box(BAT_X0 - 0.5, BAT_Y0 - 1.5, DECK_Z, RDR_CX + RDR_L / 2 + 1.0 - (BAT_X0 - 0.5), RDR_CY + RDR_W / 2 - (BAT_Y0 - 1.5), 2.0)   # spans both walls; no +y overhang (LED strip at y34)
+    deck = deck.cut(_box(IX0 + 3.5, RDR_CY - 10.5, DECK_Z - 1, 5.0, 21.0, 4.0))                         # wire slot x 16.5..21.5
     return t.union(deck)
 
 def build_ref_battery():
-    return _box(BAT_X0, BAT_Y0, ZF + TRAY_T, BAT_L, BAT_W, BAT_T)
+    return _box(BAT_X0, BAT_Y0, ZF, BAT_L, BAT_W, BAT_T)
 
 def build_ref_reader():
     return _box(RDR_CX - RDR_L / 2, RDR_CY - RDR_W / 2, DECK_Z + 2.0, RDR_L, RDR_W, RDR_T)
@@ -859,7 +864,7 @@ def build_svc():
     # RC522: header end (-x), wires soldered on top and dropping past the board end
     add("svc_reader_wires", "ref_reader", _box(IX0 + 1.0, RDR_CY - 10.5, DECK_Z - WIRE_H, RDR_CX - RDR_L / 2 + 2.5 - (IX0 + 1.0), 21.0, WIRE_H + 2.0))
     # cell: JST-PH pigtail leaves the protection-PCB end (+x), through a notch in the cradle wall
-    add("svc_cell_pigtail", "ref_battery", _box(BAT_X0 + BAT_L, BAT_Y0 + 12.0, ZF + TRAY_T, 8.0, 10.0, 6.0))
+    add("svc_cell_pigtail", "ref_battery", _box(BAT_X0 + BAT_L, BAT_Y0 + 12.0, ZF, 8.0, 10.0, 6.0))
     # harness channel cell -> TP4056 along the floor, past the latch boss on its +y side
     add("svc_harness", None, _box(BAT_X0 + BAT_L + 8.0, 6.0, ZF, TP_X1 - TP_L - (BAT_X0 + BAT_L + 8.0), 5.5, 3.0))
     # lid parts: nuts + what hangs below them
