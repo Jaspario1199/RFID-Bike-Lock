@@ -96,9 +96,9 @@ fixes is the *pin* and the *train length*, both of which the measured HS-0730B f
 | **Tunnel rib** | boss extended to x 109.8 (12 wide, floor to z 58); Ø8.1 bore from the receiver to x 101.5, Ø10.1 counterbore beyond | the cap is guided over ≥ 6 mm at every position instead of a 4 mm wall; the Ø8.1→Ø10.1 **step is the forward stop** |
 | **Stroke** | 2.6 mm (2.0 into the bore + 0.6 clear) | the flange on the step sets the rest position, so the solenoid's own tail bolt is **cut off** and the coil pulls from 2.6 mm out — its strongest region |
 | **Coil position** | face at x 110.8, body to 139.4, tail cut flush with the back frame at full retraction | set by the plunger train alone: 12.7 (measured seated protrusion) + 2.6 + 2 (cap end wall) from the bore wall |
-| **Return spring** | Ø9 OD × 10 free, ~0.4 N/mm, between the flange and the coil face | replaces the solenoid's tail spring |
-| **Cable head** | Ø10 h9 cylinder: 3 mm 45° cone (Ø4 tip), 3 mm land, **8.5 wide × Ø6.8 groove with square flanks**, 5.5 mm upper land, Ø8 ferrule | a plain cylinder leaves a 0.15 mm shim gap at the mouth; the square shoulder bears on the cap's underside with 1.5 mm radial engagement; the wide groove tolerates 0.5 mm of over-push |
-| **Mouth bushing** | hardened, Ø10.3 ID × Ø14 OD, from z 56.45 through the lid to its top | nothing soft at the mouth to gouge; centres the head |
+| **Return spring** | the HS-0730B's own **front** spring, cut to 10 mm free, between the flange and the coil face (7.3 mm at rest, 4.7 retracted) | its nose clip comes off; the flange is the new seat |
+| **Cable head** | Ø10 h9 cylinder: 3 mm 45° cone (Ø4 tip), 3 mm land, **8.5 wide × Ø6.8 groove — square lower flank, 45° upper flank**, 5.5 mm upper land, Ø8 ferrule | a plain cylinder leaves a 0.15 mm shim gap at the mouth; the square shoulder bears on the cap's underside with 1.5 mm radial engagement; the wide groove tolerates 0.5 mm of over-push; the chamfered upper flank carries no load and lets the head print nose-down |
+| **Mouth bushing** | hardened, Ø10.3 ID × Ø14 OD, from z 56.45 through the lid to its top; lathe (O1) with the cap and head, light press or Loctite 638 | nothing soft at the mouth to gouge; centres the head; a 0.15 mm annulus is shim-hostile |
 | **Ejector spring** | Ø9 × 11 free, solid ≤ 4.5, ~0.5 N/mm, on the bore floor around the screw head | compressed to 5.8 under the cone; 5.2 mm of travel lifts the shoulder 1.2 mm past the cap's centre so the re-extending cap lands on the land, not in the groove |
 | **Drain** | Ø2 from the bore floor out the −y face at z 39 | the bore is a rain funnel; the tunnel at z 52 was the leak path into the electronics |
 
@@ -106,6 +106,30 @@ The cam is on the **head's cone, not the pin** — a round pin rotates in its bo
 filed ramp would wander; a cone works at any rotation. The cap's nose is square with a
 0.5 mm chamfer, which is also what defeats a shim: a shim coming down the 0.15 mm annulus
 meets a face it cannot wedge.
+
+**Strength budget (a straight pull on the locked cable, F = the force at the head).** The
+load path is shoulder → cap → tunnel wall → A1 → six M3 into C1 → tube → frame clamp.
+Working each link at F = 5 kN, roughly the 3 mm 7×7 cable's own breaking load:
+
+| Link | Stress / capacity at 5 kN | Margin |
+|---|---|---|
+| 3 mm 7×7 stainless cable, PVC to Ø4 | breaks at ~5–6 kN; **cut by 8" bolt cutters in seconds** | **this is the fuse** |
+| Swage sleeve on the head | ~80 % of cable strength if crimped to spec, far less if not | second weakest; test-pull every swage |
+| Head shoulder → cap, 1.5 mm radial engagement on a Ø8 hardened cap | cap in bending on a ~1.5 mm cantilever: ~150 MPa; shear ~100 MPa; hardened O1 yields > 1500 MPa | > 10× |
+| Cap → tunnel wall (6061), 6 mm guided | bearing ≈ 5000 / (8 × 6) ≈ 105 MPa vs ~250 MPa bearing yield for 6061-T6 | ~2.4× — **in PETG (stage 1) this link yields at ~2 kN**: the printed casing is a function mule, not a lock |
+| A1 → C1, 3 vertical M3 (tension) + 3 horizontal M3 (shear) | 3 × 4.5 kN proof + 3 × ~3 kN shear, all in metal | > 4× |
+| Lid (pried with a bar in the seam) | 4 × M3 × 8 countersunk in 6061, 4.8 mm engagement, ~3 kN pull-out each | the weakest *metal* joint an attacker can reach; a 5 mm 6061 plate does not bend by hand |
+| Frame clamp (TPU fins, liner preload) | friction along the down tube, a few hundred N | a yank along the tube axis slides the whole lock; inherent to every frame-mounted clamp, mitigated by the cable loop's geometry, not by the latch |
+| Bore mouth, hinge pin, closure screw | hardened bushing, blind plugged pin, screw under the head | not on the list |
+
+Ranking: the cable, then the swage, then (stage 1 only) the printed tunnel wall, then the
+lid screws under prying. Nothing in the latch train is within an order of magnitude of the
+cable. Upgrading the cable to 5 mm 7×19 (~13 kN) would make the swage and lid screws the
+next links and would need a Ø6 exit, a wider spool and a Ø5.2 ferrule bore — a separate
+decision.
+
+All three lathe parts exist as printable prototypes (`cnc-design/stl/proto/`) so the
+insert / click / unlock / eject sequence can be tested on the bench before steel is cut.
 
 `--audit` gates the mechanism: the cap/plunger/spring translated by the stroke clash
 nothing and the cap nose clears the bore by 0.6; the cap stays ≥ 6 mm in the tunnel at

@@ -39,13 +39,14 @@ constant section, so every layer is the same slice and the fins come out clean.
 3 mm 7×7 stainless cable coated to Ø4, 1.6 m · 2 swage sleeves · donor retractable reel ·
 electronics per `BOM.md`.
 
-**Latch train (rev 3e):** Ø10 O1/4140 round stock for the **cap** (Ø8 × 10, Ø10 × 2 flange,
-Ø6.1 × 8 bore, then harden) · Ø2 × 8 roll pin · **return spring** Ø9 OD × 10 free, ~0.4 N/mm ·
-**hardened bushing** Ø10.3 ID × Ø14 OD × 10.5 (a DIN 179 10-mm drill bushing is the
-closest stock part — it is Ø10.0 ID / Ø15 OD, so either ream it 10.3 and turn the OD, or
-change `BUSH_ID`/`BUSH_OD` and re-run `--audit`) · **ejector spring** Ø9 OD × 11 free,
-solid ≤ 4.5, ~0.5 N/mm · **cable head** Ø10 hardened (see Stage F′) · M3 × 6 low-head cap +
-Ø7 washer (closure).
+**Latch train (rev 3e) — one lathe session, three parts from Ø14 and Ø10 O1 drill rod:**
+the **cap** (Ø8 × 10, Ø10 × 2 flange, Ø6.1 × 8 bore), the **mouth bushing** (Ø10.3 ID × Ø14 OD
+× 10.55) and the **cable head** (Ø10, Stage F′). O1 because it is cheap, turns easily soft, and
+hardens with a torch and a can of oil; 4140 pre-hard is the no-torch fallback for all three.
+Also: Ø2 × 8 roll pin · **ejector spring** Ø9 OD × 11 free, solid ≤ 4.5, ~0.5 N/mm · M3 × 6
+low-head cap + Ø7 washer (closure). The **return spring is the solenoid's own front spring**,
+cut to 10 mm free (Stage D′). **Print the prototypes first:** `cnc-design/stl/proto/` has all
+three lathe parts as PETG prints so the latch action can be tested before any steel is cut.
 
 ### 0.3 Every screw in the lock
 
@@ -253,16 +254,21 @@ The solenoid's soft plunger is never the latch pin. A hardened **cap** is.
 
 1. **Cut the plunger's tail.** Push the plunger fully into the coil (seated). Mark the rod
    where it leaves the back frame and cut it there, removing the tail bolt/nut. The tail
-   now ends flush at full retraction and sits 2.6 mm inside at rest. Discard the
-   solenoid's own return spring if it was on the tail.
-2. **Make the cap** from Ø10 O1 or 4140: turn/mill Ø8 × 8 with a Ø10 × 2 flange at the
-   rear (10 long overall), drill Ø6.1 × 8 from the flange end (2 mm end wall left),
-   cross-drill Ø2 through the wall 4 mm from the flange, 0.5 × 45° chamfer on the nose.
-   Harden (O1: cherry red, oil quench, 200 °C temper) — or leave 4140 soft if you have no
-   torch; it still out-lasts the plunger.
-3. **Press the cap over the plunger nose** until the nose bottoms on the end wall, drill
-   Ø2 through the plunger using the cap's hole as the guide, drive the roll pin.
-4. **Return spring** Ø9 × 10 over the plunger, against the flange.
+   now ends flush at full retraction and sits 2.6 mm inside at rest.
+2. **Free the front spring.** Your unit's return spring is on the front, held by a clip or
+   collar near the nose. Remove that clip (the cap's flange takes over as the spring seat)
+   and slide the spring off. **Cut it to 10 mm free length** — it has 7.3 mm of room at
+   rest and 4.7 mm retracted, so a full-length spring goes solid and blocks the stroke. If
+   it is thicker than ~0.7 mm wire it will be too stiff at that length; use a Ø9 × 10,
+   ~0.4 N/mm spring instead. Keep it either way — it goes back on in step 4.
+3. **Make the cap** (or print `proto_cap.stl` for the first test) from Ø10 O1: turn Ø8 × 8
+   with the Ø10 × 2 flange at the rear (10 long), drill Ø6.1 × 8 from the flange end (2 mm
+   end wall), cross-drill Ø2 through the wall 4 mm from the flange, 0.5 × 45° chamfer on the
+   nose. Harden: heat to cherry red (~800 °C), quench in oil, temper 1 h at 200 °C (an oven
+   does it). Then **press the cap over the plunger nose** until the nose bottoms, drill Ø2
+   through the plunger using the cap's hole as the guide, drive the roll pin. For the
+   printed prototype, a drop of CA glue instead of the pin is fine.
+4. **Return spring** (the cut factory spring) over the plunger, against the flange.
 5. **Fit the train into A1** from the cavity side: cap nose first into the Ø10.1 counterbore,
    through the step into the Ø8.1 tunnel until the flange meets the step. The nose should
    stand **2.0 mm into the receiver bore**. Then set the coil on its pillars so its face is
@@ -271,8 +277,13 @@ The solenoid's soft plunger is never the latch pin. A hardened **cap** is.
 6. **Check the stroke** by pushing the plunger's tail forward with a pencil through the
    coil: the cap must retract until its nose is clear of the bore (you see the bore wall)
    and the plunger seats — that is 2.6 mm. Release: the spring returns it to the step.
-7. **Press the mouth bushing** into the Ø14 seat from above with the lid off; its top
-   must end flush with the lid's top face once the lid is on.
+7. **Mouth bushing** (or `proto_bushing.stl` for now): turn Ø14.02 OD × Ø10.3 ID × 10.55
+   from O1, harden as the cap. Fit: either a **light press** (bushing 0.02–0.03 over the
+   Ø14.00 seat — chill the boss or warm the bushing and tap it in with a Ø10 drift from
+   above, lid off) or turn it Ø13.98 and set it with **Loctite 638** retaining compound,
+   which is easier to get right and comes out with heat if it ever has to. Its top must
+   end flush with the lid's top face once the lid is on; it passes through the lid's
+   Ø14.1 hole with clearance.
 
 **Pass when:** with the coil driven (bench sketch), the cap visibly retracts and returns
 with a click, and a Ø10 rod dropped down the bushing is stopped by the cap's nose.
@@ -314,10 +325,13 @@ This is the only step the model does not fully define, because it depends on you
    or a screw through the spring's eye. Preload it two or three turns before the cover traps it.
 6. **Cover on**, 4 × M3 × 6 countersunk, gasket under it.
 7. **Swage the cable head** on the working end. The head is a **Ø10 h9 hardened cylinder,
-   20 long**: 3 mm 45° cone to a Ø4 tip, 3 mm land, an **8.5 wide × Ø6.8 groove with square
-   flanks**, 5.5 mm upper land, then the Ø8 ferrule for the cable. Until the lathe part
-   exists, a Ø10 steel rod with a filed cone and a parted groove is a usable mule — the
-   groove *width* (must exceed the Ø8 cap) and the *square lower flank* are what matter.
+   ~22 long**: 3 mm 45° cone to a Ø4 tip, 3 mm land, an **8.5 wide × Ø6.8 groove — lower
+   flank SQUARE (it carries the load), upper flank 45°** — then 5.5 mm of Ø10 and the Ø8
+   ferrule bored Ø4.2 × 12 for the cable, swaged in. **First print `proto_cable_head.stl`**
+   (PETG, nose down, brim): it has the same profile plus a Ø10 × 14 grip with a Ø3
+   cross-hole, so a cord stands in for the cable and you can test insert / click / unlock /
+   eject on the bench before the lathe. For the steel part: Ø10 O1, harden as the cap, and
+   only the groove *width* and the *square lower flank* need to be right.
 
 **Pass when:** pulling the cable out and letting go reels it fully in, and the head snaps
 past the plunger and stays.

@@ -543,9 +543,12 @@ def build_ref_head(lift=0.0):
     cone = o.circle(2.0).workplane(offset=CH_CONE).circle(CH_D / 2).loft()
     land = cq.Workplane("XY", origin=(LATCH_X, LATCH_Y, zs - CH_LAND)).circle(CH_D / 2).extrude(CH_LAND)
     groove = cq.Workplane("XY", origin=(LATCH_X, LATCH_Y, zs)).circle(CH_GROOVE_D / 2).extrude(CH_GROOVE_W)
-    upper = cq.Workplane("XY", origin=(LATCH_X, LATCH_Y, zs + CH_GROOVE_W)).circle(CH_D / 2).extrude(CH_UPPER)
-    ferrule = cq.Workplane("XY", origin=(LATCH_X, LATCH_Y, zs + CH_GROOVE_W + CH_UPPER)).circle(4.0).extrude(ZTOP + LID_T + 12 - (zs + CH_GROOVE_W + CH_UPPER))
-    return cone.union(land).union(groove).union(upper).union(ferrule)
+    ch = (CH_D - CH_GROOVE_D) / 2                                    # 45 deg chamfer back out to O10: the upper flank carries no load
+    flank = cq.Workplane("XY", origin=(LATCH_X, LATCH_Y, zs + CH_GROOVE_W)).circle(CH_GROOVE_D / 2).workplane(offset=ch).circle(CH_D / 2).loft()
+    upper = cq.Workplane("XY", origin=(LATCH_X, LATCH_Y, zs + CH_GROOVE_W + ch)).circle(CH_D / 2).extrude(CH_UPPER)
+    z_top = zs + CH_GROOVE_W + ch + CH_UPPER
+    ferrule = cq.Workplane("XY", origin=(LATCH_X, LATCH_Y, z_top)).circle(4.0).extrude(ZTOP + LID_T + 12 - z_top)
+    return cone.union(land).union(groove).union(flank).union(upper).union(ferrule)
 
 def build_ref_ejector():
     """ejector spring on the bore floor around the screw head, compressed under the head's cone."""
@@ -593,6 +596,36 @@ def build_ref_led(i):
 def build_ref_buzzer():
     """O12 x 9.5 active buzzer, seated up in the lid recess so only 6.5 mm reaches into the cavity"""
     return cq.Workplane("XY", origin=(BUZ_X, BUZ_Y, ZTOP + BUZ_REC - 0.2 - BUZ_H)).circle(BUZ_D / 2).extrude(BUZ_H)
+
+# ---------------- printed prototypes of the lathe parts (STL only, not gated) ----------------
+def build_proto_head():
+    """cable head for the bench: same profile as ref_head, printed NOSE DOWN (the cone is a 45 deg
+    overhang, the groove steps in, the chamfered upper flank steps out at 45 deg); a O10 x 14 grip
+    with a O3 cross-hole replaces the ferrule so a cord can stand in for the cable."""
+    o = cq.Workplane("XY")
+    cone = o.circle(2.0).workplane(offset=CH_CONE).circle(CH_D / 2).loft()
+    z = CH_CONE
+    land = cq.Workplane("XY", origin=(0, 0, z)).circle(CH_D / 2).extrude(CH_LAND); z += CH_LAND
+    groove = cq.Workplane("XY", origin=(0, 0, z)).circle(CH_GROOVE_D / 2).extrude(CH_GROOVE_W); z += CH_GROOVE_W
+    ch = (CH_D - CH_GROOVE_D) / 2
+    flank = cq.Workplane("XY", origin=(0, 0, z)).circle(CH_GROOVE_D / 2).workplane(offset=ch).circle(CH_D / 2).loft(); z += ch
+    upper = cq.Workplane("XY", origin=(0, 0, z)).circle(CH_D / 2).extrude(CH_UPPER + 14.0)
+    h = cone.union(land).union(groove).union(flank).union(upper)
+    return h.cut(cq.Workplane("XZ", origin=(0, 6, z + CH_UPPER + 7.0)).circle(1.5).extrude(12.0))
+
+def build_proto_cap():
+    """latch cap, printed FLANGE DOWN: O8 x 8 body + O10 x 2 flange, O6.1 x 8 blind bore from the
+    flange face, O2 cross-hole 4 mm from the flange. PETG walls are 0.95 mm - a function test part."""
+    c = cq.Workplane("XY").circle(CAP_FL_D / 2).extrude(CAP_FL_T).union(cq.Workplane("XY").circle(CAP_D / 2).extrude(CAP_L))
+    c = c.cut(cq.Workplane("XY", origin=(0, 0, -0.1)).circle(CAP_BORE / 2).extrude(CAP_L - CAP_END + 0.1))
+    return c.cut(cq.Workplane("XZ", origin=(0, 6, 4.0)).circle(1.0).extrude(12.0))
+
+def build_proto_bushing():
+    """mouth bushing spacer, printed on end: O10.3 ID x O14 OD x 10.55."""
+    L = ZTOP + LID_T - BUSH_Z0
+    return cq.Workplane("XY").circle(BUSH_OD / 2).extrude(L).cut(cq.Workplane("XY", origin=(0, 0, -0.1)).circle(BUSH_ID / 2).extrude(L + 0.2))
+
+PROTO_PARTS = {"proto_cable_head": build_proto_head, "proto_cap": build_proto_cap, "proto_bushing": build_proto_bushing}
 
 REF_PARTS = {
     "ref_tray": build_ref_tray, "ref_battery": build_ref_battery, "ref_reader": build_ref_reader,
@@ -1103,4 +1136,11 @@ if __name__ == "__main__":
         cq.exporters.export(s, f"cnc-design/stl/{n}.stl", tolerance=0.05, angularTolerance=0.2)
         asm.add(s, name=n)
     asm.save("cnc-design/step/cnc_casing_assembly.step")
+    os.makedirs("cnc-design/stl/proto", exist_ok=True)
+    for n, f in PROTO_PARTS.items():
+        s = f()
+        if len(s.solids().vals()) != 1:
+            raise RuntimeError(f"{n}: {len(s.solids().vals())} solids")
+        cq.exporters.export(s, f"cnc-design/stl/proto/{n}.stl", tolerance=0.03, angularTolerance=0.1)
+        print(f"[proto] {n}")
     print("[ok] exported")
