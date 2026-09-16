@@ -1,10 +1,10 @@
 // CNC casing renders (cad/cnc_casing_cq.py parts). Variables:
-//   view = iso | exploded | end | section | open | interior
+//   view = iso | exploded | end | section | open | interior | latch (= section, camera on the latch column)
 //   section reads cnc-design/stl/section/ (16 mm slab through the latch - cut in CadQuery because
 //   OpenSCAD preview paints intersection() black); open reads cnc-design/stl/open/ (C2 set pre-rotated).
 //   interior = A1 with the lid + insert removed, electronics reference bodies coloured.
 view = "iso";
-dir = view == "section" ? "section/" : "";
+dir = view == "section" ? "section/" : (view == "latch" ? "latch/" : "");
 module part(f, c, t = [0, 0, 0], d = dir) { color(c) translate(t) import(str("../cnc-design/stl/", d, f, ".stl")); }
 module refs(e = 0) {
   part("ref_tray", "#B9A46B", [0, 0, e]);          part("ref_battery", "#3B6FB6", [0, 0, e]);
@@ -14,6 +14,9 @@ module refs(e = 0) {
   part("ref_mt3608", "#4F7942", [0, 0, e]);        part("ref_buzzer", "#5E3A87", [0, 0, 2 * e]);
   part("ref_button_green", "#2E7D32", [0, 0, 2 * e]); part("ref_button_red", "#C62828", [0, 0, 2 * e]);
   part("ref_led_1", "#D33", [0, 0, 2 * e]);        part("ref_led_2", "#3C3", [0, 0, 2 * e]);
+  part("ref_cap", "#B8860B", [0, 0, e]);            part("ref_ret_spring", "#9E9E9E", [0, 0, e]);
+  part("ref_bushing", "#8A6D3B", [0, 0, 2 * e]);    part("ref_head", "#6D6D6D", [0, 0, 2.6 * e]);
+  part("ref_ejector", "#9E9E9E", [0, 0, e]);        part("ref_closure_screw", "#404040", [0, 0, e]);
 }
 module c1side(e = 0, lid = true) {
   part("C1_chassis_half", "#7A8A99");
@@ -31,7 +34,7 @@ module c2side(dy = 0, d = dir) {
   part("hinge_block", "#D95D39", [0, dy, 0], d);
   part("liner_left", "#2E2E2E", [0, dy, 0], d);
 }
-if (view == "iso" || view == "end" || view == "section") { c1side(0); c2side(); }
+if (view == "iso" || view == "end" || view == "section" || view == "latch") { c1side(0); c2side(); }
 if (view == "exploded") { c1side(22); c2side(-30); }
 if (view == "open") { c1side(0); c2side(0, "open/"); color("#9BB7A0", 0.9) rotate([0, 90, 0]) translate([0, -60, -5]) cylinder(h = 160, d = 46, $fn = 96); }
 if (view == "interior") { c1side(0, false); c2side(); }

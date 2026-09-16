@@ -65,8 +65,38 @@ CORNER_R = 4.0                   # R4 rule (O8 tool) - R6 stole the +x/+y pocket
 LATCH_X, LATCH_Y = 90.0, -4.0    # receiver over the C2 side of the seam (closure block below); x leaves
                                  # the reader window (x 20..65) clear on -x and the solenoid cart (44) on +x
 BORE_D, BOSS_D   = 11.0, 19.0
-PIN_Z    = ZF + 14.0             # plunger axis
-PIN_D    = 6.6
+PIN_Z    = ZF + 14.0             # latch pin axis (52)
+# ---------------- latch train (rev 3e: hardened cap on the plunger, guided in a tunnel rib) ----------------
+# The solenoid's soft-iron plunger never touches the cable head. A hardened steel CAP (O8, 2 mm end wall,
+# bored O6.1 x 8 for the plunger, cross-pinned) is the latch pin; it runs in a close O8.1 tunnel through a
+# rib that extends the latch boss toward the coil, so it is guided over >= 6 mm at every position. Its rear
+# O10 flange stops against the tunnel's step: THAT sets the rest position (the solenoid's own tail bolt is
+# cut off), limiting the stroke to STROKE where the coil pulls hardest. The return spring sits between the
+# flange and the coil face.
+PIN_PROT = 2.0                   # cap nose into the bore at rest (head shoulder engagement = 5 - 3.5 = 1.5 radial)
+CAP_D, CAP_L, CAP_END, CAP_BORE = 8.0, 10.0, 2.0, 6.1
+CAP_FL_D, CAP_FL_T = 10.0, 2.0   # rear flange: forward stop + spring seat
+STROKE = 2.6                     # PIN_PROT + 0.6 clearance; the coil seats fully at the end of it
+PL_D = 6.0                       # HS-0730B plunger
+PL_MIN_PROT = 12.7               # MEASURED: nose protrusion from the coil face with the plunger fully seated (1/2")
+PL_MAX_PROT = 19.05              # MEASURED: nose protrusion at the solenoid's own stop (3/4") - unused, the flange stops earlier
+PL_REST_PROT = PL_MIN_PROT + STROKE          # 15.3 at rest
+CAP_X0 = LATCH_X + BORE_D / 2 - PIN_PROT     # 93.5: cap nose at rest
+PL_X0 = CAP_X0 + CAP_END                     # 95.5: plunger nose (inside the cap)
+SOL_X0 = PL_X0 + PL_REST_PROT                # 110.8: coil face - placed by the plunger train, nothing else
+SOL_TAIL = -STROKE                           # tail cut flush with the back frame at full retraction -> 2.6 inside at rest
+TUN_D, TUN2_D = CAP_D + 0.1, CAP_FL_D + 0.1  # tunnel: O8.1 for the cap, O10.1 for the flange + spring
+TUN_STEP_X = CAP_X0 + CAP_L - CAP_FL_T       # 101.5: the step the flange stops against
+RIB_X1 = SOL_X0 - 1.0                        # 109.8: rib ends 1 mm short of the coil face
+RIB_Y0, RIB_Y1, RIB_Z1 = LATCH_Y - 7.0, LATCH_Y + 7.0, PIN_Z + 6.0   # 14 wide (1.95 walls beside the O10.1), floor to 58
+RSPR_OD, RSPR_ID, RSPR_FREE = 9.0, 6.6, 10.0 # return spring around the plunger, ~0.4 N/mm
+# cable head: O10 cylinder (shim gap to the O10.3 bushing 0.15/side), 45 deg cone nose, square shoulder
+CH_D, CH_CONE, CH_LAND, CH_GROOVE_W, CH_GROOVE_D, CH_UPPER = 10.0, 3.0, 3.0, CAP_D + 0.5, 6.8, 5.5
+CH_SHOULDER_Z = PIN_Z - CAP_D / 2            # 48: shoulder bears on the cap's underside when locked
+EJ_OD, EJ_ID, EJ_FREE, EJ_SOLID = 9.0, 7.6, 11.0, 4.5   # ejector spring on the bore floor, ~0.5 N/mm
+BUSH_ID, BUSH_OD, BUSH_Z0 = CH_D + 0.3, 14.0, PIN_Z + TUN_D / 2 + 0.4     # hardened mouth bushing above the tunnel (56.45) to the lid top
+CLS_HEAD_D, CLS_HEAD_H, CLS_WASHER_D, CLS_WASHER_T, CLS_L = 5.5, 2.0, 7.0, 0.5, 6.0   # closure screw: M3x6 LOW-HEAD cap + washer
+DRAIN_D = 2.0                                # bore-floor drain out the -y face
 LID_SCREWS = [(BX0 + 4.5, BY0 + 4.5), (BX0 + 4.5, BY1 - 4.5), (BX1 - 4.5, BY0 + 4.5), (105.0, BY1 - 4.5)]
 # 3 corners + one mid-wall: the +x/+y corner is where the TP4056's USB-C meets the end wall, so that
 # screw moves along the +y wall to x 105 (clear of the green button's O15 nut and the boost)
@@ -227,8 +257,18 @@ def build_top_box():
     # receiver bore (through the boss to the floor) + M4 closure clearance through the floor
     b = b.cut(cq.Workplane("XY", origin=(LATCH_X, LATCH_Y, ZF)).circle(BORE_D / 2).extrude(INT_H + 2))
     b = b.cut(cq.Workplane("XY", origin=(LATCH_X, LATCH_Y, 0)).circle(CLR4 / 2).extrude(ZF + 1))
-    # plunger channel from the +x side into the bore
-    b = b.cut(cq.Workplane("YZ", origin=(LATCH_X, LATCH_Y, PIN_Z)).circle(PIN_D / 2).extrude(BOSS_D))
+    # latch rib: extends the boss toward the coil and carries the cap tunnel (O8.1) and the flange/spring
+    # counterbore (O10.1); the step between them is the cap's forward stop
+    b = b.union(xbox(LATCH_X, RIB_X1, RIB_Y0, RIB_Y1, ZF - 1, RIB_Z1))
+    b = b.cut(cq.Workplane("XY", origin=(LATCH_X, LATCH_Y, ZF)).circle(BORE_D / 2).extrude(INT_H + 2))   # re-open the bore through the rib
+    b = b.cut(cq.Workplane("XY", origin=(LATCH_X, LATCH_Y, 0)).circle(CLR4 / 2).extrude(ZF + 1))         # ... and the closure-screw hole
+    b = b.cut(cq.Workplane("YZ", origin=(LATCH_X, LATCH_Y, PIN_Z)).circle(TUN_D / 2).extrude(TUN_STEP_X - LATCH_X))
+    b = b.cut(cq.Workplane("YZ", origin=(TUN_STEP_X, LATCH_Y, PIN_Z)).circle(TUN2_D / 2).extrude(RIB_X1 + 1 - TUN_STEP_X))
+    # hardened mouth bushing seat: O14 from just above the tunnel to the lid seat
+    b = b.cut(cq.Workplane("XY", origin=(LATCH_X, LATCH_Y, BUSH_Z0)).circle(BUSH_OD / 2).extrude(ZTOP - BUSH_Z0 + 1))
+    # drain: O2 from the bore floor out through the -y wall (the bore is a rain funnel; the tunnel at z52 is
+    # the leak path into the cavity - this empties it first). Drilled from outside, 2 mm above the block pocket.
+    b = b.cut(cq.Workplane("XZ", origin=(LATCH_X, LATCH_Y + 1.0, ZF + DRAIN_D / 2)).circle(DRAIN_D / 2).extrude(-(BY0 - 1) + (LATCH_Y + 1.0)))
     # closure-block pocket: OPEN through the -y face (the block swings in and out with C2 on
     # the hinge); x walls locate the block, the roof at BLK_TOP is what the screw clamps against
     b = b.cut(xbox(BLK_X0 - 0.2, BLK_X1 + 0.2, BY0 - 2, BLK_Y1 + 0.3, 0, BLK_TOP))
@@ -251,7 +291,7 @@ def build_lid():
     # RF window: plain through cutout (the opaque insert A5 fills it from below - no bezel step)
     p = p.cut(cq.Workplane("XY", origin=(WIN_CX, (BY0 + BY1) / 2, ZTOP - 1)).rect(WIN_L, WIN_W).extrude(LID_T + 2).edges("|Z").fillet(4))
     p = p.cut(cq.Workplane("XY", origin=(WIN_CX, (BY0 + BY1) / 2, ZTOP - 1)).rect(WIN_L + 2 * INS_FLANGE + 0.4, WIN_W + 2 * INS_FLANGE + 0.4).extrude(INS_FL_T + 1).edges("|Z").fillet(5.4))
-    p = p.cut(cq.Workplane("XY", origin=(LATCH_X, LATCH_Y, ZTOP - 1)).circle(BORE_D / 2 + 0.3).extrude(LID_T + 2))
+    p = p.cut(cq.Workplane("XY", origin=(LATCH_X, LATCH_Y, ZTOP - 1)).circle(BUSH_OD / 2 + 0.05).extrude(LID_T + 2))   # the bushing runs through the lid to its top
     for by in (BTN_Y, BTN2_Y):
         p = p.cut(cq.Workplane("XY", origin=(BTN_X, by, ZTOP - 1)).circle(BTN_D / 2).extrude(LID_T + 2))
     for (lx, ly) in LED_XY:
@@ -430,10 +470,9 @@ NANO_L, NANO_W, NANO_H = 45.0, 18.0, 7.5     # Nano LYING FLAT under the boost, 
 TP_L, TP_W, TP_T = 29.0, 17.3, 1.0           # TP4056 USB-C board; connector 9 x 7.5 x 3.3 on top, 1.5 proud of the end
 MT_L, MT_W, MT_H = 36.0, 17.0, 7.0           # MT3608 (inductor is the 7)
 SOL_L, SOL_W, SOL_H = 28.6, 17.5, 12.7       # Heschen HS-0730B, MEASURED (1 1/8" x 5.5/8" x 1/2")
-SOL_X0 = 100.5                               # front face, 1 mm clear of the latch boss
-SOL_TAIL = 11.0                              # plunger tail out the back (trim to this at assembly)
+NANO_X0 = 100.5
 DRV_L, DRV_W, DRV_H = 40.0, 10.7, 13.6       # driver card incl. TO-220 lying + O8 cap lying (40: its -x wire end must clear the red button nut)
-DRV_X0 = SOL_X0 + 2.0                        # 102.5: its -x wire end clears the red button body (x<=99.2)
+DRV_X0 = 102.5                               # its -x wire end clears the red button body (x<=99.2)
 DRV_Z0 = PIN_Z - SOL_H / 2 - 0.5             # 45.15: top 58.75 sits under the button nuts (z>=59)
 BAT_X0 = IX0 + 6.5                           # 19.5: past the lid-screw column (x<=19)
 BAT_Y0 = -7.0
@@ -473,23 +512,64 @@ def build_ref_reader():
     return _box(RDR_CX - RDR_L / 2, RDR_CY - RDR_W / 2, DECK_Z + 2.0, RDR_L, RDR_W, RDR_T)
 
 def build_ref_solenoid():
-    """HS-0730B body on two pillars, so the space under it stays usable for the TP4056."""
+    """HS-0730B body on two pillars in the -y strip beside the TP4056 (y < -5.5)."""
     body = xbox(SOL_X0, SOL_X0 + SOL_L, SOL_Y0, SOL_Y1, SOL_Z0, SOL_Z1)
-    for px in (SOL_X0 + 1, SOL_X0 + 7.5):        # both pillars sit -x of the TP4056 (x>=118),
-        body = body.union(xbox(px, px + 5, IY0 + 0.5, SOL_Y1 - 1, ZF, SOL_Z0))   # so the coil cantilevers over it
+    for px in (SOL_X0 + 1, SOL_X0 + SOL_L - 6):
+        body = body.union(xbox(px, px + 5, IY0 + 0.5, TP_Y0 - 0.5, ZF, SOL_Z0))
     return body
+
+def _xcyl(x0, x1, r):
+    return cq.Workplane("YZ", origin=(x0, LATCH_Y, PIN_Z)).circle(r).extrude(x1 - x0)
+
+def build_ref_cap():
+    """hardened latch cap: O8 x 10 with a O10 x 2 rear flange, bored O6.1 x 8 for the plunger."""
+    c = _xcyl(CAP_X0, CAP_X0 + CAP_L, CAP_D / 2).union(_xcyl(TUN_STEP_X, CAP_X0 + CAP_L, CAP_FL_D / 2))
+    return c.cut(_xcyl(PL_X0, CAP_X0 + CAP_L + 0.1, CAP_BORE / 2))
+
+def build_ref_ret_spring():
+    """return spring: flange rear to the coil face."""
+    return _xcyl(CAP_X0 + CAP_L, SOL_X0, RSPR_OD / 2).cut(_xcyl(CAP_X0 + CAP_L - 0.1, SOL_X0 + 0.1, RSPR_ID / 2))
+
+def build_ref_bushing():
+    """hardened mouth bushing, O10.3 ID, pressed in the boss, through the lid to its top face."""
+    z1 = ZTOP + LID_T
+    return (cq.Workplane("XY", origin=(LATCH_X, LATCH_Y, BUSH_Z0)).circle(BUSH_OD / 2).extrude(z1 - BUSH_Z0)
+            .cut(cq.Workplane("XY", origin=(LATCH_X, LATCH_Y, BUSH_Z0 - 0.1)).circle(BUSH_ID / 2).extrude(z1 - BUSH_Z0 + 0.2)))
+
+def build_ref_head(lift=0.0):
+    """cable head, locked position: shoulder on the cap's underside. lift = ejector travel after unlock."""
+    zs = CH_SHOULDER_Z + lift
+    o = cq.Workplane("XY", origin=(LATCH_X, LATCH_Y, zs - CH_LAND - CH_CONE))
+    cone = o.circle(2.0).workplane(offset=CH_CONE).circle(CH_D / 2).loft()
+    land = cq.Workplane("XY", origin=(LATCH_X, LATCH_Y, zs - CH_LAND)).circle(CH_D / 2).extrude(CH_LAND)
+    groove = cq.Workplane("XY", origin=(LATCH_X, LATCH_Y, zs)).circle(CH_GROOVE_D / 2).extrude(CH_GROOVE_W)
+    upper = cq.Workplane("XY", origin=(LATCH_X, LATCH_Y, zs + CH_GROOVE_W)).circle(CH_D / 2).extrude(CH_UPPER)
+    ferrule = cq.Workplane("XY", origin=(LATCH_X, LATCH_Y, zs + CH_GROOVE_W + CH_UPPER)).circle(4.0).extrude(ZTOP + LID_T + 12 - (zs + CH_GROOVE_W + CH_UPPER))
+    return cone.union(land).union(groove).union(upper).union(ferrule)
+
+def build_ref_ejector():
+    """ejector spring on the bore floor around the screw head, compressed under the head's cone."""
+    z_top = CH_SHOULDER_Z - CH_LAND - CH_CONE + (EJ_ID / 2 - 2.0) / ((CH_D / 2 - 2.0) / CH_CONE)   # where the cone meets the spring ID
+    return (cq.Workplane("XY", origin=(LATCH_X, LATCH_Y, ZF)).circle(EJ_OD / 2).extrude(z_top - ZF)
+            .cut(cq.Workplane("XY", origin=(LATCH_X, LATCH_Y, ZF - 0.1)).circle(EJ_ID / 2).extrude(z_top - ZF + 0.2)))
+
+def build_ref_closure_screw():
+    """M3x6 low-head cap on a O7 washer on the bore floor, shank down through A1's floor into the block."""
+    w = cq.Workplane("XY", origin=(LATCH_X, LATCH_Y, ZF)).circle(CLS_WASHER_D / 2).extrude(CLS_WASHER_T)
+    h = cq.Workplane("XY", origin=(LATCH_X, LATCH_Y, ZF + CLS_WASHER_T)).circle(CLS_HEAD_D / 2).extrude(CLS_HEAD_H)
+    sh = cq.Workplane("XY", origin=(LATCH_X, LATCH_Y, ZF + CLS_WASHER_T - CLS_L)).circle(1.5).extrude(CLS_L)
+    return w.union(h).union(sh)
 
 def build_ref_driver_card():
     return _box(DRV_X0, DRV_Y0, DRV_Z0, DRV_L, DRV_W, DRV_H)
 
 def build_ref_plunger():
-    """O6 plunger from 2.1 inside the bore, through the channel, to the solenoid face,
-    plus the trimmed tail out the back."""
-    x0 = LATCH_X + BORE_D / 2 - 2.1
-    return cq.Workplane("YZ", origin=(x0, LATCH_Y, PIN_Z)).circle(3.0).extrude(SOL_X0 + SOL_L + SOL_TAIL - x0)
+    """O6 plunger at rest: nose inside the cap, through the coil, tail cut so it is flush with the back
+    frame at full retraction (2.6 inside at rest)."""
+    return _xcyl(PL_X0, SOL_X0 + SOL_L + SOL_TAIL, PL_D / 2)
 
 def build_ref_nano():
-    return _box(SOL_X0, NANO_Y0, ZF, NANO_L, NANO_W, NANO_H)
+    return _box(NANO_X0, NANO_Y0, ZF, NANO_L, NANO_W, NANO_H)
 
 def build_ref_tp4056():
     b = _box(TP_X1 - TP_L, TP_Y0, ZF, TP_L, TP_W, TP_T)
@@ -517,7 +597,9 @@ def build_ref_buzzer():
 REF_PARTS = {
     "ref_tray": build_ref_tray, "ref_battery": build_ref_battery, "ref_reader": build_ref_reader,
     "ref_solenoid": build_ref_solenoid, "ref_driver_card": build_ref_driver_card,
-    "ref_plunger": build_ref_plunger, "ref_nano": build_ref_nano,
+    "ref_plunger": build_ref_plunger, "ref_cap": build_ref_cap, "ref_ret_spring": build_ref_ret_spring,
+    "ref_bushing": build_ref_bushing, "ref_head": build_ref_head, "ref_ejector": build_ref_ejector,
+    "ref_closure_screw": build_ref_closure_screw, "ref_nano": build_ref_nano,
     "ref_tp4056": build_ref_tp4056, "ref_mt3608": build_ref_mt3608,
     "ref_button_green": lambda: build_ref_button(BTN_Y), "ref_button_red": lambda: build_ref_button(BTN2_Y),
     "ref_led_1": lambda: build_ref_led(0), "ref_led_2": lambda: build_ref_led(1), "ref_buzzer": build_ref_buzzer,
@@ -539,7 +621,8 @@ PARTS = {
 }
 PARTS.update(REF_PARTS)
 # pairs that legitimately touch
-ALLOWED_OVERLAP = {("ref_solenoid", "ref_plunger")}   # the plunger runs through the coil
+ALLOWED_OVERLAP = {("ref_solenoid", "ref_plunger"),       # the plunger runs through the coil
+                   ("ref_closure_screw", "closure_block")}  # M3 thread in the O2.5 tapped pilot
 CONTACT_OK = {("C1_chassis_half", "C2_clamp_half"), ("C2_clamp_half", "closure_block"),
               ("C2_clamp_half", "hinge_block"), ("closure_block", "A1_top_box"),
               ("A1_top_box", "A2_lid"), ("A3_bottom_box", "A4_cover_plate"), ("A2_lid", "A5_window_insert"),
@@ -584,10 +667,11 @@ def gates():
         bb = solids[n].BoundingBox()
         # two parts deliberately sit in machined recesses rather than the plain cavity
         y_lo = BY0 + POCKET_WALL if n == "ref_solenoid" else IY0
-        z_hi = ZTOP + BUZ_REC if n == "ref_buzzer" else ZTOP
+        z_hi = ZTOP + BUZ_REC if n == "ref_buzzer" else (ZTOP + LID_T + 20 if n in ("ref_head", "ref_bushing") else ZTOP)
+        z_lo = ZF - CLS_L if n == "ref_closure_screw" else ZF
         x_hi = IX1 + BWALL + 1 if n == "ref_tp4056" else IX1
         inside = (IX0 - 1e-3 <= bb.xmin and bb.xmax <= x_hi + 1e-3 and y_lo - 1e-3 <= bb.ymin
-                  and bb.ymax <= IY1 + 1e-3 and ZF - 1e-3 <= bb.zmin and bb.zmax <= z_hi + 1e-3)
+                  and bb.ymax <= IY1 + 1e-3 and z_lo - 1e-3 <= bb.zmin and bb.zmax <= z_hi + 1e-3)
         print(f"  {n:16s} x {bb.xmin:6.1f}..{bb.xmax:6.1f}  y {bb.ymin:6.1f}..{bb.ymax:6.1f}  z {bb.zmin:5.1f}..{bb.zmax:5.1f}  {'in' if inside else 'OUTSIDE'}")
     for dmin, a, b_ in sorted(tight):
         print(f"  gap {dmin:4.2f} mm: {a} - {b_}{'  (contact)' if dmin < 0.01 else ''}")
@@ -724,7 +808,7 @@ def build_svc():
     out = {}
     def add(name, owner, body): out[name] = body; SVC_OWNER[name] = owner
     # Nano: wires soldered on the pin stubs along both long edges, on top
-    nx0 = SOL_X0
+    nx0 = NANO_X0
     add("svc_nano_wires_a", "ref_nano", _box(nx0, NANO_Y0, ZF + NANO_H, NANO_L, 4.0, WIRE_H))
     add("svc_nano_wires_b", "ref_nano", _box(nx0, NANO_Y0 + NANO_W - 4.0, ZF + NANO_H, NANO_L, 4.0, WIRE_H))
     # Nano USB-C plug for reflashing: lid off, plug comes in from -x along the wiring bay
@@ -738,7 +822,7 @@ def build_svc():
     add("svc_drv_wires_a", "ref_driver_card", _box(DRV_X0 - 3.0, DRV_Y0, DRV_Z0, 3.0, DRV_W, DRV_H))
     add("svc_drv_wires_b", "ref_driver_card", _box(DRV_X0 + DRV_L, DRV_Y0, DRV_Z0, 3.0, DRV_W, DRV_H))
     # solenoid: coil leads exit the +x end of the body
-    add("svc_sol_leads", "ref_solenoid", _box(SOL_X0 + SOL_L, SOL_Y0 + 3.0, SOL_Z0 + 2.0, 4.0, SOL_W - 6.0, SOL_H - 4.0))
+    add("svc_sol_leads", "ref_solenoid", _box(SOL_X0 + SOL_L, -5.0, SOL_Z0 + 2.0, 3.0, SOL_Y1 - 1.0 + 5.0, SOL_H - 4.0))   # leads dressed toward +y, clear of the corner boss
     # RC522: header end (-x), wires soldered on top and dropping past the board end
     add("svc_reader_wires", "ref_reader", _box(IX0 + 1.0, RDR_CY - 10.5, DECK_Z - WIRE_H, RDR_CX - RDR_L / 2 + 2.5 - (IX0 + 1.0), 21.0, WIRE_H + 2.0))
     # cell: JST-PH pigtail leaves the protection-PCB end (+x), through a notch in the cradle wall
@@ -902,6 +986,61 @@ def insertion_audit(solids):
     # the plug that hides the pin: 2 mm of bore at lug 1's outer face
     return ok
 
+def latch_audit(solids):
+    """The latch as a mechanism: rest, retracted and ejected positions, all against the real solids."""
+    ok = True
+    print("[audit] latch mechanism")
+    P = cq.Vector(STROKE, 0, 0)
+    movers = {n: cq.Workplane(obj=solids[n].translate(P)) for n in ("ref_cap", "ref_plunger")}
+    sp_rest = SOL_X0 - (CAP_X0 + CAP_L); sp_ret = sp_rest - STROKE
+    print(f"  return spring: {sp_rest:.1f} mm at rest, {sp_ret:.1f} mm retracted (free {RSPR_FREE}, needs solid <= {sp_ret - 0.3:.1f}) {'PASS' if sp_ret >= 4.0 else 'FAIL'}")
+    ok &= sp_ret >= 4.0
+    fixed = ["A1_top_box", "A2_lid", "ref_bushing", "ref_head", "ref_solenoid", "ref_tp4056", "ref_driver_card", "ref_nano", "ref_mt3608"]
+    for mn, m in movers.items():
+        for f in fixed:
+            if (mn, f) in (("ref_plunger", "ref_solenoid"),): continue
+            v = sum(x.Volume() for x in m.intersect(cq.Workplane(obj=solids[f])).solids().vals())
+            if v > 0.05:
+                print(f"  RETRACTED {mn} x {f}: {v:.1f} mm^3"); ok = False
+    nose_clear = (CAP_X0 + STROKE) - (LATCH_X + BORE_D / 2)
+    print(f"  cap nose clear of the bore when retracted: {nose_clear:.2f} mm (need >= 0.5) {'PASS' if nose_clear >= 0.5 else 'FAIL'}")
+    ok &= nose_clear >= 0.5
+    guided_rest = min(CAP_X0 + CAP_L - CAP_FL_T, TUN_STEP_X) - (LATCH_X + BORE_D / 2)
+    guided_ret = TUN_STEP_X - (LATCH_X + BORE_D / 2 + STROKE) if CAP_X0 + STROKE < LATCH_X + BORE_D / 2 else TUN_STEP_X - (CAP_X0 + STROKE)
+    print(f"  cap guided in the O8.1 tunnel: {guided_rest:.1f} mm at rest, {guided_ret:.1f} mm retracted (need >= 5) {'PASS' if min(guided_rest, guided_ret) >= 5 else 'FAIL'}")
+    ok &= min(guided_rest, guided_ret) >= 5
+    prot = PL_REST_PROT
+    print(f"  plunger protrusion at rest {prot:.1f} (must lie in the measured {PL_MIN_PROT}..{PL_MAX_PROT}) {'PASS' if PL_MIN_PROT < prot < PL_MAX_PROT else 'FAIL'}")
+    ok &= PL_MIN_PROT < prot < PL_MAX_PROT
+    tail_ret = SOL_X0 + SOL_L + SOL_TAIL + STROKE
+    print(f"  plunger tail at full retraction x{tail_ret:.1f} vs interior wall x{IX1:.1f}: {IX1 - tail_ret:.1f} mm {'PASS' if tail_ret <= IX1 - 0.5 else 'FAIL'}")
+    ok &= tail_ret <= IX1 - 0.5
+    # ejector: the head must rise until its shoulder is above the cap's centre, or the re-extending cap re-latches it
+    ej_travel = EJ_FREE - (solids["ref_ejector"].BoundingBox().zmax - ZF)
+    ej_solid_ok = (solids["ref_ejector"].BoundingBox().zmax - ZF) >= EJ_SOLID
+    need = CAP_D / 2 + 0.5
+    print(f"  ejector travel {ej_travel:.1f} mm (need >= {need:.1f} so the shoulder clears the cap centre); compressed length {solids['ref_ejector'].BoundingBox().zmax - ZF:.1f} >= solid {EJ_SOLID} {'PASS' if ej_travel >= need and ej_solid_ok else 'FAIL'}")
+    ok &= ej_travel >= need and ej_solid_ok
+    lifted = build_ref_head(ej_travel)
+    on_land = PIN_PROT - (BORE_D / 2 - CH_D / 2)          # 1.5: the cap can only re-extend until its nose meets the O10 land
+    cap_on_land = cq.Workplane(obj=solids["ref_cap"].translate(cq.Vector(on_land, 0, 0)))
+    v = sum(x.Volume() for x in lifted.intersect(cap_on_land).solids().vals())
+    shoulder = CH_SHOULDER_Z + ej_travel
+    print(f"  ejected head vs cap resting on its land ({on_land:.1f} back): overlap {v:.1f} mm^3; shoulder at z{shoulder:.1f} vs cap centre z{PIN_Z} {'PASS' if v < 0.05 and shoulder > PIN_Z + 0.5 else 'FAIL'}")
+    ok &= v < 0.05 and shoulder > PIN_Z + 0.5
+    for f in ("A1_top_box", "A2_lid", "ref_bushing"):
+        v = sum(x.Volume() for x in lifted.intersect(cq.Workplane(obj=solids[f])).solids().vals())
+        if v > 0.05: print(f"  ejected head x {f}: {v:.1f} mm^3"); ok = False
+    eng = CH_D / 2 - (BORE_D / 2 - PIN_PROT)
+    print(f"  shoulder engagement on the cap: {eng:.2f} mm radial; cap nose to groove root {(BORE_D / 2 - PIN_PROT) - CH_GROOVE_D / 2:.2f} mm clear")
+    gap = (BUSH_ID - CH_D) / 2
+    print(f"  shim gap head / bushing: {gap:.2f} mm per side (<= 0.25) {'PASS' if gap <= 0.25 else 'FAIL'}"); ok &= gap <= 0.25
+    print(f"  groove {CH_GROOVE_W} wide vs cap O{CAP_D}: over-push tolerance {CH_GROOVE_W - CAP_D:.1f} mm")
+    nose_tip = CH_SHOULDER_Z - CH_LAND - CH_CONE
+    print(f"  head nose tip z{nose_tip:.1f} vs closure screw head top z{ZF + CLS_WASHER_T + CLS_HEAD_H:.1f}: {nose_tip - (ZF + CLS_WASHER_T + CLS_HEAD_H):.1f} mm clear")
+    print(f"[audit] latch {'PASS' if ok else 'FAIL'}")
+    return bool(ok)
+
 def manufacturability_audit():
     ok = True
     print("[audit] machining / printing numerics")
@@ -911,6 +1050,10 @@ def manufacturability_audit():
         ("puck wall between cover-screw pilot and pocket", (POCKET_D / 2 + 2.75) - TAP3 / 2 - POCKET_D / 2, 1.5, "mm"),
         ("lug wall around the pin bore", LUG_R - (HPIN_D + HPIN_CLR) / 2, 2.5, "mm"),
         ("lid-screw boss wall around the pilot", 4.0 - TAP3 / 2, 2.5, "mm"),
+        ("boss wall around the O14 bushing seat", BOSS_D / 2 - BUSH_OD / 2, 2.0, "mm"),
+        ("rib wall beside the O10.1 counterbore", (RIB_Y1 - RIB_Y0) / 2 - TUN2_D / 2, 0.9, "mm (the boss carries the load; this is a guide)"),
+        ("cap tunnel depth : O8.1", (TUN_STEP_X - (LATCH_X + BORE_D / 2)) / TUN_D, 0, "x D"),
+        ("cap end wall (hardened)", CAP_END, 1.5, "mm"),
         ("A1 pocket depth : corner tool O8", INT_H / 8.0, 0, "x D (<= 4 OK)"),
         ("hinge pin blind bore depth : O5.1", (A3_LUGS[1][1] - 2.0 - (A3_LUGS[0][0] - 1)) / (HPIN_D + HPIN_CLR), 0, "x D (<= 10 OK)"),
         ("cable exit bore depth : O7", (PX - (SX0 - 1)) / EXIT_D, 0, "x D"),
@@ -932,9 +1075,10 @@ def audit():
     sv, _ = service_gate(solids)
     f = fastener_audit(solids)
     ins = insertion_audit(solids)
+    la = latch_audit(solids)
     m = manufacturability_audit()
-    print(f"[audit] SUMMARY gates {'PASS' if g else 'FAIL'} | service {'PASS' if sv else 'FAIL'} | fasteners {'PASS' if f else 'FAIL'} | pin path {'PASS' if ins else 'FAIL'} | manufacturability {'PASS' if m else 'FAIL'}")
-    return g and sv and f and ins and m
+    print(f"[audit] SUMMARY gates {'PASS' if g else 'FAIL'} | service {'PASS' if sv else 'FAIL'} | fasteners {'PASS' if f else 'FAIL'} | pin path {'PASS' if ins else 'FAIL'} | latch {'PASS' if la else 'FAIL'} | manufacturability {'PASS' if m else 'FAIL'}")
+    return g and sv and f and ins and la and m
 
 if __name__ == "__main__":
     if "--gates" in sys.argv:

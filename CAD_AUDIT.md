@@ -1,4 +1,4 @@
-# CAD_AUDIT.md — build audit of the CNC casing (rev 3d, 2026-09-11)
+# CAD_AUDIT.md — build audit of the CNC casing (rev 3d → 3e, 2026-09-16)
 
 **Question asked:** are all mates and parts viable to make and assemble, and does the electrical
 box actually house everything *including the wiring on every module*?
@@ -10,7 +10,7 @@ model the *space around* each part, and moves things until that layer is green t
 below is in the log `cnc-design/audit_rev3d.log`.
 
 ```
-[audit] SUMMARY gates PASS | service PASS | fasteners PASS | pin path PASS | manufacturability PASS
+[audit] SUMMARY gates PASS | service PASS | fasteners PASS | pin path PASS | latch PASS | manufacturability PASS
 ```
 
 ---
@@ -81,6 +81,23 @@ with the audited engagement beside each row (ASSEMBLY_CNC.md §0.3).
 
 Every module's service envelope now clears everything it does not own, with 0 problems.
 
+### 2.7 The latch train did not fit, and the pin was soft — **redesigned (rev 3e)**
+The measured HS-0730B plunger protrudes **12.7 mm from the coil face when fully seated**;
+the model had its nose 7.1 mm from the face — a position the part cannot reach — and a
+plunger train that, placed correctly, ran 10 mm through the +x wall at full retraction.
+The owner's fix is the one modelled: a **hardened Ø8 cap** over the plunger nose is the
+latch pin, guided in a close **Ø8.1 tunnel through a rib** that extends the boss to
+x 109.8; the cap's **Ø10 rear flange stops on the tunnel's step**, which sets the rest
+position and limits the stroke to 2.6 mm — so the solenoid's tail bolt is cut off and the
+train fits with 7 mm to spare. Also modelled and gated: the cable head (Ø10 cylinder,
+8.5 × Ø6.8 square-flanked groove), the ejector spring (Ø9 × 11 — the BOM's × 15 went solid),
+the Ø10.3 hardened mouth bushing through the lid, a Ø2 bore drain, and the closure screw as
+an M3 × 6 low-head cap + washer (the docs said "countersunk + washer", which is
+contradictory on a flat floor). The `latch` gate checks the retracted train against every
+neighbour, the cap's guidance at both ends of travel, the tail inside the box, the ejected
+head clearing the re-extended cap, and the shim gap. Details in CNC_CASING.md "The latch
+train".
+
 ### 2.6 Puck wall around the cover screws — **thickened**
 1.5 mm of aluminum on each side of an M3 tapped hole. `PUCK_WALL` 5.5 → 6.5 (puck Ø64): 2.5 mm
 outside, 1.5 mm to the pocket (the pocket side is not load-bearing). Swing / stop / frame-entry
@@ -123,7 +140,7 @@ gates unchanged (stop still at 64°).
 
 ```
 python cad/cnc_casing_cq.py --gates     # geometry gates only (~10 min)
-python cad/cnc_casing_cq.py --audit     # gates + build audit (~15 min)  -> cnc-design/audit_rev3d.log
+python cad/cnc_casing_cq.py --audit     # gates + build audit (~15 min)  -> cnc-design/audit_rev3e.log
 python cad/cnc_casing_cq.py             # STEP/STL export
 python cad/cnc_drawings.py              # shop drawings
 python cad/cnc_render_sets.py           # section / open STL sets for the renders

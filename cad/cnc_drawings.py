@@ -22,7 +22,7 @@ from matplotlib.backends.backend_pdf import PdfPages
 from matplotlib.patches import Rectangle
 
 OUT = "cnc-design/drawings"
-REV = "rev 3d"
+REV = "rev 3e"
 TODAY = datetime.date.today().isoformat()
 
 # ---------------- views: name -> (normal N = direction the viewer looks FROM, X direction) ----------------
@@ -122,7 +122,7 @@ part("C2_clamp_half", "C2 - clamp half (hinged)", "6061-T6 tube 2.5\" OD x 3/16\
 part("closure_block", "B - closure block (on C2, under A1)", "steel or 6061 (PETG stage 1)", 1,
      ["TOP", "FRONT", "RIGHT"],
      ["Underside is a saddle R31.8 - sits on C2's OD", "Top face is flat and CONTACTS the A1 pocket roof under the closure screw",
-      "The closure screw comes down the latch bore: M3x6 countersunk + washer"],
+      "The closure screw comes down the latch bore: M3x6 LOW-HEAD cap + O7 washer"],
      [("A", "M3 closure-screw thread THRU, " + TAP, f"({fmt(m.LATCH_X)}, {fmt(m.LATCH_Y)})"),
       ("B", "2x " + TAP + ", from the saddle side, 6 deep", f"x {fmt(m.BLK_SCREW_X[0])}, {fmt(m.BLK_SCREW_X[1])} at y=-7")],
      {"TOP": [((m.LATCH_X, m.LATCH_Y, 36.5), "A", 6, 6), ((m.BLK_SCREW_X[1], -7, 36.5), "B", 6, -6)]})
@@ -145,19 +145,20 @@ part("A1_top_box", "A1 - top box (latch + electronics)", "6061-T6 billet (PETG s
       "Latch boss Ø19 rises from the floor around the receiver bore"],
      [("A", f"Ø{fmt(m.BORE_D)} receiver bore from the top down to the floor (z {fmt(m.ZF)})", f"({fmt(m.LATCH_X)}, {fmt(m.LATCH_Y)})"),
       ("B", f"Ø{fmt(m.CLR4)} closure-screw clearance THRU the floor (1.5 thick) under A", "same axis"),
-      ("C", f"Ø{fmt(m.PIN_D)} plunger channel, horizontal along +x from the bore, axis z={fmt(m.PIN_Z)}", f"(x {fmt(m.LATCH_X)}.., y {fmt(m.LATCH_Y)})"),
+      ("C", f"Latch tunnel along +x from the bore, axis z={fmt(m.PIN_Z)}: Ø{fmt(m.TUN_D)} to x {fmt(m.TUN_STEP_X)} (cap), then Ø{fmt(m.TUN2_D)} to the rib end x {fmt(m.RIB_X1)} (flange + spring); the step is the cap's stop", f"(y {fmt(m.LATCH_Y)})"),
+      ("C2", f"Ø{fmt(m.BUSH_OD)} bushing seat from z {fmt(m.BUSH_Z0)} to the lid seat (press-fit hardened bushing, Ø{fmt(m.BUSH_ID)} ID) + Ø{fmt(m.DRAIN_D)} drain from the bore floor out the -y face at z {fmt(m.ZF + m.DRAIN_D / 2)}", f"({fmt(m.LATCH_X)}, {fmt(m.LATCH_Y)})"),
       ("D", "4x " + TAP + " lid screws, 8 deep from the top", ", ".join(f"({fmt(x)}, {fmt(y)})" for x, y in m.LID_SCREWS)),
       ("E", "3x " + TAP + " vertical from the saddle at y=+6 (crown row), to z=37", "x " + ", ".join(fmt(x) for x in m.SCREW_X)),
       ("F", "3x " + TAP + " horizontal (+y) at z=+8 into the skirt (skirt row)", "x " + ", ".join(fmt(x) for x in m.SCREW_X)),
-      ("G", f"USB-C slot {fmt(m.USB_SLOT_W)} x {fmt(m.USB_SLOT_H)} THRU the +x end wall, R1.6, + plug recess {fmt(m.USB_SLOT_W + 4)} x {fmt(m.USB_SLOT_H + 4)} x 2 deep outside", f"y {fmt(m.TP_Y0 + m.TP_W / 2)}, z {fmt(m.ZF + m.TP_T + 3.3 / 2)}")],
+      ("G", f"USB-C slot {fmt(m.USB_SLOT_W)} x {fmt(m.USB_SLOT_H)} THRU the +x end wall, R1.4, + plug recess {fmt(m.USB_SLOT_W + 5.4)} x {fmt(m.USB_SLOT_H + 5.4)} x 2 deep outside", f"y {fmt(m.TP_Y0 + m.TP_W / 2)}, z {fmt(m.ZF + m.TP_T + 3.3 / 2)}")],
      {"TOP": [((m.LATCH_X, m.LATCH_Y, 62), "A", 8, -8), ((m.LID_SCREWS[0][0], m.LID_SCREWS[0][1], 62), "D", -8, -8)],
       "BOTTOM": [((m.SCREW_X[1], 6, 20), "E", 8, 8)], "RIGHT": [((m.BX1, 34, 8), "F", 6, 6)],
       "FRONT": [((m.LATCH_X + 9.5, m.LATCH_Y, m.PIN_Z), "C", 10, 6)]})
 part("A2_lid", "A2 - lid plate", "6061 plate 5 mm (PETG stage 1)", 1, ["TOP", "FRONT", "BOTTOM"],
-     [f"RF window {fmt(m.WIN_L)} x {fmt(m.WIN_W)} THRU, R4 corners; underside recess {fmt(m.WIN_L + 2 * m.INS_FLANGE + 0.2)} x {fmt(m.WIN_W + 2 * m.INS_FLANGE + 0.2)} x {fmt(m.INS_FL_T)} deep for the insert flange",
+     [f"RF window {fmt(m.WIN_L)} x {fmt(m.WIN_W)} THRU, R4 corners; underside recess {fmt(m.WIN_L + 2 * m.INS_FLANGE + 0.4)} x {fmt(m.WIN_W + 2 * m.INS_FLANGE + 0.4)} x {fmt(m.INS_FL_T)} deep for the insert flange",
       "Lid screws countersunk 90deg from the top for M3 flat head"],
      [("A", f"window {fmt(m.WIN_L)} x {fmt(m.WIN_W)} THRU", f"centre ({fmt(m.WIN_CX)}, {fmt((m.BY0 + m.BY1) / 2)})"),
-      ("B", f"Ø{fmt(m.BORE_D + 0.6)} THRU (latch bore pass-through)", f"({fmt(m.LATCH_X)}, {fmt(m.LATCH_Y)})"),
+      ("B", f"Ø{fmt(m.BUSH_OD + 0.1)} THRU (the hardened mouth bushing runs through the lid to its top)", f"({fmt(m.LATCH_X)}, {fmt(m.LATCH_Y)})"),
       ("C", f"2x Ø{fmt(m.BTN_D)} THRU (sealed buttons: green = wake, red = cancel/admin)", f"({fmt(m.BTN_X)}, {fmt(m.BTN_Y)}) ({fmt(m.BTN_X)}, {fmt(m.BTN2_Y)})"),
       ("D", f"2x Ø{fmt(m.LED_D)} THRU (LEDs) + Ø2.5 buzzer sound hole @ ({fmt(m.BUZ_X)}, {fmt(m.BUZ_Y)})", ", ".join(f"({fmt(x)}, {fmt(y)})" for x, y in m.LED_XY)),
       ("E", "4x Ø3.4 THRU, 90deg C'SINK Ø6.4 from the top", ", ".join(f"({fmt(x)}, {fmt(y)})" for x, y in m.LID_SCREWS))],

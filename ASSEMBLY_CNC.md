@@ -1,6 +1,6 @@
-# ASSEMBLY_CNC.md — building the rev 3d lock, step by step
+# ASSEMBLY_CNC.md — building the rev 3e lock, step by step
 
-The complete build order for the CNC-lineage casing (`cad/cnc_casing_cq.py`, rev 3d),
+The complete build order for the CNC-lineage casing (`cad/cnc_casing_cq.py`, rev 3e),
 Stage 1: **everything printed in PETG + TPU**, aluminium later with no geometry change.
 
 Read §0 once. After that the stages are meant to be followed in order — each one ends at a
@@ -38,6 +38,14 @@ constant section, so every layer is the same slice and the fins come out clean.
 Ø5 × 36 mm steel dowel (hinge pin) · Ø5 × 2 plug (a 5 mm rod offcut) · M3 hardware below ·
 3 mm 7×7 stainless cable coated to Ø4, 1.6 m · 2 swage sleeves · donor retractable reel ·
 electronics per `BOM.md`.
+
+**Latch train (rev 3e):** Ø10 O1/4140 round stock for the **cap** (Ø8 × 10, Ø10 × 2 flange,
+Ø6.1 × 8 bore, then harden) · Ø2 × 8 roll pin · **return spring** Ø9 OD × 10 free, ~0.4 N/mm ·
+**hardened bushing** Ø10.3 ID × Ø14 OD × 10.5 (a DIN 179 10-mm drill bushing is the
+closest stock part — it is Ø10.0 ID / Ø15 OD, so either ream it 10.3 and turn the OD, or
+change `BUSH_ID`/`BUSH_OD` and re-run `--audit`) · **ejector spring** Ø9 OD × 11 free,
+solid ≤ 4.5, ~0.5 N/mm · **cable head** Ø10 hardened (see Stage F′) · M3 × 6 low-head cap +
+Ø7 washer (closure).
 
 ### 0.3 Every screw in the lock
 
@@ -207,9 +215,9 @@ wire zones are 3.5 mm tall and there is nothing taller available above any board
    window, header end at x 19. **Solder its 7 wires on the UNDERSIDE** of the header pads and
    drop them through the deck slot — there is only 2 mm of foam above the board, not enough
    for solder joints on top. Component side up.
-4. **Solenoid** on its two pillars at x 100.5–129.1, y −12.75–4.75; plunger on the channel
-   axis y = −4, z = 52. File the plunger's 45° nose before fitting; trim the tail to x 140.
-   Its coil leads leave the +x end of the body.
+4. **Solenoid** on its two pillars at **x 110.8–139.4**, y −12.75–4.75 (pillars in the −y strip
+   beside the TP4056, y −10.5 to −6). The coil face at x 110.8 is set by the plunger train
+   (Stage D′), not by anything else — do not move it. Its coil leads leave the +x end.
 5. **Driver card** standing beside the coil at x 102.5–142.5, y 5–15.7, base at z 45.15. Its
    wires leave both x ends (3 mm each) — the −x end sits just clear of the red button's body.
 6. **Nano lying flat** at x 100.5–145.5, y 16–34, on the floor. **USB-C toward −x** (the open
@@ -236,6 +244,38 @@ wire zones are 3.5 mm tall and there is nothing taller available above any board
     it down: the metal-free PETG box should not change anything, but this is the last easy
     look inside.
 11. Lid on, 4 × M3 × 8 countersunk, with the EPDM foam strip on the rim.
+
+---
+
+## 4′. Stage D′ — the latch train (45 min, before the solenoid goes in)
+
+The solenoid's soft plunger is never the latch pin. A hardened **cap** is.
+
+1. **Cut the plunger's tail.** Push the plunger fully into the coil (seated). Mark the rod
+   where it leaves the back frame and cut it there, removing the tail bolt/nut. The tail
+   now ends flush at full retraction and sits 2.6 mm inside at rest. Discard the
+   solenoid's own return spring if it was on the tail.
+2. **Make the cap** from Ø10 O1 or 4140: turn/mill Ø8 × 8 with a Ø10 × 2 flange at the
+   rear (10 long overall), drill Ø6.1 × 8 from the flange end (2 mm end wall left),
+   cross-drill Ø2 through the wall 4 mm from the flange, 0.5 × 45° chamfer on the nose.
+   Harden (O1: cherry red, oil quench, 200 °C temper) — or leave 4140 soft if you have no
+   torch; it still out-lasts the plunger.
+3. **Press the cap over the plunger nose** until the nose bottoms on the end wall, drill
+   Ø2 through the plunger using the cap's hole as the guide, drive the roll pin.
+4. **Return spring** Ø9 × 10 over the plunger, against the flange.
+5. **Fit the train into A1** from the cavity side: cap nose first into the Ø10.1 counterbore,
+   through the step into the Ø8.1 tunnel until the flange meets the step. The nose should
+   stand **2.0 mm into the receiver bore**. Then set the coil on its pillars so its face is
+   1 mm behind the rib end (x 110.8) with the spring lightly compressed between flange and
+   face. Bolt the coil down; wire it.
+6. **Check the stroke** by pushing the plunger's tail forward with a pencil through the
+   coil: the cap must retract until its nose is clear of the bore (you see the bore wall)
+   and the plunger seats — that is 2.6 mm. Release: the spring returns it to the step.
+7. **Press the mouth bushing** into the Ø14 seat from above with the lid off; its top
+   must end flush with the lid's top face once the lid is on.
+
+**Pass when:** with the coil driven (bench sketch), the cap visibly retracts and returns
+with a click, and a Ø10 rod dropped down the bushing is stopped by the cap's nose.
 
 ---
 
@@ -273,8 +313,11 @@ This is the only step the model does not fully define, because it depends on you
 5. **Anchor the spring's outer end** to the pocket wall. Improvise: a slot filed in the wall,
    or a screw through the spring's eye. Preload it two or three turns before the cover traps it.
 6. **Cover on**, 4 × M3 × 6 countersunk, gasket under it.
-7. **Swage the cable head** on the working end. Until the lathe part exists, a steel flat-bar
-   mule with a cross-hole does the job for testing the latch.
+7. **Swage the cable head** on the working end. The head is a **Ø10 h9 hardened cylinder,
+   20 long**: 3 mm 45° cone to a Ø4 tip, 3 mm land, an **8.5 wide × Ø6.8 groove with square
+   flanks**, 5.5 mm upper land, then the Ø8 ferrule for the cable. Until the lathe part
+   exists, a Ø10 steel rod with a filed cone and a parted groove is a usable mule — the
+   groove *width* (must exceed the Ø8 cap) and the *square lower flank* are what matter.
 
 **Pass when:** pulling the cable out and letting go reels it fully in, and the head snaps
 past the plunger and stays.
@@ -297,9 +340,12 @@ past the plunger and stays.
 1. Open C2 to its 60° stop.
 2. Set C1 on the down tube. The fins compress; that is the whole fit mechanism.
 3. Swing C2 shut. It should close with hand pressure alone.
-4. **One M3 × 6 countersunk on a washer down the latch bore** into the closure block. Snug it; the liner preload is
-   what holds the clamp, the screw just stops it opening.
-5. Drop the ejector spring into the bore on top of the screw.
+4. **One M3 × 6 low-head cap on a Ø7 washer down the latch bore** into the closure block (long
+   2.5 mm hex key through the bushing). Snug it; the liner preload is what holds the clamp,
+   the screw just stops it opening. **Not a countersunk screw** — the bore floor is flat.
+5. Drop the **ejector spring** (Ø9 × 11) into the bore; it sits on the floor around the screw
+   head. Push the cable head in until it clicks; let go — it must stay. Fire an unlock: the
+   head must pop up at least 5 mm and stay up.
 6. **Drive the Ø5 × 2 plug** into the pin bore's entry at x 58, flush. From here the pin
    cannot be driven out — that is the point.
 7. First boot: tap your chosen fob. It becomes master. Enroll the rest with the red button.

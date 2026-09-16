@@ -71,7 +71,7 @@ install). Rev 3 is a real hinge, placed by geometry rather than habit:
 - **What the swing buys:** with C2 at 60° a Ø46 down tube passes through the 65 mm mouth
   into C1's half-bore along the bisector with 0.00 mm³ of contact (gated).
 - **Closure:** swing shut, the closure block enters A1's pocket through its open −y side,
-  one M3 countersunk down the latch bore clamps the block to the pocket roof. Liner preload
+  one M3 × 6 low-head cap (on a Ø7 washer) down the latch bore clamps the block to the pocket roof. Liner preload
   pushing C2 away is a moment about the pin, resisted by that screw in shear (~2 kN for
   an M3 8.8) — the same joint the printed v0.8 had. Everything else is geometry.
 - **Pin security:** the bore is drilled through lug 1 from its outer face and stops 2 mm
@@ -84,6 +84,37 @@ The gates for this: `--gates` rotates C2 + both blocks about the pin at 16 angle
 to 60° against C1/A1/A2/A3/A4/pin (max overlap 0.00 mm³), reports the stop angle, slides
 a Ø46 cylinder 80 mm along the mouth bisector into C1's bore with C2 at 60° (0.00 mm³),
 and proves retention (a 2 mm pull on C2 overlaps the pin by 221 mm³; the block seats).
+
+### The latch train (rev 3e — owner: "a harder tip, guided in a close tunnel")
+The bore at (90, −4) and the receiver work as DESIGN §6.4 describes — cam-in to lock with
+no power, 300 ms pull to release, ejector pops the head, spool reels the cable. What rev 3e
+fixes is the *pin* and the *train length*, both of which the measured HS-0730B forced:
+
+| Element | Spec | Why |
+|---|---|---|
+| **Latch pin = hardened cap** | Ø8 × 10 steel cap, 2 mm end wall, bored Ø6.1 × 8 over the plunger nose, Ø2 roll pin through both; Ø10 × 2 rear flange | the soft-iron plunger never meets the cable head; the cap is what the shoulder bears on and what a tool would meet |
+| **Tunnel rib** | boss extended to x 109.8 (12 wide, floor to z 58); Ø8.1 bore from the receiver to x 101.5, Ø10.1 counterbore beyond | the cap is guided over ≥ 6 mm at every position instead of a 4 mm wall; the Ø8.1→Ø10.1 **step is the forward stop** |
+| **Stroke** | 2.6 mm (2.0 into the bore + 0.6 clear) | the flange on the step sets the rest position, so the solenoid's own tail bolt is **cut off** and the coil pulls from 2.6 mm out — its strongest region |
+| **Coil position** | face at x 110.8, body to 139.4, tail cut flush with the back frame at full retraction | set by the plunger train alone: 12.7 (measured seated protrusion) + 2.6 + 2 (cap end wall) from the bore wall |
+| **Return spring** | Ø9 OD × 10 free, ~0.4 N/mm, between the flange and the coil face | replaces the solenoid's tail spring |
+| **Cable head** | Ø10 h9 cylinder: 3 mm 45° cone (Ø4 tip), 3 mm land, **8.5 wide × Ø6.8 groove with square flanks**, 5.5 mm upper land, Ø8 ferrule | a plain cylinder leaves a 0.15 mm shim gap at the mouth; the square shoulder bears on the cap's underside with 1.5 mm radial engagement; the wide groove tolerates 0.5 mm of over-push |
+| **Mouth bushing** | hardened, Ø10.3 ID × Ø14 OD, from z 56.45 through the lid to its top | nothing soft at the mouth to gouge; centres the head |
+| **Ejector spring** | Ø9 × 11 free, solid ≤ 4.5, ~0.5 N/mm, on the bore floor around the screw head | compressed to 5.8 under the cone; 5.2 mm of travel lifts the shoulder 1.2 mm past the cap's centre so the re-extending cap lands on the land, not in the groove |
+| **Drain** | Ø2 from the bore floor out the −y face at z 39 | the bore is a rain funnel; the tunnel at z 52 was the leak path into the electronics |
+
+The cam is on the **head's cone, not the pin** — a round pin rotates in its bore, so a
+filed ramp would wander; a cone works at any rotation. The cap's nose is square with a
+0.5 mm chamfer, which is also what defeats a shim: a shim coming down the 0.15 mm annulus
+meets a face it cannot wedge.
+
+`--audit` gates the mechanism: the cap/plunger/spring translated by the stroke clash
+nothing and the cap nose clears the bore by 0.6; the cap stays ≥ 6 mm in the tunnel at
+both ends of travel; the plunger's rest protrusion lies inside the measured 12.7–19.05;
+the cut tail stays inside the box at full retraction; the ejected head (lifted by the
+spring's real travel) does not touch the re-extended cap and its shoulder is above the
+cap's centre; shim gap ≤ 0.25; nose tip clears the screw head. Strength honesty: under a
+cable yank the load path is shoulder → cap → tunnel wall → A1 → six M3s into C1; the 3 mm
+7×7 cable (~5 kN) is still the fuse, the Ø8 hardened cap on a 1.5 mm cantilever is not.
 
 ### The problems this concept has to solve — and the answers
 1. **Where does the self-guarding closure screw go?** Vertical parting plane, top box
@@ -348,18 +379,20 @@ the A1 roof). No insert-collar gate (no inserts).
 and vs the cavity; USB-C plug insertion depth ≥ 5.5 mm; **fastener engagement** — every screw
 axis is walked through the model, free run and tapped length measured, the stock length that
 gives ≥ 1.5 D without bottoming out and with its tip in air is recommended; **hinge pin
-insertion path** (a Ø5 probe from x 20 to lug 1 must be air); and a table of machining /
+insertion path** (a Ø5 probe from x 20 to lug 1 must be air); the **latch gate** (rev 3e: stroke,
+guidance, tail, ejector travel, shim gap — see "The latch train"); and a table of machining /
 printing numerics (thin walls, hole depth : diameter, fin line-widths, print clearances).
 Still to add: an R4 internal corner audit and the paired-bore alignment stack-up.
 
-## 10. Model status (2026-09-11, rev 3d — build audit: service envelopes, fasteners, countersinks)
+## 10. Model status (2026-09-16, rev 3e — latch train: hardened cap in a tunnel rib, mouth bushing, drain)
 
 `cad/cnc_casing_cq.py` builds all 12 parts (C1, C2, closure block, hinge block, hinge pin,
 A1 top box, A2 lid, A3 bottom box, A4 cover plate, A5 window insert, liner L/R) plus 11
-electronics reference bodies (`ref_*`) as single solids, plus the audit-only service envelopes.
-`--audit`: 0 clashes, walls PASS, screw paths PASS, swing 0–60° 0.00 mm³ PASS (stop at 64°),
-Ø46 frame entry through the mouth PASS, retention PASS, service envelopes 0 problems, fasteners
-PASS, pin path PASS, manufacturability PASS. STEP set in `cnc-design/step/`
+electronics reference bodies (`ref_*`) and the seven latch-train bodies (cap, return spring,
+plunger, bushing, head, ejector, closure screw) as single solids, plus the audit-only service
+envelopes. `--audit`: 0 clashes, walls PASS, screw paths PASS, swing 0–60° 0.00 mm³ PASS (stop
+at 64°), Ø46 frame entry through the mouth PASS, retention PASS, service envelopes 0 problems,
+fasteners PASS, pin path PASS, latch PASS, manufacturability PASS. STEP set in `cnc-design/step/`
 (+ `cnc_casing_assembly.step`); renders in `renders/cnc/` (`cnc_iso`, `cnc_exploded`,
 `cnc_end`, `cnc_section` = slab through the latch / closure block / hinge lug + pin,
 `cnc_open` = C2 at 60° with a Ø46 tube entering, `inspect_1..3` = 12-view inspection
