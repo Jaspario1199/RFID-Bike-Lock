@@ -76,7 +76,8 @@ install). Rev 3 is a real hinge, placed by geometry rather than habit:
   an M3 8.8) — the same joint the printed v0.8 had. Everything else is geometry.
 - **Pin security:** the bore is drilled through lug 1 from its outer face and stops 2 mm
   short of lug 2's outer face (blind). The pin is 36 long, seated against the blind end,
-  and a Ø5 press-fit plug fills the 2 mm behind it. Nothing can be punched *out* (blind),
+  and a Ø5 × 2 plug set with Loctite 638 (the bore is Ø5.1 — a retained slip fit, not a press)
+  fills the 2 mm behind it. Nothing can be punched *out* (blind),
   nothing can be punched *in* (already seated), and there is no pin end to grab — the
   same logic as a peened security-hinge pin, without the peening.
 
