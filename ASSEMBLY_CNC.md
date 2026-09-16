@@ -35,7 +35,10 @@ constant section, so every layer is the same slice and the fins come out clean.
 
 ### 0.2 The parts you buy
 
-Ø5 × 36 mm steel dowel (hinge pin) · Ø5 × 2 plug (a 5 mm rod offcut) · M3 hardware below ·
+**Hinge pin: ISO 2338 stainless dowel pin, Ø5 h8 × 36** (or ISO 8734 hardened 5 m6 × 36 —
+either runs in the Ø5.1 bores; nothing to make) · Ø5 × 2 plug (a 2 mm slice of the same
+Ø5 stock, set with Loctite 638 — the bore is 5.1, so it is a retained slip fit, not a press)
+· M3 hardware below ·
 3 mm 7×7 stainless cable coated to Ø4, 1.6 m · 2 swage sleeves · donor retractable reel ·
 electronics per `BOM.md`.
 
@@ -360,8 +363,10 @@ past the plunger and stays.
 5. Drop the **ejector spring** (Ø9 × 11) into the bore; it sits on the floor around the screw
    head. Push the cable head in until it clicks; let go — it must stay. Fire an unlock: the
    head must pop up at least 5 mm and stay up.
-6. **Drive the Ø5 × 2 plug** into the pin bore's entry at x 58, flush. From here the pin
-   cannot be driven out — that is the point.
+6. **Set the Ø5 × 2 plug** in the pin bore's entry at x 58: a drop of Loctite 638 on it,
+   push it flush against the pin's end, wipe. The bore is Ø5.1 so the plug is a slip fit;
+   the retaining compound is what holds it (it fills 0.05 mm gaps and needs ~250 °C to
+   release). From here the pin cannot be driven out — that is the point.
 7. First boot: tap your chosen fob. It becomes master. Enroll the rest with the red button.
 
 ---
