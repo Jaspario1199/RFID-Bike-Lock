@@ -1,0 +1,25 @@
+{
+    "activate_chamber_temp_control": [
+        "1"
+    ],
+    "chamber_temperature": [
+        "25"
+    ],
+    "compatible_printers": [
+        "Creality K1 (0.4 nozzle)",
+        "Creality K1 Max (0.4 nozzle)",
+        "Creality K1C 0.4 nozzle",
+	"Creality K2 Plus 0.4 nozzle"
+    ],
+    "filament_retraction_minimum_travel": [
+        "5"
+    ],
+    "filament_settings_id": [
+        "RPS Settings - HF PLA"
+    ],
+    "from": "User",
+    "inherits": "Creality HF Generic PLA",
+    "is_custom_defined": "0",
+    "name": "RPS Settings - HF PLA",
+    "version": "2.2.0.4"
+}
