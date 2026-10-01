@@ -1,0 +1,25 @@
+{"part": "C1_chassis_half", "valid_brep": true, "solids": 1, "dimensions_mm": [150.0, 31.75, 63.5], "volume_mm3": 65148.756, "watertight": true, "winding_consistent": true, "mesh_components": 1, "mesh_volume_error_percent": 0.235, "export_volume_delta_mm3": 2.003285}
+{"part": "C2_clamp_half", "valid_brep": true, "solids": 1, "dimensions_mm": [150.0, 31.75, 63.5], "volume_mm3": 65540.486, "watertight": true, "winding_consistent": true, "mesh_components": 1, "mesh_volume_error_percent": 0.237, "export_volume_delta_mm3": 1.15117}
+{"part": "closure_block", "valid_brep": true, "solids": 1, "dimensions_mm": [20.0, 12.0, 7.479], "volume_mm3": 1286.13, "watertight": true, "winding_consistent": true, "mesh_components": 1, "mesh_volume_error_percent": 0.259, "export_volume_delta_mm3": 0.001911}
+{"part": "hinge_block", "valid_brep": true, "solids": 1, "dimensions_mm": [40.0, 19.5, 15.46], "volume_mm3": 4701.576, "watertight": true, "winding_consistent": true, "mesh_components": 1, "mesh_volume_error_percent": 0.144, "export_volume_delta_mm3": 0.002342}
+{"part": "hinge_pin", "valid_brep": true, "solids": 1, "dimensions_mm": [36.0, 5.0, 5.0], "volume_mm3": 706.858, "watertight": true, "winding_consistent": true, "mesh_components": 1, "mesh_volume_error_percent": 0.166, "export_volume_delta_mm3": 0.0}
+{"part": "A1_top_box", "valid_brep": true, "solids": 1, "dimensions_mm": [140.0, 57.0, 61.0], "volume_mm3": 156157.803, "watertight": true, "winding_consistent": true, "mesh_components": 1, "mesh_volume_error_percent": 0.12, "export_volume_delta_mm3": 0.00295}
+{"part": "A2_lid", "valid_brep": true, "solids": 1, "dimensions_mm": [140.0, 57.0, 5.0], "volume_mm3": 26701.395, "watertight": true, "winding_consistent": true, "mesh_components": 1, "mesh_volume_error_percent": 0.019, "export_volume_delta_mm3": 0.0}
+{"part": "A3_bottom_box", "valid_brep": true, "solids": 1, "dimensions_mm": [72.0, 76.0, 78.0], "volume_mm3": 128931.491, "watertight": true, "winding_consistent": true, "mesh_components": 1, "mesh_volume_error_percent": 0.037, "export_volume_delta_mm3": 42.648588}
+{"part": "A4_cover_plate", "valid_brep": true, "solids": 1, "dimensions_mm": [64.0, 64.0, 3.0], "volume_mm3": 9479.819, "watertight": true, "winding_consistent": true, "mesh_components": 1, "mesh_volume_error_percent": 0.162, "export_volume_delta_mm3": 0.0}
+{"part": "A5_window_insert", "valid_brep": true, "solids": 1, "dimensions_mm": [50.2, 48.0, 5.0], "volume_mm3": 10183.972, "watertight": true, "winding_consistent": true, "mesh_components": 1, "mesh_volume_error_percent": 0.005, "export_volume_delta_mm3": 0.0}
+{"part": "liner_right", "valid_brep": true, "solids": 1, "dimensions_mm": [146.5, 28.65, 53.7], "volume_mm3": 52304.586, "watertight": true, "winding_consistent": true, "mesh_components": 1, "mesh_volume_error_percent": 0.335, "export_volume_delta_mm3": 0.403132}
+{"part": "liner_left", "valid_brep": true, "solids": 1, "dimensions_mm": [146.5, 28.65, 53.7], "volume_mm3": 52304.29, "watertight": true, "winding_consistent": true, "mesh_components": 1, "mesh_volume_error_percent": 0.335, "export_volume_delta_mm3": 0.837186}
+{"part": "electronics_cradle", "valid_brep": true, "solids": 1, "dimensions_mm": [47.0, 50.3, 13.7], "volume_mm3": 3681.113, "watertight": true, "winding_consistent": true, "mesh_components": 1, "mesh_volume_error_percent": 0.01, "export_volume_delta_mm3": 0.0}
+{"part": "ref_tray", "valid_brep": true, "solids": 1, "dimensions_mm": [66.8, 43.0, 19.5], "volume_mm3": 7087.603, "watertight": true, "winding_consistent": true, "mesh_components": 1, "mesh_volume_error_percent": 0.001, "export_volume_delta_mm3": 0.0}
+{"part": "proto_cable_head", "valid_brep": true, "solids": 1, "dimensions_mm": [10.0, 10.0, 35.6], "volume_mm3": 2218.211, "watertight": true, "winding_consistent": true, "mesh_components": 1, "mesh_volume_error_percent": 0.046}
+{"part": "proto_cap", "valid_brep": true, "solids": 1, "dimensions_mm": [10.0, 10.0, 10.0], "volume_mm3": 304.425, "watertight": true, "winding_consistent": true, "mesh_components": 1, "mesh_volume_error_percent": 0.041}
+{"part": "proto_bushing", "valid_brep": true, "solids": 1, "dimensions_mm": [14.0, 14.0, 12.425], "volume_mm3": 877.393, "watertight": true, "winding_consistent": true, "mesh_components": 1, "mesh_volume_error_percent": 0.041}
+{"part": "latch_fit_coupon", "valid_brep": true, "solids": 1, "dimensions_mm": [76.0, 46.0, 10.0], "volume_mm3": 28046.696, "watertight": true, "winding_consistent": true, "mesh_components": 1, "mesh_volume_error_percent": 0.01}
+{"part": "horizontal_latch_coupon", "valid_brep": true, "solids": 1, "dimensions_mm": [20.0, 68.0, 34.0], "volume_mm3": 34938.112, "watertight": true, "winding_consistent": true, "mesh_components": 1, "mesh_volume_error_percent": 0.013}
+Plate seat angle 90.0
+Selected lid M3x 10.0 ideal seated engagement: 5.45
+Selected cover M3x 8.0 ideal seated engagement: 5.45
+CAP bore diametral clearance: 0.2999999999999998
+TUNNEL diametral clearance: 0.34999999999999964
+RELEASE MESH CHECK PASS 19 parts
