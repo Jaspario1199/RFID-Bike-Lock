@@ -1,0 +1,52 @@
+{
+    "activate_chamber_temp_control": [
+        "1"
+    ],
+    "chamber_temperature": [
+        "50"
+    ],
+    "compatible_printers": [
+        "Creality K1 (0.4 nozzle)",
+        "Creality K1 Max (0.4 nozzle)",
+        "Creality K1C 0.4 nozzle",
+	"Creality K2 Plus 0.4 nozzle"
+    ],
+    "dont_slow_down_outer_wall": [
+        "1"
+    ],
+    "during_print_exhaust_fan_speed": [
+        "0"
+    ],
+    "fan_max_speed": [
+        "10"
+    ],
+    "fan_min_speed": [
+        "0"
+    ],
+    "filament_settings_id": [
+        "RPS Settings - ASA"
+    ],
+    "from": "User",
+    "inherits": "Creality Generic ASA @K1-all",
+    "is_custom_defined": "0",
+    "name": "RPS Settings - ASA",
+    "overhang_fan_speed": [
+        "10"
+    ],
+    "reduce_fan_stop_start_freq": [
+        "0"
+    ],
+    "slow_down_layer_time": [
+        "15"
+    ],
+    "support_material_interface_fan_speed": [
+        "10"
+    ],
+    "textured_plate_temp": [
+        "105"
+    ],
+    "textured_plate_temp_initial_layer": [
+        "105"
+    ],
+    "version": "2.1.1.0"
+}
