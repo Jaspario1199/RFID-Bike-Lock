@@ -1,5 +1,7 @@
 # RFID Bike Lock
 
+**Current DFM print prototype: [VELOX rev3f](releases/rev3f/README.md).** Use its 16 labeled STEP files and [build guide](releases/rev3f/PRINT_BUILD_REV3F.md), with the corrected model frozen at `releases/rev3f/snapshot/cad/cnc_casing_cq.py`. Coupons first; spool deferred; printer profile still pending. The older source/export folders and instructions below are retained as historical lineages and must not be mixed with rev3f.
+
 A frame-mounted, RFID/NFC-unlocked bike lock with a retractable anti-cut steel cable.
 
 The lock is a stainless-steel clamshell cylinder that clamps permanently onto the bike
@@ -26,21 +28,21 @@ releases the cable, which then reels itself back in.
 | [`CNC_CASING.md`](CNC_CASING.md) | **The machined-casing redesign** — CNC-first architecture (tube-half chassis + inside-out bolted boxes, bottom hinge pin + one guarded closure screw, centred spool puck, 60° swing gated, electronics stack-up gated, no inserts), DFM rulebook, decisions; model `cad/cnc_casing_cq.py`, STEP `cnc-design/step/`, drawings `cnc-design/drawings/`, renders `renders/cnc/` |
 | [`firmware/`](firmware/) | Arduino sketch (v1, ready to flash) + bench bring-up guide |
 | [`cad/bike_lock_cq.py`](cad/) | **The single source of truth**: parametric CadQuery model with built-in verification gates (`--gaps`, `--matrix`, `--sweep`, `--support`, `--dfm`) |
-| [`newest-design/`](newest-design/) | **THE CURRENT CAD: latest frozen STEP set (v0.8.3) + MANIFEST** — print/import from here  |
+| [`newest-design/`](newest-design/) | **LEGACY printed CAD: frozen STEP set (v0.8.3) + MANIFEST** — print/import from here  |
 | [`archive/`](archive/) | **Every previous iteration** (v0.2 → v0.7), one folder per version |
 | `renders/` | Current assembly renders (closed / open / exploded) |
 | `step/`, `stl/` | *Generated build outputs — gitignored; `python cad/bike_lock_cq.py` regenerates them* |
 
 ## Iteration index (newest first)
 
-`newest-design/` holds the CURRENT iteration; each `archive/vX/` folder holds the frozen **STEP files** for that iteration (per-part
+`releases/rev3f/` holds the current DFM print prototype; `newest-design/` holds the older printed lineage; each `archive/vX/` folder holds the frozen **STEP files** for that iteration (per-part
 `placed/` set + full assembly + combined multibody) and a `MANIFEST.md` describing exactly
 what changed. Older bulk formats (STL, doc snapshots) were trimmed for clarity — git
 history preserves every byte.
 
 | Iteration | Where | What it was |
 |---|---|---|
-| **v0.8.3** (current) | [`newest-design/`](newest-design/) | Environmental + DFM hardening: latch-bore & drum weep drains, TPU USB port plug, flush-printing cart, `--dfm` orientation scan, 6 V-rail power option, weatherproofing BOM |
+| **v0.8.3** (legacy) | [`newest-design/`](newest-design/) | Environmental + DFM hardening: latch-bore & drum weep drains, TPU USB port plug, flush-printing cart, `--dfm` orientation scan, 6 V-rail power option, weatherproofing BOM |
 | v0.8.2 | git history of `newest-design/` (MANIFEST §v0.8.2) | Structural audit: `--support` gate, all 17 under-supported heat-set holes fixed, driver card moved onto the pedestal cart (Option C) |
 | v0.8 / v0.8.1 | same MANIFEST, §v0.8/§v0.8.1 | All-M3 heat-set fastener rebuild + snug-fit pocket tuning (Ø4.0 locked) + test coupon |
 | v0.7 | [`archive/v0.7/`](archive/v0.7/) | Electronics as placed reference bodies; driver relocation; release process begins |
