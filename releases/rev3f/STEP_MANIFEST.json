@@ -1,0 +1,169 @@
+{
+  "revision": "rev3f",
+  "profile": "print",
+  "printer_settings_found": false,
+  "sliced": false,
+  "spool_deferred": true,
+  "parts": [
+    {
+      "part": "latch_fit_coupon",
+      "file": "STEP/01_fit_coupons/01_latch_fit_coupon_PETG_rev3f.step",
+      "material": "PETG",
+      "units": "mm",
+      "valid": true,
+      "solids": 1,
+      "volume_relative_delta": 1.3360283582385506e-14,
+      "sha256": "88f79ccb2ec28aef4c888cd160b1a93988c1228edf7010dd643381326bef60b1"
+    },
+    {
+      "part": "horizontal_latch_coupon",
+      "file": "STEP/01_fit_coupons/02_horizontal_latch_coupon_PETG_rev3f.step",
+      "material": "PETG",
+      "units": "mm",
+      "valid": true,
+      "solids": 1,
+      "volume_relative_delta": 1.9575757971131093e-14,
+      "sha256": "85e0f89eed696b88b477f576155ef91ca5cbdd0c8e54eaa49b1dae19ffd5081c"
+    },
+    {
+      "part": "A1_top_box",
+      "file": "STEP/02_electronics_and_latch/03_A1_top_box_PETG_rev3f.step",
+      "material": "PETG",
+      "units": "mm",
+      "valid": true,
+      "solids": 1,
+      "volume_relative_delta": 1.8893400158602172e-08,
+      "sha256": "a2f3ff0214dffb7b25e5642c8ac502f57bb8959d9c4f004bd8443ac9899f1ff4"
+    },
+    {
+      "part": "A2_lid",
+      "file": "STEP/02_electronics_and_latch/04_A2_lid_PETG_rev3f.step",
+      "material": "PETG",
+      "units": "mm",
+      "valid": true,
+      "solids": 1,
+      "volume_relative_delta": 1.7303339903109337e-14,
+      "sha256": "0c3b1e1051716cf18adc9f0b6734be537e43bcfaca1e722f13880ee2fd44aafe"
+    },
+    {
+      "part": "A5_window_insert",
+      "file": "STEP/02_electronics_and_latch/05_A5_window_insert_PETG_rev3f.step",
+      "material": "PETG",
+      "units": "mm",
+      "valid": true,
+      "solids": 1,
+      "volume_relative_delta": 6.430066568326376e-15,
+      "sha256": "4d27003c4c5dc871aa12024fe1c607548b2a9af19a97a106d1eb0e128f4987e7"
+    },
+    {
+      "part": "electronics_cradle",
+      "file": "STEP/02_electronics_and_latch/06_electronics_cradle_PETG_rev3f.step",
+      "material": "PETG",
+      "units": "mm",
+      "valid": true,
+      "solids": 1,
+      "volume_relative_delta": 2.4212913701794044e-14,
+      "sha256": "164022ce08b366cd52cefe6c5fba10bf5a3faa2c5c1c75a047d5ab8e0f281c76"
+    },
+    {
+      "part": "ref_tray",
+      "file": "STEP/02_electronics_and_latch/07_ref_tray_PETG_rev3f.step",
+      "material": "PETG",
+      "units": "mm",
+      "valid": true,
+      "solids": 1,
+      "volume_relative_delta": 2.1814722859062796e-15,
+      "sha256": "d63e277d301c9b0c60cbde92afd5440cc3a421b2e899222a220f68a893769988"
+    },
+    {
+      "part": "proto_cable_head",
+      "file": "STEP/02_electronics_and_latch/08_proto_cable_head_PETG_rev3f.step",
+      "material": "PETG",
+      "units": "mm",
+      "valid": true,
+      "solids": 1,
+      "volume_relative_delta": 2.4122349148844877e-09,
+      "sha256": "0cae10e5c5e4b2822ee2999b4a394ca8d7d99f074d75d18797261d191385d9b4"
+    },
+    {
+      "part": "proto_cap",
+      "file": "STEP/02_electronics_and_latch/09_proto_cap_PETG_rev3f.step",
+      "material": "PETG",
+      "units": "mm",
+      "valid": true,
+      "solids": 1,
+      "volume_relative_delta": 4.449707714339199e-08,
+      "sha256": "813374f536e0f25692d559b897941c343c13e250e4991975d16ba21d4d1258d7"
+    },
+    {
+      "part": "proto_bushing",
+      "file": "STEP/02_electronics_and_latch/10_proto_bushing_PETG_rev3f.step",
+      "material": "PETG",
+      "units": "mm",
+      "valid": true,
+      "solids": 1,
+      "volume_relative_delta": 2.1638760551751808e-14,
+      "sha256": "2b05739371cbe5928239fe4feb8a0f538909c117da3829a84bf6bc5229961010"
+    },
+    {
+      "part": "C1_chassis_half",
+      "file": "STEP/03_frame_optional/11_C1_chassis_half_PETG_rev3f.step",
+      "material": "PETG",
+      "units": "mm",
+      "valid": true,
+      "solids": 1,
+      "volume_relative_delta": 3.074939376821345e-05,
+      "sha256": "92e381f9396d893d5c6f38d02fa860a2d75c3a8a50a5ab1b02b64c588fd5a651"
+    },
+    {
+      "part": "C2_clamp_half",
+      "file": "STEP/03_frame_optional/12_C2_clamp_half_PETG_rev3f.step",
+      "material": "PETG",
+      "units": "mm",
+      "valid": true,
+      "solids": 1,
+      "volume_relative_delta": 1.7564257093508232e-05,
+      "sha256": "26e2ee9d889a0058a6eff9c34ace45fe1d3a759db01ff81536a6ef934f6419fb"
+    },
+    {
+      "part": "closure_block",
+      "file": "STEP/03_frame_optional/13_closure_block_PETG_rev3f.step",
+      "material": "PETG",
+      "units": "mm",
+      "valid": true,
+      "solids": 1,
+      "volume_relative_delta": 1.4855599770294196e-06,
+      "sha256": "94c1457e8df00e1ad45e4cc87d22bd46a46f745b305bdd0bd7f5193353eb6514"
+    },
+    {
+      "part": "hinge_block",
+      "file": "STEP/03_frame_optional/14_hinge_block_PETG_rev3f.step",
+      "material": "PETG",
+      "units": "mm",
+      "valid": true,
+      "solids": 1,
+      "volume_relative_delta": 4.981264159921833e-07,
+      "sha256": "dc6c2541e53f32df704f281843575b5e7e35095588d40421b16a63e026bcfc29"
+    },
+    {
+      "part": "liner_right",
+      "file": "STEP/04_tpu_after_fit/15_liner_right_TPU95A_rev3f.step",
+      "material": "TPU95A",
+      "units": "mm",
+      "valid": true,
+      "solids": 1,
+      "volume_relative_delta": 7.707388439996852e-06,
+      "sha256": "81fa6b17cd5351d5db4d00ec4d7ca6ddb63e85eaa05ce01aa48b98b5114edf4b"
+    },
+    {
+      "part": "liner_left",
+      "file": "STEP/04_tpu_after_fit/16_liner_left_TPU95A_rev3f.step",
+      "material": "TPU95A",
+      "units": "mm",
+      "valid": true,
+      "solids": 1,
+      "volume_relative_delta": 1.6006064442182644e-05,
+      "sha256": "8be9856acc0a60c91148e66a94709b2571e4d1e7b148749c37ac6641d17e99bf"
+    }
+  ]
+}
