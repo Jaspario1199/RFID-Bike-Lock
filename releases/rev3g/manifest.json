@@ -1,0 +1,104 @@
+{
+  "revision": "rev3g",
+  "release_status": "fit-test prototype; full build pending physical validation",
+  "units": "mm",
+  "spring_seat_diameter": 11.1125,
+  "passage_diameter": 12.5,
+  "estimated_spring_OD": 11.5,
+  "estimated_spring_seat_front_offset": 21,
+  "estimated_cross_pin_from_tip": 3.5,
+  "parts": [
+    {
+      "part": "latch_guide_cover",
+      "file": "01_FIT_TEST_FIRST/latch_guide_cover_rev3g.step",
+      "sha256": "1034b2b4ea4b05c69ad067247b277b76dc64da4cc1467f657e515fbca3940a36",
+      "valid": true,
+      "watertight": true
+    },
+    {
+      "part": "solenoid_carrier",
+      "file": "01_FIT_TEST_FIRST/solenoid_carrier_rev3g.step",
+      "sha256": "692be2fa5db65c9bfbe40f3e30f39263a79dd87b72e28790f4b310b8d2d57351",
+      "valid": true,
+      "watertight": true
+    },
+    {
+      "part": "battery_tray",
+      "file": "02_FULL_PARTS_PENDING_FIT/battery_tray_rev3g.step",
+      "sha256": "51ae92c615382f411b855de80906671f592fd81b62f125bf4b3ed4044da62183",
+      "valid": true,
+      "watertight": true
+    },
+    {
+      "part": "reader_tray",
+      "file": "02_FULL_PARTS_PENDING_FIT/reader_tray_rev3g.step",
+      "sha256": "1bd85cf76600203b810c84998d0258fd74b860a158bd82869b15dd524a4de681",
+      "valid": true,
+      "watertight": true
+    },
+    {
+      "part": "nano_tray",
+      "file": "02_FULL_PARTS_PENDING_FIT/nano_tray_rev3g.step",
+      "sha256": "7227e422df4ab9e3708cea1cef895bbbf558660091085b32e6a3ea4ae23b3fc2",
+      "valid": true,
+      "watertight": true
+    },
+    {
+      "part": "driver_tray",
+      "file": "02_FULL_PARTS_PENDING_FIT/driver_tray_rev3g.step",
+      "sha256": "dc87e384aa2dfe9483dc666ef99f581fb8ceabdb75a5bd20121367fb10a50c33",
+      "valid": true,
+      "watertight": true
+    },
+    {
+      "part": "boost_tray",
+      "file": "02_FULL_PARTS_PENDING_FIT/boost_tray_rev3g.step",
+      "sha256": "d38a591ea81847b23f39e020505ad34e61fbd55a1b494a64f5d545b69517e448",
+      "valid": true,
+      "watertight": true
+    },
+    {
+      "part": "charger_tray",
+      "file": "02_FULL_PARTS_PENDING_FIT/charger_tray_rev3g.step",
+      "sha256": "1b7d379a5c69d3db6baf034403495a11ff629189ddd185e017d2a892085a87d8",
+      "valid": true,
+      "watertight": true
+    },
+    {
+      "part": "A1_top_box",
+      "file": "02_FULL_PARTS_PENDING_FIT/A1_top_box_rev3g.step",
+      "sha256": "47f5149e43e659836755c19243b8140250a73e093c9f35d4e62cff9ea21c4b0f",
+      "valid": true,
+      "watertight": true
+    },
+    {
+      "part": "A2_lid",
+      "file": "02_FULL_PARTS_PENDING_FIT/A2_lid_rev3g.step",
+      "sha256": "07604df5fd9dd8dcd764898c626c067fb3659d7983ec1cb017b2c6373e42a3b3",
+      "valid": true,
+      "watertight": true
+    },
+    {
+      "part": "prototype_bushing",
+      "file": "01_FIT_TEST_FIRST/prototype_bushing_rev3g.step",
+      "sha256": "d457ddbf094af7b387dd4572d222ed76f65d9e32a0cd2324258b53c5a76dfcf8",
+      "valid": true,
+      "watertight": true
+    },
+    {
+      "part": "prototype_latch_adapter",
+      "file": "01_FIT_TEST_FIRST/prototype_latch_adapter_rev3g.step",
+      "sha256": "523444c5ab1d67dc0718a5afbc4a8abcff92e112923e732aa31c4d8647ca96b0",
+      "valid": true,
+      "watertight": true
+    },
+    {
+      "part": "solenoid_latch_fit_section",
+      "file": "01_FIT_TEST_FIRST/solenoid_latch_fit_section_rev3g.step",
+      "sha256": "6f700c4fafc83e57ce60d28f84224f988c2fc8e148cbb8d877fad239d5ec5862",
+      "valid": true,
+      "watertight": true
+    }
+  ],
+  "source_sha256": "3778ec76423fadfd37b4dc99ef3f19231cfaa7b2495df11b0a316903693762cb"
+}

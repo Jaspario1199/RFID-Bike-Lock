@@ -1,0 +1,16 @@
+{
+  "battery_vertical_install_max_mm3": 0.0,
+  "reader_vertical_install_max_mm3": 0.0,
+  "nano_vertical_install_max_mm3": 0.0,
+  "driver_vertical_install_max_mm3": 0.0,
+  "boost_vertical_install_max_mm3": 0.0,
+  "charger_vertical_install_max_mm3": 0.0,
+  "solenoid_vertical_install_max_mm3": 0.0,
+  "guide_vertical_install_max_mm3": 0.0,
+  "bushing_vertical_install_max_mm3": 0.0,
+  "lid_vertical_install_max_mm3": 0.0,
+  "hinge_0_to_60_max_mm3": 0.0,
+  "C1_housing_overlap_mm3": 0.0,
+  "errors": [],
+  "status": "PASS"
+}
