@@ -1,0 +1,13 @@
+(footprint "Battery_WirePads" (version 20221018) (generator pcbnew)
+  (layer "F.Cu")
+  (fp_text reference "J1" (at 2.5 2.5) (layer "F.SilkS")
+      (effects (font (size 0.8 0.8) (thickness 0.12)))
+    (tstamp 9d710510-c3a6-4d60-a3b9-3cbb28a2e6a3)
+  )
+  (fp_text value "BATTERY 1S / POLARITY" (at 0 0) (layer "F.SilkS") hide
+      (effects (font (size 1.27 1.27) (thickness 0.15)))
+    (tstamp 4185338b-69d6-4973-bc47-a5bb67c47edd)
+  )
+  (pad "1" thru_hole circle (at 0 0) (size 2 2) (drill 1) (layers "*.Cu" "*.Mask") (tstamp 5a6a1a95-120a-4424-a31e-9899a3468a3d))
+  (pad "2" thru_hole circle (at 5 0) (size 2 2) (drill 1) (layers "*.Cu" "*.Mask") (tstamp a949b73f-ac45-483b-8d8b-3b33ffd8d932))
+)
