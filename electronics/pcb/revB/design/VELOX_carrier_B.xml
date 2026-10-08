@@ -1,0 +1,1644 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<export version="E">
+  <design>
+    <source>/workspace/scratch/68861fbaa99d/RFID-Bike-Lock/electronics/pcb/revB/design/VELOX_carrier_B.kicad_sch</source>
+    <date>2026-10-08T19:19:54+0400</date>
+    <tool>Eeschema 9.0.9-9.0.9~ubuntu24.04.1</tool>
+    <sheet number="1" name="/" tstamps="/">
+      <title_block>
+        <title/>
+        <company/>
+        <rev/>
+        <date/>
+        <source>VELOX_carrier_B.kicad_sch</source>
+        <comment number="1" value=""/>
+        <comment number="2" value=""/>
+        <comment number="3" value=""/>
+        <comment number="4" value=""/>
+        <comment number="5" value=""/>
+        <comment number="6" value=""/>
+        <comment number="7" value=""/>
+        <comment number="8" value=""/>
+        <comment number="9" value=""/>
+      </title_block>
+    </sheet>
+  </design>
+  <components>
+    <comp ref="C1">
+      <value>470u 10V / EEUFR1A471</value>
+      <footprint>VELOX:CP_Radial_D8.0mm_P3.50mm</footprint>
+      <fields>
+        <field name="Footprint">VELOX:CP_Radial_D8.0mm_P3.50mm</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="VELOX" part="Part_C1" description=""/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="VELOX_carrier_B.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>f3388db3-170c-547e-a07e-6b645f23fc67</tstamps>
+    </comp>
+    <comp ref="C2">
+      <value>1u 25V</value>
+      <footprint>VELOX:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder</footprint>
+      <fields>
+        <field name="Footprint">VELOX:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="VELOX" part="Part_C2" description=""/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="VELOX_carrier_B.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>2108a09f-d59d-5c41-940f-4bb1b9d2b00b</tstamps>
+    </comp>
+    <comp ref="C3">
+      <value>10u 25V</value>
+      <footprint>VELOX:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder</footprint>
+      <fields>
+        <field name="Footprint">VELOX:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="VELOX" part="Part_C3" description=""/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="VELOX_carrier_B.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>1fadcb69-091d-5f12-8553-7d1e46889415</tstamps>
+    </comp>
+    <comp ref="C4">
+      <value>100n 16V</value>
+      <footprint>VELOX:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder</footprint>
+      <fields>
+        <field name="Footprint">VELOX:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="VELOX" part="Part_C4" description=""/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="VELOX_carrier_B.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>5d76e5d5-181e-5830-a94b-06d23a71a996</tstamps>
+    </comp>
+    <comp ref="C5">
+      <value>10u 10V</value>
+      <footprint>VELOX:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder</footprint>
+      <fields>
+        <field name="Footprint">VELOX:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="VELOX" part="Part_C5" description=""/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="VELOX_carrier_B.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>fa418285-679c-58b7-ba97-29220fce5f25</tstamps>
+    </comp>
+    <comp ref="C6">
+      <value>100n 16V</value>
+      <footprint>VELOX:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder</footprint>
+      <fields>
+        <field name="Footprint">VELOX:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="VELOX" part="Part_C6" description=""/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="VELOX_carrier_B.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>d1fb4696-f936-5af1-9bd0-444177dd6813</tstamps>
+    </comp>
+    <comp ref="C8">
+      <value>100u 10V / EEUFR1A101</value>
+      <footprint>VELOX:CP_Radial_D5.0mm_P2.00mm</footprint>
+      <fields>
+        <field name="Footprint">VELOX:CP_Radial_D5.0mm_P2.00mm</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="VELOX" part="Part_C8" description=""/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="VELOX_carrier_B.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>56c338cd-41a2-59b4-9fb7-87eff7e48fee</tstamps>
+    </comp>
+    <comp ref="C9">
+      <value>4.7u 50V X7R</value>
+      <footprint>VELOX:C_1206_3216Metric_Pad1.33x1.80mm_HandSolder</footprint>
+      <fields>
+        <field name="Footprint">VELOX:C_1206_3216Metric_Pad1.33x1.80mm_HandSolder</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="VELOX" part="Part_C9" description=""/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="VELOX_carrier_B.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>73277c49-73d3-59c6-b5c2-063422456449</tstamps>
+    </comp>
+    <comp ref="C10">
+      <value>10u 25V X7R</value>
+      <footprint>VELOX:C_1206_3216Metric_Pad1.33x1.80mm_HandSolder</footprint>
+      <fields>
+        <field name="Footprint">VELOX:C_1206_3216Metric_Pad1.33x1.80mm_HandSolder</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="VELOX" part="Part_C10" description=""/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="VELOX_carrier_B.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>80298970-8f7e-59d8-a217-db26ca5b5a47</tstamps>
+    </comp>
+    <comp ref="C11">
+      <value>10u 25V X7R</value>
+      <footprint>VELOX:C_1206_3216Metric_Pad1.33x1.80mm_HandSolder</footprint>
+      <fields>
+        <field name="Footprint">VELOX:C_1206_3216Metric_Pad1.33x1.80mm_HandSolder</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="VELOX" part="Part_C11" description=""/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="VELOX_carrier_B.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>bfa8d16e-8586-5ae5-b791-d555b8e0450b</tstamps>
+    </comp>
+    <comp ref="D1">
+      <value>SS34</value>
+      <footprint>VELOX:D_SMA</footprint>
+      <fields>
+        <field name="Footprint">VELOX:D_SMA</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="VELOX" part="Part_D1" description=""/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="VELOX_carrier_B.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>6c6a188d-c6d8-582d-a6eb-45ba32d52077</tstamps>
+    </comp>
+    <comp ref="D2">
+      <value>SS14</value>
+      <footprint>VELOX:D_SMA</footprint>
+      <fields>
+        <field name="Footprint">VELOX:D_SMA</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="VELOX" part="Part_D2" description=""/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="VELOX_carrier_B.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>33dede9f-3cda-5d0d-94d3-b0a327e0a2e0</tstamps>
+    </comp>
+    <comp ref="D3">
+      <value>CHARGE LED / red</value>
+      <footprint>VELOX:LED_0805_2012Metric</footprint>
+      <fields>
+        <field name="Footprint">VELOX:LED_0805_2012Metric</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="VELOX" part="Part_D3" description=""/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="VELOX_carrier_B.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>8f8385ab-3cd0-5ceb-a2b7-2d75b318bc71</tstamps>
+    </comp>
+    <comp ref="F1">
+      <value>3A / 0467003.NR candidate</value>
+      <footprint>VELOX:Fuse_1206_3216Metric_Pad1.42x1.75mm_HandSolder</footprint>
+      <fields>
+        <field name="Footprint">VELOX:Fuse_1206_3216Metric_Pad1.42x1.75mm_HandSolder</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="VELOX" part="Part_F1" description=""/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="VELOX_carrier_B.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>da99cf92-4ba2-5f58-9786-3ce568ed04cf</tstamps>
+    </comp>
+    <comp ref="H1">
+      <value>M3 NPTH</value>
+      <footprint>VELOX:MountingHole_3.2mm_M3</footprint>
+      <fields>
+        <field name="Footprint">VELOX:MountingHole_3.2mm_M3</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="VELOX" part="Part_H1" description=""/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="VELOX_carrier_B.kicad_sch"/>
+      <property name="exclude_from_bom"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>045336ef-c573-5f6c-b044-27d8d3ee5469</tstamps>
+    </comp>
+    <comp ref="H2">
+      <value>M3 NPTH</value>
+      <footprint>VELOX:MountingHole_3.2mm_M3</footprint>
+      <fields>
+        <field name="Footprint">VELOX:MountingHole_3.2mm_M3</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="VELOX" part="Part_H2" description=""/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="VELOX_carrier_B.kicad_sch"/>
+      <property name="exclude_from_bom"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>f5fc9598-71da-5c7d-9ef4-577dddbcb912</tstamps>
+    </comp>
+    <comp ref="H3">
+      <value>M3 NPTH</value>
+      <footprint>VELOX:MountingHole_3.2mm_M3</footprint>
+      <fields>
+        <field name="Footprint">VELOX:MountingHole_3.2mm_M3</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="VELOX" part="Part_H3" description=""/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="VELOX_carrier_B.kicad_sch"/>
+      <property name="exclude_from_bom"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>de1beba8-5365-5f8a-a2d4-baa68a766d74</tstamps>
+    </comp>
+    <comp ref="H4">
+      <value>M3 NPTH</value>
+      <footprint>VELOX:MountingHole_3.2mm_M3</footprint>
+      <fields>
+        <field name="Footprint">VELOX:MountingHole_3.2mm_M3</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="VELOX" part="Part_H4" description=""/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="VELOX_carrier_B.kicad_sch"/>
+      <property name="exclude_from_bom"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>89839fff-1e45-5646-b44e-70ced8ae9f3e</tstamps>
+    </comp>
+    <comp ref="J1">
+      <value>PROTECTED 1S BATTERY</value>
+      <footprint>VELOX:Battery_WirePads</footprint>
+      <fields>
+        <field name="Footprint">VELOX:Battery_WirePads</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="VELOX" part="Part_J1" description=""/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="VELOX_carrier_B.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>feacca99-c142-530b-9863-3aa0bf0560d7</tstamps>
+    </comp>
+    <comp ref="J2">
+      <value>RUN SWITCH / OFF TO CHARGE</value>
+      <footprint>VELOX:RunSwitch_WirePads</footprint>
+      <fields>
+        <field name="Footprint">VELOX:RunSwitch_WirePads</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="VELOX" part="Part_J2" description=""/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="VELOX_carrier_B.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>e6486656-5381-57a2-a2f4-7818a11c1329</tstamps>
+    </comp>
+    <comp ref="J3">
+      <value>USB4125-GF-A / CHARGE ONLY</value>
+      <footprint>VELOX:USB_C_Receptacle_GCT_USB4125-xx-x_6P_TopMnt_Horizontal</footprint>
+      <fields>
+        <field name="Footprint">VELOX:USB_C_Receptacle_GCT_USB4125-xx-x_6P_TopMnt_Horizontal</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="VELOX" part="Part_J3" description=""/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="VELOX_carrier_B.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>e3edf165-ae58-5f0b-9068-7595e6a4eb44</tstamps>
+    </comp>
+    <comp ref="J4">
+      <value>COIL / XH2 / 6V VERIFY</value>
+      <footprint>VELOX:JST_XH_B2B-XH-A_1x02_P2.50mm_Vertical</footprint>
+      <fields>
+        <field name="Footprint">VELOX:JST_XH_B2B-XH-A_1x02_P2.50mm_Vertical</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="VELOX" part="Part_J4" description=""/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="VELOX_carrier_B.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>003934c4-392f-5f38-9eea-57ceda9ff506</tstamps>
+    </comp>
+    <comp ref="J5">
+      <value>RC522 / XH8 HARNESS</value>
+      <footprint>VELOX:JST_XH_B8B-XH-A_1x08_P2.50mm_Vertical</footprint>
+      <fields>
+        <field name="Footprint">VELOX:JST_XH_B8B-XH-A_1x08_P2.50mm_Vertical</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="VELOX" part="Part_J5" description=""/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="VELOX_carrier_B.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>db752350-6dde-5138-8f35-6ac7902bce3e</tstamps>
+    </comp>
+    <comp ref="J6">
+      <value>PANEL / PH8 HARNESS</value>
+      <footprint>VELOX:JST_PH_B8B-PH-K_1x08_P2.00mm_Vertical</footprint>
+      <fields>
+        <field name="Footprint">VELOX:JST_PH_B8B-PH-K_1x08_P2.00mm_Vertical</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="VELOX" part="Part_J6" description=""/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="VELOX_carrier_B.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>290fb0b8-1ffb-51c5-b1d4-1904024b0a16</tstamps>
+    </comp>
+    <comp ref="Q1">
+      <value>AO3400A</value>
+      <footprint>VELOX:SOT-23</footprint>
+      <fields>
+        <field name="Footprint">VELOX:SOT-23</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="VELOX" part="Part_Q1" description=""/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="VELOX_carrier_B.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>7dbe04b3-2dcd-51c4-aeb6-ec00f884095e</tstamps>
+    </comp>
+    <comp ref="Q2">
+      <value>AO3400A</value>
+      <footprint>VELOX:SOT-23</footprint>
+      <fields>
+        <field name="Footprint">VELOX:SOT-23</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="VELOX" part="Part_Q2" description=""/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="VELOX_carrier_B.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>b00bd636-34bd-5762-aa00-7607f68a45d6</tstamps>
+    </comp>
+    <comp ref="R1">
+      <value>330</value>
+      <footprint>VELOX:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder</footprint>
+      <fields>
+        <field name="Footprint">VELOX:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="VELOX" part="Part_R1" description=""/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="VELOX_carrier_B.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>9118aa51-abef-5105-94ca-0c3d4f88623b</tstamps>
+    </comp>
+    <comp ref="R2">
+      <value>100k</value>
+      <footprint>VELOX:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder</footprint>
+      <fields>
+        <field name="Footprint">VELOX:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="VELOX" part="Part_R2" description=""/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="VELOX_carrier_B.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>fc598754-0479-533f-bf5c-14f57e56459e</tstamps>
+    </comp>
+    <comp ref="R3">
+      <value>330</value>
+      <footprint>VELOX:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder</footprint>
+      <fields>
+        <field name="Footprint">VELOX:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="VELOX" part="Part_R3" description=""/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="VELOX_carrier_B.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>f6bf57b9-c468-5f3c-af32-972f68c91e59</tstamps>
+    </comp>
+    <comp ref="R4">
+      <value>100k</value>
+      <footprint>VELOX:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder</footprint>
+      <fields>
+        <field name="Footprint">VELOX:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="VELOX" part="Part_R4" description=""/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="VELOX_carrier_B.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>3fc6969c-14dd-5e8e-be9b-cebdfb81c627</tstamps>
+    </comp>
+    <comp ref="R5">
+      <value>470</value>
+      <footprint>VELOX:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder</footprint>
+      <fields>
+        <field name="Footprint">VELOX:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="VELOX" part="Part_R5" description=""/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="VELOX_carrier_B.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>a5092859-86d9-5b6f-b530-0bf63e617abb</tstamps>
+    </comp>
+    <comp ref="R6">
+      <value>470</value>
+      <footprint>VELOX:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder</footprint>
+      <fields>
+        <field name="Footprint">VELOX:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="VELOX" part="Part_R6" description=""/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="VELOX_carrier_B.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>dd621197-90fb-551e-b11a-35a1b2d4fa2b</tstamps>
+    </comp>
+    <comp ref="R7">
+      <value>100k 1%</value>
+      <footprint>VELOX:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder</footprint>
+      <fields>
+        <field name="Footprint">VELOX:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="VELOX" part="Part_R7" description=""/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="VELOX_carrier_B.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>bcb0f418-feb1-5090-bc7f-a40f39a92b46</tstamps>
+    </comp>
+    <comp ref="R8">
+      <value>100k 1%</value>
+      <footprint>VELOX:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder</footprint>
+      <fields>
+        <field name="Footprint">VELOX:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="VELOX" part="Part_R8" description=""/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="VELOX_carrier_B.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>d22ffc10-9a2a-513b-bee7-782fc09258da</tstamps>
+    </comp>
+    <comp ref="R9">
+      <value>5.1k 1%</value>
+      <footprint>VELOX:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder</footprint>
+      <fields>
+        <field name="Footprint">VELOX:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="VELOX" part="Part_R9" description=""/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="VELOX_carrier_B.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>31cc8729-cf6f-5cf3-ad22-d34e27818490</tstamps>
+    </comp>
+    <comp ref="R10">
+      <value>5.1k 1%</value>
+      <footprint>VELOX:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder</footprint>
+      <fields>
+        <field name="Footprint">VELOX:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="VELOX" part="Part_R10" description=""/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="VELOX_carrier_B.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>fbee28af-a02e-5644-9ea8-52f3c966d61b</tstamps>
+    </comp>
+    <comp ref="R11">
+      <value>10k 1% / 100mA</value>
+      <footprint>VELOX:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder</footprint>
+      <fields>
+        <field name="Footprint">VELOX:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="VELOX" part="Part_R11" description=""/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="VELOX_carrier_B.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>875901f5-ea84-5ab4-9df1-79ed16d1069c</tstamps>
+    </comp>
+    <comp ref="R12">
+      <value>2.2k</value>
+      <footprint>VELOX:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder</footprint>
+      <fields>
+        <field name="Footprint">VELOX:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="VELOX" part="Part_R12" description=""/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="VELOX_carrier_B.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>8c6c6284-4990-5f4d-ae94-be64757af5ed</tstamps>
+    </comp>
+    <comp ref="TP1">
+      <value>BAT_RUN</value>
+      <footprint>VELOX:TestPoint_Pad_D2.0mm</footprint>
+      <fields>
+        <field name="Footprint">VELOX:TestPoint_Pad_D2.0mm</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="VELOX" part="Part_TP1" description=""/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="VELOX_carrier_B.kicad_sch"/>
+      <property name="exclude_from_bom"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>41bfe08a-6971-5860-b533-fe13705f1e1f</tstamps>
+    </comp>
+    <comp ref="TP2">
+      <value>COIL_6V</value>
+      <footprint>VELOX:TestPoint_Pad_D2.0mm</footprint>
+      <fields>
+        <field name="Footprint">VELOX:TestPoint_Pad_D2.0mm</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="VELOX" part="Part_TP2" description=""/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="VELOX_carrier_B.kicad_sch"/>
+      <property name="exclude_from_bom"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>81814efc-24f1-5caa-b1c0-bf3fb50ca445</tstamps>
+    </comp>
+    <comp ref="TP3">
+      <value>NANO_7V5</value>
+      <footprint>VELOX:TestPoint_Pad_D2.0mm</footprint>
+      <fields>
+        <field name="Footprint">VELOX:TestPoint_Pad_D2.0mm</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="VELOX" part="Part_TP3" description=""/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="VELOX_carrier_B.kicad_sch"/>
+      <property name="exclude_from_bom"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>caaf4e51-f2a0-5ab2-8db7-39acbba81033</tstamps>
+    </comp>
+    <comp ref="TP4">
+      <value>3V3</value>
+      <footprint>VELOX:TestPoint_Pad_D2.0mm</footprint>
+      <fields>
+        <field name="Footprint">VELOX:TestPoint_Pad_D2.0mm</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="VELOX" part="Part_TP4" description=""/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="VELOX_carrier_B.kicad_sch"/>
+      <property name="exclude_from_bom"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>9a437acd-7e41-57c0-aa9c-cdb22792c71d</tstamps>
+    </comp>
+    <comp ref="TP5">
+      <value>GND</value>
+      <footprint>VELOX:TestPoint_Pad_D2.0mm</footprint>
+      <fields>
+        <field name="Footprint">VELOX:TestPoint_Pad_D2.0mm</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="VELOX" part="Part_TP5" description=""/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="VELOX_carrier_B.kicad_sch"/>
+      <property name="exclude_from_bom"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>684b74a1-13a1-5458-8002-32c43ad7a2eb</tstamps>
+    </comp>
+    <comp ref="TP6">
+      <value>BAT_ADC</value>
+      <footprint>VELOX:TestPoint_Pad_D2.0mm</footprint>
+      <fields>
+        <field name="Footprint">VELOX:TestPoint_Pad_D2.0mm</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="VELOX" part="Part_TP6" description=""/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="VELOX_carrier_B.kicad_sch"/>
+      <property name="exclude_from_bom"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>0108c855-f9cd-56d5-9852-36578040ed62</tstamps>
+    </comp>
+    <comp ref="U1">
+      <value>Arduino Nano ESP32 ABX00083</value>
+      <footprint>VELOX:Nano_ESP32_ABX00083_Sockets</footprint>
+      <fields>
+        <field name="Footprint">VELOX:Nano_ESP32_ABX00083_Sockets</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="VELOX" part="Part_U1" description=""/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="VELOX_carrier_B.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>000bbf0b-a799-5b43-b79f-ce6b52db6071</tstamps>
+    </comp>
+    <comp ref="U2">
+      <value>MCP73831-2ATI/OT</value>
+      <footprint>VELOX:SOT-23-5_HandSoldering</footprint>
+      <fields>
+        <field name="Footprint">VELOX:SOT-23-5_HandSoldering</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="VELOX" part="Part_U2" description=""/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="VELOX_carrier_B.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>046f0848-ee17-57f9-a777-08ad117fd82d</tstamps>
+    </comp>
+    <comp ref="U3">
+      <value>Pololu U3V40F6 / 6V</value>
+      <footprint>VELOX:Pololu_U3V40F6_4013</footprint>
+      <fields>
+        <field name="Footprint">VELOX:Pololu_U3V40F6_4013</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="VELOX" part="Part_U3" description=""/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="VELOX_carrier_B.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>1b30e2be-b5e8-5b06-86ca-7747fc4e4adc</tstamps>
+    </comp>
+    <comp ref="U4">
+      <value>Pololu U3V16F7 / 7.5V</value>
+      <footprint>VELOX:Pololu_U3V16F7_4943</footprint>
+      <fields>
+        <field name="Footprint">VELOX:Pololu_U3V16F7_4943</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="VELOX" part="Part_U4" description=""/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="VELOX_carrier_B.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>54dfda02-1117-5584-9cc6-894900b721b5</tstamps>
+    </comp>
+    <comp ref="U5">
+      <value>NCP361SNT1G</value>
+      <footprint>VELOX:SOT-23-5_HandSoldering</footprint>
+      <fields>
+        <field name="Footprint">VELOX:SOT-23-5_HandSoldering</field>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="VELOX" part="Part_U5" description=""/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="VELOX_carrier_B.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>bfa34335-8db9-5f1e-a66f-2e8230e1bcb7</tstamps>
+    </comp>
+  </components>
+  <libparts>
+    <libpart lib="VELOX" part="Part_C1">
+      <fields>
+        <field name="Reference">C1</field>
+        <field name="Value">470u 10V / EEUFR1A471</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="" type="passive"/>
+        <pin num="2" name="" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="VELOX" part="Part_C10">
+      <fields>
+        <field name="Reference">C10</field>
+        <field name="Value">10u 25V X7R</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="" type="passive"/>
+        <pin num="2" name="" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="VELOX" part="Part_C11">
+      <fields>
+        <field name="Reference">C11</field>
+        <field name="Value">10u 25V X7R</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="" type="passive"/>
+        <pin num="2" name="" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="VELOX" part="Part_C2">
+      <fields>
+        <field name="Reference">C2</field>
+        <field name="Value">1u 25V</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="" type="passive"/>
+        <pin num="2" name="" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="VELOX" part="Part_C3">
+      <fields>
+        <field name="Reference">C3</field>
+        <field name="Value">10u 25V</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="" type="passive"/>
+        <pin num="2" name="" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="VELOX" part="Part_C4">
+      <fields>
+        <field name="Reference">C4</field>
+        <field name="Value">100n 16V</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="" type="passive"/>
+        <pin num="2" name="" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="VELOX" part="Part_C5">
+      <fields>
+        <field name="Reference">C5</field>
+        <field name="Value">10u 10V</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="" type="passive"/>
+        <pin num="2" name="" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="VELOX" part="Part_C6">
+      <fields>
+        <field name="Reference">C6</field>
+        <field name="Value">100n 16V</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="" type="passive"/>
+        <pin num="2" name="" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="VELOX" part="Part_C8">
+      <fields>
+        <field name="Reference">C8</field>
+        <field name="Value">100u 10V / EEUFR1A101</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="" type="passive"/>
+        <pin num="2" name="" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="VELOX" part="Part_C9">
+      <fields>
+        <field name="Reference">C9</field>
+        <field name="Value">4.7u 50V X7R</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="" type="passive"/>
+        <pin num="2" name="" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="VELOX" part="Part_D1">
+      <fields>
+        <field name="Reference">D1</field>
+        <field name="Value">SS34</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="K" type="passive"/>
+        <pin num="2" name="A" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="VELOX" part="Part_D2">
+      <fields>
+        <field name="Reference">D2</field>
+        <field name="Value">SS14</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="K" type="passive"/>
+        <pin num="2" name="A" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="VELOX" part="Part_D3">
+      <fields>
+        <field name="Reference">D3</field>
+        <field name="Value">CHARGE LED / red</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="K" type="passive"/>
+        <pin num="2" name="A" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="VELOX" part="Part_F1">
+      <fields>
+        <field name="Reference">F1</field>
+        <field name="Value">3A / 0467003.NR candidate</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="" type="passive"/>
+        <pin num="2" name="" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="VELOX" part="Part_H1">
+      <fields>
+        <field name="Reference">H1</field>
+        <field name="Value">M3 NPTH</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+    </libpart>
+    <libpart lib="VELOX" part="Part_H2">
+      <fields>
+        <field name="Reference">H2</field>
+        <field name="Value">M3 NPTH</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+    </libpart>
+    <libpart lib="VELOX" part="Part_H3">
+      <fields>
+        <field name="Reference">H3</field>
+        <field name="Value">M3 NPTH</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+    </libpart>
+    <libpart lib="VELOX" part="Part_H4">
+      <fields>
+        <field name="Reference">H4</field>
+        <field name="Value">M3 NPTH</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+    </libpart>
+    <libpart lib="VELOX" part="Part_J1">
+      <fields>
+        <field name="Reference">J1</field>
+        <field name="Value">PROTECTED 1S BATTERY</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="+" type="passive"/>
+        <pin num="2" name="-" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="VELOX" part="Part_J2">
+      <fields>
+        <field name="Reference">J2</field>
+        <field name="Value">RUN SWITCH / OFF TO CHARGE</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="FUSED+" type="passive"/>
+        <pin num="2" name="RUN+" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="VELOX" part="Part_J3">
+      <fields>
+        <field name="Reference">J3</field>
+        <field name="Value">USB4125-GF-A / CHARGE ONLY</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="A5" name="CC1" type="passive"/>
+        <pin num="A9" name="VBUS" type="passive"/>
+        <pin num="A12" name="GND" type="passive"/>
+        <pin num="B5" name="CC2" type="passive"/>
+        <pin num="B9" name="VBUS" type="passive"/>
+        <pin num="B12" name="GND" type="passive"/>
+        <pin num="S1" name="SHIELD" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="VELOX" part="Part_J4">
+      <fields>
+        <field name="Reference">J4</field>
+        <field name="Value">COIL / XH2 / 6V VERIFY</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="+" type="passive"/>
+        <pin num="2" name="SWITCHED-" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="VELOX" part="Part_J5">
+      <fields>
+        <field name="Reference">J5</field>
+        <field name="Value">RC522 / XH8 HARNESS</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="SS" type="passive"/>
+        <pin num="2" name="SCK" type="passive"/>
+        <pin num="3" name="MOSI" type="passive"/>
+        <pin num="4" name="MISO" type="passive"/>
+        <pin num="5" name="IRQ_NC" type="passive"/>
+        <pin num="6" name="GND" type="passive"/>
+        <pin num="7" name="RST" type="passive"/>
+        <pin num="8" name="3V3" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="VELOX" part="Part_J6">
+      <fields>
+        <field name="Reference">J6</field>
+        <field name="Value">PANEL / PH8 HARNESS</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="GND1" type="passive"/>
+        <pin num="2" name="GND2" type="passive"/>
+        <pin num="3" name="WAKE" type="passive"/>
+        <pin num="4" name="CANCEL" type="passive"/>
+        <pin num="5" name="RED_A" type="passive"/>
+        <pin num="6" name="GREEN_A" type="passive"/>
+        <pin num="7" name="BUZZ+" type="passive"/>
+        <pin num="8" name="BUZZ-" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="VELOX" part="Part_Q1">
+      <fields>
+        <field name="Reference">Q1</field>
+        <field name="Value">AO3400A</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="G" type="input"/>
+        <pin num="2" name="S" type="passive"/>
+        <pin num="3" name="D" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="VELOX" part="Part_Q2">
+      <fields>
+        <field name="Reference">Q2</field>
+        <field name="Value">AO3400A</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="G" type="input"/>
+        <pin num="2" name="S" type="passive"/>
+        <pin num="3" name="D" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="VELOX" part="Part_R1">
+      <fields>
+        <field name="Reference">R1</field>
+        <field name="Value">330</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="" type="passive"/>
+        <pin num="2" name="" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="VELOX" part="Part_R10">
+      <fields>
+        <field name="Reference">R10</field>
+        <field name="Value">5.1k 1%</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="" type="passive"/>
+        <pin num="2" name="" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="VELOX" part="Part_R11">
+      <fields>
+        <field name="Reference">R11</field>
+        <field name="Value">10k 1% / 100mA</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="" type="passive"/>
+        <pin num="2" name="" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="VELOX" part="Part_R12">
+      <fields>
+        <field name="Reference">R12</field>
+        <field name="Value">2.2k</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="" type="passive"/>
+        <pin num="2" name="" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="VELOX" part="Part_R2">
+      <fields>
+        <field name="Reference">R2</field>
+        <field name="Value">100k</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="" type="passive"/>
+        <pin num="2" name="" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="VELOX" part="Part_R3">
+      <fields>
+        <field name="Reference">R3</field>
+        <field name="Value">330</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="" type="passive"/>
+        <pin num="2" name="" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="VELOX" part="Part_R4">
+      <fields>
+        <field name="Reference">R4</field>
+        <field name="Value">100k</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="" type="passive"/>
+        <pin num="2" name="" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="VELOX" part="Part_R5">
+      <fields>
+        <field name="Reference">R5</field>
+        <field name="Value">470</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="" type="passive"/>
+        <pin num="2" name="" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="VELOX" part="Part_R6">
+      <fields>
+        <field name="Reference">R6</field>
+        <field name="Value">470</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="" type="passive"/>
+        <pin num="2" name="" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="VELOX" part="Part_R7">
+      <fields>
+        <field name="Reference">R7</field>
+        <field name="Value">100k 1%</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="" type="passive"/>
+        <pin num="2" name="" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="VELOX" part="Part_R8">
+      <fields>
+        <field name="Reference">R8</field>
+        <field name="Value">100k 1%</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="" type="passive"/>
+        <pin num="2" name="" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="VELOX" part="Part_R9">
+      <fields>
+        <field name="Reference">R9</field>
+        <field name="Value">5.1k 1%</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="" type="passive"/>
+        <pin num="2" name="" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="VELOX" part="Part_TP1">
+      <fields>
+        <field name="Reference">TP1</field>
+        <field name="Value">BAT_RUN</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="1" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="VELOX" part="Part_TP2">
+      <fields>
+        <field name="Reference">TP2</field>
+        <field name="Value">COIL_6V</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="1" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="VELOX" part="Part_TP3">
+      <fields>
+        <field name="Reference">TP3</field>
+        <field name="Value">NANO_7V5</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="1" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="VELOX" part="Part_TP4">
+      <fields>
+        <field name="Reference">TP4</field>
+        <field name="Value">3V3</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="1" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="VELOX" part="Part_TP5">
+      <fields>
+        <field name="Reference">TP5</field>
+        <field name="Value">GND</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="1" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="VELOX" part="Part_TP6">
+      <fields>
+        <field name="Reference">TP6</field>
+        <field name="Value">BAT_ADC</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="1" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="VELOX" part="Part_U1">
+      <fields>
+        <field name="Reference">U1</field>
+        <field name="Value">Arduino Nano ESP32 ABX00083</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="D13" type="bidirectional"/>
+        <pin num="2" name="3V3" type="power_out"/>
+        <pin num="3" name="B0" type="bidirectional"/>
+        <pin num="4" name="A0" type="bidirectional"/>
+        <pin num="5" name="A1" type="bidirectional"/>
+        <pin num="6" name="A2" type="bidirectional"/>
+        <pin num="7" name="A3" type="bidirectional"/>
+        <pin num="8" name="A4" type="bidirectional"/>
+        <pin num="9" name="A5" type="bidirectional"/>
+        <pin num="10" name="A6" type="bidirectional"/>
+        <pin num="11" name="A7" type="bidirectional"/>
+        <pin num="12" name="VBUS" type="bidirectional"/>
+        <pin num="13" name="B1" type="bidirectional"/>
+        <pin num="14" name="GND" type="power_in"/>
+        <pin num="15" name="VIN" type="power_in"/>
+        <pin num="16" name="D12" type="bidirectional"/>
+        <pin num="17" name="D11" type="bidirectional"/>
+        <pin num="18" name="D10" type="bidirectional"/>
+        <pin num="19" name="D9" type="bidirectional"/>
+        <pin num="20" name="D8" type="bidirectional"/>
+        <pin num="21" name="D7" type="bidirectional"/>
+        <pin num="22" name="D6" type="bidirectional"/>
+        <pin num="23" name="D5" type="bidirectional"/>
+        <pin num="24" name="D4" type="bidirectional"/>
+        <pin num="25" name="D3" type="bidirectional"/>
+        <pin num="26" name="D2" type="bidirectional"/>
+        <pin num="27" name="GND" type="power_in"/>
+        <pin num="28" name="RESET" type="bidirectional"/>
+        <pin num="29" name="D0" type="bidirectional"/>
+        <pin num="30" name="D1" type="bidirectional"/>
+      </pins>
+    </libpart>
+    <libpart lib="VELOX" part="Part_U2">
+      <fields>
+        <field name="Reference">U2</field>
+        <field name="Value">MCP73831-2ATI/OT</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="STAT" type="tri_state"/>
+        <pin num="2" name="VSS" type="power_in"/>
+        <pin num="3" name="VBAT" type="power_out"/>
+        <pin num="4" name="VDD" type="power_in"/>
+        <pin num="5" name="PROG" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="VELOX" part="Part_U3">
+      <fields>
+        <field name="Reference">U3</field>
+        <field name="Value">Pololu U3V40F6 / 6V</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="EN" type="input"/>
+        <pin num="2" name="VIN" type="power_in"/>
+        <pin num="3" name="GND1" type="power_in"/>
+        <pin num="4" name="GND2" type="power_in"/>
+        <pin num="5" name="VOUT1" type="power_out"/>
+        <pin num="6" name="VOUT2" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="VELOX" part="Part_U4">
+      <fields>
+        <field name="Reference">U4</field>
+        <field name="Value">Pololu U3V16F7 / 7.5V</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="VIN" type="power_in"/>
+        <pin num="2" name="GND" type="power_in"/>
+        <pin num="3" name="VOUT" type="power_out"/>
+      </pins>
+    </libpart>
+    <libpart lib="VELOX" part="Part_U5">
+      <fields>
+        <field name="Reference">U5</field>
+        <field name="Value">NCP361SNT1G</field>
+        <field name="Footprint"/>
+        <field name="Datasheet"/>
+        <field name="Description"/>
+      </fields>
+      <pins>
+        <pin num="1" name="IN" type="power_in"/>
+        <pin num="2" name="GND" type="power_in"/>
+        <pin num="3" name="EN_LOW" type="passive"/>
+        <pin num="4" name="FLAG_NC" type="open_collector"/>
+        <pin num="5" name="OUT" type="power_out"/>
+      </pins>
+    </libpart>
+  </libparts>
+  <libraries>
+    <library logical="VELOX">
+      <uri>/workspace/scratch/68861fbaa99d/RFID-Bike-Lock/electronics/pcb/revB/design/VELOX.kicad_sym</uri>
+    </library>
+  </libraries>
+  <nets>
+    <net code="1" name="/3V3" class="LogicPower">
+      <node ref="C4" pin="1" pintype="passive"/>
+      <node ref="C5" pin="1" pintype="passive"/>
+      <node ref="D2" pin="1" pinfunction="K" pintype="passive"/>
+      <node ref="J5" pin="8" pinfunction="3V3" pintype="passive"/>
+      <node ref="J6" pin="7" pinfunction="BUZZ+" pintype="passive"/>
+      <node ref="TP4" pin="1" pinfunction="1" pintype="passive"/>
+      <node ref="U1" pin="2" pinfunction="3V3" pintype="power_out"/>
+    </net>
+    <net code="2" name="/ADMIN_BTN" class="Default">
+      <node ref="J6" pin="4" pinfunction="CANCEL" pintype="passive"/>
+      <node ref="U1" pin="26" pinfunction="D2" pintype="bidirectional"/>
+    </net>
+    <net code="3" name="/BAT_ADC" class="Default">
+      <node ref="C6" pin="1" pintype="passive"/>
+      <node ref="R7" pin="2" pintype="passive"/>
+      <node ref="R8" pin="1" pintype="passive"/>
+      <node ref="TP6" pin="1" pinfunction="1" pintype="passive"/>
+      <node ref="U1" pin="4" pinfunction="A0" pintype="bidirectional"/>
+    </net>
+    <net code="4" name="/BAT_FUSED" class="Battery">
+      <node ref="C11" pin="1" pintype="passive"/>
+      <node ref="F1" pin="2" pintype="passive"/>
+      <node ref="J2" pin="1" pinfunction="FUSED+" pintype="passive"/>
+      <node ref="U2" pin="3" pinfunction="VBAT" pintype="power_out"/>
+    </net>
+    <net code="5" name="/BAT_PROTECTED" class="Battery">
+      <node ref="F1" pin="1" pintype="passive"/>
+      <node ref="J1" pin="1" pinfunction="+" pintype="passive"/>
+    </net>
+    <net code="6" name="/BAT_RUN" class="Battery">
+      <node ref="C8" pin="1" pintype="passive"/>
+      <node ref="J2" pin="2" pinfunction="RUN+" pintype="passive"/>
+      <node ref="R7" pin="1" pintype="passive"/>
+      <node ref="TP1" pin="1" pinfunction="1" pintype="passive"/>
+      <node ref="U3" pin="1" pinfunction="EN" pintype="input"/>
+      <node ref="U3" pin="2" pinfunction="VIN" pintype="power_in"/>
+      <node ref="U4" pin="1" pinfunction="VIN" pintype="power_in"/>
+    </net>
+    <net code="7" name="/BUZZ_GATE" class="Default">
+      <node ref="Q2" pin="1" pinfunction="G" pintype="input"/>
+      <node ref="R3" pin="2" pintype="passive"/>
+      <node ref="R4" pin="1" pintype="passive"/>
+    </net>
+    <net code="8" name="/BUZZ_GPIO" class="Default">
+      <node ref="R3" pin="1" pintype="passive"/>
+      <node ref="U1" pin="22" pinfunction="D6" pintype="bidirectional"/>
+    </net>
+    <net code="9" name="/BUZZ_N" class="Default">
+      <node ref="D2" pin="2" pinfunction="A" pintype="passive"/>
+      <node ref="J6" pin="8" pinfunction="BUZZ-" pintype="passive"/>
+      <node ref="Q2" pin="3" pinfunction="D" pintype="passive"/>
+    </net>
+    <net code="10" name="/CC1" class="Default">
+      <node ref="J3" pin="A5" pinfunction="CC1" pintype="passive"/>
+      <node ref="R9" pin="1" pintype="passive"/>
+    </net>
+    <net code="11" name="/CC2" class="Default">
+      <node ref="J3" pin="B5" pinfunction="CC2" pintype="passive"/>
+      <node ref="R10" pin="1" pintype="passive"/>
+    </net>
+    <net code="12" name="/CHG_LED_A" class="Default">
+      <node ref="D3" pin="2" pinfunction="A" pintype="passive"/>
+      <node ref="R12" pin="2" pintype="passive"/>
+    </net>
+    <net code="13" name="/CHG_PROG" class="Default">
+      <node ref="R11" pin="1" pintype="passive"/>
+      <node ref="U2" pin="5" pinfunction="PROG" pintype="passive"/>
+    </net>
+    <net code="14" name="/CHG_STAT" class="Default">
+      <node ref="D3" pin="1" pinfunction="K" pintype="passive"/>
+      <node ref="U2" pin="1" pinfunction="STAT" pintype="tri_state"/>
+    </net>
+    <net code="15" name="/COIL_6V" class="Coil">
+      <node ref="C1" pin="1" pintype="passive"/>
+      <node ref="C2" pin="1" pintype="passive"/>
+      <node ref="D1" pin="1" pinfunction="K" pintype="passive"/>
+      <node ref="J4" pin="1" pinfunction="+" pintype="passive"/>
+      <node ref="TP2" pin="1" pinfunction="1" pintype="passive"/>
+      <node ref="U3" pin="5" pinfunction="VOUT1" pintype="power_out"/>
+      <node ref="U3" pin="6" pinfunction="VOUT2" pintype="passive"/>
+    </net>
+    <net code="16" name="/COIL_N" class="Coil">
+      <node ref="D1" pin="2" pinfunction="A" pintype="passive"/>
+      <node ref="J4" pin="2" pinfunction="SWITCHED-" pintype="passive"/>
+      <node ref="Q1" pin="3" pinfunction="D" pintype="passive"/>
+    </net>
+    <net code="17" name="/GND" class="LogicPower">
+      <node ref="C1" pin="2" pintype="passive"/>
+      <node ref="C10" pin="2" pintype="passive"/>
+      <node ref="C11" pin="2" pintype="passive"/>
+      <node ref="C2" pin="2" pintype="passive"/>
+      <node ref="C3" pin="2" pintype="passive"/>
+      <node ref="C4" pin="2" pintype="passive"/>
+      <node ref="C5" pin="2" pintype="passive"/>
+      <node ref="C6" pin="2" pintype="passive"/>
+      <node ref="C8" pin="2" pintype="passive"/>
+      <node ref="C9" pin="2" pintype="passive"/>
+      <node ref="J1" pin="2" pinfunction="-" pintype="passive"/>
+      <node ref="J3" pin="A12" pinfunction="GND" pintype="passive"/>
+      <node ref="J3" pin="B12" pinfunction="GND" pintype="passive"/>
+      <node ref="J3" pin="S1" pinfunction="SHIELD" pintype="passive"/>
+      <node ref="J5" pin="6" pinfunction="GND" pintype="passive"/>
+      <node ref="J6" pin="1" pinfunction="GND1" pintype="passive"/>
+      <node ref="J6" pin="2" pinfunction="GND2" pintype="passive"/>
+      <node ref="Q1" pin="2" pinfunction="S" pintype="passive"/>
+      <node ref="Q2" pin="2" pinfunction="S" pintype="passive"/>
+      <node ref="R10" pin="2" pintype="passive"/>
+      <node ref="R11" pin="2" pintype="passive"/>
+      <node ref="R2" pin="2" pintype="passive"/>
+      <node ref="R4" pin="2" pintype="passive"/>
+      <node ref="R8" pin="2" pintype="passive"/>
+      <node ref="R9" pin="2" pintype="passive"/>
+      <node ref="TP5" pin="1" pinfunction="1" pintype="passive"/>
+      <node ref="U1" pin="14" pinfunction="GND" pintype="power_in"/>
+      <node ref="U1" pin="27" pinfunction="GND" pintype="power_in"/>
+      <node ref="U2" pin="2" pinfunction="VSS" pintype="power_in"/>
+      <node ref="U3" pin="3" pinfunction="GND1" pintype="power_in"/>
+      <node ref="U3" pin="4" pinfunction="GND2" pintype="power_in"/>
+      <node ref="U4" pin="2" pinfunction="GND" pintype="power_in"/>
+      <node ref="U5" pin="2" pinfunction="GND" pintype="power_in"/>
+      <node ref="U5" pin="3" pinfunction="EN_LOW" pintype="passive"/>
+    </net>
+    <net code="18" name="/LED_GREEN_A" class="Default">
+      <node ref="J6" pin="6" pinfunction="GREEN_A" pintype="passive"/>
+      <node ref="R6" pin="2" pintype="passive"/>
+    </net>
+    <net code="19" name="/LED_GREEN_GPIO" class="Default">
+      <node ref="R6" pin="1" pintype="passive"/>
+      <node ref="U1" pin="19" pinfunction="D9" pintype="bidirectional"/>
+    </net>
+    <net code="20" name="/LED_RED_A" class="Default">
+      <node ref="J6" pin="5" pinfunction="RED_A" pintype="passive"/>
+      <node ref="R5" pin="2" pintype="passive"/>
+    </net>
+    <net code="21" name="/LED_RED_GPIO" class="Default">
+      <node ref="R5" pin="1" pintype="passive"/>
+      <node ref="U1" pin="20" pinfunction="D8" pintype="bidirectional"/>
+    </net>
+    <net code="22" name="/NANO_7V5" class="NanoVIN">
+      <node ref="C3" pin="1" pintype="passive"/>
+      <node ref="TP3" pin="1" pinfunction="1" pintype="passive"/>
+      <node ref="U1" pin="15" pinfunction="VIN" pintype="power_in"/>
+      <node ref="U4" pin="3" pinfunction="VOUT" pintype="power_out"/>
+    </net>
+    <net code="23" name="/RFID_RST" class="Default">
+      <node ref="J5" pin="7" pinfunction="RST" pintype="passive"/>
+      <node ref="U1" pin="24" pinfunction="D4" pintype="bidirectional"/>
+    </net>
+    <net code="24" name="/RFID_SS" class="Default">
+      <node ref="J5" pin="1" pinfunction="SS" pintype="passive"/>
+      <node ref="U1" pin="18" pinfunction="D10" pintype="bidirectional"/>
+    </net>
+    <net code="25" name="/SOL_GATE" class="Default">
+      <node ref="Q1" pin="1" pinfunction="G" pintype="input"/>
+      <node ref="R1" pin="2" pintype="passive"/>
+      <node ref="R2" pin="1" pintype="passive"/>
+    </net>
+    <net code="26" name="/SOL_GPIO" class="Default">
+      <node ref="R1" pin="1" pintype="passive"/>
+      <node ref="U1" pin="23" pinfunction="D5" pintype="bidirectional"/>
+    </net>
+    <net code="27" name="/SPI_MISO" class="Default">
+      <node ref="J5" pin="4" pinfunction="MISO" pintype="passive"/>
+      <node ref="U1" pin="16" pinfunction="D12" pintype="bidirectional"/>
+    </net>
+    <net code="28" name="/SPI_MOSI" class="Default">
+      <node ref="J5" pin="3" pinfunction="MOSI" pintype="passive"/>
+      <node ref="U1" pin="17" pinfunction="D11" pintype="bidirectional"/>
+    </net>
+    <net code="29" name="/SPI_SCK" class="Default">
+      <node ref="J5" pin="2" pinfunction="SCK" pintype="passive"/>
+      <node ref="U1" pin="1" pinfunction="D13" pintype="bidirectional"/>
+    </net>
+    <net code="30" name="/USB_5V_SAFE" class="USB">
+      <node ref="C10" pin="1" pintype="passive"/>
+      <node ref="R12" pin="1" pintype="passive"/>
+      <node ref="U2" pin="4" pinfunction="VDD" pintype="power_in"/>
+      <node ref="U5" pin="5" pinfunction="OUT" pintype="power_out"/>
+    </net>
+    <net code="31" name="/USB_VBUS" class="USB">
+      <node ref="C9" pin="1" pintype="passive"/>
+      <node ref="J3" pin="A9" pinfunction="VBUS" pintype="passive"/>
+      <node ref="J3" pin="B9" pinfunction="VBUS" pintype="passive"/>
+      <node ref="U5" pin="1" pinfunction="IN" pintype="power_in"/>
+    </net>
+    <net code="32" name="/WAKE_BTN" class="Default">
+      <node ref="J6" pin="3" pinfunction="WAKE" pintype="passive"/>
+      <node ref="U1" pin="25" pinfunction="D3" pintype="bidirectional"/>
+    </net>
+    <net code="33" name="unconnected-(J5-IRQ_NC-Pad5)" class="Default">
+      <node ref="J5" pin="5" pinfunction="IRQ_NC" pintype="passive+no_connect"/>
+    </net>
+    <net code="34" name="unconnected-(U1-A1-Pad5)" class="Default">
+      <node ref="U1" pin="5" pinfunction="A1" pintype="bidirectional+no_connect"/>
+    </net>
+    <net code="35" name="unconnected-(U1-A2-Pad6)" class="Default">
+      <node ref="U1" pin="6" pinfunction="A2" pintype="bidirectional+no_connect"/>
+    </net>
+    <net code="36" name="unconnected-(U1-A3-Pad7)" class="Default">
+      <node ref="U1" pin="7" pinfunction="A3" pintype="bidirectional+no_connect"/>
+    </net>
+    <net code="37" name="unconnected-(U1-A4-Pad8)" class="Default">
+      <node ref="U1" pin="8" pinfunction="A4" pintype="bidirectional+no_connect"/>
+    </net>
+    <net code="38" name="unconnected-(U1-A5-Pad9)" class="Default">
+      <node ref="U1" pin="9" pinfunction="A5" pintype="bidirectional+no_connect"/>
+    </net>
+    <net code="39" name="unconnected-(U1-A6-Pad10)" class="Default">
+      <node ref="U1" pin="10" pinfunction="A6" pintype="bidirectional+no_connect"/>
+    </net>
+    <net code="40" name="unconnected-(U1-A7-Pad11)" class="Default">
+      <node ref="U1" pin="11" pinfunction="A7" pintype="bidirectional+no_connect"/>
+    </net>
+    <net code="41" name="unconnected-(U1-B0-Pad3)" class="Default">
+      <node ref="U1" pin="3" pinfunction="B0" pintype="bidirectional+no_connect"/>
+    </net>
+    <net code="42" name="unconnected-(U1-B1-Pad13)" class="Default">
+      <node ref="U1" pin="13" pinfunction="B1" pintype="bidirectional+no_connect"/>
+    </net>
+    <net code="43" name="unconnected-(U1-D0-Pad29)" class="Default">
+      <node ref="U1" pin="29" pinfunction="D0" pintype="bidirectional+no_connect"/>
+    </net>
+    <net code="44" name="unconnected-(U1-D1-Pad30)" class="Default">
+      <node ref="U1" pin="30" pinfunction="D1" pintype="bidirectional+no_connect"/>
+    </net>
+    <net code="45" name="unconnected-(U1-D7-Pad21)" class="Default">
+      <node ref="U1" pin="21" pinfunction="D7" pintype="bidirectional+no_connect"/>
+    </net>
+    <net code="46" name="unconnected-(U1-RESET-Pad28)" class="Default">
+      <node ref="U1" pin="28" pinfunction="RESET" pintype="bidirectional+no_connect"/>
+    </net>
+    <net code="47" name="unconnected-(U1-VBUS-Pad12)" class="Default">
+      <node ref="U1" pin="12" pinfunction="VBUS" pintype="bidirectional+no_connect"/>
+    </net>
+    <net code="48" name="unconnected-(U5-FLAG_NC-Pad4)" class="Default">
+      <node ref="U5" pin="4" pinfunction="FLAG_NC" pintype="open_collector+no_connect"/>
+    </net>
+  </nets>
+</export>

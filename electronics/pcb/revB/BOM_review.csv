@@ -1,50 +1,40 @@
-"Reference","Value","Candidate MPN","Status","Footprint","Notes"
-"U1","Arduino Nano ESP32","ABX00083","specified; socket part/height open","VELOX:Nano_ESP32_ABX00083_Sockets","Removable two 1x15 female sockets. USB toward board y=0. Never substitute classic Nano."
-"U2","4.2V charger / 100mA","MCP73831-2ATI/OT","specified","VELOX:SOT-23-5","Not a BMS or power-path controller. Existing cell must have qualified protection."
-"U3","6V solenoid boost","Pololu 4013 / U3V40F6","specified; load qualification pending","VELOX:Pololu_4013_U3V40F6","Top-view pads left to right along lower edge. Insulating 2.5mm gap and module retention needed."
-"U4","7.5V Nano boost","Pololu 4943 / U3V16F7","specified; load qualification pending","VELOX:Pololu_4943_U3V16F7","Top-view body 8.1mm wide x13.1mm tall; pads at lower edge."
-"U5","USB overvoltage protector","NCP361SNT1G","specified; footprint/USB transients pending","VELOX:SOT-23-5","Active-low enable grounded. SOT-23-5 footprint must be checked against TSOP-5 package drawing."
-"J1","Protected 1S cell","","existing pigtail; current/polarity open","VELOX:Battery_WirePads","Cell protection is external. Verify that old charger was not the only protection."
-"F1","3A candidate fuse","0467003.NR","candidate; fuse coordination open","VELOX:Fuse_1206_3216Metric_Pad1.42x1.75mm_HandSolder","Choose fuse/wire/switch/protection together after inrush and pulse measurements."
-"J2","RUN switch / OFF to charge","","exact switch and retention open","VELOX:RunSwitch_WirePads","External latching SPST, qualified for measured DC pulse current."
-"J3","USB-C charging only","USB4125-GF-A","specified family; exact suffix/stake footprint open","Connector_USB:USB_C_Receptacle_GCT_USB4125-xx-x_6P_TopMnt_Horizontal","No data or PD. An additional -0190 footprint exists in current libraries; compare the exact connector drawing and stake geometry rather than assuming the default matches."
-"J4","Solenoid","B2B-XH-A","specified; mating kit/wire open","VELOX:JST_XH_B2B-XH-A_1x02_P2.50mm_Vertical","Actual coil voltage/current/duty not confirmed."
-"J5","RC522 keyed harness","B8B-XH-A","specified; mating kit open","VELOX:JST_XH_B8B-XH-A_1x08_P2.50mm_Vertical","Map actual reader silkscreen, not wire colors. JST XH pitch 2.50mm."
-"J6","Buttons / LEDs / buzzer","B8B-PH-K-S","specified; mating kit open","VELOX:JST_PH_B8B-PH-K_1x08_P2.00mm_Vertical","JST PH pitch 2.00mm; mechanically distinct from reader XH harness. Momentary buttons to GND; LED cathodes to GND."
-"Q1","AO3400A","AO3400A","specified","VELOX:SOT-23","Logic-level Rds(on) specified at 2.5V. Thermal/transient check pending."
-"Q2","AO3400A","AO3400A","specified","VELOX:SOT-23",""
-"R1","330","","select exact manufacturer part","VELOX:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder",""
-"R2","100k","","select exact manufacturer part","VELOX:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder",""
-"R3","330","","select exact manufacturer part","VELOX:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder",""
-"R4","100k","","select exact manufacturer part","VELOX:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder",""
-"R5","220","","select exact manufacturer part","VELOX:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder",""
-"R6","220","","select exact manufacturer part","VELOX:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder",""
-"R7","100k 1%","","select exact manufacturer part","VELOX:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder",""
-"R8","100k 1%","","select exact manufacturer part","VELOX:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder",""
-"R9","5.1k 1%","","select exact manufacturer part","VELOX:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder",""
-"R10","5.1k 1%","","select exact manufacturer part","VELOX:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder",""
-"R11","10k 1%","","select exact manufacturer part","VELOX:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder","100mA charge target from MCP73831 I_REG=1000/R_kohm."
-"R12","2.2k","","select exact manufacturer part","VELOX:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder",""
-"C1","470u 10V","EEUFR1A471","specified; transient qualification pending","VELOX:CP_Radial_D8.0mm_P3.50mm","D8 x11.5 high, P3.5. Reserve 13mm above board including installation allowance."
-"C2","1u 25V","","select exact manufacturer part","VELOX:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder",""
-"C3","10u 25V","","select exact manufacturer part","VELOX:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder",""
-"C4","100n 16V","","select exact manufacturer part","VELOX:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder",""
-"C5","10u 10V","","select exact manufacturer part","VELOX:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder",""
-"C6","100n 16V","","select exact manufacturer part","VELOX:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder",""
-"C8","100u 10V","EEUFR1A101","specified; input transient qualification pending","VELOX:CP_Radial_D5.0mm_P2.00mm","D5 x11mm high, P2. Reserve 12.5mm."
-"C9","4.7u 50V","","exact MPN / DC bias open","VELOX:C_1206_3216Metric_Pad1.33x1.80mm_HandSolder","Require >=1uF effective at 20V and verify USB hot-plug overshoot."
-"C10","10u 25V","","exact MPN / DC bias open","VELOX:C_1206_3216Metric_Pad1.33x1.80mm_HandSolder","Require >=4.7uF effective at 5.9V."
-"C11","10u 25V","","exact MPN / DC bias open","VELOX:C_1206_3216Metric_Pad1.33x1.80mm_HandSolder","Require >=4.7uF effective at 4.2V."
-"D1","SS34","","choose exact SS34 manufacturer","VELOX:D_SMA","Cathode/band to +6V. Measure actual latch release time."
-"D2","SS14","","choose exact SS14 manufacturer","VELOX:D_SMA",""
-"D3","CHARGE LED","","select LED Vf/current","VELOX:LED_0805_2012Metric_Pad1.15x1.40mm_HandSolder","STAT is tri-state; indicator lit only while charging."
-"TP1","BAT_RUN","","proposed","VELOX:TestPoint_Pad_D2.0mm",""
-"TP2","COIL_6V","","proposed","VELOX:TestPoint_Pad_D2.0mm",""
-"TP3","NANO_7V5","","proposed","VELOX:TestPoint_Pad_D2.0mm",""
-"TP4","3V3","","proposed","VELOX:TestPoint_Pad_D2.0mm",""
-"TP5","GND","","proposed","VELOX:TestPoint_Pad_D2.0mm",""
-"TP6","BAT_ADC","","proposed","VELOX:TestPoint_Pad_D2.0mm",""
-"H1","M3 NPTH","","proposed mounting","VELOX:MountingHole_3.2mm_M3","3.2mm hole; reserve 6mm driver access cylinder."
-"H2","M3 NPTH","","proposed mounting","VELOX:MountingHole_3.2mm_M3","3.2mm hole; reserve 6mm driver access cylinder."
-"H3","M3 NPTH","","proposed mounting","VELOX:MountingHole_3.2mm_M3","3.2mm hole; reserve 6mm driver access cylinder."
-"H4","M3 NPTH","","proposed mounting","VELOX:MountingHole_3.2mm_M3","3.2mm hole; reserve 6mm driver access cylinder."
+Reference,Value,Selected part / candidate,Footprint,Release status,Notes
+U3,Pololu U3V40F6 / 6V,Pololu4013 U3V40F6,VELOX:Pololu_U3V40F6_4013,Selected interface; physical prototype qualification open,Pololu 4013 only. Two output and two ground pins used. EN tied to VIN. 2.5 mm insulating header gap and support under free edge; coil performance requires bench qualification.
+U4,Pololu U3V16F7 / 7.5V,Pololu4943 U3V16F7,VELOX:Pololu_U3V16F7_4943,Selected interface; physical prototype qualification open,"Pololu 4943 only. Dedicated 7.5 V nominal Nano VIN rail, +/-4%. 2.5 mm insulating header gap. This is not a reader power gate."
+J1,PROTECTED 1S BATTERY,Select exact tolerance/rating-compatible part,VELOX:Battery_WirePads,MPN / operating qualification open,Existing protected 1S 4.2 V LiPo only. Independent BMS discharge capability and pigtail current must be confirmed; do not connect a bare cell.
+F1,3A / 0467003.NR candidate,Littelfuse0467003.NR candidate,VELOX:Fuse_1206_3216Metric_Pad1.42x1.75mm_HandSolder,MPN / operating qualification open,"Candidate fuse, not released: coordinate with cell BMS, harness, operating pulse and measured inrush. Charger and load are both downstream of fuse."
+J2,RUN SWITCH / OFF TO CHARGE,Select exact tolerance/rating-compatible part,VELOX:RunSwitch_WirePads,MPN / operating qualification open,"External latching SPST >=3 A DC, subject to measured input current. Open to charge. No load sharing; Nano USB disconnected while charging."
+J3,USB4125-GF-A / CHARGE ONLY,GCT USB4125-GF-A,VELOX:USB_C_Receptacle_GCT_USB4125-xx-x_6P_TopMnt_Horizontal,Selected interface; physical prototype qualification open,"GCT USB4125-GF-A, 1 mm stake variant. Both CC pins have independent 5.1k Rd. 5 V charging only, no data or PD. Connector overhang needs a new enclosure port."
+R9,5.1k 1%,Select exact tolerance/rating-compatible part,VELOX:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder,Selected interface; physical prototype qualification open,
+R10,5.1k 1%,Select exact tolerance/rating-compatible part,VELOX:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder,Selected interface; physical prototype qualification open,
+U5,NCP361SNT1G,onsemi NCP361SNT1G,VELOX:SOT-23-5_HandSoldering,Selected interface; physical prototype qualification open,"TSOP-5 pinout 1 IN / 2 GND / 3 EN / 4 FLAG / 5 OUT. EN grounded. OVP threshold max5.9 V, fast disconnect; verify real hot-plug waveform below MCP73831 absolute7 V. Not battery protection."
+U2,MCP73831-2ATI/OT,Microchip MCP73831-2ATI/OT,VELOX:SOT-23-5_HandSoldering,Selected interface; physical prototype qualification open,"4.2 V 1S charger; default RPROG10k ~100 mA to reduce enclosure heating. No cell-temperature sensor, no power path, no BMS. Charge within verified cell temperature limits and with RUN open."
+R11,10k 1% / 100mA,Select exact tolerance/rating-compatible part,VELOX:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder,Selected interface; physical prototype qualification open,
+R12,2.2k,Select exact tolerance/rating-compatible part,VELOX:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder,Selected interface; physical prototype qualification open,
+D3,CHARGE LED / red,Select exact tolerance/rating-compatible part,VELOX:LED_0805_2012Metric,Selected interface; physical prototype qualification open,"On while charger reports charging; off can also mean no USB, no cell or fault, not proof of a full battery."
+C9,4.7u 50V X7R,Select exact tolerance/rating-compatible part,VELOX:C_1206_3216Metric_Pad1.33x1.80mm_HandSolder,MPN / operating qualification open,"Select exact MPN with >=1u effective at20 V, input ESD condition from NCP361 datasheet. Charge source remains5 V USB."
+C10,10u 25V X7R,Select exact tolerance/rating-compatible part,VELOX:C_1206_3216Metric_Pad1.33x1.80mm_HandSolder,MPN / operating qualification open,Select exact MPN with >=4.7u effective at5.9 V for charger stability; also NCP361 output bypass.
+C11,10u 25V X7R,Select exact tolerance/rating-compatible part,VELOX:C_1206_3216Metric_Pad1.33x1.80mm_HandSolder,MPN / operating qualification open,Select exact MPN with >=4.7u effective at4.2 V. Charger output bypass close to VBAT.
+U1,Arduino Nano ESP32 ABX00083,Arduino ABX00083,VELOX:Nano_ESP32_ABX00083_Sockets,MPN / operating qualification open,Two 1x15 female sockets 2.54 pitch /15.24 row spacing. Nano ESP32 only. VBUS unconnected; 7.5 V to VIN. Reserve14 mm above carrier for socketed module; antenna keepout below.
+J5,RC522 / XH8 HARNESS,JST B8B-XH-A,VELOX:JST_XH_B8B-XH-A_1x08_P2.50mm_Vertical,Selected interface; physical prototype qualification open,"JST B8B-XH-A, housing XHP-8. Match RC522 labels individually. RC522 antenna remains separate, with no carrier/battery/metal behind it; enclosure reader mounting must change."
+J6,PANEL / PH8 HARNESS,JST B8B-PH-K-S,VELOX:JST_PH_B8B-PH-K_1x08_P2.00mm_Vertical,Selected interface; physical prototype qualification open,"JST B8B-PH-K-S, housing PHR-8. Distinct pitch from RFID. Normally-open buttons to shared ground, LED cathodes to ground, 3.3 V active buzzer <=30 mA. Label both ends; validate current and polarity."
+J4,COIL / XH2 / 6V VERIFY,JST B2B-XH-A,VELOX:JST_XH_B2B-XH-A_1x02_P2.50mm_Vertical,Selected interface; physical prototype qualification open,"JST B2B-XH-A and XHP-2. 6 V ~1 A is an assumption from bench notes. Actual coil rating, resistance, duty and release behavior must be measured."
+Q1,AO3400A,AOS AO3400A,VELOX:SOT-23,Selected interface; physical prototype qualification open,"AOS genuine AO3400A: Rds(on) specified at2.5 V, not an IRF520. Pin1 G/2 S/3 D. Check pulse thermal and drain transient."
+R1,330,Select exact tolerance/rating-compatible part,VELOX:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder,Selected interface; physical prototype qualification open,
+R2,100k,Select exact tolerance/rating-compatible part,VELOX:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder,Selected interface; physical prototype qualification open,
+D1,SS34,"SS34 SMA, qualify manufacturer",VELOX:D_SMA,Selected interface; physical prototype qualification open,Flyback cathode/band to6 V. SMA SS34. Simple diode gives slow current decay: check latch release time physically.
+C1,470u 10V / EEUFR1A471,Panasonic EEUFR1A471,VELOX:CP_Radial_D8.0mm_P3.50mm,Selected interface; physical prototype qualification open,"Panasonic EEUFR1A471 exact: D8/H11.5/P3.5 mm. Bulk is transient support, not the source for the whole coil pulse."
+C2,1u 25V,Select exact tolerance/rating-compatible part,VELOX:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder,MPN / operating qualification open,
+C3,10u 25V,Select exact tolerance/rating-compatible part,VELOX:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder,MPN / operating qualification open,
+C4,100n 16V,Select exact tolerance/rating-compatible part,VELOX:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder,MPN / operating qualification open,
+C5,10u 10V,Select exact tolerance/rating-compatible part,VELOX:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder,MPN / operating qualification open,
+C8,100u 10V / EEUFR1A101,Panasonic EEUFR1A101,VELOX:CP_Radial_D5.0mm_P2.00mm,Selected interface; physical prototype qualification open,Panasonic EEUFR1A101 exact: D5/H11/P2 mm. Battery/boost input damping near U3; retain short adequately rated battery wiring.
+Q2,AO3400A,AOS AO3400A,VELOX:SOT-23,Selected interface; physical prototype qualification open,
+R3,330,Select exact tolerance/rating-compatible part,VELOX:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder,Selected interface; physical prototype qualification open,
+R4,100k,Select exact tolerance/rating-compatible part,VELOX:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder,Selected interface; physical prototype qualification open,
+D2,SS14,"SS14 SMA, qualify manufacturer",VELOX:D_SMA,Selected interface; physical prototype qualification open,Populate flyback for magnetic active buzzer. Buzzer supply3.3 V; qualify module current <=30 mA.
+R5,470,Select exact tolerance/rating-compatible part,VELOX:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder,Selected interface; physical prototype qualification open,
+R6,470,Select exact tolerance/rating-compatible part,VELOX:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder,Selected interface; physical prototype qualification open,
+R7,100k 1%,Select exact tolerance/rating-compatible part,VELOX:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder,Selected interface; physical prototype qualification open,
+R8,100k 1%,Select exact tolerance/rating-compatible part,VELOX:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder,Selected interface; physical prototype qualification open,
+C6,100n 16V,Select exact tolerance/rating-compatible part,VELOX:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder,MPN / operating qualification open,

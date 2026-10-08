@@ -1,0 +1,17 @@
+{
+  "segments": 924,
+  "vias": 70,
+  "unused_escape_vias_removed": 13,
+  "grid_mm": 0.125,
+  "signal_width_mm": 0.25,
+  "power_width_mm": 1.5,
+  "clearance_mm": 0.22,
+  "router_unfinished_before_zone_fill": [
+    [
+      "GND",
+      "Q2",
+      "2"
+    ]
+  ],
+  "final_native_connectivity": "PASS: ground zone connects the remaining Q2 source; drc.json has zero unconnected items."
+}
