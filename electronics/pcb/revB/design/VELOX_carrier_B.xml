@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <export version="E">
   <design>
-    <source>/workspace/scratch/68861fbaa99d/RFID-Bike-Lock/electronics/pcb/revB/design/VELOX_carrier_B.kicad_sch</source>
-    <date>2026-10-08T19:19:54+0400</date>
+    <source>/workspace/scratch/68861fbaa99d/velox-dfm/electronics/pcb/revB/design/VELOX_carrier_B.kicad_sch</source>
+    <date>2026-10-08T12:53:07-0700</date>
     <tool>Eeschema 9.0.9-9.0.9~ubuntu24.04.1</tool>
     <sheet number="1" name="/" tstamps="/">
       <title_block>
@@ -1398,7 +1398,7 @@
   </libparts>
   <libraries>
     <library logical="VELOX">
-      <uri>/workspace/scratch/68861fbaa99d/RFID-Bike-Lock/electronics/pcb/revB/design/VELOX.kicad_sym</uri>
+      <uri>/workspace/scratch/68861fbaa99d/velox-dfm/electronics/pcb/revB/design/VELOX.kicad_sym</uri>
     </library>
   </libraries>
   <nets>

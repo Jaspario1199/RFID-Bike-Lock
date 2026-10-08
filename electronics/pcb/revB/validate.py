@@ -71,9 +71,9 @@ result=dict(status='REVIEW_PROTOTYPE_NOT_FOR_FABRICATION',digital_geometry_check
  area_reduction_vs_revA_percent=round(100*(1-(90*55)/(110*65)),2),
  erc='Native KiCad '+erc['kicad_version']+' ERC, all severities; no exclusions.',
  drc='Native KiCad '+drc['kicad_version']+' DRC, all severities, all track errors, schematic parity; no exclusions.',
- source_sha256={str(f.relative_to(R)):hashlib.sha256(f.read_bytes()).hexdigest() for f in sorted(D.rglob('*')) if f.is_file() and f.suffix in ['.kicad_pcb','.kicad_sch','.kicad_sym','.kicad_mod','.kicad_pro']},
+ source_sha256={str(f.relative_to(R)):hashlib.sha256(f.read_bytes()).hexdigest() for f in sorted(D.rglob('*')) if f.is_file() and f.suffix in ['.kicad_pcb','.kicad_sch','.kicad_sym','.kicad_mod','.kicad_pro','.kicad_dru']},
  physical_validation='Not performed. See mechanical/placement_report.json for envelope-only review.',
- outstanding=interfaces['release_inputs_missing']+['Fabrication-capability review','Loaded rail/transient/thermal/charging/RFID/installation prototype tests'])
+ outstanding=interfaces['release_inputs_missing']+['Fabricator acceptance of connector finished-hole tolerances and CAM review','Loaded rail/transient/thermal/charging/RFID/installation prototype tests'])
 (R/'validation.json').write_text(json.dumps(result,indent=2));print(json.dumps(result,indent=2))
 (R/'drc.txt').write_text('Summary of native KiCad JSON reports; see drc.json and erc.json for original reports.\n'+''.join(f'{k}: {v}\n' for k,v in counts.items()))
 sys.exit(0 if passed else 1)

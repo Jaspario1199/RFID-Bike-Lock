@@ -203,3 +203,7 @@ python publish_views.py
 
 The explicit checks and source links are part of the package. Preserve Rev A
 for history; use Rev B for subsequent development.
+
+## DFM refinement
+
+See `DFM_REVIEW.md` for the commercial-fabrication and hand-assembly changes, connector tolerance gates and reproduction commands. `dfm_report.json` records the measured pad-mask spacing and manufacturing export hashes. `manufacturing_REVIEW_ONLY/` is for fabricator CAM review, not an order release.

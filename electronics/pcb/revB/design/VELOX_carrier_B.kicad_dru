@@ -1,0 +1,7 @@
+(version 1)
+(rule "PTH annular ring for 1 oz fabrication"
+  (condition "A.Type == 'Pad' && A.Pad_Type == 'Through-hole'")
+  (constraint annular_width (min 0.25mm)))
+(rule "Pad hole spacing"
+  (condition "A.Type == 'Pad' && B.Type == 'Pad'")
+  (constraint hole_to_hole (min 0.45mm)))

@@ -31,3 +31,7 @@ Then perform the bench tests in `README.md`. This package is an engineering
 review prototype, not a fabrication or bike-use release. Charging uses RUN OFF
 with Nano USB unplugged; the board has no onboard BMS, cell-temperature sensing
 or concurrent-use charging power path.
+
+## DFM refinement
+
+See `DFM_REVIEW.md` for the commercial-fabrication and hand-assembly changes, connector tolerance gates and reproduction commands. `dfm_report.json` records the measured pad-mask spacing and manufacturing export hashes. `manufacturing_REVIEW_ONLY/` is for fabricator CAM review, not an order release.
