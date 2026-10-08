@@ -1,0 +1,1 @@
+(fp_lib_table (lib (name "VELOX")(type "KiCad")(uri "${KIPRJMOD}/VELOX.pretty")(options "")(descr "Project footprint copies")))

@@ -1,0 +1,1505 @@
+[
+  {
+    "ref": "U1",
+    "value": "Arduino Nano ESP32",
+    "footprint": "VELOX:Nano_ESP32_ABX00083_Sockets",
+    "library": null,
+    "footprint_name": "Nano_ESP32_ABX00083_Sockets",
+    "x": 39,
+    "y": 8,
+    "angle": 0,
+    "pins": {
+      "1": "SPI_SCK",
+      "2": "3V3",
+      "3": null,
+      "4": "BAT_ADC",
+      "5": null,
+      "6": null,
+      "7": null,
+      "8": null,
+      "9": null,
+      "10": null,
+      "11": null,
+      "12": null,
+      "13": null,
+      "14": "GND",
+      "15": "NANO_7V5",
+      "16": "SPI_MISO",
+      "17": "SPI_MOSI",
+      "18": "RFID_SS",
+      "19": "LED_GREEN_GPIO",
+      "20": "LED_RED_GPIO",
+      "21": null,
+      "22": "BUZZ_GPIO",
+      "23": "SOL_GPIO",
+      "24": "RFID_RST",
+      "25": "WAKE_BTN",
+      "26": "ADMIN_BTN",
+      "27": "GND",
+      "28": null,
+      "29": null,
+      "30": null
+    },
+    "kind": "nano",
+    "names": {
+      "1": "D13",
+      "2": "3V3",
+      "3": "B0",
+      "4": "A0",
+      "5": "A1",
+      "6": "A2",
+      "7": "A3",
+      "8": "A4",
+      "9": "A5",
+      "10": "A6",
+      "11": "A7",
+      "12": "VBUS",
+      "13": "B1",
+      "14": "GND",
+      "15": "VIN",
+      "16": "D12",
+      "17": "D11",
+      "18": "D10",
+      "19": "D9",
+      "20": "D8",
+      "21": "D7",
+      "22": "D6",
+      "23": "D5",
+      "24": "D4",
+      "25": "D3",
+      "26": "D2",
+      "27": "GND",
+      "28": "RESET",
+      "29": "D0",
+      "30": "D1"
+    },
+    "mpn": "ABX00083",
+    "status": "specified; socket part/height open",
+    "note": "Removable two 1x15 female sockets. USB toward board y=0. Never substitute classic Nano.",
+    "custom": {
+      "pads": [
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          2,
+          0,
+          2.54
+        ],
+        [
+          3,
+          0,
+          5.08
+        ],
+        [
+          4,
+          0,
+          7.62
+        ],
+        [
+          5,
+          0,
+          10.16
+        ],
+        [
+          6,
+          0,
+          12.7
+        ],
+        [
+          7,
+          0,
+          15.24
+        ],
+        [
+          8,
+          0,
+          17.78
+        ],
+        [
+          9,
+          0,
+          20.32
+        ],
+        [
+          10,
+          0,
+          22.86
+        ],
+        [
+          11,
+          0,
+          25.4
+        ],
+        [
+          12,
+          0,
+          27.94
+        ],
+        [
+          13,
+          0,
+          30.48
+        ],
+        [
+          14,
+          0,
+          33.02
+        ],
+        [
+          15,
+          0,
+          35.56
+        ],
+        [
+          16,
+          15.24,
+          0
+        ],
+        [
+          17,
+          15.24,
+          2.54
+        ],
+        [
+          18,
+          15.24,
+          5.08
+        ],
+        [
+          19,
+          15.24,
+          7.62
+        ],
+        [
+          20,
+          15.24,
+          10.16
+        ],
+        [
+          21,
+          15.24,
+          12.7
+        ],
+        [
+          22,
+          15.24,
+          15.24
+        ],
+        [
+          23,
+          15.24,
+          17.78
+        ],
+        [
+          24,
+          15.24,
+          20.32
+        ],
+        [
+          25,
+          15.24,
+          22.86
+        ],
+        [
+          26,
+          15.24,
+          25.4
+        ],
+        [
+          27,
+          15.24,
+          27.94
+        ],
+        [
+          28,
+          15.24,
+          30.48
+        ],
+        [
+          29,
+          15.24,
+          33.02
+        ],
+        [
+          30,
+          15.24,
+          35.56
+        ]
+      ],
+      "body": [
+        -1.38,
+        -4,
+        16.62,
+        41
+      ],
+      "pad_mm": 1.7,
+      "drill_mm": 1
+    },
+    "pin_types": {
+      "1": "bidirectional",
+      "2": "power_out",
+      "3": "bidirectional",
+      "4": "bidirectional",
+      "5": "bidirectional",
+      "6": "bidirectional",
+      "7": "bidirectional",
+      "8": "bidirectional",
+      "9": "bidirectional",
+      "10": "bidirectional",
+      "11": "bidirectional",
+      "12": "bidirectional",
+      "13": "bidirectional",
+      "14": "power_in",
+      "15": "power_in",
+      "16": "bidirectional",
+      "17": "bidirectional",
+      "18": "bidirectional",
+      "19": "bidirectional",
+      "20": "bidirectional",
+      "21": "bidirectional",
+      "22": "bidirectional",
+      "23": "bidirectional",
+      "24": "bidirectional",
+      "25": "bidirectional",
+      "26": "bidirectional",
+      "27": "power_in",
+      "28": "bidirectional",
+      "29": "bidirectional",
+      "30": "bidirectional"
+    }
+  },
+  {
+    "ref": "U2",
+    "value": "4.2V charger / 100mA",
+    "footprint": "VELOX:SOT-23-5",
+    "library": "Package_TO_SOT_SMD",
+    "footprint_name": "SOT-23-5",
+    "x": 26,
+    "y": 41,
+    "angle": 0,
+    "pins": {
+      "1": "CHARGE_STAT",
+      "2": "GND",
+      "3": "BAT_PROTECTED",
+      "4": "USB_5V_SAFE",
+      "5": "CHARGE_PROG"
+    },
+    "kind": "module",
+    "names": {
+      "1": "STAT",
+      "2": "VSS",
+      "3": "VBAT",
+      "4": "VDD",
+      "5": "PROG"
+    },
+    "mpn": "MCP73831-2ATI/OT",
+    "status": "specified",
+    "note": "Not a BMS or power-path controller. Existing cell must have qualified protection.",
+    "custom": null,
+    "pin_types": {
+      "1": "tri_state",
+      "2": "power_in",
+      "3": "power_out",
+      "4": "power_in",
+      "5": "passive"
+    }
+  },
+  {
+    "ref": "U3",
+    "value": "6V solenoid boost",
+    "footprint": "VELOX:Pololu_4013_U3V40F6",
+    "library": null,
+    "footprint_name": "Pololu_4013_U3V40F6",
+    "x": 65,
+    "y": 37,
+    "angle": 0,
+    "pins": {
+      "1": "BAT_RUN",
+      "2": "BAT_RUN",
+      "3": "GND",
+      "4": "GND",
+      "5": "COIL_6V",
+      "6": "COIL_6V"
+    },
+    "kind": "module",
+    "names": {
+      "1": "EN",
+      "2": "VIN",
+      "3": "GND",
+      "4": "GND",
+      "5": "VOUT",
+      "6": "VOUT"
+    },
+    "mpn": "Pololu 4013 / U3V40F6",
+    "status": "specified; load qualification pending",
+    "note": "Top-view pads left to right along lower edge. Insulating 2.5mm gap and module retention needed.",
+    "custom": {
+      "pads": [
+        [
+          1,
+          -6.33,
+          6.33
+        ],
+        [
+          2,
+          -3.79,
+          6.33
+        ],
+        [
+          3,
+          -1.25,
+          6.33
+        ],
+        [
+          4,
+          1.29,
+          6.33
+        ],
+        [
+          5,
+          3.83,
+          6.33
+        ],
+        [
+          6,
+          6.369999999999999,
+          6.33
+        ]
+      ],
+      "body": [
+        -7.6,
+        -7.6,
+        7.6,
+        7.6
+      ],
+      "pad_mm": 2,
+      "drill_mm": 1.2
+    },
+    "pin_types": {
+      "1": "input",
+      "2": "power_in",
+      "3": "power_in",
+      "4": "passive",
+      "5": "power_out",
+      "6": "passive"
+    }
+  },
+  {
+    "ref": "U4",
+    "value": "7.5V Nano boost",
+    "footprint": "VELOX:Pololu_4943_U3V16F7",
+    "library": null,
+    "footprint_name": "Pololu_4943_U3V16F7",
+    "x": 20,
+    "y": 21,
+    "angle": 0,
+    "pins": {
+      "1": "BAT_RUN",
+      "2": "GND",
+      "3": "NANO_7V5"
+    },
+    "kind": "module",
+    "names": {
+      "1": "VIN",
+      "2": "GND",
+      "3": "VOUT"
+    },
+    "mpn": "Pololu 4943 / U3V16F7",
+    "status": "specified; load qualification pending",
+    "note": "Top-view body 8.1mm wide x13.1mm tall; pads at lower edge.",
+    "custom": {
+      "pads": [
+        [
+          1,
+          -2.53,
+          5.28
+        ],
+        [
+          2,
+          0.01,
+          5.28
+        ],
+        [
+          3,
+          2.55,
+          5.28
+        ]
+      ],
+      "body": [
+        -4.05,
+        -6.55,
+        4.05,
+        6.55
+      ],
+      "pad_mm": 2,
+      "drill_mm": 1.2
+    },
+    "pin_types": {
+      "1": "power_in",
+      "2": "power_in",
+      "3": "power_out"
+    }
+  },
+  {
+    "ref": "U5",
+    "value": "USB overvoltage protector",
+    "footprint": "VELOX:SOT-23-5",
+    "library": "Package_TO_SOT_SMD",
+    "footprint_name": "SOT-23-5",
+    "x": 22,
+    "y": 49,
+    "angle": 0,
+    "pins": {
+      "1": "USB_VBUS",
+      "2": "GND",
+      "3": "GND",
+      "4": null,
+      "5": "USB_5V_SAFE"
+    },
+    "kind": "module",
+    "names": {
+      "1": "IN",
+      "2": "GND",
+      "3": "EN_n",
+      "4": "FLAG_n_NC",
+      "5": "OUT"
+    },
+    "mpn": "NCP361SNT1G",
+    "status": "specified; footprint/USB transients pending",
+    "note": "Active-low enable grounded. SOT-23-5 footprint must be checked against TSOP-5 package drawing.",
+    "custom": null,
+    "pin_types": {
+      "1": "power_in",
+      "2": "power_in",
+      "3": "input",
+      "4": "open_collector",
+      "5": "power_out"
+    }
+  },
+  {
+    "ref": "J1",
+    "value": "Protected 1S cell",
+    "footprint": "VELOX:Battery_WirePads",
+    "library": null,
+    "footprint_name": "Battery_WirePads",
+    "x": 11,
+    "y": 4,
+    "angle": 0,
+    "pins": {
+      "1": "BAT_PROTECTED",
+      "2": "GND"
+    },
+    "kind": "connector",
+    "names": {
+      "1": "+",
+      "2": "-"
+    },
+    "mpn": "",
+    "status": "existing pigtail; current/polarity open",
+    "note": "Cell protection is external. Verify that old charger was not the only protection.",
+    "custom": {
+      "pads": [
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          2,
+          5,
+          0
+        ]
+      ],
+      "body": null,
+      "pad_mm": 2,
+      "drill_mm": 1.1
+    },
+    "pin_types": {}
+  },
+  {
+    "ref": "F1",
+    "value": "3A candidate fuse",
+    "footprint": "VELOX:Fuse_1206_3216Metric_Pad1.42x1.75mm_HandSolder",
+    "library": "Fuse",
+    "footprint_name": "Fuse_1206_3216Metric_Pad1.42x1.75mm_HandSolder",
+    "x": 12,
+    "y": 10,
+    "angle": 0,
+    "pins": {
+      "1": "BAT_PROTECTED",
+      "2": "BAT_FUSED"
+    },
+    "kind": "R",
+    "names": {},
+    "mpn": "0467003.NR",
+    "status": "candidate; fuse coordination open",
+    "note": "Choose fuse/wire/switch/protection together after inrush and pulse measurements.",
+    "custom": null,
+    "pin_types": {}
+  },
+  {
+    "ref": "J2",
+    "value": "RUN switch / OFF to charge",
+    "footprint": "VELOX:RunSwitch_WirePads",
+    "library": null,
+    "footprint_name": "RunSwitch_WirePads",
+    "x": 29,
+    "y": 6,
+    "angle": 0,
+    "pins": {
+      "1": "BAT_FUSED",
+      "2": "BAT_RUN"
+    },
+    "kind": "connector",
+    "names": {
+      "1": "FUSED",
+      "2": "RUN"
+    },
+    "mpn": "",
+    "status": "exact switch and retention open",
+    "note": "External latching SPST, qualified for measured DC pulse current.",
+    "custom": {
+      "pads": [
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          2,
+          5,
+          0
+        ]
+      ],
+      "body": null,
+      "pad_mm": 2,
+      "drill_mm": 1.1
+    },
+    "pin_types": {}
+  },
+  {
+    "ref": "J3",
+    "value": "USB-C charging only",
+    "footprint": "Connector_USB:USB_C_Receptacle_GCT_USB4125-xx-x_6P_TopMnt_Horizontal",
+    "library": "Connector_USB",
+    "footprint_name": "USB_C_Receptacle_GCT_USB4125-xx-x_6P_TopMnt_Horizontal",
+    "x": 13,
+    "y": 52,
+    "angle": 0,
+    "pins": {
+      "A5": "USB_CC1",
+      "A9": "USB_VBUS",
+      "A12": "GND",
+      "B5": "USB_CC2",
+      "B9": "USB_VBUS",
+      "B12": "GND",
+      "S1": "GND"
+    },
+    "kind": "connector",
+    "names": {
+      "A5": "CC1",
+      "A9": "VBUS",
+      "A12": "GND",
+      "B5": "CC2",
+      "B9": "VBUS",
+      "B12": "GND",
+      "S1": "SHIELD"
+    },
+    "mpn": "USB4125-GF-A",
+    "status": "specified family; exact suffix/stake footprint open",
+    "note": "No data or PD. An additional -0190 footprint exists in current libraries; compare the exact connector drawing and stake geometry rather than assuming the default matches.",
+    "custom": null,
+    "pin_types": {}
+  },
+  {
+    "ref": "J4",
+    "value": "Solenoid",
+    "footprint": "VELOX:JST_XH_B2B-XH-A_1x02_P2.50mm_Vertical",
+    "library": "Connector_JST",
+    "footprint_name": "JST_XH_B2B-XH-A_1x02_P2.50mm_Vertical",
+    "x": 85,
+    "y": 44,
+    "angle": 90,
+    "pins": {
+      "1": "COIL_6V",
+      "2": "COIL_N"
+    },
+    "kind": "connector",
+    "names": {
+      "1": "+",
+      "2": "SWITCHED-"
+    },
+    "mpn": "B2B-XH-A",
+    "status": "specified; mating kit/wire open",
+    "note": "Actual coil voltage/current/duty not confirmed.",
+    "custom": null,
+    "pin_types": {}
+  },
+  {
+    "ref": "J5",
+    "value": "RC522 keyed harness",
+    "footprint": "VELOX:JST_XH_B8B-XH-A_1x08_P2.50mm_Vertical",
+    "library": "Connector_JST",
+    "footprint_name": "JST_XH_B8B-XH-A_1x08_P2.50mm_Vertical",
+    "x": 61,
+    "y": 7,
+    "angle": 0,
+    "pins": {
+      "1": "RFID_SS",
+      "2": "SPI_SCK",
+      "3": "SPI_MOSI",
+      "4": "SPI_MISO",
+      "5": null,
+      "6": "GND",
+      "7": "RFID_RST",
+      "8": "3V3"
+    },
+    "kind": "connector",
+    "names": {
+      "1": "SS",
+      "2": "SCK",
+      "3": "MOSI",
+      "4": "MISO",
+      "5": "IRQ_NC",
+      "6": "GND",
+      "7": "RST",
+      "8": "3V3"
+    },
+    "mpn": "B8B-XH-A",
+    "status": "specified; mating kit open",
+    "note": "Map actual reader silkscreen, not wire colors. JST XH pitch 2.50mm.",
+    "custom": null,
+    "pin_types": {}
+  },
+  {
+    "ref": "J6",
+    "value": "Buttons / LEDs / buzzer",
+    "footprint": "VELOX:JST_PH_B8B-PH-K_1x08_P2.00mm_Vertical",
+    "library": "Connector_JST",
+    "footprint_name": "JST_PH_B8B-PH-K_1x08_P2.00mm_Vertical",
+    "x": 64,
+    "y": 17,
+    "angle": 0,
+    "pins": {
+      "1": "GND",
+      "2": "GND",
+      "3": "WAKE_BTN",
+      "4": "ADMIN_BTN",
+      "5": "LED_RED_A",
+      "6": "LED_GREEN_A",
+      "7": "3V3",
+      "8": "BUZZ_N"
+    },
+    "kind": "connector",
+    "names": {
+      "1": "BTN_GND",
+      "2": "LED_GND",
+      "3": "WAKE_D3",
+      "4": "ADMIN_D2",
+      "5": "RED_A",
+      "6": "GREEN_A",
+      "7": "BUZZ+",
+      "8": "BUZZ-"
+    },
+    "mpn": "B8B-PH-K-S",
+    "status": "specified; mating kit open",
+    "note": "JST PH pitch 2.00mm; mechanically distinct from reader XH harness. Momentary buttons to GND; LED cathodes to GND.",
+    "custom": null,
+    "pin_types": {}
+  },
+  {
+    "ref": "Q1",
+    "value": "AO3400A",
+    "footprint": "VELOX:SOT-23",
+    "library": "Package_TO_SOT_SMD",
+    "footprint_name": "SOT-23",
+    "x": 81,
+    "y": 36,
+    "angle": 0,
+    "pins": {
+      "1": "SOL_GATE",
+      "2": "GND",
+      "3": "COIL_N"
+    },
+    "kind": "mos",
+    "names": {
+      "1": "G",
+      "2": "S",
+      "3": "D"
+    },
+    "mpn": "AO3400A",
+    "status": "specified",
+    "note": "Logic-level Rds(on) specified at 2.5V. Thermal/transient check pending.",
+    "custom": null,
+    "pin_types": {
+      "1": "input",
+      "2": "passive",
+      "3": "passive"
+    }
+  },
+  {
+    "ref": "Q2",
+    "value": "AO3400A",
+    "footprint": "VELOX:SOT-23",
+    "library": "Package_TO_SOT_SMD",
+    "footprint_name": "SOT-23",
+    "x": 59,
+    "y": 22,
+    "angle": 0,
+    "pins": {
+      "1": "BUZZ_GATE",
+      "2": "GND",
+      "3": "BUZZ_N"
+    },
+    "kind": "mos",
+    "names": {
+      "1": "G",
+      "2": "S",
+      "3": "D"
+    },
+    "mpn": "AO3400A",
+    "status": "specified",
+    "note": "",
+    "custom": null,
+    "pin_types": {
+      "1": "input",
+      "2": "passive",
+      "3": "passive"
+    }
+  },
+  {
+    "ref": "R1",
+    "value": "330",
+    "footprint": "VELOX:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder",
+    "library": "Resistor_SMD",
+    "footprint_name": "R_0805_2012Metric_Pad1.20x1.40mm_HandSolder",
+    "x": 77,
+    "y": 34,
+    "angle": 0,
+    "pins": {
+      "1": "SOL_GPIO",
+      "2": "SOL_GATE"
+    },
+    "kind": "R",
+    "names": {},
+    "mpn": "",
+    "status": "select exact manufacturer part",
+    "note": "",
+    "custom": null,
+    "pin_types": {}
+  },
+  {
+    "ref": "R2",
+    "value": "100k",
+    "footprint": "VELOX:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder",
+    "library": "Resistor_SMD",
+    "footprint_name": "R_0805_2012Metric_Pad1.20x1.40mm_HandSolder",
+    "x": 77,
+    "y": 38,
+    "angle": 0,
+    "pins": {
+      "1": "SOL_GATE",
+      "2": "GND"
+    },
+    "kind": "R",
+    "names": {},
+    "mpn": "",
+    "status": "select exact manufacturer part",
+    "note": "",
+    "custom": null,
+    "pin_types": {}
+  },
+  {
+    "ref": "R3",
+    "value": "330",
+    "footprint": "VELOX:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder",
+    "library": "Resistor_SMD",
+    "footprint_name": "R_0805_2012Metric_Pad1.20x1.40mm_HandSolder",
+    "x": 60,
+    "y": 26,
+    "angle": 0,
+    "pins": {
+      "1": "BUZZ_GPIO",
+      "2": "BUZZ_GATE"
+    },
+    "kind": "R",
+    "names": {},
+    "mpn": "",
+    "status": "select exact manufacturer part",
+    "note": "",
+    "custom": null,
+    "pin_types": {}
+  },
+  {
+    "ref": "R4",
+    "value": "100k",
+    "footprint": "VELOX:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder",
+    "library": "Resistor_SMD",
+    "footprint_name": "R_0805_2012Metric_Pad1.20x1.40mm_HandSolder",
+    "x": 65,
+    "y": 26,
+    "angle": 0,
+    "pins": {
+      "1": "BUZZ_GATE",
+      "2": "GND"
+    },
+    "kind": "R",
+    "names": {},
+    "mpn": "",
+    "status": "select exact manufacturer part",
+    "note": "",
+    "custom": null,
+    "pin_types": {}
+  },
+  {
+    "ref": "R5",
+    "value": "220",
+    "footprint": "VELOX:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder",
+    "library": "Resistor_SMD",
+    "footprint_name": "R_0805_2012Metric_Pad1.20x1.40mm_HandSolder",
+    "x": 84,
+    "y": 16,
+    "angle": 0,
+    "pins": {
+      "1": "LED_RED_GPIO",
+      "2": "LED_RED_A"
+    },
+    "kind": "R",
+    "names": {},
+    "mpn": "",
+    "status": "select exact manufacturer part",
+    "note": "",
+    "custom": null,
+    "pin_types": {}
+  },
+  {
+    "ref": "R6",
+    "value": "220",
+    "footprint": "VELOX:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder",
+    "library": "Resistor_SMD",
+    "footprint_name": "R_0805_2012Metric_Pad1.20x1.40mm_HandSolder",
+    "x": 84,
+    "y": 20,
+    "angle": 0,
+    "pins": {
+      "1": "LED_GREEN_GPIO",
+      "2": "LED_GREEN_A"
+    },
+    "kind": "R",
+    "names": {},
+    "mpn": "",
+    "status": "select exact manufacturer part",
+    "note": "",
+    "custom": null,
+    "pin_types": {}
+  },
+  {
+    "ref": "R7",
+    "value": "100k 1%",
+    "footprint": "VELOX:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder",
+    "library": "Resistor_SMD",
+    "footprint_name": "R_0805_2012Metric_Pad1.20x1.40mm_HandSolder",
+    "x": 31,
+    "y": 22,
+    "angle": 90,
+    "pins": {
+      "1": "BAT_RUN",
+      "2": "BAT_ADC"
+    },
+    "kind": "R",
+    "names": {},
+    "mpn": "",
+    "status": "select exact manufacturer part",
+    "note": "",
+    "custom": null,
+    "pin_types": {}
+  },
+  {
+    "ref": "R8",
+    "value": "100k 1%",
+    "footprint": "VELOX:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder",
+    "library": "Resistor_SMD",
+    "footprint_name": "R_0805_2012Metric_Pad1.20x1.40mm_HandSolder",
+    "x": 31,
+    "y": 29,
+    "angle": 90,
+    "pins": {
+      "1": "BAT_ADC",
+      "2": "GND"
+    },
+    "kind": "R",
+    "names": {},
+    "mpn": "",
+    "status": "select exact manufacturer part",
+    "note": "",
+    "custom": null,
+    "pin_types": {}
+  },
+  {
+    "ref": "R9",
+    "value": "5.1k 1%",
+    "footprint": "VELOX:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder",
+    "library": "Resistor_SMD",
+    "footprint_name": "R_0805_2012Metric_Pad1.20x1.40mm_HandSolder",
+    "x": 9,
+    "y": 43,
+    "angle": 0,
+    "pins": {
+      "1": "USB_CC1",
+      "2": "GND"
+    },
+    "kind": "R",
+    "names": {},
+    "mpn": "",
+    "status": "select exact manufacturer part",
+    "note": "",
+    "custom": null,
+    "pin_types": {}
+  },
+  {
+    "ref": "R10",
+    "value": "5.1k 1%",
+    "footprint": "VELOX:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder",
+    "library": "Resistor_SMD",
+    "footprint_name": "R_0805_2012Metric_Pad1.20x1.40mm_HandSolder",
+    "x": 15,
+    "y": 43,
+    "angle": 0,
+    "pins": {
+      "1": "USB_CC2",
+      "2": "GND"
+    },
+    "kind": "R",
+    "names": {},
+    "mpn": "",
+    "status": "select exact manufacturer part",
+    "note": "",
+    "custom": null,
+    "pin_types": {}
+  },
+  {
+    "ref": "R11",
+    "value": "10k 1%",
+    "footprint": "VELOX:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder",
+    "library": "Resistor_SMD",
+    "footprint_name": "R_0805_2012Metric_Pad1.20x1.40mm_HandSolder",
+    "x": 32,
+    "y": 38,
+    "angle": 0,
+    "pins": {
+      "1": "CHARGE_PROG",
+      "2": "GND"
+    },
+    "kind": "R",
+    "names": {},
+    "mpn": "",
+    "status": "select exact manufacturer part",
+    "note": "100mA charge target from MCP73831 I_REG=1000/R_kohm.",
+    "custom": null,
+    "pin_types": {}
+  },
+  {
+    "ref": "R12",
+    "value": "2.2k",
+    "footprint": "VELOX:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder",
+    "library": "Resistor_SMD",
+    "footprint_name": "R_0805_2012Metric_Pad1.20x1.40mm_HandSolder",
+    "x": 26,
+    "y": 45,
+    "angle": 0,
+    "pins": {
+      "1": "USB_5V_SAFE",
+      "2": "CHARGE_LED_A"
+    },
+    "kind": "R",
+    "names": {},
+    "mpn": "",
+    "status": "select exact manufacturer part",
+    "note": "",
+    "custom": null,
+    "pin_types": {}
+  },
+  {
+    "ref": "C1",
+    "value": "470u 10V",
+    "footprint": "VELOX:CP_Radial_D8.0mm_P3.50mm",
+    "library": "Capacitor_THT",
+    "footprint_name": "CP_Radial_D8.0mm_P3.50mm",
+    "x": 81,
+    "y": 27,
+    "angle": 0,
+    "pins": {
+      "1": "COIL_6V",
+      "2": "GND"
+    },
+    "kind": "CP",
+    "names": {
+      "1": "+",
+      "2": "-"
+    },
+    "mpn": "EEUFR1A471",
+    "status": "specified; transient qualification pending",
+    "note": "D8 x11.5 high, P3.5. Reserve 13mm above board including installation allowance.",
+    "custom": null,
+    "pin_types": {}
+  },
+  {
+    "ref": "C2",
+    "value": "1u 25V",
+    "footprint": "VELOX:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder",
+    "library": "Capacitor_SMD",
+    "footprint_name": "C_0805_2012Metric_Pad1.18x1.45mm_HandSolder",
+    "x": 76,
+    "y": 26,
+    "angle": 0,
+    "pins": {
+      "1": "COIL_6V",
+      "2": "GND"
+    },
+    "kind": "C",
+    "names": {},
+    "mpn": "",
+    "status": "select exact manufacturer part",
+    "note": "",
+    "custom": null,
+    "pin_types": {}
+  },
+  {
+    "ref": "C3",
+    "value": "10u 25V",
+    "footprint": "VELOX:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder",
+    "library": "Capacitor_SMD",
+    "footprint_name": "C_0805_2012Metric_Pad1.18x1.45mm_HandSolder",
+    "x": 32,
+    "y": 15,
+    "angle": 0,
+    "pins": {
+      "1": "NANO_7V5",
+      "2": "GND"
+    },
+    "kind": "C",
+    "names": {},
+    "mpn": "",
+    "status": "select exact manufacturer part",
+    "note": "",
+    "custom": null,
+    "pin_types": {}
+  },
+  {
+    "ref": "C4",
+    "value": "100n 16V",
+    "footprint": "VELOX:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder",
+    "library": "Capacitor_SMD",
+    "footprint_name": "C_0805_2012Metric_Pad1.18x1.45mm_HandSolder",
+    "x": 83.5,
+    "y": 9.25,
+    "angle": 0,
+    "pins": {
+      "1": "3V3",
+      "2": "GND"
+    },
+    "kind": "C",
+    "names": {},
+    "mpn": "",
+    "status": "select exact manufacturer part",
+    "note": "",
+    "custom": null,
+    "pin_types": {}
+  },
+  {
+    "ref": "C5",
+    "value": "10u 10V",
+    "footprint": "VELOX:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder",
+    "library": "Capacitor_SMD",
+    "footprint_name": "C_0805_2012Metric_Pad1.18x1.45mm_HandSolder",
+    "x": 83.5,
+    "y": 12,
+    "angle": 0,
+    "pins": {
+      "1": "3V3",
+      "2": "GND"
+    },
+    "kind": "C",
+    "names": {},
+    "mpn": "",
+    "status": "select exact manufacturer part",
+    "note": "",
+    "custom": null,
+    "pin_types": {}
+  },
+  {
+    "ref": "C6",
+    "value": "100n 16V",
+    "footprint": "VELOX:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder",
+    "library": "Capacitor_SMD",
+    "footprint_name": "C_0805_2012Metric_Pad1.18x1.45mm_HandSolder",
+    "x": 35,
+    "y": 29,
+    "angle": 90,
+    "pins": {
+      "1": "BAT_ADC",
+      "2": "GND"
+    },
+    "kind": "C",
+    "names": {},
+    "mpn": "",
+    "status": "select exact manufacturer part",
+    "note": "",
+    "custom": null,
+    "pin_types": {}
+  },
+  {
+    "ref": "C8",
+    "value": "100u 10V",
+    "footprint": "VELOX:CP_Radial_D5.0mm_P2.00mm",
+    "library": "Capacitor_THT",
+    "footprint_name": "CP_Radial_D5.0mm_P2.00mm",
+    "x": 63,
+    "y": 50,
+    "angle": 0,
+    "pins": {
+      "1": "BAT_RUN",
+      "2": "GND"
+    },
+    "kind": "CP",
+    "names": {
+      "1": "+",
+      "2": "-"
+    },
+    "mpn": "EEUFR1A101",
+    "status": "specified; input transient qualification pending",
+    "note": "D5 x11mm high, P2. Reserve 12.5mm.",
+    "custom": null,
+    "pin_types": {}
+  },
+  {
+    "ref": "C9",
+    "value": "4.7u 50V",
+    "footprint": "VELOX:C_1206_3216Metric_Pad1.33x1.80mm_HandSolder",
+    "library": "Capacitor_SMD",
+    "footprint_name": "C_1206_3216Metric_Pad1.33x1.80mm_HandSolder",
+    "x": 20,
+    "y": 44,
+    "angle": 0,
+    "pins": {
+      "1": "USB_VBUS",
+      "2": "GND"
+    },
+    "kind": "C",
+    "names": {},
+    "mpn": "",
+    "status": "exact MPN / DC bias open",
+    "note": "Require >=1uF effective at 20V and verify USB hot-plug overshoot.",
+    "custom": null,
+    "pin_types": {}
+  },
+  {
+    "ref": "C10",
+    "value": "10u 25V",
+    "footprint": "VELOX:C_1206_3216Metric_Pad1.33x1.80mm_HandSolder",
+    "library": "Capacitor_SMD",
+    "footprint_name": "C_1206_3216Metric_Pad1.33x1.80mm_HandSolder",
+    "x": 26,
+    "y": 52,
+    "angle": 0,
+    "pins": {
+      "1": "USB_5V_SAFE",
+      "2": "GND"
+    },
+    "kind": "C",
+    "names": {},
+    "mpn": "",
+    "status": "exact MPN / DC bias open",
+    "note": "Require >=4.7uF effective at 5.9V.",
+    "custom": null,
+    "pin_types": {}
+  },
+  {
+    "ref": "C11",
+    "value": "10u 25V",
+    "footprint": "VELOX:C_1206_3216Metric_Pad1.33x1.80mm_HandSolder",
+    "library": "Capacitor_SMD",
+    "footprint_name": "C_1206_3216Metric_Pad1.33x1.80mm_HandSolder",
+    "x": 27,
+    "y": 35,
+    "angle": 0,
+    "pins": {
+      "1": "BAT_PROTECTED",
+      "2": "GND"
+    },
+    "kind": "C",
+    "names": {},
+    "mpn": "",
+    "status": "exact MPN / DC bias open",
+    "note": "Require >=4.7uF effective at 4.2V.",
+    "custom": null,
+    "pin_types": {}
+  },
+  {
+    "ref": "D1",
+    "value": "SS34",
+    "footprint": "VELOX:D_SMA",
+    "library": "Diode_SMD",
+    "footprint_name": "D_SMA",
+    "x": 78,
+    "y": 49,
+    "angle": 0,
+    "pins": {
+      "1": "COIL_6V",
+      "2": "COIL_N"
+    },
+    "kind": "diode",
+    "names": {
+      "1": "K",
+      "2": "A"
+    },
+    "mpn": "",
+    "status": "choose exact SS34 manufacturer",
+    "note": "Cathode/band to +6V. Measure actual latch release time.",
+    "custom": null,
+    "pin_types": {}
+  },
+  {
+    "ref": "D2",
+    "value": "SS14",
+    "footprint": "VELOX:D_SMA",
+    "library": "Diode_SMD",
+    "footprint_name": "D_SMA",
+    "x": 69,
+    "y": 23,
+    "angle": 0,
+    "pins": {
+      "1": "3V3",
+      "2": "BUZZ_N"
+    },
+    "kind": "diode",
+    "names": {
+      "1": "K",
+      "2": "A"
+    },
+    "mpn": "",
+    "status": "choose exact SS14 manufacturer",
+    "note": "",
+    "custom": null,
+    "pin_types": {}
+  },
+  {
+    "ref": "D3",
+    "value": "CHARGE LED",
+    "footprint": "VELOX:LED_0805_2012Metric_Pad1.15x1.40mm_HandSolder",
+    "library": "LED_SMD",
+    "footprint_name": "LED_0805_2012Metric_Pad1.15x1.40mm_HandSolder",
+    "x": 31,
+    "y": 46,
+    "angle": 0,
+    "pins": {
+      "1": "CHARGE_STAT",
+      "2": "CHARGE_LED_A"
+    },
+    "kind": "diode",
+    "names": {
+      "1": "K",
+      "2": "A"
+    },
+    "mpn": "",
+    "status": "select LED Vf/current",
+    "note": "STAT is tri-state; indicator lit only while charging.",
+    "custom": null,
+    "pin_types": {}
+  },
+  {
+    "ref": "TP1",
+    "value": "BAT_RUN",
+    "footprint": "VELOX:TestPoint_Pad_D2.0mm",
+    "library": "TestPoint",
+    "footprint_name": "TestPoint_Pad_D2.0mm",
+    "x": 33,
+    "y": 35,
+    "angle": 0,
+    "pins": {
+      "1": "BAT_RUN"
+    },
+    "kind": "test",
+    "names": {},
+    "mpn": "",
+    "status": "proposed",
+    "note": "",
+    "custom": null,
+    "pin_types": {}
+  },
+  {
+    "ref": "TP2",
+    "value": "COIL_6V",
+    "footprint": "VELOX:TestPoint_Pad_D2.0mm",
+    "library": "TestPoint",
+    "footprint_name": "TestPoint_Pad_D2.0mm",
+    "x": 77,
+    "y": 43,
+    "angle": 0,
+    "pins": {
+      "1": "COIL_6V"
+    },
+    "kind": "test",
+    "names": {},
+    "mpn": "",
+    "status": "proposed",
+    "note": "",
+    "custom": null,
+    "pin_types": {}
+  },
+  {
+    "ref": "TP3",
+    "value": "NANO_7V5",
+    "footprint": "VELOX:TestPoint_Pad_D2.0mm",
+    "library": "TestPoint",
+    "footprint_name": "TestPoint_Pad_D2.0mm",
+    "x": 35,
+    "y": 40,
+    "angle": 0,
+    "pins": {
+      "1": "NANO_7V5"
+    },
+    "kind": "test",
+    "names": {},
+    "mpn": "",
+    "status": "proposed",
+    "note": "",
+    "custom": null,
+    "pin_types": {}
+  },
+  {
+    "ref": "TP4",
+    "value": "3V3",
+    "footprint": "VELOX:TestPoint_Pad_D2.0mm",
+    "library": "TestPoint",
+    "footprint_name": "TestPoint_Pad_D2.0mm",
+    "x": 59,
+    "y": 17,
+    "angle": 0,
+    "pins": {
+      "1": "3V3"
+    },
+    "kind": "test",
+    "names": {},
+    "mpn": "",
+    "status": "proposed",
+    "note": "",
+    "custom": null,
+    "pin_types": {}
+  },
+  {
+    "ref": "TP5",
+    "value": "GND",
+    "footprint": "VELOX:TestPoint_Pad_D2.0mm",
+    "library": "TestPoint",
+    "footprint_name": "TestPoint_Pad_D2.0mm",
+    "x": 80,
+    "y": 53.25,
+    "angle": 0,
+    "pins": {
+      "1": "GND"
+    },
+    "kind": "test",
+    "names": {},
+    "mpn": "",
+    "status": "proposed",
+    "note": "",
+    "custom": null,
+    "pin_types": {}
+  },
+  {
+    "ref": "TP6",
+    "value": "BAT_ADC",
+    "footprint": "VELOX:TestPoint_Pad_D2.0mm",
+    "library": "TestPoint",
+    "footprint_name": "TestPoint_Pad_D2.0mm",
+    "x": 35,
+    "y": 22,
+    "angle": 0,
+    "pins": {
+      "1": "BAT_ADC"
+    },
+    "kind": "test",
+    "names": {},
+    "mpn": "",
+    "status": "proposed",
+    "note": "",
+    "custom": null,
+    "pin_types": {}
+  },
+  {
+    "ref": "H1",
+    "value": "M3 NPTH",
+    "footprint": "VELOX:MountingHole_3.2mm_M3",
+    "library": "MountingHole",
+    "footprint_name": "MountingHole_3.2mm_M3",
+    "x": 4,
+    "y": 4,
+    "angle": 0,
+    "pins": {},
+    "kind": "hole",
+    "names": {},
+    "mpn": "",
+    "status": "proposed mounting",
+    "note": "3.2mm hole; reserve 6mm driver access cylinder.",
+    "custom": null,
+    "pin_types": {}
+  },
+  {
+    "ref": "H2",
+    "value": "M3 NPTH",
+    "footprint": "VELOX:MountingHole_3.2mm_M3",
+    "library": "MountingHole",
+    "footprint_name": "MountingHole_3.2mm_M3",
+    "x": 86,
+    "y": 4,
+    "angle": 0,
+    "pins": {},
+    "kind": "hole",
+    "names": {},
+    "mpn": "",
+    "status": "proposed mounting",
+    "note": "3.2mm hole; reserve 6mm driver access cylinder.",
+    "custom": null,
+    "pin_types": {}
+  },
+  {
+    "ref": "H3",
+    "value": "M3 NPTH",
+    "footprint": "VELOX:MountingHole_3.2mm_M3",
+    "library": "MountingHole",
+    "footprint_name": "MountingHole_3.2mm_M3",
+    "x": 4,
+    "y": 51,
+    "angle": 0,
+    "pins": {},
+    "kind": "hole",
+    "names": {},
+    "mpn": "",
+    "status": "proposed mounting",
+    "note": "3.2mm hole; reserve 6mm driver access cylinder.",
+    "custom": null,
+    "pin_types": {}
+  },
+  {
+    "ref": "H4",
+    "value": "M3 NPTH",
+    "footprint": "VELOX:MountingHole_3.2mm_M3",
+    "library": "MountingHole",
+    "footprint_name": "MountingHole_3.2mm_M3",
+    "x": 86,
+    "y": 51,
+    "angle": 0,
+    "pins": {},
+    "kind": "hole",
+    "names": {},
+    "mpn": "",
+    "status": "proposed mounting",
+    "note": "3.2mm hole; reserve 6mm driver access cylinder.",
+    "custom": null,
+    "pin_types": {}
+  }
+]

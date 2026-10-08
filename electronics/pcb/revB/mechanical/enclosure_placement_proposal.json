@@ -1,0 +1,181 @@
+{
+  "status": "PLACEMENT_PROPOSAL_ONLY_NOT_ENCLOSURE_RELEASE",
+  "units": "mm",
+  "coordinate_system": "Rev3g assembly axes; carrier uses global offset below",
+  "board_origin": [
+    11,
+    35.5,
+    42
+  ],
+  "board_size": [
+    90,
+    55,
+    1.6
+  ],
+  "proposed_mount_axes": [
+    [
+      15,
+      39.5
+    ],
+    [
+      97,
+      39.5
+    ],
+    [
+      15,
+      86.5
+    ],
+    [
+      97,
+      86.5
+    ]
+  ],
+  "tool_clearance_diameter": 6,
+  "reserved_height_above_PCB_top": {
+    "Nano_with_sockets": 14,
+    "U3_module_with_insulating_gap": 8.1,
+    "U4_module_with_insulating_gap": 5.5,
+    "C1": 13,
+    "C8": 12.5
+  },
+  "fixed_envelopes": {
+    "battery": {
+      "min": [
+        110,
+        0,
+        40
+      ],
+      "max": [
+        160,
+        34,
+        50.5
+      ]
+    },
+    "solenoid_frame": {
+      "min": [
+        24.5,
+        -11,
+        43.5
+      ],
+      "max": [
+        54.5,
+        3,
+        60.5
+      ]
+    },
+    "latch_guide": {
+      "min": [
+        63,
+        -14,
+        52
+      ],
+      "max": [
+        101,
+        11,
+        70
+      ]
+    }
+  },
+  "proposed_lid_parts": {
+    "reader_rotated": {
+      "min": [
+        119,
+        30,
+        61
+      ],
+      "max": [
+        158,
+        90,
+        65.5
+      ]
+    },
+    "reader_antenna_assumption": {
+      "min": [
+        119,
+        50,
+        61
+      ],
+      "max": [
+        158,
+        90,
+        65.5
+      ]
+    },
+    "wake_button": {
+      "centre_xy": [
+        110,
+        44
+      ],
+      "diameter": 12,
+      "z_range": [
+        55,
+        70
+      ]
+    },
+    "cancel_button": {
+      "centre_xy": [
+        110,
+        70
+      ],
+      "diameter": 12,
+      "z_range": [
+        55,
+        70
+      ]
+    },
+    "buzzer": {
+      "centre_xy": [
+        136,
+        18
+      ],
+      "diameter": 12,
+      "z_range": [
+        61,
+        70
+      ]
+    },
+    "red_LED_xy": [
+      84,
+      36
+    ],
+    "green_LED_xy": [
+      96,
+      36
+    ]
+  },
+  "rear_USB_opening_proposal": {
+    "min": [
+      18,
+      90.5,
+      42.5
+    ],
+    "max": [
+      30,
+      94.1,
+      49.5
+    ],
+    "note": "Connector clearance concept only. Actual cable overmould, approach and mating depth must determine final aperture."
+  },
+  "assembly_sequence_proposal": [
+    "Remove lid and modules/old holders; install redesigned insulated standoffs.",
+    "Lower bare carrier onto four standoffs; access all board screws before installing lid harness.",
+    "Install retained boost modules and removable Nano with correct header/socket orientation.",
+    "Install protected battery and solenoid using the existing rev3g clearance work.",
+    "Mate coil/reader/panel harnesses with slack and strain relief; keep them outside latch travel.",
+    "Check actual USB mating, lid closure, screw tools and full solenoid stroke; fit seals/port cover."
+  ],
+  "not_modelled": [
+    "Actual RUN switch and its mounting/pins",
+    "Chosen Nano socket/header lengths and retention",
+    "Mating connector housings, wire bending, reader cable, battery pigtail and solder fillets",
+    "Actual reader/component height variations and RF range",
+    "Full insertion sweeps through housing walls and port",
+    "Enclosure seals and cable strain relief",
+    "Underside solder-tail, pin and fastener clearances against the real enclosure floor"
+  ],
+  "release_notes": [
+    "Existing enclosure CAD has not been modified for this carrier.",
+    "The earlier local envelope work was interrupted and its report is not included as final evidence.",
+    "No assembled-fit, insertion, waterproofing or printable-case release is claimed."
+  ]
+}
