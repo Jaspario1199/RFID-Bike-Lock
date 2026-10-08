@@ -1,0 +1,17 @@
+{
+  "status": "PASS",
+  "STEP_valid": true,
+  "STEP_solids": 1,
+  "dimensions_mm": [
+    90.0,
+    55.0,
+    1.6
+  ],
+  "STEP_volume_mm3": 7868.528145963583,
+  "analytical_volume_mm3": 7868.528145963585,
+  "STL_triangles": 2044,
+  "nonmanifold_edges": 0,
+  "STL_signed_volume_mm3": 7868.549476983233,
+  "nominal_hole_diameter_mm": 3.2,
+  "purpose": "Nonfunctional outline and mounting-hole fit coupon only; not a PCB or populated-assembly fit test."
+}

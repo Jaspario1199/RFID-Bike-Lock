@@ -1,0 +1,5 @@
+Summary of native KiCad JSON reports; see drc.json and erc.json for original reports.
+DRC violations: 0
+unconnected pads: 0
+schematic parity issues: 0
+ERC violations: 0

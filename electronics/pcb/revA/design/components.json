@@ -1,0 +1,698 @@
+[
+  {
+    "ref": "U2",
+    "value": "Protected TP4056 MODULE",
+    "footprint": "VELOX:TP4056_WireMounted",
+    "pins": {
+      "1": "CELL_P",
+      "2": "CELL_N",
+      "3": "PROTECTED_BAT",
+      "4": "GND"
+    },
+    "kind": "module",
+    "names": {
+      "1": "B+",
+      "2": "B-",
+      "3": "OUT+",
+      "4": "OUT-"
+    },
+    "x": 21,
+    "y": 17,
+    "angle": 0,
+    "note": "USB-C on module. Insulated mount + four short wires. Charge only with RUN switch OFF; verify module and cell."
+  },
+  {
+    "ref": "U3",
+    "value": "MT3608 MODULE / QUALIFY",
+    "footprint": "VELOX:MT3608_WireMounted",
+    "pins": {
+      "1": "BAT_RUN",
+      "2": "GND",
+      "3": "COIL_6V",
+      "4": "GND"
+    },
+    "kind": "module",
+    "names": {
+      "1": "IN+",
+      "2": "IN-",
+      "3": "OUT+",
+      "4": "OUT-"
+    },
+    "x": 22,
+    "y": 43,
+    "angle": 0,
+    "note": "Set unloaded before connecting. 6.0 V target; actual loaded capacity and Nano VIN minimum are release blockers."
+  },
+  {
+    "ref": "J1",
+    "value": "BATTERY 1S / POLARITY",
+    "footprint": "VELOX:Battery_WirePads",
+    "pins": {
+      "1": "CELL_P",
+      "2": "CELL_N"
+    },
+    "kind": "connector",
+    "names": {
+      "1": "+",
+      "2": "-"
+    },
+    "x": 18,
+    "y": 4,
+    "angle": 0,
+    "note": "Protected 1S 4.2 V maximum cell; retain its existing pigtail, verify polarity/current."
+  },
+  {
+    "ref": "F1",
+    "value": "3 A provisional",
+    "footprint": "VELOX:Fuse_1206_3216Metric_Pad1.42x1.75mm_HandSolder",
+    "pins": {
+      "1": "PROTECTED_BAT",
+      "2": "FUSED_BAT"
+    },
+    "kind": "R",
+    "names": {},
+    "x": 43,
+    "y": 11,
+    "angle": 0,
+    "note": "Select exact fuse after pulse/inrush and battery qualification. Not a substitute for battery protection."
+  },
+  {
+    "ref": "J11",
+    "value": "RUN SWITCH / OFF TO CHARGE",
+    "footprint": "VELOX:RunSwitch_WirePads",
+    "pins": {
+      "1": "FUSED_BAT",
+      "2": "BAT_RUN"
+    },
+    "kind": "connector",
+    "names": {
+      "1": "FUSED",
+      "2": "RUN"
+    },
+    "x": 46,
+    "y": 57,
+    "angle": 0,
+    "note": "External latching SPST rated >=3 A DC. Disconnect Nano USB when charging."
+  },
+  {
+    "ref": "U1",
+    "value": "Arduino Nano ESP32 ABX00083",
+    "footprint": "VELOX:Nano_ESP32_ABX00083_Sockets",
+    "pins": {
+      "1": "SPI_SCK",
+      "2": "3V3",
+      "3": null,
+      "4": "BAT_ADC",
+      "5": null,
+      "6": null,
+      "7": null,
+      "8": null,
+      "9": null,
+      "10": null,
+      "11": null,
+      "12": null,
+      "13": null,
+      "14": "GND",
+      "15": "COIL_6V",
+      "16": "SPI_MISO",
+      "17": "SPI_MOSI",
+      "18": "RFID_SS",
+      "19": "LED_GREEN_GPIO",
+      "20": "LED_RED_GPIO",
+      "21": null,
+      "22": "BUZZ_GPIO",
+      "23": "SOL_GPIO",
+      "24": "RFID_RST",
+      "25": "WAKE_BTN",
+      "26": "ADMIN_BTN",
+      "27": "GND",
+      "28": null,
+      "29": null,
+      "30": null
+    },
+    "kind": "nano",
+    "names": {
+      "1": "D13",
+      "2": "3V3",
+      "3": "B0",
+      "4": "A0",
+      "5": "A1",
+      "6": "A2",
+      "7": "A3",
+      "8": "A4",
+      "9": "A5",
+      "10": "A6",
+      "11": "A7",
+      "12": "VBUS",
+      "13": "B1",
+      "14": "GND",
+      "15": "VIN",
+      "16": "D12",
+      "17": "D11",
+      "18": "D10",
+      "19": "D9",
+      "20": "D8",
+      "21": "D7",
+      "22": "D6",
+      "23": "D5",
+      "24": "D4",
+      "25": "D3",
+      "26": "D2",
+      "27": "GND",
+      "28": "RESET",
+      "29": "D0",
+      "30": "D1"
+    },
+    "x": 55,
+    "y": 8,
+    "angle": 0,
+    "note": "Two 1x15 female sockets, 2.54 pitch, 15.24 row spacing. USB at top. Nano ESP32 only; VBUS/B0/B1 unused."
+  },
+  {
+    "ref": "J5",
+    "value": "RC522 / CUSTOM HARNESS",
+    "footprint": "VELOX:JST_XH_B8B-XH-A_1x08_P2.50mm_Vertical",
+    "pins": {
+      "1": "RFID_SS",
+      "2": "SPI_SCK",
+      "3": "SPI_MOSI",
+      "4": "SPI_MISO",
+      "5": null,
+      "6": "GND",
+      "7": "RFID_RST",
+      "8": "3V3"
+    },
+    "kind": "connector",
+    "names": {
+      "1": "SS",
+      "2": "SCK",
+      "3": "MOSI",
+      "4": "MISO",
+      "5": "IRQ_NC",
+      "6": "GND",
+      "7": "RST",
+      "8": "3V3"
+    },
+    "x": 79,
+    "y": 8,
+    "angle": 0,
+    "note": "Map by RC522 silkscreen, not cable colors. Reader mounted separately near plastic lid. No copper behind antenna."
+  },
+  {
+    "ref": "J6",
+    "value": "WAKE / GREEN",
+    "footprint": "VELOX:JST_XH_B2B-XH-A_1x02_P2.50mm_Vertical",
+    "pins": {
+      "1": "WAKE_BTN",
+      "2": "GND"
+    },
+    "kind": "connector",
+    "names": {},
+    "x": 104,
+    "y": 18,
+    "angle": 90,
+    "note": "Verify external component voltage/polarity; momentary buttons normally open to ground."
+  },
+  {
+    "ref": "J7",
+    "value": "CANCEL / RED",
+    "footprint": "VELOX:JST_XH_B2B-XH-A_1x02_P2.50mm_Vertical",
+    "pins": {
+      "1": "ADMIN_BTN",
+      "2": "GND"
+    },
+    "kind": "connector",
+    "names": {},
+    "x": 104,
+    "y": 27,
+    "angle": 90,
+    "note": "Verify external component voltage/polarity; momentary buttons normally open to ground."
+  },
+  {
+    "ref": "J8",
+    "value": "RED LED",
+    "footprint": "VELOX:JST_XH_B2B-XH-A_1x02_P2.50mm_Vertical",
+    "pins": {
+      "1": "LED_RED_A",
+      "2": "GND"
+    },
+    "kind": "connector",
+    "names": {},
+    "x": 104,
+    "y": 36,
+    "angle": 90,
+    "note": "Verify external part current, polarity and voltage."
+  },
+  {
+    "ref": "J9",
+    "value": "GREEN LED",
+    "footprint": "VELOX:JST_XH_B2B-XH-A_1x02_P2.50mm_Vertical",
+    "pins": {
+      "1": "LED_GREEN_A",
+      "2": "GND"
+    },
+    "kind": "connector",
+    "names": {},
+    "x": 104,
+    "y": 45,
+    "angle": 90,
+    "note": "Verify external part current, polarity and voltage."
+  },
+  {
+    "ref": "J10",
+    "value": "BUZZER / 3.3 V ACTIVE",
+    "footprint": "VELOX:JST_XH_B2B-XH-A_1x02_P2.50mm_Vertical",
+    "pins": {
+      "1": "3V3",
+      "2": "BUZZ_N"
+    },
+    "kind": "connector",
+    "names": {},
+    "x": 104,
+    "y": 54,
+    "angle": 90,
+    "note": "Verify external part current, polarity and voltage."
+  },
+  {
+    "ref": "J4",
+    "value": "SOLENOID 6 V / VERIFY",
+    "footprint": "VELOX:JST_XH_B2B-XH-A_1x02_P2.50mm_Vertical",
+    "pins": {
+      "1": "COIL_6V",
+      "2": "COIL_N"
+    },
+    "kind": "connector",
+    "names": {
+      "1": "+",
+      "2": "SWITCHED-"
+    },
+    "x": 88,
+    "y": 59,
+    "angle": 0,
+    "note": "Actual coil voltage/current and pulse rating must be verified. Assumed 6 V ~1 A from BENCH_BUILD, not BOM 300 mA."
+  },
+  {
+    "ref": "Q1",
+    "value": "AO3400A",
+    "footprint": "VELOX:SOT-23",
+    "pins": {
+      "1": "SOL_GATE",
+      "2": "GND",
+      "3": "COIL_N"
+    },
+    "kind": "mos",
+    "names": {
+      "1": "G",
+      "2": "S",
+      "3": "D"
+    },
+    "x": 87,
+    "y": 47,
+    "angle": 0,
+    "note": "AOS AO3400A specified Rds(on) at 2.5 V. Pin 1 G, 2 S, 3 D. Check pulse thermal and voltage transient."
+  },
+  {
+    "ref": "R1",
+    "value": "100",
+    "footprint": "VELOX:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder",
+    "pins": {
+      "1": "SOL_GPIO",
+      "2": "SOL_GATE"
+    },
+    "kind": "R",
+    "names": {},
+    "x": 80,
+    "y": 45,
+    "angle": 0,
+    "note": ""
+  },
+  {
+    "ref": "R2",
+    "value": "100k",
+    "footprint": "VELOX:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder",
+    "pins": {
+      "1": "SOL_GATE",
+      "2": "GND"
+    },
+    "kind": "R",
+    "names": {},
+    "x": 80,
+    "y": 49,
+    "angle": 0,
+    "note": ""
+  },
+  {
+    "ref": "D1",
+    "value": "SS34",
+    "footprint": "VELOX:D_SMA",
+    "pins": {
+      "1": "COIL_6V",
+      "2": "COIL_N"
+    },
+    "kind": "diode",
+    "names": {
+      "1": "K",
+      "2": "A"
+    },
+    "x": 88,
+    "y": 52,
+    "angle": 0,
+    "note": "Flyback cathode/band to COIL_6V. SMA package. Validate release time with real spring/latch."
+  },
+  {
+    "ref": "C1",
+    "value": "1000u / 16V",
+    "footprint": "VELOX:CP_Radial_D10.0mm_P5.00mm",
+    "pins": {
+      "1": "COIL_6V",
+      "2": "GND"
+    },
+    "kind": "CP",
+    "names": {},
+    "x": 87,
+    "y": 36,
+    "angle": 0,
+    "note": "Provisional radial D10 P5, maximum height 20 mm; exact capacitor required before order."
+  },
+  {
+    "ref": "C2",
+    "value": "1u / 25V",
+    "footprint": "VELOX:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder",
+    "pins": {
+      "1": "COIL_6V",
+      "2": "GND"
+    },
+    "kind": "C",
+    "names": {},
+    "x": 81,
+    "y": 40,
+    "angle": 0,
+    "note": ""
+  },
+  {
+    "ref": "C3",
+    "value": "10u / 25V",
+    "footprint": "VELOX:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder",
+    "pins": {
+      "1": "COIL_6V",
+      "2": "GND"
+    },
+    "kind": "C",
+    "names": {},
+    "x": 49,
+    "y": 44,
+    "angle": 0,
+    "note": ""
+  },
+  {
+    "ref": "C4",
+    "value": "100n / 16V",
+    "footprint": "VELOX:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder",
+    "pins": {
+      "1": "3V3",
+      "2": "GND"
+    },
+    "kind": "C",
+    "names": {},
+    "x": 75,
+    "y": 13,
+    "angle": 90,
+    "note": ""
+  },
+  {
+    "ref": "C5",
+    "value": "10u / 10V",
+    "footprint": "VELOX:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder",
+    "pins": {
+      "1": "3V3",
+      "2": "GND"
+    },
+    "kind": "C",
+    "names": {},
+    "x": 80,
+    "y": 13,
+    "angle": 0,
+    "note": ""
+  },
+  {
+    "ref": "Q2",
+    "value": "AO3400A",
+    "footprint": "VELOX:SOT-23",
+    "pins": {
+      "1": "BUZZ_GATE",
+      "2": "GND",
+      "3": "BUZZ_N"
+    },
+    "kind": "mos",
+    "names": {
+      "1": "G",
+      "2": "S",
+      "3": "D"
+    },
+    "x": 91,
+    "y": 24,
+    "angle": 0,
+    "note": ""
+  },
+  {
+    "ref": "R3",
+    "value": "100",
+    "footprint": "VELOX:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder",
+    "pins": {
+      "1": "BUZZ_GPIO",
+      "2": "BUZZ_GATE"
+    },
+    "kind": "R",
+    "names": {},
+    "x": 85,
+    "y": 21,
+    "angle": 0,
+    "note": ""
+  },
+  {
+    "ref": "R4",
+    "value": "100k",
+    "footprint": "VELOX:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder",
+    "pins": {
+      "1": "BUZZ_GATE",
+      "2": "GND"
+    },
+    "kind": "R",
+    "names": {},
+    "x": 85,
+    "y": 27,
+    "angle": 0,
+    "note": ""
+  },
+  {
+    "ref": "D2",
+    "value": "SS14",
+    "footprint": "VELOX:D_SMA",
+    "pins": {
+      "1": "3V3",
+      "2": "BUZZ_N"
+    },
+    "kind": "diode",
+    "names": {
+      "1": "K",
+      "2": "A"
+    },
+    "x": 97,
+    "y": 25,
+    "angle": 0,
+    "note": ""
+  },
+  {
+    "ref": "R5",
+    "value": "220",
+    "footprint": "VELOX:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder",
+    "pins": {
+      "1": "LED_RED_GPIO",
+      "2": "LED_RED_A"
+    },
+    "kind": "R",
+    "names": {},
+    "x": 94,
+    "y": 16,
+    "angle": 0,
+    "note": ""
+  },
+  {
+    "ref": "R6",
+    "value": "220",
+    "footprint": "VELOX:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder",
+    "pins": {
+      "1": "LED_GREEN_GPIO",
+      "2": "LED_GREEN_A"
+    },
+    "kind": "R",
+    "names": {},
+    "x": 94,
+    "y": 19,
+    "angle": 0,
+    "note": ""
+  },
+  {
+    "ref": "R7",
+    "value": "100k 1%",
+    "footprint": "VELOX:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder",
+    "pins": {
+      "1": "BAT_RUN",
+      "2": "BAT_ADC"
+    },
+    "kind": "R",
+    "names": {},
+    "x": 47,
+    "y": 22,
+    "angle": 90,
+    "note": ""
+  },
+  {
+    "ref": "R8",
+    "value": "100k 1%",
+    "footprint": "VELOX:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder",
+    "pins": {
+      "1": "BAT_ADC",
+      "2": "GND"
+    },
+    "kind": "R",
+    "names": {},
+    "x": 47,
+    "y": 29,
+    "angle": 90,
+    "note": ""
+  },
+  {
+    "ref": "C6",
+    "value": "100n / 16V",
+    "footprint": "VELOX:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder",
+    "pins": {
+      "1": "BAT_ADC",
+      "2": "GND"
+    },
+    "kind": "C",
+    "names": {},
+    "x": 51,
+    "y": 29,
+    "angle": 90,
+    "note": ""
+  },
+  {
+    "ref": "TP1",
+    "value": "BAT_RUN",
+    "footprint": "VELOX:TestPoint_Pad_D2.0mm",
+    "pins": {
+      "1": "BAT_RUN"
+    },
+    "kind": "test",
+    "names": {},
+    "x": 45,
+    "y": 36,
+    "angle": 0,
+    "note": ""
+  },
+  {
+    "ref": "TP2",
+    "value": "COIL_6V",
+    "footprint": "VELOX:TestPoint_Pad_D2.0mm",
+    "pins": {
+      "1": "COIL_6V"
+    },
+    "kind": "test",
+    "names": {},
+    "x": 76,
+    "y": 58,
+    "angle": 0,
+    "note": ""
+  },
+  {
+    "ref": "TP3",
+    "value": "3V3",
+    "footprint": "VELOX:TestPoint_Pad_D2.0mm",
+    "pins": {
+      "1": "3V3"
+    },
+    "kind": "test",
+    "names": {},
+    "x": 76,
+    "y": 19,
+    "angle": 0,
+    "note": ""
+  },
+  {
+    "ref": "TP4",
+    "value": "GND",
+    "footprint": "VELOX:TestPoint_Pad_D2.0mm",
+    "pins": {
+      "1": "GND"
+    },
+    "kind": "test",
+    "names": {},
+    "x": 98,
+    "y": 59,
+    "angle": 0,
+    "note": ""
+  },
+  {
+    "ref": "TP5",
+    "value": "BAT_ADC",
+    "footprint": "VELOX:TestPoint_Pad_D2.0mm",
+    "pins": {
+      "1": "BAT_ADC"
+    },
+    "kind": "test",
+    "names": {},
+    "x": 51,
+    "y": 22,
+    "angle": 0,
+    "note": ""
+  },
+  {
+    "ref": "H1",
+    "value": "M3 NPTH",
+    "footprint": "VELOX:MountingHole_3.2mm_M3",
+    "pins": {},
+    "kind": "hole",
+    "names": {},
+    "x": 4,
+    "y": 4,
+    "angle": 0,
+    "note": "Proposed board mounts; enclosure mounting not yet redesigned."
+  },
+  {
+    "ref": "H2",
+    "value": "M3 NPTH",
+    "footprint": "VELOX:MountingHole_3.2mm_M3",
+    "pins": {},
+    "kind": "hole",
+    "names": {},
+    "x": 106,
+    "y": 4,
+    "angle": 0,
+    "note": "Proposed board mounts; enclosure mounting not yet redesigned."
+  },
+  {
+    "ref": "H3",
+    "value": "M3 NPTH",
+    "footprint": "VELOX:MountingHole_3.2mm_M3",
+    "pins": {},
+    "kind": "hole",
+    "names": {},
+    "x": 4,
+    "y": 61,
+    "angle": 0,
+    "note": "Proposed board mounts; enclosure mounting not yet redesigned."
+  },
+  {
+    "ref": "H4",
+    "value": "M3 NPTH",
+    "footprint": "VELOX:MountingHole_3.2mm_M3",
+    "pins": {},
+    "kind": "hole",
+    "names": {},
+    "x": 106,
+    "y": 61,
+    "angle": 0,
+    "note": "Proposed board mounts; enclosure mounting not yet redesigned."
+  }
+]

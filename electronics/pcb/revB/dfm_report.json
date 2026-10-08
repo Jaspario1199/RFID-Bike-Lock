@@ -1,0 +1,64 @@
+{
+  "status": "DFM_REVIEW_NOT_ORDER_RELEASE",
+  "board_sha256": "8e73c6c6b3efcff04ae2fc1c285998d6b5f22df9ddb18266dda3396e5929da28",
+  "manufacturing_target": "2-layer FR4, 1.6 mm nominal, 1 oz copper, green solder mask; finish to confirm",
+  "pad_mask_audit": {
+    "front": {
+      "minimum_pad_opening_gap_lower_bound_mm": 0.29,
+      "pair": [
+        "J3.A5",
+        "J3.B9"
+      ]
+    },
+    "back": {
+      "minimum_pad_opening_gap_lower_bound_mm": 0.4,
+      "pair": [
+        "C8.1",
+        "C8.2"
+      ]
+    }
+  },
+  "mask_method": "Axis-aligned copper-pad bounding boxes expanded by effective mask margin; conservative lower bound. Via tenting and full mask-to-copper geometry also require CAM review.",
+  "minimum_pth_nominal_annular_ring_mm": 0.25,
+  "limiting_pth_pad": "J3.S1",
+  "pth_ground_thermal_pads": [
+    "J5.6",
+    "C1.2",
+    "J6.2",
+    "J1.2",
+    "U3.3",
+    "U3.4",
+    "C8.2",
+    "J3.S1",
+    "J3.S1",
+    "J3.S1",
+    "J3.S1",
+    "U1.14",
+    "U1.27"
+  ],
+  "pth_ground_solid_pads": [
+    "J6.1",
+    "U4.2"
+  ],
+  "copper_track_count": 924,
+  "via_count": 70,
+  "notes": [
+    "Nominal annular ring is not a worst-case drill-registration calculation.",
+    "Finished-hole tolerances and actual header fit remain release gates.",
+    "No impedance-control or automated-assembly qualification claimed."
+  ],
+  "export_sha256": {
+    "VELOX_carrier_B-B_Cu.gbl": "c9760968f9ff1039b1d6c4dca32cb7d35d8df49a951fe4e7d6090f287997cb06",
+    "VELOX_carrier_B-B_Mask.gbs": "69cef47696739c326dcc4dc2a55ae7347badceb70a3694aea4a533e8c6d47930",
+    "VELOX_carrier_B-B_Silkscreen.gbo": "2531a2ea083fbcf42f798435cdd2ed2ae76849236ac807bbf37dfe8d72095601",
+    "VELOX_carrier_B-Edge_Cuts.gm1": "4d699f7f21d5c252556439d53b8d2b8634596e3b25024f84b449b92fe328a15f",
+    "VELOX_carrier_B-F_Cu.gtl": "aced7868c22a58a393a36e6c90c0be9c9513cc08fd12a914d7f7889cc83731e7",
+    "VELOX_carrier_B-F_Mask.gts": "74bf661727abc1a67e3ea79a5aaf2cfb9a40ea1cc01118fd48805538fad9a09a",
+    "VELOX_carrier_B-F_Paste.gtp": "0a0c12b399806cd9b5ed92e626dd28e58d67c4944e7f61166a69a96334954e46",
+    "VELOX_carrier_B-F_Silkscreen.gto": "4977e8a791b21da9969a71edf3815ca6f1ef347f8dbaaeac0b4f951afa30e808",
+    "VELOX_carrier_B-NPTH.drl": "0f3c3eec8985861f1bc16c5836fa4dda73a737e6aa70dfec2f367daebbc31d72",
+    "VELOX_carrier_B-PTH.drl": "91c2f3517d880504d441d34697c9862f848f6a269a2d693c2d1ed2bc251e53f6",
+    "VELOX_carrier_B-job.gbrjob": "fb9ed448f7282e4080f49c94c299f567f55f2d2c180543c09daa66186d56a365",
+    "drill_report.txt": "d9a690dfaf4566c3d0c6ceabe61708b5253d5648ecf1a8a7f1a79cad4d3809f1"
+  }
+}

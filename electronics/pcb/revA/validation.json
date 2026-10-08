@@ -1,0 +1,25 @@
+{
+  "status": "ENGINEERING_REVIEW_NOT_FOR_FABRICATION",
+  "pins_checked": 92,
+  "schematic_mismatch": [],
+  "pcb_mismatch": [],
+  "extra_pcb_nets": [],
+  "DRC violations": 0,
+  "unconnected pads": 0,
+  "Footprint errors": 0,
+  "clearance_mm": 0.2,
+  "minimum_track_mm": 0.25,
+  "board_mm": [
+    110,
+    65,
+    1.6
+  ],
+  "erc": "Full KiCad electrical-rule check not executed: available KiCad 7 CLI lacks ERC. Netlist/pin checks are not ERC.",
+  "outstanding": [
+    "Verify exact solenoid winding/current/duty and boost pulse performance",
+    "Verify protected cell discharge rating and charger charge current",
+    "Select exact fuse, capacitor and buzzer; verify module mechanical interfaces",
+    "Enclosure board mounting, antenna placement and complete installation check",
+    "Physical prototype and thermal/transient/charging tests"
+  ]
+}

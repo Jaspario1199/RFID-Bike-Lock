@@ -1,0 +1,113 @@
+{
+  "status": "SOURCE_INTERFACES_VERIFIED_HARDWARE_NOT_MEASURED",
+  "sources": {
+    "Arduino": "https://docs.arduino.cc/resources/datasheets/ABX00083-datasheet.pdf",
+    "Pololu4013": "https://www.pololu.com/file/0J1844/step-up-voltage-regulator-u3v40fx-dimensions.pdf",
+    "Pololu4943": "https://www.pololu.com/file/0J1921/step-up-voltage-regulator-u3v16fx-dimensions.pdf",
+    "MCP73831": "https://ww1.microchip.com/downloads/en/DeviceDoc/MCP73831-Family-Data-Sheet-DS20001984H.pdf",
+    "NCP361": "https://www.onsemi.com/pdf/datasheet/ncp361-d.pdf",
+    "USB4125": "https://gct.co/files/drawings/usb4125.pdf",
+    "AO3400A": "https://www.aosmd.com/res/data_sheets/AO3400A.pdf"
+  },
+  "U3_top_view": {
+    "body_mm": [
+      15.2,
+      15.2
+    ],
+    "header_pins_left_to_right": [
+      "EN",
+      "VIN",
+      "GND",
+      "GND",
+      "VOUT",
+      "VOUT"
+    ],
+    "hole_xy_from_top_left_mm": [
+      [
+        1.27,
+        13.93
+      ],
+      [
+        3.81,
+        13.93
+      ],
+      [
+        6.35,
+        13.93
+      ],
+      [
+        8.89,
+        13.93
+      ],
+      [
+        11.43,
+        13.93
+      ],
+      [
+        13.969999999999999,
+        13.93
+      ]
+    ],
+    "pitch_mm": 2.54,
+    "drill_mm": 1.02,
+    "edge_tolerance_mm": 0.3,
+    "hole_location_tolerance_mm": 0.1,
+    "note": "Use the top view. Bottom-view silkscreen label order is mirrored. Drawing dimensions15.2 mm are rounded; nominalheader y=15.2-1.27.",
+    "carrier_plated_drill_mm": 1.2
+  },
+  "U4_top_view": {
+    "body_mm": [
+      8.1,
+      13.1
+    ],
+    "header_pins_left_to_right": [
+      "VIN",
+      "GND",
+      "VOUT"
+    ],
+    "hole_xy_from_top_left_mm": [
+      [
+        1.52,
+        11.83
+      ],
+      [
+        4.0600000000000005,
+        11.83
+      ],
+      [
+        6.6,
+        11.83
+      ]
+    ],
+    "pitch_mm": 2.54,
+    "drill_mm": 1.02,
+    "edge_tolerance_mm": 0.3,
+    "hole_location_tolerance_mm": 0.1,
+    "carrier_plated_drill_mm": 1.2
+  },
+  "U2_sot23_5_pins": {
+    "1": "STAT",
+    "2": "VSS",
+    "3": "VBAT",
+    "4": "VDD",
+    "5": "PROG"
+  },
+  "U5_tsop5_pins": {
+    "1": "IN",
+    "2": "GND",
+    "3": "EN",
+    "4": "FLAG",
+    "5": "OUT"
+  },
+  "Q1_Q2_sot23_pins": {
+    "1": "G",
+    "2": "S",
+    "3": "D"
+  },
+  "release_inputs_missing": [
+    "Real coil rated voltage, cold resistance, pulse current and allowable duty",
+    "Cell part number, protection, discharge/charge rating and pigtail rating",
+    "Exact ceramic-capacitor MPNs with DC-bias curves; fuse coordination; buzzer part",
+    "Socket/header/mating cable heights and final enclosure installation"
+  ]
+}

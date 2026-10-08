@@ -1,0 +1,883 @@
+[
+  {
+    "ref": "U3",
+    "value": "Pololu U3V40F6 / 6V",
+    "footprint": "VELOX:Pololu_U3V40F6_4013",
+    "pins": {
+      "1": "BAT_RUN",
+      "2": "BAT_RUN",
+      "3": "GND",
+      "4": "GND",
+      "5": "COIL_6V",
+      "6": "COIL_6V"
+    },
+    "kind": "module",
+    "names": {
+      "1": "EN",
+      "2": "VIN",
+      "3": "GND1",
+      "4": "GND2",
+      "5": "VOUT1",
+      "6": "VOUT2"
+    },
+    "x": 65,
+    "y": 37,
+    "angle": 0,
+    "note": "Pololu 4013 only. Two output and two ground pins used. EN tied to VIN. 2.5 mm insulating header gap and support under free edge; coil performance requires bench qualification."
+  },
+  {
+    "ref": "U4",
+    "value": "Pololu U3V16F7 / 7.5V",
+    "footprint": "VELOX:Pololu_U3V16F7_4943",
+    "pins": {
+      "1": "BAT_RUN",
+      "2": "GND",
+      "3": "NANO_7V5"
+    },
+    "kind": "module",
+    "names": {
+      "1": "VIN",
+      "2": "GND",
+      "3": "VOUT"
+    },
+    "x": 20,
+    "y": 21,
+    "angle": 0,
+    "note": "Pololu 4943 only. Dedicated 7.5 V nominal Nano VIN rail, +/-4%. 2.5 mm insulating header gap. This is not a reader power gate."
+  },
+  {
+    "ref": "J1",
+    "value": "PROTECTED 1S BATTERY",
+    "footprint": "VELOX:Battery_WirePads",
+    "pins": {
+      "1": "BAT_PROTECTED",
+      "2": "GND"
+    },
+    "kind": "connector",
+    "names": {
+      "1": "+",
+      "2": "-"
+    },
+    "x": 11,
+    "y": 4,
+    "angle": 0,
+    "note": "Existing protected 1S 4.2 V LiPo only. Independent BMS discharge capability and pigtail current must be confirmed; do not connect a bare cell."
+  },
+  {
+    "ref": "F1",
+    "value": "3A / 0467003.NR candidate",
+    "footprint": "VELOX:Fuse_1206_3216Metric_Pad1.42x1.75mm_HandSolder",
+    "pins": {
+      "1": "BAT_PROTECTED",
+      "2": "BAT_FUSED"
+    },
+    "kind": "R",
+    "names": {},
+    "x": 12,
+    "y": 10,
+    "angle": 0,
+    "note": "Candidate fuse, not released: coordinate with cell BMS, harness, operating pulse and measured inrush. Charger and load are both downstream of fuse."
+  },
+  {
+    "ref": "J2",
+    "value": "RUN SWITCH / OFF TO CHARGE",
+    "footprint": "VELOX:RunSwitch_WirePads",
+    "pins": {
+      "1": "BAT_FUSED",
+      "2": "BAT_RUN"
+    },
+    "kind": "connector",
+    "names": {
+      "1": "FUSED+",
+      "2": "RUN+"
+    },
+    "x": 29,
+    "y": 6,
+    "angle": 0,
+    "note": "External latching SPST >=3 A DC, subject to measured input current. Open to charge. No load sharing; Nano USB disconnected while charging."
+  },
+  {
+    "ref": "J3",
+    "value": "USB4125-GF-A / CHARGE ONLY",
+    "footprint": "VELOX:USB_C_Receptacle_GCT_USB4125-xx-x_6P_TopMnt_Horizontal",
+    "pins": {
+      "A5": "CC1",
+      "B5": "CC2",
+      "A9": "USB_VBUS",
+      "B9": "USB_VBUS",
+      "A12": "GND",
+      "B12": "GND",
+      "S1": "GND"
+    },
+    "kind": "connector",
+    "names": {
+      "A5": "CC1",
+      "B5": "CC2",
+      "A9": "VBUS",
+      "B9": "VBUS",
+      "A12": "GND",
+      "B12": "GND",
+      "S1": "SHIELD"
+    },
+    "x": 13,
+    "y": 52,
+    "angle": 0,
+    "note": "GCT USB4125-GF-A, 1 mm stake variant. Both CC pins have independent 5.1k Rd. 5 V charging only, no data or PD. Connector overhang needs a new enclosure port."
+  },
+  {
+    "ref": "R9",
+    "value": "5.1k 1%",
+    "footprint": "VELOX:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder",
+    "pins": {
+      "1": "CC1",
+      "2": "GND"
+    },
+    "kind": "R",
+    "names": {},
+    "x": 8,
+    "y": 44,
+    "angle": 90,
+    "note": ""
+  },
+  {
+    "ref": "R10",
+    "value": "5.1k 1%",
+    "footprint": "VELOX:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder",
+    "pins": {
+      "1": "CC2",
+      "2": "GND"
+    },
+    "kind": "R",
+    "names": {},
+    "x": 13,
+    "y": 44,
+    "angle": 90,
+    "note": ""
+  },
+  {
+    "ref": "U5",
+    "value": "NCP361SNT1G",
+    "footprint": "VELOX:SOT-23-5_HandSoldering",
+    "pins": {
+      "1": "USB_VBUS",
+      "2": "GND",
+      "3": "GND",
+      "4": null,
+      "5": "USB_5V_SAFE"
+    },
+    "kind": "ic",
+    "names": {
+      "1": "IN",
+      "2": "GND",
+      "3": "EN_LOW",
+      "4": "FLAG_NC",
+      "5": "OUT"
+    },
+    "x": 22,
+    "y": 49,
+    "angle": 0,
+    "note": "TSOP-5 pinout 1 IN / 2 GND / 3 EN / 4 FLAG / 5 OUT. EN grounded. OVP threshold max5.9 V, fast disconnect; verify real hot-plug waveform below MCP73831 absolute7 V. Not battery protection."
+  },
+  {
+    "ref": "U2",
+    "value": "MCP73831-2ATI/OT",
+    "footprint": "VELOX:SOT-23-5_HandSoldering",
+    "pins": {
+      "1": "CHG_STAT",
+      "2": "GND",
+      "3": "BAT_FUSED",
+      "4": "USB_5V_SAFE",
+      "5": "CHG_PROG"
+    },
+    "kind": "ic",
+    "names": {
+      "1": "STAT",
+      "2": "VSS",
+      "3": "VBAT",
+      "4": "VDD",
+      "5": "PROG"
+    },
+    "x": 26,
+    "y": 41,
+    "angle": 0,
+    "note": "4.2 V 1S charger; default RPROG10k ~100 mA to reduce enclosure heating. No cell-temperature sensor, no power path, no BMS. Charge within verified cell temperature limits and with RUN open."
+  },
+  {
+    "ref": "R11",
+    "value": "10k 1% / 100mA",
+    "footprint": "VELOX:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder",
+    "pins": {
+      "1": "CHG_PROG",
+      "2": "GND"
+    },
+    "kind": "R",
+    "names": {},
+    "x": 32,
+    "y": 38,
+    "angle": 0,
+    "note": ""
+  },
+  {
+    "ref": "R12",
+    "value": "2.2k",
+    "footprint": "VELOX:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder",
+    "pins": {
+      "1": "USB_5V_SAFE",
+      "2": "CHG_LED_A"
+    },
+    "kind": "R",
+    "names": {},
+    "x": 26,
+    "y": 45,
+    "angle": 0,
+    "note": ""
+  },
+  {
+    "ref": "D3",
+    "value": "CHARGE LED / red",
+    "footprint": "VELOX:LED_0805_2012Metric",
+    "pins": {
+      "1": "CHG_STAT",
+      "2": "CHG_LED_A"
+    },
+    "kind": "diode",
+    "names": {
+      "1": "K",
+      "2": "A"
+    },
+    "x": 31,
+    "y": 46,
+    "angle": 0,
+    "note": "On while charger reports charging; off can also mean no USB, no cell or fault, not proof of a full battery."
+  },
+  {
+    "ref": "C9",
+    "value": "4.7u 50V X7R",
+    "footprint": "VELOX:C_1206_3216Metric_Pad1.33x1.80mm_HandSolder",
+    "pins": {
+      "1": "USB_VBUS",
+      "2": "GND"
+    },
+    "kind": "C",
+    "names": {},
+    "x": 20,
+    "y": 44,
+    "angle": 0,
+    "note": "Select exact MPN with >=1u effective at20 V, input ESD condition from NCP361 datasheet. Charge source remains5 V USB."
+  },
+  {
+    "ref": "C10",
+    "value": "10u 25V X7R",
+    "footprint": "VELOX:C_1206_3216Metric_Pad1.33x1.80mm_HandSolder",
+    "pins": {
+      "1": "USB_5V_SAFE",
+      "2": "GND"
+    },
+    "kind": "C",
+    "names": {},
+    "x": 26,
+    "y": 52,
+    "angle": 0,
+    "note": "Select exact MPN with >=4.7u effective at5.9 V for charger stability; also NCP361 output bypass."
+  },
+  {
+    "ref": "C11",
+    "value": "10u 25V X7R",
+    "footprint": "VELOX:C_1206_3216Metric_Pad1.33x1.80mm_HandSolder",
+    "pins": {
+      "1": "BAT_FUSED",
+      "2": "GND"
+    },
+    "kind": "C",
+    "names": {},
+    "x": 27,
+    "y": 35,
+    "angle": 0,
+    "note": "Select exact MPN with >=4.7u effective at4.2 V. Charger output bypass close to VBAT."
+  },
+  {
+    "ref": "U1",
+    "value": "Arduino Nano ESP32 ABX00083",
+    "footprint": "VELOX:Nano_ESP32_ABX00083_Sockets",
+    "pins": {
+      "1": "SPI_SCK",
+      "2": "3V3",
+      "3": null,
+      "4": "BAT_ADC",
+      "5": null,
+      "6": null,
+      "7": null,
+      "8": null,
+      "9": null,
+      "10": null,
+      "11": null,
+      "12": null,
+      "13": null,
+      "14": "GND",
+      "15": "NANO_7V5",
+      "16": "SPI_MISO",
+      "17": "SPI_MOSI",
+      "18": "RFID_SS",
+      "19": "LED_GREEN_GPIO",
+      "20": "LED_RED_GPIO",
+      "21": null,
+      "22": "BUZZ_GPIO",
+      "23": "SOL_GPIO",
+      "24": "RFID_RST",
+      "25": "WAKE_BTN",
+      "26": "ADMIN_BTN",
+      "27": "GND",
+      "28": null,
+      "29": null,
+      "30": null
+    },
+    "kind": "nano",
+    "names": {
+      "1": "D13",
+      "2": "3V3",
+      "3": "B0",
+      "4": "A0",
+      "5": "A1",
+      "6": "A2",
+      "7": "A3",
+      "8": "A4",
+      "9": "A5",
+      "10": "A6",
+      "11": "A7",
+      "12": "VBUS",
+      "13": "B1",
+      "14": "GND",
+      "15": "VIN",
+      "16": "D12",
+      "17": "D11",
+      "18": "D10",
+      "19": "D9",
+      "20": "D8",
+      "21": "D7",
+      "22": "D6",
+      "23": "D5",
+      "24": "D4",
+      "25": "D3",
+      "26": "D2",
+      "27": "GND",
+      "28": "RESET",
+      "29": "D0",
+      "30": "D1"
+    },
+    "x": 39,
+    "y": 8,
+    "angle": 0,
+    "note": "Two 1x15 female sockets 2.54 pitch /15.24 row spacing. Nano ESP32 only. VBUS unconnected; 7.5 V to VIN. Reserve14 mm above carrier for socketed module; antenna keepout below."
+  },
+  {
+    "ref": "J5",
+    "value": "RC522 / XH8 HARNESS",
+    "footprint": "VELOX:JST_XH_B8B-XH-A_1x08_P2.50mm_Vertical",
+    "pins": {
+      "1": "RFID_SS",
+      "2": "SPI_SCK",
+      "3": "SPI_MOSI",
+      "4": "SPI_MISO",
+      "5": null,
+      "6": "GND",
+      "7": "RFID_RST",
+      "8": "3V3"
+    },
+    "kind": "connector",
+    "names": {
+      "1": "SS",
+      "2": "SCK",
+      "3": "MOSI",
+      "4": "MISO",
+      "5": "IRQ_NC",
+      "6": "GND",
+      "7": "RST",
+      "8": "3V3"
+    },
+    "x": 61,
+    "y": 7,
+    "angle": 0,
+    "note": "JST B8B-XH-A, housing XHP-8. Match RC522 labels individually. RC522 antenna remains separate, with no carrier/battery/metal behind it; enclosure reader mounting must change."
+  },
+  {
+    "ref": "J6",
+    "value": "PANEL / PH8 HARNESS",
+    "footprint": "VELOX:JST_PH_B8B-PH-K_1x08_P2.00mm_Vertical",
+    "pins": {
+      "1": "GND",
+      "2": "GND",
+      "3": "WAKE_BTN",
+      "4": "ADMIN_BTN",
+      "5": "LED_RED_A",
+      "6": "LED_GREEN_A",
+      "7": "3V3",
+      "8": "BUZZ_N"
+    },
+    "kind": "connector",
+    "names": {
+      "1": "GND1",
+      "2": "GND2",
+      "3": "WAKE",
+      "4": "CANCEL",
+      "5": "RED_A",
+      "6": "GREEN_A",
+      "7": "BUZZ+",
+      "8": "BUZZ-"
+    },
+    "x": 64,
+    "y": 17,
+    "angle": 0,
+    "note": "JST B8B-PH-K-S, housing PHR-8. Distinct pitch from RFID. Normally-open buttons to shared ground, LED cathodes to ground, 3.3 V active buzzer <=30 mA. Label both ends; validate current and polarity."
+  },
+  {
+    "ref": "J4",
+    "value": "COIL / XH2 / 6V VERIFY",
+    "footprint": "VELOX:JST_XH_B2B-XH-A_1x02_P2.50mm_Vertical",
+    "pins": {
+      "1": "COIL_6V",
+      "2": "COIL_N"
+    },
+    "kind": "connector",
+    "names": {
+      "1": "+",
+      "2": "SWITCHED-"
+    },
+    "x": 85,
+    "y": 44,
+    "angle": 90,
+    "note": "JST B2B-XH-A and XHP-2. 6 V ~1 A is an assumption from bench notes. Actual coil rating, resistance, duty and release behavior must be measured."
+  },
+  {
+    "ref": "Q1",
+    "value": "AO3400A",
+    "footprint": "VELOX:SOT-23",
+    "pins": {
+      "1": "SOL_GATE",
+      "2": "GND",
+      "3": "COIL_N"
+    },
+    "kind": "mos",
+    "names": {
+      "1": "G",
+      "2": "S",
+      "3": "D"
+    },
+    "x": 81,
+    "y": 36,
+    "angle": 0,
+    "note": "AOS genuine AO3400A: Rds(on) specified at2.5 V, not an IRF520. Pin1 G/2 S/3 D. Check pulse thermal and drain transient."
+  },
+  {
+    "ref": "R1",
+    "value": "330",
+    "footprint": "VELOX:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder",
+    "pins": {
+      "1": "SOL_GPIO",
+      "2": "SOL_GATE"
+    },
+    "kind": "R",
+    "names": {},
+    "x": 77,
+    "y": 34,
+    "angle": 0,
+    "note": ""
+  },
+  {
+    "ref": "R2",
+    "value": "100k",
+    "footprint": "VELOX:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder",
+    "pins": {
+      "1": "SOL_GATE",
+      "2": "GND"
+    },
+    "kind": "R",
+    "names": {},
+    "x": 77,
+    "y": 38,
+    "angle": 0,
+    "note": ""
+  },
+  {
+    "ref": "D1",
+    "value": "SS34",
+    "footprint": "VELOX:D_SMA",
+    "pins": {
+      "1": "COIL_6V",
+      "2": "COIL_N"
+    },
+    "kind": "diode",
+    "names": {
+      "1": "K",
+      "2": "A"
+    },
+    "x": 78,
+    "y": 49,
+    "angle": 0,
+    "note": "Flyback cathode/band to6 V. SMA SS34. Simple diode gives slow current decay: check latch release time physically."
+  },
+  {
+    "ref": "C1",
+    "value": "470u 10V / EEUFR1A471",
+    "footprint": "VELOX:CP_Radial_D8.0mm_P3.50mm",
+    "pins": {
+      "1": "COIL_6V",
+      "2": "GND"
+    },
+    "kind": "CP",
+    "names": {},
+    "x": 81,
+    "y": 27,
+    "angle": 0,
+    "note": "Panasonic EEUFR1A471 exact: D8/H11.5/P3.5 mm. Bulk is transient support, not the source for the whole coil pulse."
+  },
+  {
+    "ref": "C2",
+    "value": "1u 25V",
+    "footprint": "VELOX:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder",
+    "pins": {
+      "1": "COIL_6V",
+      "2": "GND"
+    },
+    "kind": "C",
+    "names": {},
+    "x": 76,
+    "y": 26,
+    "angle": 0,
+    "note": ""
+  },
+  {
+    "ref": "C3",
+    "value": "10u 25V",
+    "footprint": "VELOX:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder",
+    "pins": {
+      "1": "NANO_7V5",
+      "2": "GND"
+    },
+    "kind": "C",
+    "names": {},
+    "x": 32,
+    "y": 15,
+    "angle": 0,
+    "note": ""
+  },
+  {
+    "ref": "C4",
+    "value": "100n 16V",
+    "footprint": "VELOX:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder",
+    "pins": {
+      "1": "3V3",
+      "2": "GND"
+    },
+    "kind": "C",
+    "names": {},
+    "x": 59,
+    "y": 13.2,
+    "angle": 0,
+    "note": ""
+  },
+  {
+    "ref": "C5",
+    "value": "10u 10V",
+    "footprint": "VELOX:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder",
+    "pins": {
+      "1": "3V3",
+      "2": "GND"
+    },
+    "kind": "C",
+    "names": {},
+    "x": 66,
+    "y": 13.2,
+    "angle": 0,
+    "note": ""
+  },
+  {
+    "ref": "C8",
+    "value": "100u 10V / EEUFR1A101",
+    "footprint": "VELOX:CP_Radial_D5.0mm_P2.00mm",
+    "pins": {
+      "1": "BAT_RUN",
+      "2": "GND"
+    },
+    "kind": "CP",
+    "names": {},
+    "x": 63,
+    "y": 50,
+    "angle": 0,
+    "note": "Panasonic EEUFR1A101 exact: D5/H11/P2 mm. Battery/boost input damping near U3; retain short adequately rated battery wiring."
+  },
+  {
+    "ref": "Q2",
+    "value": "AO3400A",
+    "footprint": "VELOX:SOT-23",
+    "pins": {
+      "1": "BUZZ_GATE",
+      "2": "GND",
+      "3": "BUZZ_N"
+    },
+    "kind": "mos",
+    "names": {
+      "1": "G",
+      "2": "S",
+      "3": "D"
+    },
+    "x": 59,
+    "y": 22,
+    "angle": 0,
+    "note": ""
+  },
+  {
+    "ref": "R3",
+    "value": "330",
+    "footprint": "VELOX:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder",
+    "pins": {
+      "1": "BUZZ_GPIO",
+      "2": "BUZZ_GATE"
+    },
+    "kind": "R",
+    "names": {},
+    "x": 60,
+    "y": 26,
+    "angle": 0,
+    "note": ""
+  },
+  {
+    "ref": "R4",
+    "value": "100k",
+    "footprint": "VELOX:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder",
+    "pins": {
+      "1": "BUZZ_GATE",
+      "2": "GND"
+    },
+    "kind": "R",
+    "names": {},
+    "x": 65,
+    "y": 26,
+    "angle": 0,
+    "note": ""
+  },
+  {
+    "ref": "D2",
+    "value": "SS14",
+    "footprint": "VELOX:D_SMA",
+    "pins": {
+      "1": "3V3",
+      "2": "BUZZ_N"
+    },
+    "kind": "diode",
+    "names": {
+      "1": "K",
+      "2": "A"
+    },
+    "x": 69,
+    "y": 23,
+    "angle": 0,
+    "note": "Populate flyback for magnetic active buzzer. Buzzer supply3.3 V; qualify module current <=30 mA."
+  },
+  {
+    "ref": "R5",
+    "value": "470",
+    "footprint": "VELOX:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder",
+    "pins": {
+      "1": "LED_RED_GPIO",
+      "2": "LED_RED_A"
+    },
+    "kind": "R",
+    "names": {},
+    "x": 84,
+    "y": 14,
+    "angle": 0,
+    "note": ""
+  },
+  {
+    "ref": "R6",
+    "value": "470",
+    "footprint": "VELOX:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder",
+    "pins": {
+      "1": "LED_GREEN_GPIO",
+      "2": "LED_GREEN_A"
+    },
+    "kind": "R",
+    "names": {},
+    "x": 84,
+    "y": 18,
+    "angle": 0,
+    "note": ""
+  },
+  {
+    "ref": "R7",
+    "value": "100k 1%",
+    "footprint": "VELOX:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder",
+    "pins": {
+      "1": "BAT_RUN",
+      "2": "BAT_ADC"
+    },
+    "kind": "R",
+    "names": {},
+    "x": 31,
+    "y": 22,
+    "angle": 90,
+    "note": ""
+  },
+  {
+    "ref": "R8",
+    "value": "100k 1%",
+    "footprint": "VELOX:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder",
+    "pins": {
+      "1": "BAT_ADC",
+      "2": "GND"
+    },
+    "kind": "R",
+    "names": {},
+    "x": 31,
+    "y": 29,
+    "angle": 90,
+    "note": ""
+  },
+  {
+    "ref": "C6",
+    "value": "100n 16V",
+    "footprint": "VELOX:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder",
+    "pins": {
+      "1": "BAT_ADC",
+      "2": "GND"
+    },
+    "kind": "C",
+    "names": {},
+    "x": 35,
+    "y": 29,
+    "angle": 90,
+    "note": ""
+  },
+  {
+    "ref": "TP1",
+    "value": "BAT_RUN",
+    "footprint": "VELOX:TestPoint_Pad_D2.0mm",
+    "pins": {
+      "1": "BAT_RUN"
+    },
+    "kind": "test",
+    "names": {},
+    "x": 33,
+    "y": 35,
+    "angle": 0,
+    "note": ""
+  },
+  {
+    "ref": "TP2",
+    "value": "COIL_6V",
+    "footprint": "VELOX:TestPoint_Pad_D2.0mm",
+    "pins": {
+      "1": "COIL_6V"
+    },
+    "kind": "test",
+    "names": {},
+    "x": 77,
+    "y": 43,
+    "angle": 0,
+    "note": ""
+  },
+  {
+    "ref": "TP3",
+    "value": "NANO_7V5",
+    "footprint": "VELOX:TestPoint_Pad_D2.0mm",
+    "pins": {
+      "1": "NANO_7V5"
+    },
+    "kind": "test",
+    "names": {},
+    "x": 35,
+    "y": 40,
+    "angle": 0,
+    "note": ""
+  },
+  {
+    "ref": "TP4",
+    "value": "3V3",
+    "footprint": "VELOX:TestPoint_Pad_D2.0mm",
+    "pins": {
+      "1": "3V3"
+    },
+    "kind": "test",
+    "names": {},
+    "x": 59,
+    "y": 17,
+    "angle": 0,
+    "note": ""
+  },
+  {
+    "ref": "TP5",
+    "value": "GND",
+    "footprint": "VELOX:TestPoint_Pad_D2.0mm",
+    "pins": {
+      "1": "GND"
+    },
+    "kind": "test",
+    "names": {},
+    "x": 80,
+    "y": 53.25,
+    "angle": 0,
+    "note": ""
+  },
+  {
+    "ref": "TP6",
+    "value": "BAT_ADC",
+    "footprint": "VELOX:TestPoint_Pad_D2.0mm",
+    "pins": {
+      "1": "BAT_ADC"
+    },
+    "kind": "test",
+    "names": {},
+    "x": 35,
+    "y": 22,
+    "angle": 0,
+    "note": ""
+  },
+  {
+    "ref": "H1",
+    "value": "M3 NPTH",
+    "footprint": "VELOX:MountingHole_3.2mm_M3",
+    "pins": {},
+    "kind": "hole",
+    "names": {},
+    "x": 4,
+    "y": 4,
+    "angle": 0,
+    "note": "Carrier fixing locations only. New enclosure supports required; mounts must permit top-down installation and connector access."
+  },
+  {
+    "ref": "H2",
+    "value": "M3 NPTH",
+    "footprint": "VELOX:MountingHole_3.2mm_M3",
+    "pins": {},
+    "kind": "hole",
+    "names": {},
+    "x": 86,
+    "y": 4,
+    "angle": 0,
+    "note": "Carrier fixing locations only. New enclosure supports required; mounts must permit top-down installation and connector access."
+  },
+  {
+    "ref": "H3",
+    "value": "M3 NPTH",
+    "footprint": "VELOX:MountingHole_3.2mm_M3",
+    "pins": {},
+    "kind": "hole",
+    "names": {},
+    "x": 4,
+    "y": 51,
+    "angle": 0,
+    "note": "Carrier fixing locations only. New enclosure supports required; mounts must permit top-down installation and connector access."
+  },
+  {
+    "ref": "H4",
+    "value": "M3 NPTH",
+    "footprint": "VELOX:MountingHole_3.2mm_M3",
+    "pins": {},
+    "kind": "hole",
+    "names": {},
+    "x": 86,
+    "y": 51,
+    "angle": 0,
+    "note": "Carrier fixing locations only. New enclosure supports required; mounts must permit top-down installation and connector access."
+  }
+]

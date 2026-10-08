@@ -1,0 +1,9 @@
+{
+  "failed": [],
+  "segments": 276,
+  "vias": 26,
+  "grid_mm": 0.25,
+  "signal_width_mm": 0.25,
+  "power_width_mm": 0.8,
+  "clearance_mm": 0.22
+}

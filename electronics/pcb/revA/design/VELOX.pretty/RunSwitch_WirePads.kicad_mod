@@ -1,0 +1,13 @@
+(footprint "RunSwitch_WirePads" (version 20221018) (generator pcbnew)
+  (layer "F.Cu")
+  (fp_text reference "J11" (at 2.5 -2.5) (layer "F.SilkS")
+      (effects (font (size 0.8 0.8) (thickness 0.12)))
+    (tstamp aff5afa7-1b14-4f42-aba0-4216afd596a3)
+  )
+  (fp_text value "RUN SWITCH / OFF TO CHARGE" (at 0 0) (layer "F.SilkS") hide
+      (effects (font (size 1.27 1.27) (thickness 0.15)))
+    (tstamp 9b29f94a-5ba9-4009-8450-afeb32edb069)
+  )
+  (pad "1" thru_hole circle (at 0 0) (size 2 2) (drill 1) (layers "*.Cu" "*.Mask") (tstamp 7bf2483f-3842-4f69-aeb0-84514afe35a6))
+  (pad "2" thru_hole circle (at 5 0) (size 2 2) (drill 1) (layers "*.Cu" "*.Mask") (tstamp 56338e04-7fca-42cb-ac9e-4027feabcaa5))
+)

@@ -1,0 +1,153 @@
+{
+  "status": "PLACEMENT_PROPOSAL_ONLY_NOT_ENCLOSURE_RELEASE",
+  "carrier_origin_xyz_mm": [
+    11.0,
+    35.5,
+    42.0
+  ],
+  "board_mm": [
+    90,
+    55,
+    1.6
+  ],
+  "old_rev3g_conflicts": [
+    {
+      "a": "PCB",
+      "b": "reader_tray_post_left",
+      "aabb_overlap_mm3": 20.0
+    },
+    {
+      "a": "PCB",
+      "b": "reader_tray_post_right",
+      "aabb_overlap_mm3": 40.0
+    },
+    {
+      "a": "J5",
+      "b": "reader",
+      "aabb_overlap_mm3": 11.4272
+    },
+    {
+      "a": "J5",
+      "b": "reader_tray_deck",
+      "aabb_overlap_mm3": 38.6787
+    },
+    {
+      "a": "J5",
+      "b": "wake_button",
+      "aabb_overlap_mm3": 135.6424
+    },
+    {
+      "a": "J6",
+      "b": "reader",
+      "aabb_overlap_mm3": 61.8131
+    },
+    {
+      "a": "J6",
+      "b": "reader_tray_deck",
+      "aabb_overlap_mm3": 49.6725
+    },
+    {
+      "a": "J6",
+      "b": "wake_button",
+      "aabb_overlap_mm3": 273.8093
+    },
+    {
+      "a": "U3",
+      "b": "reader_tray_post_right",
+      "aabb_overlap_mm3": 148.8375
+    },
+    {
+      "a": "J4",
+      "b": "cancel_button",
+      "aabb_overlap_mm3": 160.3387
+    },
+    {
+      "a": "C8",
+      "b": "reader_tray_deck",
+      "aabb_overlap_mm3": 22.8766
+    },
+    {
+      "a": "U1",
+      "b": "reader",
+      "aabb_overlap_mm3": 448.11
+    },
+    {
+      "a": "U1",
+      "b": "reader_tray_deck",
+      "aabb_overlap_mm3": 1573.1725
+    }
+  ],
+  "proposed_component_conflicts": [],
+  "proposed_fixed_wall_boss_conflicts": [],
+  "pcb_top_down_insertion_conflicts": [],
+  "lid_removed_M3_tool_conflicts": [],
+  "proposed_USB_service_conflicts": [],
+  "M3_mount_xy_mm": [
+    [
+      15.0,
+      39.5
+    ],
+    [
+      97.0,
+      39.5
+    ],
+    [
+      15.0,
+      86.5
+    ],
+    [
+      97.0,
+      86.5
+    ]
+  ],
+  "closed_aperture_insertion_conflicts": [
+    {
+      "a": "J3",
+      "b": "rear_above",
+      "aabb_overlap_mm3": 94.0079
+    }
+  ],
+  "continuous_translation_test_mm": 40,
+  "new_rear_charge_opening_proposal_mm": [
+    18,
+    30,
+    90.5,
+    94.1,
+    42.5,
+    70.1
+  ],
+  "lid_component_continuous_lowering_conflicts": [],
+  "reader_antenna_reservation_assumed_mm": [
+    119,
+    158,
+    50,
+    90,
+    61,
+    70
+  ],
+  "component_height_reservations_above_PCB_mm": {
+    "U1": 14,
+    "U2": 1.5,
+    "U3": 8.1,
+    "U4": 5.4,
+    "U5": 1.5,
+    "J1": 3,
+    "J2": 3,
+    "J3": 3.2,
+    "J4": 18,
+    "J5": 18,
+    "J6": 18,
+    "C1": 13,
+    "C8": 12.5
+  },
+  "limits": [
+    "AABB envelopes include footprint courtyards, not detailed component solids.",
+    "Reader antenna end and module sizes come from repository assumptions; inspect the actual RC522.",
+    "Nano sockets and mated connector/cable heights are reserved, not measured.",
+    "All panel parts and RFID holder require a new lid arrangement; old reader posts/tray must be removed.",
+    "Charging port must be a top-open notch for PCB insertion; revised lid cap/sealing and new carrier supports are not production designs.",
+    "Cable bends, unplugging under the revised lid, reader attachment tools, real module supports and complete lock hinge motion are not verified.",
+    "This does not qualify the existing solenoid mechanism, battery swelling or thermal/RF performance."
+  ],
+  "geometry_only_pass": true
+}

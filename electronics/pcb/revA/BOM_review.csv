@@ -1,0 +1,41 @@
+Reference,Value / proposed part,Footprint,Notes
+U2,Protected TP4056 MODULE,VELOX:TP4056_WireMounted,USB-C on module. Insulated mount + four short wires. Charge only with RUN switch OFF; verify module and cell.
+U3,MT3608 MODULE / QUALIFY,VELOX:MT3608_WireMounted,Set unloaded before connecting. 6.0 V target; actual loaded capacity and Nano VIN minimum are release blockers.
+J1,BATTERY 1S / POLARITY,VELOX:Battery_WirePads,"Protected 1S 4.2 V maximum cell; retain its existing pigtail, verify polarity/current."
+F1,3 A provisional,VELOX:Fuse_1206_3216Metric_Pad1.42x1.75mm_HandSolder,Select exact fuse after pulse/inrush and battery qualification. Not a substitute for battery protection.
+J11,RUN SWITCH / OFF TO CHARGE,VELOX:RunSwitch_WirePads,External latching SPST rated >=3 A DC. Disconnect Nano USB when charging.
+U1,Arduino Nano ESP32 ABX00083,VELOX:Nano_ESP32_ABX00083_Sockets,"Two 1x15 female sockets, 2.54 pitch, 15.24 row spacing. USB at top. Nano ESP32 only; VBUS/B0/B1 unused."
+J5,RC522 / CUSTOM HARNESS,VELOX:JST_XH_B8B-XH-A_1x08_P2.50mm_Vertical,"Map by RC522 silkscreen, not cable colors. Reader mounted separately near plastic lid. No copper behind antenna."
+J6,WAKE / GREEN,VELOX:JST_XH_B2B-XH-A_1x02_P2.50mm_Vertical,Verify external component voltage/polarity; momentary buttons normally open to ground.
+J7,CANCEL / RED,VELOX:JST_XH_B2B-XH-A_1x02_P2.50mm_Vertical,Verify external component voltage/polarity; momentary buttons normally open to ground.
+J8,RED LED,VELOX:JST_XH_B2B-XH-A_1x02_P2.50mm_Vertical,"Verify external part current, polarity and voltage."
+J9,GREEN LED,VELOX:JST_XH_B2B-XH-A_1x02_P2.50mm_Vertical,"Verify external part current, polarity and voltage."
+J10,BUZZER / 3.3 V ACTIVE,VELOX:JST_XH_B2B-XH-A_1x02_P2.50mm_Vertical,"Verify external part current, polarity and voltage."
+J4,SOLENOID 6 V / VERIFY,VELOX:JST_XH_B2B-XH-A_1x02_P2.50mm_Vertical,"Actual coil voltage/current and pulse rating must be verified. Assumed 6 V ~1 A from BENCH_BUILD, not BOM 300 mA."
+Q1,AO3400A,VELOX:SOT-23,"AOS AO3400A specified Rds(on) at 2.5 V. Pin 1 G, 2 S, 3 D. Check pulse thermal and voltage transient."
+R1,100,VELOX:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder,
+R2,100k,VELOX:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder,
+D1,SS34,VELOX:D_SMA,Flyback cathode/band to COIL_6V. SMA package. Validate release time with real spring/latch.
+C1,1000u / 16V,VELOX:CP_Radial_D10.0mm_P5.00mm,"Provisional radial D10 P5, maximum height 20 mm; exact capacitor required before order."
+C2,1u / 25V,VELOX:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder,
+C3,10u / 25V,VELOX:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder,
+C4,100n / 16V,VELOX:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder,
+C5,10u / 10V,VELOX:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder,
+Q2,AO3400A,VELOX:SOT-23,
+R3,100,VELOX:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder,
+R4,100k,VELOX:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder,
+D2,SS14,VELOX:D_SMA,
+R5,220,VELOX:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder,
+R6,220,VELOX:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder,
+R7,100k 1%,VELOX:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder,
+R8,100k 1%,VELOX:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder,
+C6,100n / 16V,VELOX:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder,
+TP1,BAT_RUN,VELOX:TestPoint_Pad_D2.0mm,
+TP2,COIL_6V,VELOX:TestPoint_Pad_D2.0mm,
+TP3,3V3,VELOX:TestPoint_Pad_D2.0mm,
+TP4,GND,VELOX:TestPoint_Pad_D2.0mm,
+TP5,BAT_ADC,VELOX:TestPoint_Pad_D2.0mm,
+H1,M3 NPTH,VELOX:MountingHole_3.2mm_M3,Proposed board mounts; enclosure mounting not yet redesigned.
+H2,M3 NPTH,VELOX:MountingHole_3.2mm_M3,Proposed board mounts; enclosure mounting not yet redesigned.
+H3,M3 NPTH,VELOX:MountingHole_3.2mm_M3,Proposed board mounts; enclosure mounting not yet redesigned.
+H4,M3 NPTH,VELOX:MountingHole_3.2mm_M3,Proposed board mounts; enclosure mounting not yet redesigned.
