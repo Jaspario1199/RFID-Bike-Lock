@@ -1,0 +1,15 @@
+{
+  "copper_sides": [
+    "F.Cu",
+    "B.Cu"
+  ],
+  "segments": 363,
+  "vias": 25,
+  "installed_wire_count": 1,
+  "min_trace_mm": 0.35,
+  "signal_clearance_target_mm": 0.3,
+  "power_trace_mm": 0.6,
+  "router_tree_nets_for_native_review": [],
+  "note": "SMT rail necks are0.35mm; main logic rails0.6mm. Small rivets drill0.7 / land1.3mm connect printed layers. Wire components intentionally overlay existing solder lands; they add no holes. No printed front copper or solid ground plane.",
+  "reviewed_corrections": "C4 ground connected by installed JP1; ADC return local tracks narrowed to0.35mm. Native checks, not router tree accounting, determine final connectivity."
+}

@@ -1,0 +1,47 @@
+{
+  "status": "REVIEW_PROTOTYPE_NOT_FEDC_ACCEPTED",
+  "digital_checks": "PASS",
+  "ERC_violations": 0,
+  "DRC_violations": 0,
+  "unconnected_items": 0,
+  "schematic_parity_issues": 0,
+  "independent_errors": [],
+  "logical_connected_pins": 62,
+  "functional_nets": 21,
+  "installed_wire_count": 1,
+  "via_count": 25,
+  "copper_sides": [
+    "F.Cu",
+    "B.Cu"
+  ],
+  "board_mm": [
+    90,
+    55,
+    1.6
+  ],
+  "min_track_mm": 0.35,
+  "native_checker": "9.0.9",
+  "drc_exclusions": [],
+  "ignored_rule_note": "Solder-mask bridges ignored because the prototype has no solder mask. Other original project severity categories are retained; inspect .kicad_pro.",
+  "source_sha256": {
+    "design/VELOX.kicad_sym": "78718a1a12e04556cc69d4d6e2d61b79a20d8efa909a623ee2b833be58bf5b93",
+    "design/VELOX.pretty/C_0805_2012Metric_Pad1.18x1.45mm_HandSolder.kicad_mod": "50572e41fdbd2679f0daeb549427861e880aa74e9d2aabe26f65e7c89fc2d1d9",
+    "design/VELOX.pretty/D_SMA.kicad_mod": "f59981ba1b1065c495738e8e86d188f1c639e7d2dad5f2403b95037857bbb84d",
+    "design/VELOX.pretty/MountingHole_3.2mm_M3.kicad_mod": "ec0f9054f758d900e9d597227bfd26d21868e4f9d870443111797e7bc3e37440",
+    "design/VELOX.pretty/Nano_ESP32_Riveted_Sockets.kicad_mod": "27bd76eea6254324807a0233f66d3e6fe066e473b0c6ab2a72302eee23532dd2",
+    "design/VELOX.pretty/R_0805_2012Metric_Pad1.20x1.40mm_HandSolder.kicad_mod": "0b6cfe49d656a0f4362d4c98a8c2690c59e9198a48f9043ae96a4606622d4e28",
+    "design/VELOX.pretty/Riveted_J1.kicad_mod": "4d27de9d1ac5423b126d4423439fcf2339bd246b6c2672953fdab2025e02b024",
+    "design/VELOX.pretty/Riveted_J5.kicad_mod": "a3a42394300aae5762062b1613be7b9a654790f548d0ad2a0b10d0fbbdd45938",
+    "design/VELOX.pretty/Riveted_J6.kicad_mod": "f99aa933a18d721160c637ac07a932665354ae7450e45649ece6ca16b09d7422",
+    "design/VELOX.pretty/SOT-23.kicad_mod": "44d575c33788371964d0febcb989b4860eb2d815d87b45318fe71dd2e50d5dbd",
+    "design/VELOX.pretty/Wire_JP1.kicad_mod": "73e9a5f2e6844f2ca165caf7557a91cde08b219521b0f226a7181bf721dfb7cb",
+    "design/VELOX_carrier_V.kicad_dru": "494887cc7cbd92b080ee7c9fc4ab850719f5639733d7be8545c87f20b0ae8570",
+    "design/VELOX_carrier_V.kicad_pcb": "e01bd4dd69141ce2dfc77b5708a3149aa1f6768853fbc8ff1a61b30408c19f3e",
+    "design/VELOX_carrier_V.kicad_pro": "168963df0fc9b2a4eb4107ea85cacb98859746777dbb273be0c1c2467a9292d6",
+    "design/VELOX_carrier_V.kicad_sch": "9375cd935081c7b78c8613dd00b4a96fd6e65e3208999f216ebc61eef5e0c55f",
+    "design/components.json": "ac4b206bd80c2cd0acc5953ad695bf9c15d68d26934a72ee80971eb3a7fe5161",
+    "design/logical_components.json": "3fb6b43adeca7cc2f41d0de42644e06214a0cfedac9d52c897d9115bbcf15ee3",
+    "design/reference_nano_pinmap.json": "71a4f398264f2082364287558bdb8510e1ba58726884cc9538d2adbf37a2bab6"
+  },
+  "physical_qualification": "Not performed. Rivet/header fit, ink coupon resistance/adhesion, solder process, external power and enclosure/harness installation require qualification."
+}

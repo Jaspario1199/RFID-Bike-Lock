@@ -1,0 +1,22 @@
+[
+  {
+    "ref": "JP1",
+    "functional_net": "GND",
+    "from": "C5.2",
+    "to": "C4.2",
+    "from_xy_mm": [
+      64.0375,
+      15.0
+    ],
+    "to_xy_mm": [
+      61.0375,
+      12.0
+    ],
+    "straight_distance_mm": 4.24,
+    "suggested_cut_length_mm": 12,
+    "net_segments": [
+      "GND",
+      "GND__JP1"
+    ]
+  }
+]

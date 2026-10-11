@@ -1,0 +1,427 @@
+[
+  {
+    "ref": "U1",
+    "value": "Arduino Nano ESP32 ABX00083",
+    "footprint": "VELOX:Nano_ESP32_Riveted_Sockets",
+    "pins": {
+      "1": "SPI_SCK",
+      "2": "3V3",
+      "3": null,
+      "4": "BAT_ADC",
+      "5": null,
+      "6": null,
+      "7": null,
+      "8": null,
+      "9": null,
+      "10": null,
+      "11": null,
+      "12": null,
+      "13": null,
+      "14": "GND",
+      "15": "NANO_7V5",
+      "16": "SPI_MISO",
+      "17": "SPI_MOSI",
+      "18": "RFID_SS",
+      "19": "LED_GREEN_GPIO",
+      "20": "LED_RED_GPIO",
+      "21": null,
+      "22": "BUZZ_GPIO",
+      "23": "SOL_GPIO",
+      "24": "RFID_RST",
+      "25": "WAKE_BTN",
+      "26": "ADMIN_BTN",
+      "27": "GND",
+      "28": null,
+      "29": null,
+      "30": null
+    },
+    "kind": "nano",
+    "names": {
+      "1": "D13",
+      "2": "3V3",
+      "3": "B0",
+      "4": "A0",
+      "5": "A1",
+      "6": "A2",
+      "7": "A3",
+      "8": "A4",
+      "9": "A5",
+      "10": "A6",
+      "11": "A7",
+      "12": "VBUS",
+      "13": "B1",
+      "14": "GND",
+      "15": "VIN",
+      "16": "D12",
+      "17": "D11",
+      "18": "D10",
+      "19": "D9",
+      "20": "D8",
+      "21": "D7",
+      "22": "D6",
+      "23": "D5",
+      "24": "D4",
+      "25": "D3",
+      "26": "D2",
+      "27": "GND",
+      "28": "RESET",
+      "29": "D0",
+      "30": "D1"
+    },
+    "x": 39,
+    "y": 8,
+    "angle": 0,
+    "note": "2x1x15 sockets, 15.24 row separation. Antenna bottom end; module stack must be physically measured. Mount after inspecting underside solder joints."
+  },
+  {
+    "ref": "J1",
+    "value": "EXTERNAL POWER / COIL CONTROL",
+    "footprint": "VELOX:Riveted_J1",
+    "pins": {
+      "1": "NANO_7V5",
+      "2": "GND",
+      "3": "BAT_MON",
+      "4": "SOL_GATE"
+    },
+    "kind": "connector",
+    "names": {
+      "1": "7V5_IN",
+      "2": "GND_STAR",
+      "3": "BAT_RUN_MON",
+      "4": "COIL_GATE_OUT"
+    },
+    "x": 10,
+    "y": 35,
+    "angle": 0,
+    "note": "2.54 mm vertical header. Large copper rivets: drill1.6 / bore1.0 / flange2.2 mm; qualify stock before fabrication. Header on top, solder ink/rivet on bottom."
+  },
+  {
+    "ref": "J5",
+    "value": "RC522 / 2.54 HEADER",
+    "footprint": "VELOX:Riveted_J5",
+    "pins": {
+      "1": "RFID_SS",
+      "2": "SPI_SCK",
+      "3": "SPI_MOSI",
+      "4": "SPI_MISO",
+      "5": null,
+      "6": "GND",
+      "7": "RFID_RST",
+      "8": "3V3"
+    },
+    "kind": "connector",
+    "names": {
+      "1": "SS",
+      "2": "SCK",
+      "3": "MOSI",
+      "4": "MISO",
+      "5": "IRQ_NC",
+      "6": "GND",
+      "7": "RST",
+      "8": "3V3"
+    },
+    "x": 70,
+    "y": 6,
+    "angle": 0,
+    "note": "2.54 mm vertical header. Large copper rivets: drill1.6 / bore1.0 / flange2.2 mm; qualify stock before fabrication. Header on top, solder ink/rivet on bottom."
+  },
+  {
+    "ref": "J6",
+    "value": "PANEL / 2.54 HEADER",
+    "footprint": "VELOX:Riveted_J6",
+    "pins": {
+      "1": "GND",
+      "2": "GND",
+      "3": "WAKE_BTN",
+      "4": "ADMIN_BTN",
+      "5": "LED_RED_A",
+      "6": "LED_GREEN_A",
+      "7": "3V3",
+      "8": "BUZZ_N"
+    },
+    "kind": "connector",
+    "names": {
+      "1": "GND1",
+      "2": "GND2",
+      "3": "WAKE",
+      "4": "CANCEL",
+      "5": "RED_A",
+      "6": "GREEN_A",
+      "7": "BUZZ_PLUS",
+      "8": "BUZZ_MINUS"
+    },
+    "x": 82,
+    "y": 23,
+    "angle": 0,
+    "note": "2.54 mm vertical header. Large copper rivets: drill1.6 / bore1.0 / flange2.2 mm; qualify stock before fabrication. Header on top, solder ink/rivet on bottom."
+  },
+  {
+    "ref": "R1",
+    "value": "330",
+    "footprint": "VELOX:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder",
+    "pins": {
+      "1": "SOL_GPIO",
+      "2": "SOL_GATE"
+    },
+    "kind": "R",
+    "names": {},
+    "x": 22,
+    "y": 38,
+    "angle": 0,
+    "note": ""
+  },
+  {
+    "ref": "R7",
+    "value": "100k 1%",
+    "footprint": "VELOX:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder",
+    "pins": {
+      "1": "BAT_MON",
+      "2": "BAT_ADC"
+    },
+    "kind": "R",
+    "names": {},
+    "x": 20,
+    "y": 20,
+    "angle": 0,
+    "note": ""
+  },
+  {
+    "ref": "R8",
+    "value": "100k 1%",
+    "footprint": "VELOX:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder",
+    "pins": {
+      "1": "BAT_ADC",
+      "2": "GND"
+    },
+    "kind": "R",
+    "names": {},
+    "x": 20,
+    "y": 26,
+    "angle": 0,
+    "note": ""
+  },
+  {
+    "ref": "C6",
+    "value": "100n 16V",
+    "footprint": "VELOX:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder",
+    "pins": {
+      "1": "BAT_ADC",
+      "2": "GND"
+    },
+    "kind": "C",
+    "names": {},
+    "x": 28,
+    "y": 26,
+    "angle": 0,
+    "note": ""
+  },
+  {
+    "ref": "C3",
+    "value": "10u 25V X7R",
+    "footprint": "VELOX:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder",
+    "pins": {
+      "1": "NANO_7V5",
+      "2": "GND"
+    },
+    "kind": "C",
+    "names": {},
+    "x": 30,
+    "y": 43,
+    "angle": 0,
+    "note": ""
+  },
+  {
+    "ref": "C4",
+    "value": "100n 16V",
+    "footprint": "VELOX:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder",
+    "pins": {
+      "1": "3V3",
+      "2": "GND__JP1"
+    },
+    "kind": "C",
+    "names": {},
+    "x": 60,
+    "y": 12,
+    "angle": 0,
+    "note": ""
+  },
+  {
+    "ref": "C5",
+    "value": "10u 10V X7R",
+    "footprint": "VELOX:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder",
+    "pins": {
+      "1": "3V3",
+      "2": "GND"
+    },
+    "kind": "C",
+    "names": {},
+    "x": 63,
+    "y": 15,
+    "angle": 0,
+    "note": ""
+  },
+  {
+    "ref": "R5",
+    "value": "470",
+    "footprint": "VELOX:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder",
+    "pins": {
+      "1": "LED_RED_GPIO",
+      "2": "LED_RED_A"
+    },
+    "kind": "R",
+    "names": {},
+    "x": 75,
+    "y": 35,
+    "angle": 0,
+    "note": ""
+  },
+  {
+    "ref": "R6",
+    "value": "470",
+    "footprint": "VELOX:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder",
+    "pins": {
+      "1": "LED_GREEN_GPIO",
+      "2": "LED_GREEN_A"
+    },
+    "kind": "R",
+    "names": {},
+    "x": 75,
+    "y": 38,
+    "angle": 0,
+    "note": ""
+  },
+  {
+    "ref": "Q2",
+    "value": "AO3400A",
+    "footprint": "VELOX:SOT-23",
+    "pins": {
+      "1": "BUZZ_GATE",
+      "2": "GND",
+      "3": "BUZZ_N"
+    },
+    "kind": "mos",
+    "names": {
+      "1": "G",
+      "2": "S",
+      "3": "D"
+    },
+    "x": 65,
+    "y": 25,
+    "angle": 0,
+    "note": "3.3 V active buzzer <=30mA candidate. Genuine AO3400A rated at2.5 V gate drive."
+  },
+  {
+    "ref": "R3",
+    "value": "330",
+    "footprint": "VELOX:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder",
+    "pins": {
+      "1": "BUZZ_GPIO",
+      "2": "BUZZ_GATE"
+    },
+    "kind": "R",
+    "names": {},
+    "x": 62,
+    "y": 29,
+    "angle": 0,
+    "note": ""
+  },
+  {
+    "ref": "R4",
+    "value": "100k",
+    "footprint": "VELOX:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder",
+    "pins": {
+      "1": "BUZZ_GATE",
+      "2": "GND"
+    },
+    "kind": "R",
+    "names": {},
+    "x": 67,
+    "y": 29,
+    "angle": 0,
+    "note": ""
+  },
+  {
+    "ref": "D2",
+    "value": "SS14",
+    "footprint": "VELOX:D_SMA",
+    "pins": {
+      "1": "3V3",
+      "2": "BUZZ_N"
+    },
+    "kind": "diode",
+    "names": {
+      "1": "K",
+      "2": "A"
+    },
+    "x": 72,
+    "y": 32,
+    "angle": 0,
+    "note": "Flyback for active magnetic buzzer; cathode to3V3. Verify buzzer current."
+  },
+  {
+    "ref": "H1",
+    "value": "1.6 PILOT / HAND FINISH 3.2",
+    "footprint": "VELOX:MountingHole_3.2mm_M3",
+    "pins": {},
+    "kind": "hole",
+    "names": {},
+    "x": 4,
+    "y": 4,
+    "angle": 0,
+    "note": "FEDC1.6 mm pilot only. After curing, fixture and finish to3.2 mm for M3. Centers unchanged from RevB; board requires new enclosure supports."
+  },
+  {
+    "ref": "H2",
+    "value": "1.6 PILOT / HAND FINISH 3.2",
+    "footprint": "VELOX:MountingHole_3.2mm_M3",
+    "pins": {},
+    "kind": "hole",
+    "names": {},
+    "x": 86,
+    "y": 4,
+    "angle": 0,
+    "note": "FEDC1.6 mm pilot only. After curing, fixture and finish to3.2 mm for M3. Centers unchanged from RevB; board requires new enclosure supports."
+  },
+  {
+    "ref": "H3",
+    "value": "1.6 PILOT / HAND FINISH 3.2",
+    "footprint": "VELOX:MountingHole_3.2mm_M3",
+    "pins": {},
+    "kind": "hole",
+    "names": {},
+    "x": 4,
+    "y": 51,
+    "angle": 0,
+    "note": "FEDC1.6 mm pilot only. After curing, fixture and finish to3.2 mm for M3. Centers unchanged from RevB; board requires new enclosure supports."
+  },
+  {
+    "ref": "H4",
+    "value": "1.6 PILOT / HAND FINISH 3.2",
+    "footprint": "VELOX:MountingHole_3.2mm_M3",
+    "pins": {},
+    "kind": "hole",
+    "names": {},
+    "x": 86,
+    "y": 51,
+    "angle": 0,
+    "note": "FEDC1.6 mm pilot only. After curing, fixture and finish to3.2 mm for M3. Centers unchanged from RevB; board requires new enclosure supports."
+  },
+  {
+    "ref": "JP1",
+    "value": "INSULATED_WIRE",
+    "footprint": "VELOX:Wire_JP1",
+    "pins": {
+      "1": "GND",
+      "2": "GND__JP1"
+    },
+    "kind": "jumper",
+    "names": {
+      "1": "C5.2_GND",
+      "2": "C4.2_GND"
+    },
+    "x": 64.0375,
+    "y": 15.0,
+    "angle": 0,
+    "note": "Short insulated underside wire between existing capacitor ground lands; no extra drill holes. Install after SMD inspection; strain relief and clearance to adjacent live pads required."
+  }
+]

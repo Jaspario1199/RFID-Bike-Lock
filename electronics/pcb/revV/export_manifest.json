@@ -1,0 +1,18 @@
+{
+  "manufacturing_REVIEW_ONLY/COUPON.md": "a5e70c9d869f4caafeb88f8f53fe3bb84fa4c53db9627f5b65ef932bcfa16a9c",
+  "manufacturing_REVIEW_ONLY/READ_ME_FIRST.md": "d4fe592716317ec859c4af264ecf82ad95818b49e7eebf06cd46af9bd47b536d",
+  "manufacturing_REVIEW_ONLY/VELOX_carrier_V-B_Cu.gbl": "7eebbb79b89808fcf7fd53e5898150a0364f68d9e52f7f1195f3d2759edd9ead",
+  "manufacturing_REVIEW_ONLY/VELOX_carrier_V-F_Cu.gtl": "f2fe001714e42e22b1eb870faab22e7ccf4ab4f99579cdbec77bee4b85b007f1",
+  "manufacturing_REVIEW_ONLY/VELOX_carrier_V-job.gbrjob": "de911cd0220a1f8f21bf78d7ca097fa48d7f84d7a73c9d166ab5bc222aba60f0",
+  "manufacturing_REVIEW_ONLY/VELOX_carrier_V-outline.gko": "2580229ec9bad8582d8b50ec9b012abae5e4043ebf9a6db7830aac1d98b419b5",
+  "manufacturing_REVIEW_ONLY/VELOX_carrier_V.drl": "3ff75997c7f9643741f6f045073faca9432e2615742a6e99081ceec254900915",
+  "manufacturing_REVIEW_ONLY/drill_report.txt": "78f51f3da3cc89eff459335f896bdc100ee14ef1c41e2e5c79ec0121ae69a304",
+  "manufacturing_REVIEW_ONLY/process_coupon-B_Cu.gbl": "17a45273e61e229202113006db4dafc77216b72123dce4da8d6f783a24da6ce1",
+  "manufacturing_REVIEW_ONLY/process_coupon-Edge_Cuts.gm1": "10be3aee3b8729c68a25b53132cbf5c5b3cc7568f7725bd8c405e5470f7d47d9",
+  "manufacturing_REVIEW_ONLY/process_coupon-F_Cu.gtl": "eeba631c9962d4fbd1ef16730c42de51620e22fdf1db816934f6ca0e5054f69e",
+  "manufacturing_REVIEW_ONLY/process_coupon-job.gbrjob": "a77f67d2c91bda53ce22e0fd2b3785b54eda57fec1b5cf654a3624bae599072d",
+  "manufacturing_REVIEW_ONLY/process_coupon.drl": "f9a071f6c8936e1af67ba23ee8ef101a3127f15091cdfcce0c574e4078888e8e",
+  "manufacturing_REVIEW_ONLY/process_coupon.kicad_pcb": "5d001e10bc2275a7920e03c5beb83d1633b34504aed8f458a3d4e85fea415896",
+  "manufacturing_REVIEW_ONLY/process_coupon.kicad_prl": "e861709f0907f14cadb89402c0686dcbbf006d586e459f5daa22299bd9669559",
+  "manufacturing_REVIEW_ONLY/process_coupon.kicad_pro": "592a80714c3c20cf4febd49960bbaa94d8a765562fe17d1e49c8a204983630b9"
+}
