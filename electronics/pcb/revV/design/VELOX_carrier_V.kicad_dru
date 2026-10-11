@@ -1,0 +1,4 @@
+(version 1)
+(rule "V-One copper separation" (constraint clearance (min 0.30mm)))
+(rule "V-One trace width" (constraint track_width (min 0.30mm)))
+(rule "Rivet mechanical drill separation" (constraint hole_to_hole (min 0.40mm)))

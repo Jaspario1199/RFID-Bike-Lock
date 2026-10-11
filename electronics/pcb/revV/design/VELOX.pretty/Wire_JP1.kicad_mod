@@ -1,0 +1,14 @@
+(footprint "Wire_JP1" (version 20221018) (generator pcbnew)
+  (layer "F.Cu")
+  (attr smd)
+  (fp_text reference "JP1" (at 0 0) (layer "F.SilkS") hide
+      (effects (font (size 1.27 1.27) (thickness 0.15)))
+    (tstamp e211a4f3-ce67-46da-a587-96542195013f)
+  )
+  (fp_text value "INSULATED_WIRE" (at 0 0) (layer "F.SilkS") hide
+      (effects (font (size 1.27 1.27) (thickness 0.15)))
+    (tstamp 493c2180-375f-4016-8c31-0827a776ab56)
+  )
+  (pad "1" smd circle (at 0 0) (size 0.8 0.8) (layers "B.Cu") (tstamp 85debf86-d0ac-457a-aa2d-1273a3c60659))
+  (pad "2" smd circle (at -3 -3) (size 0.8 0.8) (layers "B.Cu") (tstamp 522d4c0c-0117-46f5-a95b-c7cd5834f8fb))
+)

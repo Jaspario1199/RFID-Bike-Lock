@@ -1,0 +1,2 @@
+Wire,Functional net,From existing land,To existing land,Starting cut length mm,Routing note
+JP1,GND,C5.2,C4.2,12,Insulated wire on underside; trim after routing; secure against solder-joint loading

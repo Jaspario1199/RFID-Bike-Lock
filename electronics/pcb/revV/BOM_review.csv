@@ -1,0 +1,19 @@
+Reference,Value,Footprint,Qualification
+U1,Arduino Nano ESP32 ABX00083,VELOX:Nano_ESP32_Riveted_Sockets,ABX00083 only; socket stack to measure
+J1,EXTERNAL POWER / COIL CONTROL,VELOX:Riveted_J1,Exact MPN/rating and solder process to qualify; wire cut lengths and header/socket stack to verify
+J5,RC522 / 2.54 HEADER,VELOX:Riveted_J5,Exact MPN/rating and solder process to qualify; wire cut lengths and header/socket stack to verify
+J6,PANEL / 2.54 HEADER,VELOX:Riveted_J6,Exact MPN/rating and solder process to qualify; wire cut lengths and header/socket stack to verify
+R1,330,VELOX:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder,Exact MPN/rating and solder process to qualify; wire cut lengths and header/socket stack to verify
+R7,100k 1%,VELOX:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder,Exact MPN/rating and solder process to qualify; wire cut lengths and header/socket stack to verify
+R8,100k 1%,VELOX:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder,Exact MPN/rating and solder process to qualify; wire cut lengths and header/socket stack to verify
+C6,100n 16V,VELOX:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder,Exact MPN/rating and solder process to qualify; wire cut lengths and header/socket stack to verify
+C3,10u 25V X7R,VELOX:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder,Exact MPN/rating and solder process to qualify; wire cut lengths and header/socket stack to verify
+C4,100n 16V,VELOX:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder,Exact MPN/rating and solder process to qualify; wire cut lengths and header/socket stack to verify
+C5,10u 10V X7R,VELOX:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder,Exact MPN/rating and solder process to qualify; wire cut lengths and header/socket stack to verify
+R5,470,VELOX:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder,Exact MPN/rating and solder process to qualify; wire cut lengths and header/socket stack to verify
+R6,470,VELOX:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder,Exact MPN/rating and solder process to qualify; wire cut lengths and header/socket stack to verify
+Q2,AO3400A,VELOX:SOT-23,Exact MPN/rating and solder process to qualify; wire cut lengths and header/socket stack to verify
+R3,330,VELOX:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder,Exact MPN/rating and solder process to qualify; wire cut lengths and header/socket stack to verify
+R4,100k,VELOX:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder,Exact MPN/rating and solder process to qualify; wire cut lengths and header/socket stack to verify
+D2,SS14,VELOX:D_SMA,Exact MPN/rating and solder process to qualify; wire cut lengths and header/socket stack to verify
+JP1,INSULATED_WIRE,VELOX:Wire_JP1,Exact MPN/rating and solder process to qualify; wire cut lengths and header/socket stack to verify
